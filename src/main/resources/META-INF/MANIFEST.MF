@@ -1,0 +1,1 @@
+MixinConnector: com.aizistral.nochatreports.MixinConnector

@@ -1,0 +1,12 @@
+license="WTFPL"
+modLoader="javafml"
+loaderVersion="[31,)"
+[[mods]]
+modId="nochatreports"
+version="1.0.0"
+displayName="No Chat Reports"
+authors="Aizistral"
+logoFile="NCR_logo.png"
+description='''
+None
+'''
