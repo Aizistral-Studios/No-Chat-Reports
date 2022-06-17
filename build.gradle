@@ -9,12 +9,24 @@ buildscript {
             url = 'https://repo.spongepowered.org/repository/maven-public/'
             content { includeGroup "org.spongepowered" }
         }
+		maven {
+			name "Gradle Plugin Portal"
+			url 'https://plugins.gradle.org/m2/'
+			content { 
+				includeGroup "gradle.plugin.com.matthewprenger"
+				includeGroup "com.modrinth"
+			}
+		}
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
+}
+
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 println("Applying plugins...")
@@ -177,14 +189,30 @@ curseforge {
         changelogType = 'html'
         changelog = file('docs/changelog.html')
 		
-		addGameVersion '1.18'
-		addGameVersion '1.18.1'
+		addGameVersion '1.19'
 		
         //addArtifact(sourcesJar)
         //addArtifact(apiJar)
     }
 }
 
+modrinth {
+    token = findProperty('modrinthKey') ?: 0
+    projectId = "qQyHxfxd"
+    versionNumber = project.version
+	versionName = "No Chat Reports" + project.version
+    versionType = "release"
+	changelog = rootProject.file("docs/changelog.html").text
+    uploadFile = jar
+    gameVersions = ["1.19"]
+	
+	//syncBodyFrom = rootProject.file("docs/README.md").text
+}
+
+task upload {
+	dependsOn('modrinth')
+	dependsOn('curseforge')
+}
 
 
 task updateResources() {
