@@ -31,7 +31,3 @@ bin/
 # fabric
 
 run/
-
-# Because shenanigans
-gradlew.bat
-gradlew

@@ -51,7 +51,7 @@ curseforge {
 		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
 	
 		// Specified as cmd argument
-        apiKey = findProperty('curseKey') ?: 0
+        apiKey = findProperty('curseKey') ?: 'none'
         
 		id = "${curse_id}"
         releaseType = "${curse_release}"
@@ -82,7 +82,7 @@ curseforge {
 }
 
 modrinth {
-    token = findProperty('modrinthKey') ?: 0
+    token = findProperty('modrinthKey') ?: 'none'
     projectId = "qQyHxfxd"
     versionNumber = project.mod_version
 	versionName = "No Chat Reports Fabric-" + project.mod_version
