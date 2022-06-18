@@ -1,243 +1,77 @@
-buildscript {
-    repositories {
-		mavenLocal()
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
-        maven { url 'https://plugins.gradle.org/m2/' }
-        mavenCentral()
-		maven {
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-            content { includeGroup "org.spongepowered" }
-        }
-		maven {
-			name "Gradle Plugin Portal"
-			url 'https://plugins.gradle.org/m2/'
-			content { 
-				includeGroup "gradle.plugin.com.matthewprenger"
-				includeGroup "com.modrinth"
-			}
-		}
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-    }
-}
-
 plugins {
-    id "com.modrinth.minotaur" version "2.+"
+	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'maven-publish'
 }
 
-println("Applying plugins...")
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: 'com.matthewprenger.cursegradle'
-apply plugin: 'org.spongepowered.mixin'
-
-println("Specifying project version/group/archivesBaseName...")
-version = "${mod_version}"
-group = "${mod_group}"
-archivesBaseName = "${mod_archives_name}"
-
-
-println("Specifying Java compatibility...")
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println("Java Installation Data:")
-println(" - Java Version: " + System.getProperty('java.version'))
-println(" - JVM Version: " + System.getProperty('java.vm.version'))
-println(" - Vendor: " + System.getProperty('java.vendor'))
-println(" - OS Archetype: " + System.getProperty('os.arch'))
-
-mixin {
-	println("Specifying refmaps for Mixin...")
-	
-    add sourceSets.main, "nochatreports.refmap.json"
-}
-
-minecraft {
-	println("Specifying MCP mappings...")
-    mappings channel: 'official', version: '1.19'
-	println("Specifying Access Transformer configuration...")	
-	// accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-	
-	runs {
-        client {
-			properties 'org.gradle.jvmargs': '-Xms4G -Xmx4G'
-			properties 'fml.earlyprogresswindow': 'false'
-			properties 'mixin.env.disableRefMap': 'true'
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                nochatreports {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-			properties 'mixin.env.disableRefMap': 'true'
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                nochatreports {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
-}
-
-sourceSets.main.resources {
-    // NO-OP
-}
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
 
 repositories {
-	println("Specifying repositories...")	
-	flatDir {  dirs 'deps' }
-	maven {  url = "https://maven.theillusivec4.top/" } // curios
-	maven {  url = "https://maven.blamejared.com/" } // patchouli
-	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
-    maven {	 url "https://dvs1.progwml6.com/files/maven/" } // no idea
+	// Add repositories to retrieve artifacts from in here.
+	// You should only use this when depending on other mods because
+	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
+	// for more information about repositories.
 }
 
 dependencies {
-	println("Processing dependencies...")	
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Minecraft & Forge
-    minecraft "net.minecraftforge:forge:${version_forge}"
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    annotationProcessor 'com.google.code.gson:gson:2.8.0'
-    annotationProcessor 'com.google.guava:guava:21.0'
-    annotationProcessor 'org.ow2.asm:asm-tree:7.2'
-    annotationProcessor 'org.ow2.asm:asm-commons:7.2'
-    annotationProcessor 'org.ow2.asm:asm-util:7.2'
-}
+	// Uncomment the following line to enable the deprecated Fabric API modules. 
+	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
-
-jar {
-	println("Processing manifest...")	
-
-    manifest {
-        attributes([
-            "Specification-Title": "${mod_name}",
-            "Specification-Vendor": "${mod_author}",
-            "Specification-Version": "${mod_version}",
-            "Implementation-Title": "${mod_name}",
-            "Implementation-Version": "${mod_version}",
-            "Implementation-Vendor" :"${mod_author}",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConnector": "${project.group}.MixinConnector"
-        ])
-    }
+	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 }
 
 processResources {
-	println("Processing resources...")
+	inputs.property "version", project.version
 
-	exclude 'META-INF/mods.toml'
-
-    from("${project.projectDir}/docs/META-INF") {
-		println("Inflating mods.toml...")	
-	
-		// Replace properties in mods.toml with ones derived from settings.gradle
-        include 'mods.toml'
-        expand 'mod_license': mod_license, 
-		'mod_version': project.version, 
-		'mod_id' : mod_id, 
-		'mod_name': mod_name, 
-		'mod_url': mod_url, 
-		'mod_author': mod_author, 
-		'mod_description': mod_description, 
-		'mod_icon': mod_icon, 
-		'issue_tracker_url': issue_tracker_url, 
-		'mod_credits': mod_credits, 
-		'dep_forge': dep_forge, 
-		'dep_minecraft': dep_minecraft
-		into 'META-INF'
-    }
-
-    from("${project.projectDir}/docs") {
-        include 'changelog.html'
-    }
-	
-	from("${project.projectDir}") {
-        include 'LICENSE'
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
 	}
 }
 
-curseforge {
-
-    project {
-		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
-	
-		// Specified as cmd argument
-        apiKey = findProperty('curseKey') ?: 0
-        
-		id = "${curse_id}"
-        releaseType = "${curse_release}"
-        changelogType = 'html'
-        changelog = file('docs/changelog.html')
-		
-		addGameVersion '1.19'
-		
-        //addArtifact(sourcesJar)
-        //addArtifact(apiJar)
-    }
+tasks.withType(JavaCompile).configureEach {
+	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+	it.options.release = 17
 }
 
-modrinth {
-    token = findProperty('modrinthKey') ?: 0
-    projectId = "qQyHxfxd"
-    versionNumber = project.version
-	versionName = "No Chat Reports" + project.version
-    versionType = "release"
-	changelog = rootProject.file("docs/changelog.html").text
-    uploadFile = jar
-    gameVersions = ["1.19"]
-	
-	//syncBodyFrom = rootProject.file("docs/README.md").text
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	// withSourcesJar()
 }
 
-task upload {
-	dependsOn('modrinth')
-	dependsOn('curseforge')
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
+	}
 }
 
-
-task updateResources() {
-    // NO-OP
-}
-
-tasks.updateResources.dependsOn processResources
-
-tasks.withType(JavaCompile) {
-    options.failOnError(true)
-}
-
-jar.finalizedBy('reobfJar') 
-//publish.dependsOn('reobfJar')
-
+// configure the maven publication
 publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
 
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
 }

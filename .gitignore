@@ -1,34 +1,37 @@
+# gradle
+
+.gradle/
+build/
+out/
+classes/
+
 # eclipse
-bin
+
 *.launch
-.settings
-.metadata
+
+# idea
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
 .classpath
 .project
 
-# idea
-out
-*.ipr
-*.iws
-*.iml
-.idea
+# macos
 
-# gradle
-build
-.gradle
+*.DS_Store
 
-# other
-eclipse
-run
+# fabric
 
-# Aizistral
-.apt_generated
-logs
-omniconfig_first
-*works
-Users
-.factorypath
-deps/Soulbound*
-multiuser_args.txt
-old_enigmatic_desc.txt
-**/TestEventHandler*
+run/
+
+# Because shenanigans
+gradlew.bat
+gradlew

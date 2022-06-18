@@ -1,3 +1,5 @@
 {
-	"gui.nochatreport.secureChat": "This option cannot work with No Chat Reports, since there are no signatures to verify."
+	"gui.nochatreport.secureChat": "This option cannot work with No Chat Reports, since there are no signatures to verify.",
+	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
+	"disconnect.nochatreports.server": "You do not have No Chat Reports, and this server is configured to require it on client!"
 }

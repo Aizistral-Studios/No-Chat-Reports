@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "nochatreports",
+  "version": "${version}",
+
+  "name": "No Chat Reports",
+  "description": "Strips cryptographic signatures from player messages, making it impossible to track and associate them with your Mojang/Microsoft account, as well as use Player Chat Reporting feature.",
+  "authors": [
+    "Aizistral"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/no-chat-reports",
+    "sources": "https://github.com/Aizistral-Studios/No-Chat-Reports"
+  },
+
+  "license": "WTFPL",
+  "icon": "NCR_logo.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.aizistral.nochatreports.NoChatReports"
+    ],
+	"client": [
+      "com.aizistral.nochatreports.NoChatReportsClient"
+    ]
+  },
+  "mixins": [
+    "nochatreports.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {}
+}

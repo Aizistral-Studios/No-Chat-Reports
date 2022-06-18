@@ -11,11 +11,11 @@ import javax.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.Minecraft;
 
 public class NoReportsConfig {
-	private static final File CONFIG_FOLDER = FMLPaths.CONFIGDIR.get().toFile();
+	private static final File CONFIG_FOLDER = FabricLoader.getInstance().getConfigDir().toFile();
 	private static final File CONFIG_FILE = new File(CONFIG_FOLDER, "NoChatReports.json");
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer;
