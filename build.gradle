@@ -1,6 +1,8 @@
 plugins {
 	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
+	id "com.modrinth.minotaur" version "2.+"
+	id "com.matthewprenger.cursegradle" version "1.+"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -11,26 +13,14 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	// So far none...
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	// Uncomment the following line to enable the deprecated Fabric API modules. 
-	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
-
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 }
 
 processResources {
@@ -42,36 +32,79 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release = 17
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
 	// withSourcesJar()
 }
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		// NO-OP
 	}
 }
 
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
+curseforge {
 
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
+    project {
+		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
+	
+		// Specified as cmd argument
+        apiKey = findProperty('curseKey') ?: 0
+        
+		id = "${curse_id}"
+        releaseType = "${curse_release}"
+        changelogType = 'html'
+        changelog = file('docs/changelog.html')
+		mainArtifact(remapJar)
+		
+		addGameVersion '1.19'
+		addGameVersion 'Fabric'
+		addGameVersion 'Java 17'
+		
+		relations {
+			requiredLibrary 'fabric-api'
+		}
+		
+		afterEvaluate {
+			uploadTask.dependsOn(remapJar)
+		}
+		
+		//debug = true
+        //addArtifact(sourcesJar)
+        //addArtifact(apiJar)
+    }
+	
+	options {
+		forgeGradleIntegration = false
 	}
+}
+
+modrinth {
+    token = findProperty('modrinthKey') ?: 0
+    projectId = "qQyHxfxd"
+    versionNumber = project.mod_version
+	versionName = "No Chat Reports Fabric-" + project.mod_version
+    versionType = "release"
+	changelog = rootProject.file("docs/changelog.html").text
+    uploadFile = remapJar
+    gameVersions = ["1.19"]
+	loaders = ['fabric']
+	
+	dependencies {
+		// The scope can be `required`, `optional`, or `incompatible`
+		required.project "P7dR8mSH"
+    }
+	
+	//syncBodyFrom = rootProject.file("docs/README.md").text
+}
+
+afterEvaluate {
+	upload.dependsOn(remapJar)
+}
+
+task upload {
+	dependsOn('modrinth')
+	dependsOn('curseforge')
 }

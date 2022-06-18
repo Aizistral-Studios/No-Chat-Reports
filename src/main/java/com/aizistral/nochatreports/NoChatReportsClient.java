@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports;
 
+import com.aizistral.nochatreports.handlers.NoReportsConfig;
 import com.aizistral.nochatreports.network.ClientChannelHandler;
 import com.aizistral.nochatreports.network.ServerChannelHandler;
 
@@ -26,7 +27,7 @@ public class NoChatReportsClient implements ClientModInitializer {
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {
 		client.execute(() -> {
-			if (!ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
+			if (NoReportsConfig.demandsOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});

@@ -33,8 +33,8 @@ public class NoChatReports implements ModInitializer {
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
 		server.execute(() -> {
-			if (!ServerPlayNetworking.canSend(handler, CHANNEL)) {
-				handler.disconnect(Component.translatable("disconnect.nochatreports.server"));
+			if (NoReportsConfig.demandsOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
+				handler.disconnect(Component.literal("You do not have No Chat Reports, and this server is configured to require it on client!"));
 			}
 		});
 	}
