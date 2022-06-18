@@ -23,6 +23,7 @@ classes/
 bin/
 .classpath
 .project
+.factorypath
 
 # macos
 
@@ -31,3 +32,4 @@ bin/
 # fabric
 
 run/
+**/TestEventHandler*
