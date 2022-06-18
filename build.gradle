@@ -182,7 +182,7 @@ curseforge {
 		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
 	
 		// Specified as cmd argument
-        apiKey = findProperty('curseKey') ?: 0
+        apiKey = findProperty('curseKey') ?: 'none'
         
 		id = "${curse_id}"
         releaseType = "${curse_release}"
@@ -190,6 +190,8 @@ curseforge {
         changelog = file('docs/changelog.html')
 		
 		addGameVersion '1.19'
+		addGameVersion 'Java 17'
+		addGameVersion 'Forge'
 		
         //addArtifact(sourcesJar)
         //addArtifact(apiJar)
@@ -197,7 +199,7 @@ curseforge {
 }
 
 modrinth {
-    token = findProperty('modrinthKey') ?: 0
+    token = findProperty('modrinthKey') ?: 'none'
     projectId = "qQyHxfxd"
     versionNumber = project.version
 	versionName = "No Chat Reports" + project.version
