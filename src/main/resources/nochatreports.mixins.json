@@ -7,7 +7,8 @@
   "verbose": true,
   "mixins": [
 	"MixinPlayer",
-	"MixinServerboundChatPacket"
+	"MixinServerboundChatPacket",
+	"MixinServerPlayer"
   ],
   "client": [
 	"MixinLocalPlayer",
