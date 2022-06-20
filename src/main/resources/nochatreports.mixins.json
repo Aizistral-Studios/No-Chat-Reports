@@ -13,7 +13,8 @@
 	"MixinLocalPlayer",
 	"MixinClientPacketListener",
 	"MixinOptions",
-	"MixinProfileKeyPairManager"
+	"MixinProfileKeyPairManager",
+	"MixinClientTelemetryManager"
   ],
   "server": [
 	"MixinDedicatedServer"
