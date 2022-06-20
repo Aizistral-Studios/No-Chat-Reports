@@ -21,7 +21,8 @@ public class MixinClientTelemetryManager {
 	 */
 
 	@Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lcom/mojang/authlib/minecraft/UserApiService;"
-			+ "newTelemetrySession(Ljava/util/concurrent/Executor;)Lcom/mojang/authlib/minecraft/TelemetrySession;"))
+			+ "newTelemetrySession(Ljava/util/concurrent/Executor;)Lcom/mojang/authlib/minecraft/TelemetrySession;",
+			remap = false))
 	private TelemetrySession redirectNewTelemetrySession(UserApiService service, Executor executor) {
 		return TelemetrySession.DISABLED;
 	}
