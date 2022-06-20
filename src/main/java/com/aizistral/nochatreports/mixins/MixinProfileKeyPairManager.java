@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;
+import net.minecraft.util.Signer;
 import net.minecraft.world.entity.player.ProfilePublicKey;
 
 @Mixin(ProfileKeyPairManager.class)
@@ -29,6 +30,17 @@ public class MixinProfileKeyPairManager {
 	@Overwrite
 	public Optional<ProfilePublicKey.Data> profilePublicKeyData() {
 		return Optional.empty();
+	}
+
+	/**
+	 * @reason Prevent client from trying to produce signature in
+	 * {@link ClientHandshakePacketListenerImpl#handleHello(ClientboundHelloPacket)}.
+	 * @author Aizistral
+	 */
+
+	@Overwrite
+	public Signer signer() {
+		return null;
 	}
 
 }

@@ -33,3 +33,4 @@ bin/
 
 run/
 **/TestEventHandler*
+/.apt_generated_tests/
