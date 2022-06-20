@@ -12,7 +12,11 @@
   "client": [
 	"MixinLocalPlayer",
 	"MixinClientPacketListener",
-	"MixinOptions"
+	"MixinOptions",
+	"MixinProfileKeyPairManager"
+  ],
+  "server": [
+	"MixinDedicatedServer"
   ],
   "injectors": {
     "defaultRequire": 1
