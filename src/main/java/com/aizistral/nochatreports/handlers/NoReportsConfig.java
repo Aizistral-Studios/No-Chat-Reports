@@ -25,7 +25,7 @@ public class NoReportsConfig {
 
 		if (INSTANCE == null) {
 			INSTANCE = new NoReportsConfig();
-			INSTANCE.demandOnServer = true;
+			//INSTANCE.demandOnServer = true;
 		}
 
 		writeFile(INSTANCE);
