@@ -200,7 +200,7 @@ curseforge {
 
 modrinth {
     token = findProperty('modrinthKey') ?: 'none'
-    projectId = "qQyHxfxd"
+    projectId = "no-chat-reports"
     versionNumber = "Forge-" + project.version
 	versionName = "No Chat Reports Forge-" + project.version
     versionType = "release"

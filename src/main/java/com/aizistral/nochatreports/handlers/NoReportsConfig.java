@@ -1,9 +1,13 @@
 package com.aizistral.nochatreports.handlers;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
@@ -15,10 +19,10 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 public class NoReportsConfig {
-	private static final File CONFIG_FOLDER = FMLPaths.CONFIGDIR.get().toFile();
-	private static final File CONFIG_FILE = new File(CONFIG_FOLDER, "NoChatReports.json");
+	private static final Path CONFIG_FILE = FMLPaths.CONFIGDIR.get().resolve("NoChatReports.json");
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
-	private boolean demandOnClient, demandOnServer;
+	private boolean demandOnClient, demandOnServer, convertToGameMessage;
 
 	public static void loadConfig() {
 		INSTANCE = readFile();
@@ -33,21 +37,19 @@ public class NoReportsConfig {
 
 	@Nullable
 	private static NoReportsConfig readFile() {
-		if (!CONFIG_FILE.exists() || !CONFIG_FILE.isFile())
+		if (!Files.isRegularFile(CONFIG_FILE))
 			return null;
 
-		try (FileReader reader = new FileReader(CONFIG_FILE)) {
-			NoReportsConfig transience = new Gson().fromJson(reader, NoReportsConfig.class);
-			return transience;
+		try (BufferedReader reader = Files.newBufferedReader(CONFIG_FILE)) {
+			return GSON.fromJson(reader, NoReportsConfig.class);
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
 
 	private static void writeFile(NoReportsConfig instance) {
-		try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			gson.toJson(instance, writer);
+		try (BufferedWriter writer = Files.newBufferedWriter(CONFIG_FILE)) {
+			GSON.toJson(instance, writer);
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
 		}
@@ -59,6 +61,10 @@ public class NoReportsConfig {
 
 	public static boolean demandsOnServer() {
 		return INSTANCE.demandOnServer;
+	}
+
+	public static boolean convertsToGameMessage() {
+		return INSTANCE.convertToGameMessage;
 	}
 
 }

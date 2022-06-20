@@ -25,9 +25,8 @@ public class MixinOptions {
 		if (this.alternativeOption == null) {
 			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
 					OptionInstance.cachedConstantTooltip(Component.translatable("gui.nochatreport.secureChat")),
-					(component, value) -> {
-						return value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF;
-					}, new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
+					(component, value) -> value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF,
+							new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
 		}
 
 		return this.alternativeOption;
