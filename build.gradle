@@ -201,7 +201,7 @@ curseforge {
 modrinth {
     token = findProperty('modrinthKey') ?: 'none'
     projectId = "qQyHxfxd"
-    versionNumber = project.version
+    versionNumber = "Fabric-" + project.version
 	versionName = "No Chat Reports" + project.version
     versionType = "release"
 	changelog = rootProject.file("docs/changelog.html").text
