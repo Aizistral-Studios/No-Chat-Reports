@@ -83,7 +83,7 @@ curseforge {
 
 modrinth {
     token = findProperty('modrinthKey') ?: 'none'
-    projectId = "qQyHxfxd"
+    projectId = "no-chat-reports"
     versionNumber = "Fabric-" + project.mod_version
 	versionName = "No Chat Reports Fabric-" + project.mod_version
     versionType = "release"
@@ -94,7 +94,7 @@ modrinth {
 	
 	dependencies {
 		// The scope can be `required`, `optional`, or `incompatible`
-		required.project "P7dR8mSH"
+		required.project "fabric-api"
     }
 	
 	//syncBodyFrom = rootProject.file("docs/README.md").text
