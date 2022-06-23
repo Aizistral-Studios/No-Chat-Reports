@@ -20,7 +20,15 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class MixinServerPlayer {
 
 	@Shadow
-	protected abstract int resolveChatTypeId(ResourceKey<ChatType> resourceKey);
+	private int resolveChatTypeId(ResourceKey<ChatType> resourceKey) {
+		throw new IllegalStateException("@Shadow transformation failed. Should never happen");
+	}
+
+	/**
+	 * @reason Convert player message to system message if mod is configured respectively.
+	 * This allows to circumvent signature check on client, as it only checks player messages.
+	 * @author JFronny
+	 */
 
 	@Redirect(method = "sendChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/network/chat/ChatSender;Lnet/minecraft/resources/ResourceKey;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V"))
 	void extractChatMessage(ServerGamePacketListenerImpl listener, Packet<?> packet) {
