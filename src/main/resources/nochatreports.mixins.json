@@ -12,6 +12,7 @@
   ],
   "client": [
 	"MixinLocalPlayer",
+	"MixinMinecraft",
 	"MixinClientPacketListener",
 	"MixinOptions",
 	"MixinProfileKeyPairManager",
