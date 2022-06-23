@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-		mavenLocal()
+		maven { url "file:///${project.projectDir}/deps/" }
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://dist.creeper.host/Sponge/maven' }
         maven { url 'https://plugins.gradle.org/m2/' }
@@ -21,7 +21,9 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+		
+		// custom MixinGradle fork, because it keeps screwing up eclipse task
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-1.0.0-SNAPSHOT' 
     }
 }
 
