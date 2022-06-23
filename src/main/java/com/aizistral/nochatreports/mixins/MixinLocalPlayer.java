@@ -13,6 +13,9 @@ import net.minecraft.commands.arguments.ArgumentSignatures;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.chat.MessageSigner;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LocalPlayer.class)
 public class MixinLocalPlayer {
@@ -20,22 +23,24 @@ public class MixinLocalPlayer {
 	/**
 	 * @reason Never sign messages, so that neither server nor other clients have
 	 * proof of them being sent from your account.
-	 * @author Aizistral
+	 * @author Aizistral (Overwrite)
+	 * @author Aven (Inject)
 	 */
 
-	@Overwrite
-	private MessageSignature signMessage(MessageSigner signer, Component message) {
-		return MessageSignature.unsigned();
+	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
+	private void preventSigning(MessageSigner signer, Component message, CallbackInfoReturnable<MessageSignature> cir) {
+		cir.setReturnValue(MessageSignature.unsigned());
 	}
 
 	/**
 	 * @reason Same as above, except commands mostly concern only server.
-	 * @author Aizistral
+	 * @author Aizistral (Overwrite)
+	 * @author Aven (Inject)
 	 */
 
-	@Overwrite
-	private ArgumentSignatures signCommandArguments(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component) {
-		return ArgumentSignatures.empty();
+	@Inject(method = "signCommandArguments", at = @At("HEAD"), cancellable = true)
+	private void preventSigningArgs(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, CallbackInfoReturnable<ArgumentSignatures> cir) {
+		cir.setReturnValue(ArgumentSignatures.empty());
 	}
 
 }
