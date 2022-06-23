@@ -1,10 +1,10 @@
 package com.aizistral.nochatreports.mixins;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.DedicatedServer;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DedicatedServer.class)
 public class MixinDedicatedServer {
@@ -12,12 +12,13 @@ public class MixinDedicatedServer {
 	/**
 	 * @reason If we are present on server - we won't be using keys for anything,
 	 * so this option ceases to make sense.
-	 * @author Aizistral
+	 * @author Aizistral (Overwrite)
+	 * @author Aven (Inject)
 	 */
-	
-	@Overwrite
-	public boolean enforceSecureProfile() {
-		return false;
+
+	@Inject(method = "enforceSecureProfile", at = @At("HEAD"), cancellable = true)
+	private void enforceSecureProfile(CallbackInfoReturnable<Boolean> cir) {
+		cir.setReturnValue(false);
 	}
 
 }
