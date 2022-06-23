@@ -7,7 +7,7 @@
   "mixins": [
 	"MixinPlayer",
 	"MixinServerboundChatPacket",
-	"MixinServerPlayer"
+	"MixinServerGamePacketListenerImpl"
   ],
   "client": [
 	"MixinLocalPlayer",
