@@ -1,15 +1,13 @@
 package com.aizistral.nochatreports.mixins;
 
-import java.util.UUID;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.protocol.game.ServerboundChatPacket;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
 
 @Mixin(ServerboundChatPacket.class)
 public class MixinServerboundChatPacket {
