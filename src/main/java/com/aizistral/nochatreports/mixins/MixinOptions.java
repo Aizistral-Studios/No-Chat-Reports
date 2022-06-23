@@ -1,15 +1,15 @@
 package com.aizistral.nochatreports.mixins;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Options.class)
 public class MixinOptions {
@@ -17,11 +17,12 @@ public class MixinOptions {
 
 	/**
 	 * @reason Disable secure chat option, since it will not work anyways.
-	 * @author Aizistral
+	 * @author Aizistral (Overwrite)
+	 * @author Aven (Inject)
 	 */
 
-	@Overwrite
-	public OptionInstance<Boolean> onlyShowSecureChat() {
+	@Inject(method = "onlyShowSecureChat", at = @At("RETURN"), cancellable = true)
+	private void onlyShowSecureChat(CallbackInfoReturnable<OptionInstance<Boolean>> cir) {
 		if (this.alternativeOption == null) {
 			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
 					OptionInstance.cachedConstantTooltip(Component.translatable("gui.nochatreport.secureChat")),
@@ -29,7 +30,7 @@ public class MixinOptions {
 					new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
 		}
 
-		return this.alternativeOption;
+		cir.setReturnValue(this.alternativeOption);
 	}
 
 }
