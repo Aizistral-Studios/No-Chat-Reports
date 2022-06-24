@@ -14,7 +14,9 @@
 	"MixinClientPacketListener",
 	"MixinOptions",
 	"MixinProfileKeyPairManager",
-	"MixinClientTelemetryManager"
+	"MixinClientTelemetryManager",
+	"MixinTitleScreen",
+	"MixinMinecraft"
   ],
   "server": [
 	"MixinDedicatedServer"
