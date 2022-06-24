@@ -2,6 +2,8 @@ package com.aizistral.nochatreports.mixins;
 
 import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.handlers.NoReportsConfig;
+
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.ChatDecoration;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
@@ -11,37 +13,43 @@ import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.network.ServerPlayerConnection;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerPlayer.class)
-public abstract class MixinServerPlayer {
-
-	@Shadow
-	private int resolveChatTypeId(ResourceKey<ChatType> resourceKey) {
-		throw new IllegalStateException("@Shadow transformation failed. Should never happen");
-	}
+@Mixin(ServerGamePacketListenerImpl.class)
+public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerConnection {
 
 	/**
 	 * @reason Convert player message to system message if mod is configured respectively.
 	 * This allows to circumvent signature check on client, as it only checks player messages.
-	 * @author JFronny
+	 * @author JFronny (original implementation)
+	 * @author Aizistral
 	 */
 
-	@Redirect(method = "sendChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/network/chat/ChatSender;Lnet/minecraft/resources/ResourceKey;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V"))
-	void extractChatMessage(ServerGamePacketListenerImpl listener, Packet<?> packet) {
+	@Inject(method = "send", at = @At("HEAD"), cancellable = true)
+	private void onSend(Packet<?> packet, CallbackInfo info) {
 		if (NoReportsConfig.convertsToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatPacket chat) {
 				Component component = chat.unsignedContent().orElse(chat.signedContent());
 				component = ChatDecoration.withSender("chat.type.text").decorate(component, chat.sender());
-				packet = new ClientboundSystemChatPacket(component, this.resolveChatTypeId(ChatType.SYSTEM));
-			} else {
-				NoChatReports.LOGGER.warn("Unexpected packet type in sendChatMessage, skipping");
+				packet = new ClientboundSystemChatPacket(component, this.resolveChatTypeID(ChatType.SYSTEM));
+
+				info.cancel();
+				this.send(packet);
 			}
 		}
-		listener.send(packet);
+	}
+
+	private int resolveChatTypeID(ResourceKey<ChatType> resourceKey) {
+		var self = (ServerGamePacketListenerImpl) (Object) this;
+		Registry<ChatType> registry = self.player.level.registryAccess().registryOrThrow(Registry.CHAT_TYPE_REGISTRY);
+		return registry.getId(registry.get(resourceKey));
 	}
 
 }
