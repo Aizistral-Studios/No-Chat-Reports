@@ -4,8 +4,8 @@ import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.handlers.NoReportsConfig;
 
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.ChatDecoration;
 import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.ChatTypeDecoration;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
@@ -37,7 +37,7 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 		if (NoReportsConfig.convertsToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatPacket chat) {
 				Component component = chat.unsignedContent().orElse(chat.signedContent());
-				component = ChatDecoration.withSender("chat.type.text").decorate(component, chat.sender());
+				component = ChatTypeDecoration.withSender("chat.type.text").decorate(component, chat.sender());
 				packet = new ClientboundSystemChatPacket(component, this.resolveChatTypeID(ChatType.SYSTEM));
 
 				info.cancel();
