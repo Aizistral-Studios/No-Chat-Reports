@@ -61,6 +61,7 @@ curseforge {
 		
 		addGameVersion '1.19'
 		addGameVersion 'Fabric'
+		addGameVersion 'Quilt'
 		addGameVersion 'Java 17'
 		
 		relations {
@@ -90,7 +91,7 @@ modrinth {
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = remapJar
     gameVersions = ["1.19"]
-	loaders = ['fabric']
+	loaders = ['fabric', 'quilt']
 	
 	dependencies {
 		// The scope can be `required`, `optional`, or `incompatible`
