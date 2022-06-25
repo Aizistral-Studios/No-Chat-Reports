@@ -17,14 +17,14 @@ public class NoReportsConfig {
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
-	private boolean demandOnClient, demandOnServer, convertToGameMessage;
+	private boolean demandOnClient, demandOnServer, convertToGameMessage, suppressBanNotices;
 
 	public static void loadConfig() {
 		INSTANCE = readFile();
 
 		if (INSTANCE == null) {
 			INSTANCE = new NoReportsConfig();
-			//INSTANCE.demandOnServer = true;
+			INSTANCE.suppressBanNotices = true;
 		}
 
 		writeFile(INSTANCE);
@@ -60,6 +60,10 @@ public class NoReportsConfig {
 
 	public static boolean convertsToGameMessage() {
 		return INSTANCE.convertToGameMessage;
+	}
+
+	public static boolean suppressBanNotices() {
+		return INSTANCE.suppressBanNotices;
 	}
 
 }
