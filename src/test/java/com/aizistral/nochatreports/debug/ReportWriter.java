@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 
+import com.aizistral.nochatreports.debug.mixins.MixinAbuseReportSenderServices;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ibm.icu.text.SimpleDateFormat;
@@ -16,6 +17,12 @@ import com.mojang.authlib.minecraft.report.AbuseReport;
 import com.mojang.authlib.yggdrasil.request.AbuseReportRequest;
 
 import net.fabricmc.loader.api.FabricLoader;
+
+/**
+ * Allows to save chat reports locally. See {@link MixinAbuseReportSenderServices} for details.
+ *
+ * @author Aizistral
+ */
 
 public class ReportWriter {
 	private static final ObjectMapper MAPPER = ObjectMapper.create();

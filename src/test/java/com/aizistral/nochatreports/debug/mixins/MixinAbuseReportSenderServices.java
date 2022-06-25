@@ -21,6 +21,12 @@ public class MixinAbuseReportSenderServices {
 	@Shadow @Final
 	private ReportEnvironment environment;
 
+	/**
+	 * @reason Write report locally instead of trying to send it to Mojang.
+	 * Allows to intercept and examine contents of the report.
+	 * @author Aizistral
+	 */
+
 	@Overwrite
 	public CompletableFuture<Unit> send(UUID uuid, AbuseReport abuseReport) {
 		AbuseReportRequest abuseReportRequest = new AbuseReportRequest(uuid,

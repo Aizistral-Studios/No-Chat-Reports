@@ -10,6 +10,13 @@ import net.minecraft.client.multiplayer.chat.report.AbuseReportSender;
 @Mixin(PlayerEntry.class)
 public class MixinPlayerEntry {
 
+	/**
+	 * @reason Always allow to report players on server, even if services are
+	 * unreachable (which they are in IDE). Useful when used along with
+	 * {@link MixinAbuseReportSenderServices}.
+	 * @author Aizistral
+	 */
+
 	@Redirect(method = "<init>", at = @At(value = "INVOKE", target =
 			"Lnet/minecraft/client/multiplayer/chat/report/AbuseReportSender;isEnabled()Z"))
 	private boolean forceEnableReporting(AbuseReportSender sender) {
