@@ -19,6 +19,14 @@ public class NoReportsConfig {
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer, convertToGameMessage, suppressBanNotices;
 
+	private static NoReportsConfig getInstance() {
+		if (INSTANCE == null) {
+			loadConfig();
+		}
+
+		return INSTANCE;
+	}
+
 	public static void loadConfig() {
 		INSTANCE = readFile();
 
@@ -51,19 +59,19 @@ public class NoReportsConfig {
 	}
 
 	public static boolean demandsOnClient() {
-		return INSTANCE.demandOnClient;
+		return getInstance().demandOnClient;
 	}
 
 	public static boolean demandsOnServer() {
-		return INSTANCE.demandOnServer;
+		return getInstance().demandOnServer;
 	}
 
 	public static boolean convertsToGameMessage() {
-		return INSTANCE.convertToGameMessage;
+		return getInstance().convertToGameMessage;
 	}
 
 	public static boolean suppressBanNotices() {
-		return INSTANCE.suppressBanNotices;
+		return getInstance().suppressBanNotices;
 	}
 
 }
