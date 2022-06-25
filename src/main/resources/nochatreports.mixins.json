@@ -16,7 +16,8 @@
 	"MixinProfileKeyPairManager",
 	"MixinClientTelemetryManager",
 	"MixinTitleScreen",
-	"MixinMinecraft"
+	"MixinMinecraft",
+	"MixinPlayerEntry"
   ],
   "server": [
 	"MixinDedicatedServer"
