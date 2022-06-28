@@ -1,0 +1,5 @@
+{
+	"gui.nochatreport.secureChat": "此选项无法与No Chat Reports一起使用，因为没有可用于验证的签名。",
+	"gui.nochatreport.noReporting": "聊天举报在此服务器上被禁用，由No Chat Reports提供。",
+	"disconnect.nochatreports.client": "此服务器没有No Chat Reports，但你已将其配置为要求在服务器上安装。"
+}
