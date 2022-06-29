@@ -1,0 +1,5 @@
+{
+	"gui.nochatreport.secureChat": "Этот параметр не работает с No Chat Reports ввиду отсутствия криптографических сигнатур.",
+	"gui.nochatreport.noReporting": "Жалобы на чат отключены на этом сервере благодаря No Chat Reports.",
+	"disconnect.nochatreports.client": "У вас отсутствует модификация No Chat Reports (обязательная на сервере)."
+}
