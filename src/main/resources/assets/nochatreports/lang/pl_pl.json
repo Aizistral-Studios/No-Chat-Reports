@@ -1,0 +1,5 @@
+{
+	"gui.nochatreport.secureChat": "Ta opcja nie działa z No Chat Reports, ponieważ nie ma podpisów do weryfikacji.",
+	"gui.nochatreport.noReporting": "Raporty czatu są wyłączone na tym serwerze, dzięki No Chat Reports.",
+	"disconnect.nochatreports.client": "Na tym serwerze nie ma No Chat Reports, a został skonfigurowany tak, aby był wymagany na serwerze."
+}
