@@ -1,0 +1,5 @@
+{
+  "gui.nochatreport.secureChat": "Cette option ne fonctionne pas avec No Chat Reports puisqu'il n'y a pas de signature à vérifier.",
+  "gui.nochatreport.noReporting": "Les signalements de chat sont désactivés sur ce serveur grâce à No Chat Reports.",
+  "disconnect.nochatreports.client": "Ce serveur n'a pas No Chat Reports et vous avez configuré que vous le vouliez toujours."
+}
