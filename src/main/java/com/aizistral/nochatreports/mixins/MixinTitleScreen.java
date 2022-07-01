@@ -16,7 +16,7 @@ public class MixinTitleScreen {
 			"Lnet/minecraft/WorldVersion;getName()Ljava/lang/String;"), require = 0)
 	private String overrideVersionName(WorldVersion version) {
 		String original = version.getName();
-		return original.equals("1.19.1") ? "1.19.84" : original;
+		return original.contains("1.19.1") ? original.replace("1.19.1", "1.19.84") : original;
 	}
 
 }
