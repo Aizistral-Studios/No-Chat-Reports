@@ -3,7 +3,7 @@
 	"gui.nochatreport.noReporting": "Chat reports are disabled on this server, courtesy of No Chat Reports.",
 	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
 	"gui.nochatreports.status_secure": "This server has No Chat Reports installed, or prevents your messages from being reportable in some other known way. You can chat safely.",
-	"gui.nochatreports.status_unintrusive": "This server does not prevent chat reports but allows you to send unsigned messages. Technically, they can still be reported to Mojang, but they are generally not considered valid evidence, and it is improbable that any action would be taken on such reports.",
+	"gui.nochatreports.status_unintrusive": "This server does not prevent chat reports but allows you to send unsigned messages. Technically, they can still be reported to Mojang, but are generally not considered valid evidence, and it is improbable that any action would be taken on such reports.",
 	"gui.nochatreports.status_insecure": "This server demands all player messages to be signed, and you agreed to proceed with this arrangement. Everything you send in the chat is potentially incriminating evidence that can be used against you in the report. You can manually remove this server from NoChatReports.json in your config folder to get warned again.",
 	"gui.nochatreports.status_unknown": "No Chat Reports could not evaluate the safety of this server. This should never happen, please report it as a bug to the mod developer.",
 	"gui.nochatreports.unsafe_server.header": "Caution: Unsafe Server",
