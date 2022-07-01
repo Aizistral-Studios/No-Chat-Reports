@@ -29,8 +29,22 @@ public class MixinMinecraft {
 
 	@Inject(method = "multiplayerBan", at = @At("HEAD"), cancellable = true)
 	private void onFetchBanDetails(CallbackInfoReturnable<BanDetails> info) {
-		if (NoReportsConfig.suppressBanNotices()) {
+		if (NoReportsConfig.forceAllowMultiplayer()) {
 			info.setReturnValue(null);
+		}
+	}
+
+	@Inject(method = "allowsMultiplayer", at = @At("HEAD"), cancellable = true)
+	private void onMultiplayerCheck(CallbackInfoReturnable<Boolean> info) {
+		if (NoReportsConfig.forceAllowMultiplayer()) {
+			info.setReturnValue(true);
+		}
+	}
+
+	@Inject(method = "getChatStatus", at = @At("HEAD"), cancellable = true)
+	private void onChatStatusCheck(CallbackInfoReturnable<ChatStatus> info) {
+		if (NoReportsConfig.forceAllowMultiplayer()) {
+			info.setReturnValue(ChatStatus.ENABLED);
 		}
 	}
 
