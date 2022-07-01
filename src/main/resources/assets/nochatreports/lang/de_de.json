@@ -1,0 +1,5 @@
+{
+	"gui.nochatreport.secureChat": "Diese Option kann nicht mit No Chat Reports verwendet werden, da keine Signaturen zum Verifizieren vorhanden sind.",
+	"gui.nochatreport.noReporting": "Nachrichten melden ist auf diesem Server dank No Chat Reports deaktiviert.",
+	"disconnect.nochatreports.client": "Dieser Server hat No Chat Reports nicht installiert, aber du hast eingestellt, dass es auf Servern notwendig ist."
+}
