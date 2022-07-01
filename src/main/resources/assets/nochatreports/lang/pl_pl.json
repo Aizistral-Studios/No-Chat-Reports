@@ -3,7 +3,7 @@
 	"gui.nochatreport.noReporting": "Raporty czatu są wyłączone na tym serwerze, dzięki No Chat Reports.",
 	"disconnect.nochatreports.client": "Na tym serwerze nie ma No Chat Reports, a został skonfigurowany tak, aby był wymagany na serwerze."
 	"gui.nochatreports.status_secure": "Ten serwer ma zainstalowane No Chat Reports lub uniemożliwia raportowanie wiadomości w inny znany sposób. Możesz bezpiecznie chatować.",
-	"gui.nochatreports.status_unintrusive": "Ten serwer nie blokuje raportów z czatów, ale umożliwia wysyłanie niepodpisanych wiadomości. Technicznie rzecz biorąc, nadal można je zgłosić Mojangowi, ale generalnie nie są one ważnymi dowodami i jest mało prawdopodobne, aby w związku z takimi raportami zostały podjęte jakiekolwiek działania.",
+	"gui.nochatreports.status_unintrusive": "Ten serwer nie blokuje raportów z czatów, ale umożliwia wysyłanie niepodpisanych wiadomości. Technicznie rzecz biorąc, nadal można je zgłosić Mojangowi, ale generalnie nie są one ważnymi dowodami i jest to mało prawdopodobne, aby w związku z takimi raportami zostały podjęte jakiekolwiek działania.",
 	"gui.nochatreports.status_insecure": "Ten serwer wymaga podpisania wszystkich wiadomości graczy, a ty zgodziłeś się kontynuować z tym. Wszystko, co wysyłasz na czacie, jest potencjalnie obciążającym dowodem, który można wykorzystać przeciwko tobie w zgłoszeniu. Możesz ręcznie usunąć ten serwer z NoChatReports.json w folderze konfiguracyjnym, aby ponownie otrzymać ostrzeżenie.",
 	"gui.nochatreports.status_unknown": "No Chat Reports nie może ocenić bezpieczeństwa tego serwera. To nigdy nie powinno się zdarzyć, zgłoś to jako błąd twórcy modów.",
 	"gui.nochatreports.unsafe_server.header": "Uwaga: Niezabezpieczony serwer",
