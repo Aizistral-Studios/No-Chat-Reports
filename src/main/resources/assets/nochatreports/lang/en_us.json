@@ -7,6 +7,6 @@
 	"gui.nochatreports.status_insecure": "This server demands all player messages to be signed, and you agreed to proceed with this arrangment. Everything you send to the chat is a potentially incriminating evidence. You can manually remove this server from your whitelist by editing NoChatReports.json in your config folder.",
 	"gui.nochatreports.status_unknown": "No Chat Reports could not evaluate safety of this server. This should never happen normally, report as bug to mod developer.",
 	"gui.nochatreports.unsafe_server.header": "Caution: Unsafe Server",
-	"gui.nochatreports.unsafe_server.contents": "This server is configured to demand your public key, and all your chat messages to be signed ('enforce-secure-profile' is likely enabled in server.properties). You can choose to play anyways, but No Chat Reports will not be able to protect you.",
+	"gui.nochatreports.unsafe_server.contents": "This server is configured to demand your public key, and all your chat messages to be signed, which means they can be reported to Mojang ('enforce-secure-profile' is likely enabled in server.properties). You can choose to play anyways, but No Chat Reports will not be able to protect you.",
 	"gui.nochatreports.unsafe_server.check": "Do not show again for this server"
 }
