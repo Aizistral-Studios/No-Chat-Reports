@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.mixins;
 
+import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.brigadier.ParseResults;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -26,7 +27,9 @@ public class MixinLocalPlayer {
 
 	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
 	private void onSignMessage(MessageSigner signer, Component message, CallbackInfoReturnable<MessageSignature> info) {
-		info.setReturnValue(MessageSignature.unsigned());
+		if (!ServerSafetyState.allowsUnsafeServer()) {
+			info.setReturnValue(MessageSignature.unsigned());
+		}
 	}
 
 	/**
@@ -37,7 +40,9 @@ public class MixinLocalPlayer {
 
 	@Inject(method = "signCommandArguments", at = @At("HEAD"), cancellable = true)
 	private void onSignCommand(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, CallbackInfoReturnable<ArgumentSignatures> info) {
-		info.setReturnValue(ArgumentSignatures.empty());
+		if (!ServerSafetyState.allowsUnsafeServer()) {
+			info.setReturnValue(ArgumentSignatures.empty());
+		}
 	}
 
 }

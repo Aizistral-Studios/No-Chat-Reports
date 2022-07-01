@@ -44,6 +44,7 @@ public class NoChatReportsClient implements ClientModInitializer {
 		NoChatReports.LOGGER.info("Client initialization...");
 		ClientPlayNetworking.registerGlobalReceiver(NoChatReports.CHANNEL, ClientChannelHandler.INSTANCE);
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
+		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
 		ScreenEvents.AFTER_INIT.register(this::onScreenInit);
 	}
 
@@ -55,7 +56,6 @@ public class NoChatReportsClient implements ClientModInitializer {
 			if (dsc.getReason().getContents() instanceof TranslatableContents contents) {
 				if (ServerSafetyState.allowsUnsafeServer()) {
 					screenOverride = true;
-					ServerSafetyState.setAllowsUnsafeServer(false);
 					screen = new DisconnectedScreen(new JoinMultiplayerScreen(new TitleScreen()),
 							CommonComponents.CONNECT_FAILED, dsc.getReason());
 					client.setScreen(screen);
@@ -68,6 +68,10 @@ public class NoChatReportsClient implements ClientModInitializer {
 				}
 			}
 		}
+	}
+
+	private void onDisconnect(ClientPacketListener handler, Minecraft client) {
+		client.execute(ServerSafetyState::reset);
 	}
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {
@@ -88,10 +92,6 @@ public class NoChatReportsClient implements ClientModInitializer {
 					} else {
 						// NO-OP
 					}
-				}
-
-				if (ServerSafetyState.allowsUnsafeServer()) {
-					ServerSafetyState.setAllowsUnsafeServer(false);
 				}
 			}
 

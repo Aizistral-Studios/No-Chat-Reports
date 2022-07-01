@@ -22,7 +22,7 @@ public class ServerSafetyState {
 	}
 
 	public static boolean allowsUnsafeServer() {
-		return allowUnsafeServer;
+		return current != ServerSafetyLevel.SECURE ? allowUnsafeServer : false;
 	}
 
 	public static void setAllowsUnsafeServer(boolean allows) {
@@ -36,6 +36,11 @@ public class ServerSafetyState {
 
 	public static void setLastConnectedServer(@Nullable ServerAddress address) {
 		lastConnectedServer = address;
+	}
+
+	public static void reset() {
+		current = ServerSafetyLevel.UNKNOWN;
+		allowUnsafeServer = false;
 	}
 
 }

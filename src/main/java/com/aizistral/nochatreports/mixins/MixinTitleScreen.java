@@ -12,7 +12,7 @@ import net.minecraft.client.gui.screens.TitleScreen;
 @Mixin(TitleScreen.class)
 public class MixinTitleScreen {
 
-	@Redirect(method = "render", at = @At(value = "INVOKE", remap = false, target =
+	@Redirect(method = "render", at = @At(value = "INVOKE", remap = true, target =
 			"Lnet/minecraft/WorldVersion;getName()Ljava/lang/String;"), require = 0)
 	private String onGetVersionName(WorldVersion version) {
 		String original = version.getName();

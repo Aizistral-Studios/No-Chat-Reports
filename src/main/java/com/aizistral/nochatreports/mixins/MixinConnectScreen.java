@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,7 @@ public class MixinConnectScreen {
 	@Inject(method = "startConnecting", at = @At("HEAD"))
 	private static void onStartConnecting(Screen screen, Minecraft minecraft, ServerAddress serverAddress,
 			@Nullable ServerData serverData, CallbackInfo info) {
+		ServerSafetyState.reset(); // just to be 100% sure
 		ServerSafetyState.setLastConnectedServer(serverAddress);
 
 		if (serverAddress != null)

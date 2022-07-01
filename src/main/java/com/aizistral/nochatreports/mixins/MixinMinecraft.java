@@ -13,6 +13,7 @@ import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.mojang.authlib.minecraft.BanDetails;
 import com.mojang.authlib.minecraft.UserApiService;
 
+import net.fabricmc.fabric.mixin.client.rendering.MixinInGameHud;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Minecraft.ChatStatus;
 import net.minecraft.world.entity.player.ChatVisiblity;
