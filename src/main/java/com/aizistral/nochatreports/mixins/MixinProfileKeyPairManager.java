@@ -9,6 +9,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.aizistral.nochatreports.core.ServerSafetyState;
+
 import java.util.Optional;
 
 @Mixin(ProfileKeyPairManager.class)
@@ -21,8 +23,10 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Inject(method = "profilePublicKey", at = @At("HEAD"), cancellable = true)
-	private void preventServerValidation(CallbackInfoReturnable<Optional<ProfilePublicKey>> info) {
-		info.setReturnValue(Optional.empty());
+	private void onProfilePublicKey(CallbackInfoReturnable<Optional<ProfilePublicKey>> info) {
+		if (!ServerSafetyState.allowsUnsafeServer()) {
+			info.setReturnValue(Optional.empty());
+		}
 	}
 
 	/**
@@ -32,8 +36,10 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Inject(method = "profilePublicKeyData", at = @At("HEAD"), cancellable = true)
-	private void dontSendKeys(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
-		info.setReturnValue(Optional.empty());
+	private void onProfilePublicKeyData(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
+		if (!ServerSafetyState.allowsUnsafeServer()) {
+			info.setReturnValue(Optional.empty());
+		}
 	}
 
 	/**
@@ -44,8 +50,10 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Inject(method = "signer", at = @At("HEAD"), cancellable = true)
-	private void preventSignature(CallbackInfoReturnable<Optional<Signer>> info) {
-		info.setReturnValue(null);
+	private void onSigner(CallbackInfoReturnable<Optional<Signer>> info) {
+		if (!ServerSafetyState.allowsUnsafeServer()) {
+			info.setReturnValue(null);
+		}
 	}
 
 }

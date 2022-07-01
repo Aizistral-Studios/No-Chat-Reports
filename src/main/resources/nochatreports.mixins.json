@@ -17,7 +17,10 @@
 	"MixinClientTelemetryManager",
 	"MixinTitleScreen",
 	"MixinMinecraft",
-	"MixinPlayerEntry"
+	"MixinPlayerEntry",
+	"MixinChatScreen",
+	"AccessorDisconnectedScreen",
+	"MixinConnectScreen"
   ],
   "server": [
 	"MixinDedicatedServer"

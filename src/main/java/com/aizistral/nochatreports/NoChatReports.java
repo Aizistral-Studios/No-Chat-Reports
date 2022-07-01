@@ -3,7 +3,7 @@ package com.aizistral.nochatreports;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.aizistral.nochatreports.handlers.NoReportsConfig;
+import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.network.ServerChannelHandler;
 import com.mojang.authlib.minecraft.UserApiService;
 
@@ -22,7 +22,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
 public class NoChatReports implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger();
-	protected static final ResourceLocation CHANNEL = new ResourceLocation("nochatreports", "sync");
+	public static final ResourceLocation CHANNEL = new ResourceLocation("nochatreports", "sync");
 
 	@Override
 	public void onInitialize() {
