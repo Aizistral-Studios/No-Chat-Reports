@@ -21,8 +21,8 @@ public class MixinServerboundChatPacket {
 	 */
 
 	@Inject(method = "getSignature", at = @At("HEAD"), cancellable = true)
-	private void stripSignatures(UUID uUID, CallbackInfoReturnable<MessageSignature> cir) {
-		cir.setReturnValue(MessageSignature.unsigned());
+	private void onGetSignature(UUID id, CallbackInfoReturnable<MessageSignature> info) {
+		info.setReturnValue(MessageSignature.unsigned());
 	}
 
 }

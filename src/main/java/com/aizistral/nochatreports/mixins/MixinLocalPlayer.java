@@ -25,8 +25,8 @@ public class MixinLocalPlayer {
 	 */
 
 	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
-	private void preventSigning(MessageSigner signer, Component message, CallbackInfoReturnable<MessageSignature> cir) {
-		cir.setReturnValue(MessageSignature.unsigned());
+	private void onSignMessage(MessageSigner signer, Component message, CallbackInfoReturnable<MessageSignature> info) {
+		info.setReturnValue(MessageSignature.unsigned());
 	}
 
 	/**
@@ -36,8 +36,8 @@ public class MixinLocalPlayer {
 	 */
 
 	@Inject(method = "signCommandArguments", at = @At("HEAD"), cancellable = true)
-	private void preventSigningArgs(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, CallbackInfoReturnable<ArgumentSignatures> cir) {
-		cir.setReturnValue(ArgumentSignatures.empty());
+	private void onSignCommand(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, CallbackInfoReturnable<ArgumentSignatures> info) {
+		info.setReturnValue(ArgumentSignatures.empty());
 	}
 
 }

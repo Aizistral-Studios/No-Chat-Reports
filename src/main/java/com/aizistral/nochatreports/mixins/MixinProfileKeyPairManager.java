@@ -21,8 +21,8 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Inject(method = "profilePublicKey", at = @At("HEAD"), cancellable = true)
-	private void preventServerValidation(CallbackInfoReturnable<Optional<ProfilePublicKey>> cir) {
-		cir.setReturnValue(Optional.empty());
+	private void preventServerValidation(CallbackInfoReturnable<Optional<ProfilePublicKey>> info) {
+		info.setReturnValue(Optional.empty());
 	}
 
 	/**
@@ -32,8 +32,8 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Inject(method = "profilePublicKeyData", at = @At("HEAD"), cancellable = true)
-	private void dontSendKeys(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> cir) {
-		cir.setReturnValue(Optional.empty());
+	private void dontSendKeys(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
+		info.setReturnValue(Optional.empty());
 	}
 
 	/**
@@ -44,8 +44,8 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Inject(method = "signer", at = @At("HEAD"), cancellable = true)
-	private void preventSignature(CallbackInfoReturnable<Optional<Signer>> cir) {
-		cir.setReturnValue(null);
+	private void preventSignature(CallbackInfoReturnable<Optional<Signer>> info) {
+		info.setReturnValue(null);
 	}
 
 }

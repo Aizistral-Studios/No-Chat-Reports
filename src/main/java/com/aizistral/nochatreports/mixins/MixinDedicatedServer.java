@@ -17,7 +17,7 @@ public class MixinDedicatedServer {
 	 */
 
 	@Inject(method = "enforceSecureProfile", at = @At("RETURN"), cancellable = true)
-	private void enforceSecureProfile(CallbackInfoReturnable<Boolean> cir) {
+	private void onEnforceSecureProfile(CallbackInfoReturnable<Boolean> cir) {
 		cir.setReturnValue(false);
 	}
 

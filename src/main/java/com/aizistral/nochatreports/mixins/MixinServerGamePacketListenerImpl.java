@@ -46,10 +46,4 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 		}
 	}
 
-	private int resolveChatTypeID(ResourceKey<ChatType> resourceKey) {
-		var self = (ServerGamePacketListenerImpl) (Object) this;
-		Registry<ChatType> registry = self.player.level.registryAccess().registryOrThrow(Registry.CHAT_TYPE_REGISTRY);
-		return registry.getId(registry.get(resourceKey));
-	}
-
 }

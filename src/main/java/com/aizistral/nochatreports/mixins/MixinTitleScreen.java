@@ -14,7 +14,7 @@ public class MixinTitleScreen {
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", remap = false, target =
 			"Lnet/minecraft/WorldVersion;getName()Ljava/lang/String;"), require = 0)
-	private String overrideVersionName(WorldVersion version) {
+	private String onGetVersionName(WorldVersion version) {
 		String original = version.getName();
 		return original.contains("1.19.1") ? original.replace("1.19.1", "1.19.84") : original;
 	}
