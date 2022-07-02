@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,6 +37,8 @@ public class NoReportsConfig {
 	}
 
 	public static void loadConfig() {
+		NoChatReports.LOGGER.info(INSTANCE == null ? "Loading config..." : "Reloading config...");
+
 		INSTANCE = readFile();
 
 		if (INSTANCE == null) {
