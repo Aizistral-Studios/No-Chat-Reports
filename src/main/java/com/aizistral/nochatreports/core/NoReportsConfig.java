@@ -23,7 +23,7 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer, convertToGameMessage = true,
-			forceAllowMultiplayer = true, showServerSafety = true;
+			forceAllowMultiplayer = true, showServerSafety = true, suppressMessageTrustIndicators = true;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -96,6 +96,10 @@ public class NoReportsConfig {
 
 	public static List<String> getWhitelistedServers() {
 		return getInstance().whitelistedServers;
+	}
+
+	public static boolean suppressMessageTrustIndicators() {
+		return getInstance().suppressMessageTrustIndicators;
 	}
 
 }

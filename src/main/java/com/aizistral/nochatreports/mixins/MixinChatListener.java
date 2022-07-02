@@ -26,7 +26,9 @@ public class MixinChatListener {
 	@Inject(method = "evaluateTrustLevel", at = @At("HEAD"), cancellable = true)
 	private void onEvaluateTrustLevel(ChatSender chatSender, PlayerChatMessage playerChatMessage,
 			Component component, PlayerInfo playerInfo, CallbackInfoReturnable<ChatTrustLevel> info) {
-		info.setReturnValue(ChatTrustLevel.SECURE);
+		if (NoReportsConfig.suppressMessageTrustIndicators()) {
+			info.setReturnValue(ChatTrustLevel.SECURE);
+		}
 	}
 
 }
