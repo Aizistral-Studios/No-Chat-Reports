@@ -16,13 +16,14 @@ import com.google.gson.GsonBuilder;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.util.Tuple;
 
 public class NoReportsConfig {
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
-	private boolean demandOnClient, demandOnServer, convertToGameMessage = true,
+	private boolean demandOnClient, demandOnServer, enableDebugLog, convertToGameMessage = true,
 			forceAllowMultiplayer = true, showServerSafety = true, suppressMessageTrustIndicators = true;
 	private List<String> whitelistedServers;
 
@@ -98,8 +99,16 @@ public class NoReportsConfig {
 		return getInstance().whitelistedServers;
 	}
 
+	public static boolean isWhitelistedServer(ServerAddress address) {
+		return getWhitelistedServers().contains(address.getHost() + ":" + address.getPort());
+	}
+
 	public static boolean suppressMessageTrustIndicators() {
 		return getInstance().suppressMessageTrustIndicators;
+	}
+
+	public static boolean isDebugLogEnabled() {
+		return getInstance().enableDebugLog;
 	}
 
 }

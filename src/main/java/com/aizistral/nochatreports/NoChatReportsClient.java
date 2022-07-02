@@ -53,20 +53,29 @@ public class NoChatReportsClient implements ClientModInitializer {
 			if (screenOverride)
 				return;
 
+			screenOverride = true;
 			if (dsc.getReason().getContents() instanceof TranslatableContents contents) {
 				if (ServerSafetyState.allowsUnsafeServer()) {
-					screenOverride = true;
 					screen = new DisconnectedScreen(new JoinMultiplayerScreen(new TitleScreen()),
 							CommonComponents.CONNECT_FAILED, dsc.getReason());
 					client.setScreen(screen);
-					screenOverride = false;
 					return;
 				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
-					screenOverride = true;
-					client.setScreen(new UnsafeServerScreen());
-					screenOverride = false;
+					if (ServerSafetyState.getLastConnectedServer() != null) {
+						if (!NoReportsConfig.isWhitelistedServer(ServerSafetyState.getLastConnectedServer())) {
+							client.setScreen(new UnsafeServerScreen());
+						} else {
+							if (ServerSafetyState.getReconnectCount() <= 0) {
+								ServerSafetyState.setAllowsUnsafeServer(true);
+								reconnectLastServer();
+							} else {
+								ServerSafetyState.setReconnectCount(0);
+							}
+						}
+					}
 				}
 			}
+			screenOverride = false;
 		}
 	}
 
@@ -76,22 +85,16 @@ public class NoChatReportsClient implements ClientModInitializer {
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {
 		client.execute(() -> {
+			ServerSafetyState.setReconnectCount(0);
+
 			if (!client.isLocalServer()) {
-				String ip = ServerSafetyState.getLastConnectedServer().getHost() + ":"
-						+ ServerSafetyState.getLastConnectedServer().getPort();
 				boolean canSend = ClientPlayNetworking.canSend(NoChatReports.CHANNEL);
 
 				if (canSend) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 				} else {
-					ServerSafetyState.updateCurrent(ServerSafetyState.allowsUnsafeServer() ?
+					ServerSafetyState.updateCurrent(ServerSafetyState.forceSignedMessages() ?
 							ServerSafetyLevel.INSECURE : ServerSafetyLevel.UNINTRUSIVE);
-
-					if (ServerSafetyState.getCurrent() != ServerSafetyLevel.INSECURE) {
-						ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
-					} else {
-						// NO-OP
-					}
 				}
 			}
 
@@ -99,6 +102,12 @@ public class NoChatReportsClient implements ClientModInitializer {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});
+	}
+
+	public static void reconnectLastServer() {
+		ServerSafetyState.setReconnectCount(ServerSafetyState.getReconnectCount() + 1);
+		ConnectScreen.startConnecting(new JoinMultiplayerScreen(new TitleScreen()), Minecraft.getInstance(),
+				ServerSafetyState.getLastConnectedServer(), null);
 	}
 
 }

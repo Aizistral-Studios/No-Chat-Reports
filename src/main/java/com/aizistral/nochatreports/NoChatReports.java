@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.login.ServerboundHelloPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -38,6 +39,8 @@ public class NoChatReports implements ModInitializer {
 			if (NoReportsConfig.demandsOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
 				handler.disconnect(Component.literal("You do not have No Chat Reports, and this server is configured to require it on client!"));
 			}
+
+			//handler.disconnect(Component.translatable("multiplayer.disconnect.missing_public_key"));
 		});
 	}
 }

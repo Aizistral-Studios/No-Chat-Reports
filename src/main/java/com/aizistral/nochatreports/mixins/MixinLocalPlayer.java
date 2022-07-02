@@ -27,7 +27,7 @@ public class MixinLocalPlayer {
 
 	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
 	private void onSignMessage(MessageSigner signer, Component message, CallbackInfoReturnable<MessageSignature> info) {
-		if (!ServerSafetyState.allowsUnsafeServer()) {
+		if (!ServerSafetyState.forceSignedMessages()) {
 			info.setReturnValue(MessageSignature.unsigned());
 		}
 	}
@@ -40,7 +40,7 @@ public class MixinLocalPlayer {
 
 	@Inject(method = "signCommandArguments", at = @At("HEAD"), cancellable = true)
 	private void onSignCommand(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, CallbackInfoReturnable<ArgumentSignatures> info) {
-		if (!ServerSafetyState.allowsUnsafeServer()) {
+		if (!ServerSafetyState.forceSignedMessages()) {
 			info.setReturnValue(ArgumentSignatures.empty());
 		}
 	}

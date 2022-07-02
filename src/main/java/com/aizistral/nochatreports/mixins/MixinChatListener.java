@@ -1,11 +1,14 @@
 package com.aizistral.nochatreports.mixins;
 
+import java.util.Base64;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.core.NoReportsConfig;
 
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -28,6 +31,14 @@ public class MixinChatListener {
 			Component component, PlayerInfo playerInfo, CallbackInfoReturnable<ChatTrustLevel> info) {
 		if (NoReportsConfig.suppressMessageTrustIndicators()) {
 			info.setReturnValue(ChatTrustLevel.SECURE);
+		}
+
+		// Debug never dies
+		if (NoReportsConfig.isDebugLogEnabled()) {
+			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
+					Component.Serializer.toStableJson(playerChatMessage.signedContent()),
+					chatSender.name().getString(),
+					Base64.getEncoder().encodeToString(playerChatMessage.signature().saltSignature().signature()));
 		}
 	}
 

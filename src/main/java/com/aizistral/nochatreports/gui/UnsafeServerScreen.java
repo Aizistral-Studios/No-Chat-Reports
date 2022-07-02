@@ -2,6 +2,7 @@ package com.aizistral.nochatreports.gui;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
+import com.aizistral.nochatreports.NoChatReportsClient;
 import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
@@ -42,11 +43,10 @@ public class UnsafeServerScreen extends WarningScreen {
 				if (this.stopShowing.selected()) {
 					NoReportsConfig.getWhitelistedServers().add(address.getHost() + ":" + address.getPort());
 					NoReportsConfig.saveConfig();
-				} else {
-					ServerSafetyState.setAllowsUnsafeServer(true);
 				}
 
-				ConnectScreen.startConnecting(this, this.minecraft, address, null);
+				ServerSafetyState.setAllowsUnsafeServer(true);
+				NoChatReportsClient.reconnectLastServer();
 			}
 		}));
 		this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, 100 + i, 150, 20, CommonComponents.GUI_BACK, button -> {

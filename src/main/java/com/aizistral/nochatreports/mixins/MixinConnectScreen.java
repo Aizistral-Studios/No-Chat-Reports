@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
@@ -25,10 +26,11 @@ public class MixinConnectScreen {
 		ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN); // just to be 100% sure
 		ServerSafetyState.setLastConnectedServer(serverAddress);
 
-		if (serverAddress != null)
-			if (NoReportsConfig.getWhitelistedServers().contains(serverAddress.getHost() + ":" + serverAddress.getPort())) {
-				ServerSafetyState.setAllowsUnsafeServer(true);
-			}
+		if (NoReportsConfig.isDebugLogEnabled()) {
+			NoChatReports.LOGGER.info("Connecting to: {}, will expose public key: {}",
+					serverAddress.getHost() + ":" + serverAddress.getPort(),
+					ServerSafetyState.allowsUnsafeServer());
+		}
 	}
 
 }
