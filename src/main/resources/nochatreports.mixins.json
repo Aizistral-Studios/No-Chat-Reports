@@ -20,7 +20,8 @@
 	"MixinPlayerEntry",
 	"MixinChatScreen",
 	"AccessorDisconnectedScreen",
-	"MixinConnectScreen"
+	"MixinConnectScreen",
+	"MixinClientPacketListener"
   ],
   "server": [
 	"MixinDedicatedServer"

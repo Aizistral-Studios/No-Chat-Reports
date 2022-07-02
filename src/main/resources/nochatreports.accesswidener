@@ -1,0 +1,3 @@
+accessWidener v1 named
+mutable field net/minecraft/client/multiplayer/ClientPacketListener callbackScreen Lnet/minecraft/client/gui/screens/Screen;
+accessible field net/minecraft/client/multiplayer/ClientPacketListener callbackScreen Lnet/minecraft/client/gui/screens/Screen;
