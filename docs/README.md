@@ -6,4 +6,4 @@
 
 Strips cryptographic signatures from player messages, making it impossible to track and associate them with your Mojang/Microsoft account, as well as use Player Chat Reporting feature.
 
-Gitlab Mirror: https://gitlab.com/Aizistral-Studios/No-Chat-Reports
+**GitLab Mirror:** https://gitlab.com/Aizistral-Studios/No-Chat-Reports
