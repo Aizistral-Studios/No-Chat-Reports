@@ -1,7 +1,10 @@
 package com.aizistral.nochatreports.mixins;
 
+import net.minecraft.Util;
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.protocol.game.ServerboundChatPacket;
+import net.minecraft.util.Crypt.SaltSignaturePair;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,9 +23,9 @@ public class MixinServerboundChatPacket {
 	 * @author Aven (Inject)
 	 */
 
-	@Inject(method = "getSignature", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "getSignature", at = @At("RETURN"), cancellable = true)
 	private void onGetSignature(UUID id, CallbackInfoReturnable<MessageSignature> info) {
-		info.setReturnValue(MessageSignature.unsigned());
+		info.setReturnValue(new MessageSignature(Util.NIL_UUID, info.getReturnValue().timeStamp(), SaltSignaturePair.EMPTY));
 	}
 
 }

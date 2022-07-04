@@ -14,6 +14,8 @@ import javax.annotation.Nullable;
 import com.aizistral.nochatreports.NoChatReports;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
@@ -25,7 +27,8 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer, enableDebugLog, convertToGameMessage = true,
-			forceAllowMultiplayer = true, showServerSafety = true, suppressMessageTrustIndicators = true;
+			forceAllowMultiplayer = true, showServerSafety = true, suppressMessageTrustIndicators = true,
+			scrambleTimestamps = true;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -112,6 +115,10 @@ public class NoReportsConfig {
 
 	public static boolean isDebugLogEnabled() {
 		return getInstance().enableDebugLog;
+	}
+
+	public static boolean scrambleTimestamps() {
+		return getInstance().scrambleTimestamps;
 	}
 
 }

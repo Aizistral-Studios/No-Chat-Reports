@@ -23,7 +23,8 @@
 	"MixinConnectScreen",
 	"MixinClientboundHelloPacket",
 	"MixinScreen",
-	"MixinJoinMultiplayerScreen"
+	"MixinJoinMultiplayerScreen",
+	"MixinMessageSigner"
   ],
   "server": [
 	"MixinDedicatedServer"
