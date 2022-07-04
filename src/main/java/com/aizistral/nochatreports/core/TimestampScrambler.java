@@ -31,9 +31,6 @@ public class TimestampScrambler {
 	public static Instant randomizeTimestamp(Instant original) {
 		long diff = -(original.getEpochSecond() - lastTimestamp.getEpochSecond());
 		long offset = between(diff < MIN_OFFSET ? MIN_OFFSET : diff, MAX_OFFSET);
-
-		NoChatReports.LOGGER.info("Offset: " + offset);
-
 		return lastTimestamp = original.plusSeconds(offset);
 	}
 
