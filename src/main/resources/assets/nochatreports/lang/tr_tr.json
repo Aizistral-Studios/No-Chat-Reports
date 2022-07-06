@@ -1,0 +1,13 @@
+{
+	"gui.nochatreport.secureChat": "Bu seçenek doğrulanacak imza olmadığından No Chat Reports ile çalışamaz.",
+	"gui.nochatreport.noReporting": "No Chat Reports sayesinde bu sunucuda sohbet bildirileri devre dışı bırakıldı.",
+	"disconnect.nochatreports.client": "Bu sunucuda No Chat Reports yok ve siz kendisini bu sunucuda gerektirecek şekilde ayarladınız.",
+	"gui.nochatreports.status_secure": "Bu sunucuda No Chat Reports yüklü başka bir deyişle mesajlarınızın bilinen başka bir yolla bildirmeyi engelliyor. Güvenli bir şekilde sohbet edebilirsiniz.",
+	"gui.nochatreports.status_unintrusive": "Bu sunucu sohbet bildirilerini engellemiyor ama imzasız mesajlar göndermenize izin veriyor. Teknik olarak - bunlar yine de Mojang'a bildirilebilir ama genellikle geçerli kanıt olarak sayılamaz ve bu tür bildirilerle ilgili herhangi bir işlem yapılması olası değildir.",
+	"gui.nochatreports.status_insecure": "Bu sunucu tüm oyuncu mesajlarının imzalanmasını talep ediyor ve siz de bu düzenlemeye uymayı kabul ettiniz. Sohbette gönderdiğiniz her şey, raporda aleyhinize kullanılabilecek potansiyel olarak suçlayıcı kanıtlardır. Yeniden uyarılmak için bu sunucuyu yapılandırma klasöründeki NoChatReports.json'dan manuel olarak kaldırabilirsiniz.",
+	"gui.nochatreports.status_unknown": "No Chat Reports bu sunucunun güvenliğini değerlendiremedi. Bu asla olmamalıydı, lütfen mod geliştiricisine bu hatayı bildirin.",
+	"gui.nochatreports.unsafe_server.header": "Dikkat: Güvensiz Sunucu",
+	"gui.nochatreports.unsafe_server.contents": "Bu sunucu, tüm sohbet mesajlarının imzalanmasını gerektiriyor; bu, Mojang'a bildirilecekleri anlamına gelir. Bu muhtemelen sunucu sahibinin 1.19.1'den beri varsayılan olan server.properties'teki 'enforce-secure-profile' özelliğini etkin tuttuğu anlamına gelir. Yine de oynamayı deneyebilirsiniz, ancak No Chat Reports sizi koruyamaz.",
+	"gui.nochatreports.unsafe_server.check": "Bu sunucu için asla gösterme",
+	"gui.nochatrepords.reload_config_tooltip": "No Chat Reports'un yapılandırma klasörünü yenile. Dikkatli kullanın."
+}
