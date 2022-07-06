@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
+
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.network.chat.ChatSender;
@@ -48,10 +50,11 @@ public class UnrealPlayer {
 		connection.send(packet);
 	}
 
-	public void sendMessage(MinecraftServer server, ServerGamePacketListenerImpl connection, String message) {
+	public void sendMessage(MinecraftServer server, ServerGamePacketListenerImpl connection, String message, @Nullable String unsigned) {
 		ClientboundPlayerChatPacket packet = new ClientboundPlayerChatPacket(Component.literal(message),
-				Optional.empty(), 0, new ChatSender(this.id, Component.literal(this.name)), Instant.now(),
-				Crypt.SaltSignaturePair.EMPTY);
+				unsigned != null ? Optional.of(Component.literal(unsigned)) : Optional.empty(), 0,
+						new ChatSender(this.id, Component.literal(this.name)), Instant.now(),
+						Crypt.SaltSignaturePair.EMPTY);
 		connection.send(packet);
 	}
 
