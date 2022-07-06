@@ -22,7 +22,6 @@
 	"AccessorDisconnectedScreen",
 	"MixinConnectScreen",
 	"MixinClientboundHelloPacket",
-	"MixinScreen",
 	"MixinJoinMultiplayerScreen",
 	"MixinMessageSigner"
   ],

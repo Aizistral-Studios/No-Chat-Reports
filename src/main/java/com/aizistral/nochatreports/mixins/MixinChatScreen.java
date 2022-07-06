@@ -34,8 +34,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 
 @Mixin(ChatScreen.class)
-public abstract class MixinChatScreen extends MixinScreen {
+public abstract class MixinChatScreen extends Screen {
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons.png");
+
+	protected MixinChatScreen() {
+		super(null);
+		throw new IllegalStateException("Can't touch this");
+	}
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
@@ -50,7 +55,6 @@ public abstract class MixinChatScreen extends MixinScreen {
 				Component.translatable("gui.socialInteractions.report"));
 		button.active = false;
 		button.visible = true;
-		this.addRenderableOnly(button);
 	}
 
 	private int getXOffset(ServerSafetyLevel level) {
@@ -59,6 +63,85 @@ public abstract class MixinChatScreen extends MixinScreen {
 		case UNINTRUSIVE, UNKNOWN -> 42;
 		case INSECURE -> 0;
 		};
+	}
+
+	protected void renderTooltipNoGap(PoseStack poseStack, List<? extends FormattedCharSequence> list, int i, int j) {
+		this.renderTooltipInternalNoGap(poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), i, j);
+	}
+
+	protected void renderTooltipInternalNoGap(PoseStack poseStack, List<ClientTooltipComponent> list, int i, int j) {
+		ClientTooltipComponent clientTooltipComponent2;
+		int v;
+		int m;
+		if (list.isEmpty())
+			return;
+		int k = 0;
+		int l = list.size() == 1 ? -2 : 0;
+		for (ClientTooltipComponent clientTooltipComponent : list) {
+			m = clientTooltipComponent.getWidth(this.font);
+			if (m > k) {
+				k = m;
+			}
+			l += clientTooltipComponent.getHeight();
+		}
+		int n = i + 12;
+		int o = j - 12;
+		m = k;
+		int p = l;
+		if (n + k > this.width) {
+			n -= 28 + k;
+		}
+		if (o + p + 6 > this.height) {
+			o = this.height - p - 6;
+		}
+		if (j - p - 8 < 0) {
+			o = j + 8;
+		}
+		poseStack.pushPose();
+		int q = -267386864;
+		int r = 0x505000FF;
+		int s = 1344798847;
+		int t = 400;
+		float f = this.itemRenderer.blitOffset;
+		this.itemRenderer.blitOffset = 400.0f;
+		Tesselator tesselator = Tesselator.getInstance();
+		BufferBuilder bufferBuilder = tesselator.getBuilder();
+		RenderSystem.setShader(GameRenderer::getPositionColorShader);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+		Matrix4f matrix4f = poseStack.last().pose();
+		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 4, n + m + 3, o - 3, 400, -267386864, -267386864);
+		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 3, n + m + 3, o + p + 4, 400, -267386864, -267386864);
+		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o + p + 3, 400, -267386864, -267386864);
+		Screen.fillGradient(matrix4f, bufferBuilder, n - 4, o - 3, n - 3, o + p + 3, 400, -267386864, -267386864);
+		Screen.fillGradient(matrix4f, bufferBuilder, n + m + 3, o - 3, n + m + 4, o + p + 3, 400, -267386864, -267386864);
+		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3 + 1, n - 3 + 1, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
+		Screen.fillGradient(matrix4f, bufferBuilder, n + m + 2, o - 3 + 1, n + m + 3, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
+		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o - 3 + 1, 400, 0x505000FF, 0x505000FF);
+		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 2, n + m + 3, o + p + 3, 400, 1344798847, 1344798847);
+		RenderSystem.enableDepthTest();
+		RenderSystem.disableTexture();
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
+		BufferUploader.drawWithShader(bufferBuilder.end());
+		RenderSystem.disableBlend();
+		RenderSystem.enableTexture();
+		MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+		poseStack.translate(0.0, 0.0, 400.0);
+		int u = o;
+		for (v = 0; v < list.size(); ++v) {
+			clientTooltipComponent2 = list.get(v);
+			clientTooltipComponent2.renderText(this.font, n, u, matrix4f, bufferSource);
+			u += clientTooltipComponent2.getHeight() /*+ (v == 0 ? 2 : 0)*/;
+		}
+		bufferSource.endBatch();
+		poseStack.popPose();
+		u = o;
+		for (v = 0; v < list.size(); ++v) {
+			clientTooltipComponent2 = list.get(v);
+			clientTooltipComponent2.renderImage(this.font, n, u, poseStack, this.itemRenderer, 400);
+			u += clientTooltipComponent2.getHeight() + (v == 0 ? 2 : 0);
+		}
+		this.itemRenderer.blitOffset = f;
 	}
 
 }
