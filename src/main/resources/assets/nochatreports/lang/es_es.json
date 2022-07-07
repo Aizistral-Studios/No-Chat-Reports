@@ -9,5 +9,5 @@
 	"gui.nochatreports.unsafe_server.header": "Subtítulo: Servidor inseguro",
 	"gui.nochatreports.unsafe_server.contents": "Este servidor requiere que todos los mensajes tengan signatura, lo que significa que pueden ser reportados a Mojang. Esto probablemente significa que el dueño del servidor mantuvo 'enforce-secure-profile' habilitado en server.properties, el cual es el valor por defecto desde 1.19.1. Puedes elegir jugar de todos modos, pero No Chat Reports no será capaz de protegerlo.",
 	"gui.nochatreports.unsafe_server.check": "No mostrar de vuelta para este servidor.",
-	"gui.nochatrepords.reload_config_tooltip": "Recargar la configuración de No Chat Reports. Usar con cuidado.",
+	"gui.nochatrepords.reload_config_tooltip": "Recargar la configuración de No Chat Reports. Usar con cuidado."
 }
