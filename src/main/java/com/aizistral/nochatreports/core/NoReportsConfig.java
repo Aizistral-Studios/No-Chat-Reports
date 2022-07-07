@@ -28,7 +28,7 @@ public class NoReportsConfig {
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer, enableDebugLog, convertToGameMessage = true,
 			forceAllowMultiplayer = true, showServerSafety = true, suppressMessageTrustIndicators = true,
-			scrambleTimestamps = true;
+			scrambleTimestamps = true, alwaysHideReportButton = false;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -119,6 +119,10 @@ public class NoReportsConfig {
 
 	public static boolean scrambleTimestamps() {
 		return getInstance().scrambleTimestamps;
+	}
+
+	public static boolean alwaysHideReportButton() {
+		return getInstance().alwaysHideReportButton;
 	}
 
 }

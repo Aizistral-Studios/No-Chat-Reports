@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -46,7 +47,15 @@ public class MixinPlayerEntry {
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen socialInteractionsScreen, UUID uUID, String string, Supplier<ResourceLocation> supplier, CallbackInfo info) {
-		if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE && this.reportButton != null) {
+		if (NoReportsConfig.alwaysHideReportButton()) {
+			this.reportButton = new Button(0, 0, 20, 20, Component.empty(), button -> {}) {
+				@Override
+				public void render(PoseStack poseStack, int i, int j, float f) {
+					// NO-OP
+				}
+			};
+			this.reportButton.active = this.reportButton.visible = false;
+		} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE && this.reportButton != null) {
 			this.reportButton = new ImageButton(0, 0, 20, 20, 0, 0, 20, REPORT_BUTTON_LOCATION, 64, 64, button -> {}, new Button.OnTooltip() {
 				@Override
 				public void onTooltip(Button button, PoseStack poseStack, int i, int j) {
