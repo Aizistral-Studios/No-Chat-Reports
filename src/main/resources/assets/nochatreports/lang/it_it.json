@@ -1,0 +1,13 @@
+{
+	"gui.nochatreport.secureChat": "Questa opzione non può funzionare con No Chat Reports, dal momento che non ci sono firme da verificare.",
+	"gui.nochatreport.noReporting": "Le segnalazioni della chat sono state disabilitate su questo server grazie a No Chat Reports.",
+	"disconnect.nochatreports.client": "Questo server non ha No Chat Reports e tu hai configurato No Chat Reports in modo che richieda di essere installato anche sul server.",
+	"gui.nochatreports.status_secure": "Questo server ha installato No Chat Reports o impedisce ai tuoi messaggi di essere segnalati con qualche altro metodo noto. Puoi messaggiare in sicurezza.",
+	"gui.nochatreports.status_unintrusive": "Questo server non impedisce di segnalare la chat, ma ti permette di inviare messaggi non firmati. Tecnicamente, possono comunque essere segnalati a Mojang, ma in genere non vengono considerati prove valide ed è improbabile che vengano presi dei provvedimenti a seguito di queste segnalazioni.",
+	"gui.nochatreports.status_insecure": "Questo server richiede che tutti i messaggi inviati da un giocatore siano firmati e tu hai acconsentito a continuare in queste circostanze. Qualunque cosa invierai in chat sarà una prova potenzialmente incriminante che potrà essere usata contro di te in una segnalazione. Se vuoi essere avvertito di nuovo, puoi rimuovere manualmente questo server da NoChatReports.json nella tua cartella config.",
+	"gui.nochatreports.status_unknown": "No Chat Reports non è stato in grado di valutare la sicurezza di questo server. Ciò non dovrebbe mai accadere: ti preghiamo di segnalarlo come un bug allo sviluppatore della mod.",
+	"gui.nochatreports.unsafe_server.header": "Attenzione: server non sicuro",
+	"gui.nochatreports.unsafe_server.contents": "Questo server richiede che tutti i messaggi della chat siano firmati, il che significa che possono essere segnalati a Mojang. Probabilmente questo significa che il proprietario del server ha lasciato 'enforce-secure-profile' attivo nel file server.properties (dalla 1.19.1 lo è per impostazione predefinita). Puoi decidere di giocarci comunque, ma No Chat Reports non sarà in grado di proteggerti.",
+	"gui.nochatreports.unsafe_server.check": "Non mostrare di nuovo per questo server",
+	"gui.nochatrepords.reload_config_tooltip": "Ricarica file di configurazione di No Chat Reports. Da usare con cautela."
+}
