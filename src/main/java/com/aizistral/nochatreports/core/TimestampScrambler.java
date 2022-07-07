@@ -31,7 +31,9 @@ public class TimestampScrambler {
 	public static Instant randomizeTimestamp(Instant original) {
 		long diff = -(original.getEpochSecond() - lastTimestamp.getEpochSecond());
 		long offset = between(diff < MIN_OFFSET ? MIN_OFFSET : diff, MAX_OFFSET);
-		return lastTimestamp = original.plusSeconds(offset);
+
+		return original.plusSeconds(offset).isBefore(lastTimestamp) ? randomizeTimestamp(original)
+				: (lastTimestamp = original.plusSeconds(offset)); // just to be 100% sure
 	}
 
 	private static long between(long one, long two) {
