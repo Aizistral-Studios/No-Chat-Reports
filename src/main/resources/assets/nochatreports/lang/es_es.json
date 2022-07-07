@@ -1,0 +1,13 @@
+{
+	"gui.nochatreport.secureChat": "Esta opción no puede funcionar con No Chat Reports, ya que no hay signaturas para verificar.",
+	"gui.nochatreport.noReporting": "Los reportes de chat están deshabilitados en este servidor, cortesía de No Chat Reports.",
+	"disconnect.nochatreports.client": "Este servidor no tiene No Chat Reports, y usted lo tiene configurado para que sea requerido en el servidor.",
+	"gui.nochatreports.status_secure": "Este servidor tiene No Chat Reports instalado, o previene que sus mensajes sean reportados de algún otro modo conocido. Puedes chatear con seguridad.",
+	"gui.nochatreports.status_unintrusive": "Este servidor no previene reportes de chat, pero permite que envíes mensajes sin signatura. Técnicamente - todavía pueden ser reportados a Mojang, pero generalmente, no serán considerados evidencia válida, y es poco probable que se tome alguna medida sobre ellos.",
+	"gui.nochatreports.status_insecure": "Este servidor demanda que todos los mensajes envíados por jugadores tengan signatura, y usted estuvo de acuerdo con estos términos. Todo lo que envíes en el chat puede ser usado como evidencia incriminativa en su contra en el reporte. Puedes remover este servidor de NoChatReports.json en tu carpeta de configuración manualmente para no ser advertido de vuelta.",
+	"gui.nochatreports.status_unknown": "No Chat Reports no pudo evaluar la seguridad de este servidor. Esto no debería pasar, por favor reportalo como un error al desarrollador de este mod.",
+	"gui.nochatreports.unsafe_server.header": "Subtítulo: Servidor inseguro",
+	"gui.nochatreports.unsafe_server.contents": "Este servidor requiere que todos los mensajes tengan signatura, lo que significa que pueden ser reportados a Mojang. Esto probablemente significa que el dueño del servidor mantuvo 'enforce-secure-profile' habilitado en server.properties, el cual es el valor por defecto desde 1.19.1. Puedes elegir jugar de todos modos, pero No Chat Reports no será capaz de protegerlo.",
+	"gui.nochatreports.unsafe_server.check": "No mostrar de vuelta para este servidor.",
+	"gui.nochatrepords.reload_config_tooltip": "Recargar la configuración de No Chat Reports. Usar con cuidado.",
+}
