@@ -1,0 +1,13 @@
+{
+	"gui.nochatreport.secureChat": "See funktsioon ei saa töötada modiga No Chat Reports, kuna kinnitatavad signatuurid puuduvad.",
+	"gui.nochatreport.noReporting": "Selles serveris on mängijast teatamine keelatud modi No Chat Reports olemasolu tõttu.",
+	"disconnect.nochatreports.client": "Sellest serverist puudub mod No Chat Reports ning sinu seadistused nõuavad selle olemasolu serveris.",
+	"gui.nochatreports.status_secure": "Sellele serverile on paigaldatud mod No Chat Reports või see piirab sõnumitest teatamist mõnel muul teadaoleval viisil. Sa saad turvaliselt vestelda.",
+	"gui.nochatreports.status_unintrusive": "See server ei piira sõnumitest teatamist, kuid lubab saata signeerimata sõnumeid. Tehniliselt saab neid siiski Mojangile teatada, ent neid ei loeta üldjuhul kehtivaks asitõendiks ning on ebatõenäoline, et sellistele raportitele rakendatakse meetmeid.",
+	"gui.nochatreports.status_insecure": "See server nõuab kõikide mängijasõnumite signeerimist ning sa nõustusid selle korraldusega. Kõik, mida vestlusesse saadad on potentsiaalselt süüdistav asitõend, mida saab raportis sinu vastu kasutada. Uuesti hoiatuse saamiseks võid selle serveri käsitsi config kaustas olevast NoChatReports.json failist eemaldada.",
+	"gui.nochatreports.status_unknown": "No Chat Reports ei suutnud selle serveri turvalisust hinnata. Seda ei tohiks kunagi juhtuda, palun teata sellest veast modi arendajale.",
+	"gui.nochatreports.unsafe_server.header": "Hoiatus: ebaturvaline server",
+	"gui.nochatreports.unsafe_server.contents": "See server nõuab kõikide vestlussõnumite signeerimist, mis tähendab, et neid saab Mojangile raporteerida. See tõenäoliselt tähendab, et serveri omanik jättis failis server.properties valiku \"enforce-secure-profile\" lubatuks, mis on ka vaikeväärtus alates versioonist 1.19.1. Sa võid siiski seal mängida, kuid No Chat Reports ei saa sind kaitsta.",
+	"gui.nochatreports.unsafe_server.check": "Ära kuva selle serveri puhul uuesti",
+	"gui.nochatrepords.reload_config_tooltip": "Laadi No Chat Reports seadistus uuesti. Kasuta ettevaatlikult."
+}
