@@ -16,9 +16,9 @@ public class MixinOptions {
 	private OptionInstance<Boolean> alternativeOption;
 
 	/**
-	 * @reason Disable secure chat option, since it will not work anyways.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @reason Disable secure chat option, since it will not work anyways. I would prefer to have
+	 * the button greyed out instead, but there is no elegant solution to implement this.
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "onlyShowSecureChat", at = @At("RETURN"), cancellable = true)
@@ -27,7 +27,7 @@ public class MixinOptions {
 			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
 					OptionInstance.cachedConstantTooltip(Component.translatable("gui.nochatreport.secureChat")),
 					(component, value) -> value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF,
-					new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
+							new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
 		}
 
 		cir.setReturnValue(this.alternativeOption);

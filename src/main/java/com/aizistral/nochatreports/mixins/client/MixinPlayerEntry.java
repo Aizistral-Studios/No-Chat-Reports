@@ -41,7 +41,7 @@ public class MixinPlayerEntry {
 	}
 
 	/**
-	 * @reason Disable chat report button if we are on client.
+	 * @reason Disable (or hide if configured respectively) chat report button on client.
 	 * @author Aizistral
 	 */
 

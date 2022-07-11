@@ -20,6 +20,12 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 @Mixin(ConnectScreen.class)
 public class MixinConnectScreen {
 
+	/**
+	 * @reason Intercept initiation of any new server connection. This way we can keep track of which
+	 * server client currently tries to connect to
+	 * @author Aizistral
+	 */
+
 	@Inject(method = "startConnecting", at = @At("HEAD"))
 	private static void onStartConnecting(Screen screen, Minecraft minecraft, ServerAddress serverAddress,
 			@Nullable ServerData serverData, CallbackInfo info) {

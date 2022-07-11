@@ -33,6 +33,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 
+/**
+ * This is responsible for adding safety status indicator to the bottom-right corner of chat screen.
+ * @author Aizistral
+ */
+
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons.png");

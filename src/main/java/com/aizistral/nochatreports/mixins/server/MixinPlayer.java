@@ -15,8 +15,7 @@ public class MixinPlayer {
 	/**
 	 * @reason Prevents server from trying to validate signatures on incoming
 	 * chat messages. Also prevents it from relaying public keys to other clients.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "getProfilePublicKey", at = @At("HEAD"), cancellable = true)

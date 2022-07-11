@@ -22,7 +22,9 @@ import net.minecraft.network.chat.PlayerChatMessage;
 public class MixinChatListener {
 
 	/**
-	 * @reason No annoying safety notices, thanks. Your system is unsafe anyways.
+	 * @reason Removes "Not Secure" and "Modified" statuses of chat messages. They ultimately
+	 * server no purpose but to annoy the user and scare them away from servers that actually
+	 * try to protect them by stripping message signatures.
 	 * @author Aizistral
 	 */
 

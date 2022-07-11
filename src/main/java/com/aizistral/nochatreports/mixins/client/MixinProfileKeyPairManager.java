@@ -18,9 +18,9 @@ import java.util.Optional;
 public class MixinProfileKeyPairManager {
 
 	/**
-	 * @reason We don't have to send our keys anywhere, and thus we won't.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @reason Prevent the client from exposing its public key, unless it is necessary
+	 * and user agreed to do so.
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "profilePublicKey", at = @At("HEAD"), cancellable = true)
@@ -31,9 +31,9 @@ public class MixinProfileKeyPairManager {
 	}
 
 	/**
-	 * @reason We don't have to send our keys anywhere, and thus we won't.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @reason Prevent the client from exposing its public key, unless it is necessary
+	 * and user agreed to do so.
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "profilePublicKeyData", at = @At("HEAD"), cancellable = true)
@@ -46,8 +46,7 @@ public class MixinProfileKeyPairManager {
 	/**
 	 * @reason Prevent client from trying to produce signature in
 	 * {@link ClientHandshakePacketListenerImpl#handleHello}.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "signer", at = @At("HEAD"), cancellable = true)

@@ -10,10 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinDedicatedServer {
 
 	/**
-	 * @reason If we are present on server - we won't be using keys for anything,
-	 * so this option ceases to make sense.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @reason If mod is installed on server - it does the exact opposite of what this option is
+	 * designed to enforce, so there's no reason to have it enabled.
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "enforceSecureProfile", at = @At("RETURN"), cancellable = true)

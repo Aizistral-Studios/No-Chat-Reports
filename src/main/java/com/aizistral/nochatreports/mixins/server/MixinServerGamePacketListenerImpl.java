@@ -20,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerGamePacketListenerImpl.class)
 public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerConnection {
-
-	@Shadow public ServerPlayer player;
+	@Shadow
+	public ServerPlayer player;
 
 	/**
 	 * @reason Convert player message to system message if mod is configured respectively.
@@ -35,7 +35,7 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 		if (NoReportsConfig.convertToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatPacket chat) {
 				Component component = chat.unsignedContent().orElse(chat.signedContent());
-				ChatTypeDecoration decoration = player.level.registryAccess().registryOrThrow(Registry.CHAT_TYPE_REGISTRY).byId(chat.typeId()).chat();
+				ChatTypeDecoration decoration = this.player.level.registryAccess().registryOrThrow(Registry.CHAT_TYPE_REGISTRY).byId(chat.typeId()).chat();
 				component = decoration.decorate(component, chat.sender());
 				packet = new ClientboundSystemChatPacket(component, false);
 

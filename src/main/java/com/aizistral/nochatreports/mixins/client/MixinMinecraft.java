@@ -21,6 +21,11 @@ import net.minecraft.world.entity.player.ChatVisiblity;
 @Mixin(Minecraft.class)
 public class MixinMinecraft {
 
+	/**
+	 * @reason Replace "1.19.1" with "1.19.84" in game window title. No functional purpose.
+	 * @author Aizistral
+	 */
+
 	@Inject(method = "createTitle", at = @At("RETURN"), cancellable = true, require = 0)
 	private void onCreateTitle(CallbackInfoReturnable<String> info) {
 		if (info.getReturnValue().contains("1.19.1")) {

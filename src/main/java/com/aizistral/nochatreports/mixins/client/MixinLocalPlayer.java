@@ -29,8 +29,7 @@ public class MixinLocalPlayer {
 	/**
 	 * @reason Never sign messages, so that neither server nor other clients have
 	 * proof of them being sent from your account.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
@@ -42,8 +41,7 @@ public class MixinLocalPlayer {
 
 	/**
 	 * @reason Same as above, except commands mostly concern only server.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @author Aizistral
 	 */
 
 	@Inject(method = "signCommandArguments", at = @At("HEAD"), cancellable = true)
