@@ -30,6 +30,11 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 
+/**
+ * Client initializer for the mod. Some networking setup here, as well as few screen-related events.
+ * @author Aizistral
+ */
+
 @Environment(EnvType.CLIENT)
 public class NoChatReportsClient implements ClientModInitializer {
 	private static final List<String> KEY_DISCONNECT_REASONS = ImmutableList.of(

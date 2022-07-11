@@ -20,6 +20,17 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
+/**
+ * This is the screen user gets thrown into when they try to enter server that refuses to let them in
+ * without exposing account's public key. From here the user can choose not to play on the server, or
+ * agree to expose the key and send only signed messages. In the latter case they get reconnected to
+ * the server and mod will not prevent the key from being sent. Optional checkbox is provided to add
+ * the server to persistent whitelist in the config, to remove the need of going through this screen
+ * every time when entering that specific server.
+ *
+ * @author Aizistral
+ */
+
 @Environment(EnvType.CLIENT)
 public class UnsafeServerScreen extends WarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.unsafe_server.header").withStyle(ChatFormatting.BOLD);

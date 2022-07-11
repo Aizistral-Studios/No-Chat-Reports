@@ -22,6 +22,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
+/**
+ * Common initializer for the mod. Some networking and config setup here.
+ * @author Aizistral
+ */
+
 public class NoChatReports implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final ResourceLocation CHANNEL = new ResourceLocation("nochatreports", "sync");

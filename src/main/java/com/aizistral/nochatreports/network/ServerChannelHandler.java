@@ -7,6 +7,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
+/**
+ * Mod's server channel handler. So far just passively exists.
+ * @author Aizistral
+ */
+
 public class ServerChannelHandler implements PlayChannelHandler {
 	public static final ServerChannelHandler INSTANCE = new ServerChannelHandler();
 
