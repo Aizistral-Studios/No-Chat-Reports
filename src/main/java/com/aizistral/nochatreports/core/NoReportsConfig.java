@@ -27,8 +27,7 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer, enableDebugLog, convertToGameMessage = true,
-			showServerSafety = true, suppressMessageTrustIndicators = true,
-			scrambleTimestamps = true, alwaysHideReportButton = false;
+			showServerSafety = true, suppressMessageTrustIndicators = true, alwaysHideReportButton = false;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -111,10 +110,6 @@ public class NoReportsConfig {
 
 	public static boolean isDebugLogEnabled() {
 		return getInstance().enableDebugLog;
-	}
-
-	public static boolean scrambleTimestamps() {
-		return getInstance().scrambleTimestamps;
 	}
 
 	public static boolean alwaysHideReportButton() {

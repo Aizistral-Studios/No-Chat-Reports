@@ -22,8 +22,7 @@
 	"AccessorDisconnectedScreen",
 	"MixinConnectScreen",
 	"MixinClientboundHelloPacket",
-	"MixinJoinMultiplayerScreen",
-	"MixinMessageSigner"
+	"MixinJoinMultiplayerScreen"
   ],
   "server": [
 	"MixinDedicatedServer"

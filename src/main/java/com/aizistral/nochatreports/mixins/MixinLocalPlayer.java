@@ -2,7 +2,6 @@ package com.aizistral.nochatreports.mixins;
 
 import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.core.TimestampScrambler;
 import com.mojang.brigadier.ParseResults;
 
 import net.minecraft.Util;
@@ -37,7 +36,7 @@ public class MixinLocalPlayer {
 	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
 	private void onSignMessage(MessageSigner signer, Component message, CallbackInfoReturnable<MessageSignature> info) {
 		if (!ServerSafetyState.forceSignedMessages()) {
-			info.setReturnValue(new MessageSignature(Util.NIL_UUID, signer.timeStamp(), SaltSignaturePair.EMPTY));
+			info.setReturnValue(MessageSignature.unsigned(signer.sender()));
 		}
 	}
 
