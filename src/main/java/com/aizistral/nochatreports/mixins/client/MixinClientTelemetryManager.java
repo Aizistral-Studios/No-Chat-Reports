@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.mixins;
+package com.aizistral.nochatreports.mixins.client;
 
 import com.mojang.authlib.minecraft.TelemetrySession;
 import com.mojang.authlib.minecraft.UserApiService;

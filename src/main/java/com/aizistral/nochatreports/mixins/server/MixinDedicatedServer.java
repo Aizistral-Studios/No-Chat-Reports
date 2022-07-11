@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.mixins;
+package com.aizistral.nochatreports.mixins.server;
 
 import net.minecraft.server.dedicated.DedicatedServer;
 import org.spongepowered.asm.mixin.Mixin;

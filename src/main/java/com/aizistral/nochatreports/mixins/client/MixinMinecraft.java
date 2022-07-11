@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.mixins;
+package com.aizistral.nochatreports.mixins.client;
 
 import java.time.Instant;
 import java.util.UUID;

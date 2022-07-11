@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.mixins;
+package com.aizistral.nochatreports.mixins.client;
 
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;

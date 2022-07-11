@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.mixins;
+package com.aizistral.nochatreports.mixins.client;
 
 import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;

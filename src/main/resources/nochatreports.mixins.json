@@ -5,27 +5,27 @@
   "compatibilityLevel": "JAVA_17",
   "verbose": true,
   "mixins": [
-	"MixinPlayer",
-	"MixinServerboundChatPacket",
-	"MixinServerGamePacketListenerImpl"
+	"server.MixinPlayer",
+	"server.MixinServerboundChatPacket",
+	"server.MixinServerGamePacketListenerImpl"
   ],
   "client": [
-	"MixinLocalPlayer",
-	"MixinChatListener",
-	"MixinOptions",
-	"MixinProfileKeyPairManager",
-	"MixinClientTelemetryManager",
-	"MixinTitleScreen",
-	"MixinMinecraft",
-	"MixinPlayerEntry",
-	"MixinChatScreen",
-	"AccessorDisconnectedScreen",
-	"MixinConnectScreen",
-	"MixinClientboundHelloPacket",
-	"MixinJoinMultiplayerScreen"
+	"client.MixinLocalPlayer",
+	"client.MixinChatListener",
+	"client.MixinOptions",
+	"client.MixinProfileKeyPairManager",
+	"client.MixinClientTelemetryManager",
+	"client.MixinTitleScreen",
+	"client.MixinMinecraft",
+	"client.MixinPlayerEntry",
+	"client.MixinChatScreen",
+	"client.AccessorDisconnectedScreen",
+	"client.MixinConnectScreen",
+	"client.MixinClientboundHelloPacket",
+	"client.MixinJoinMultiplayerScreen"
   ],
   "server": [
-	"MixinDedicatedServer"
+	"server.MixinDedicatedServer"
   ],
   "injectors": {
     "defaultRequire": 1

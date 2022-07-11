@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.mixins;
+package com.aizistral.nochatreports.mixins.server;
 
 import net.minecraft.Util;
 import net.minecraft.network.chat.MessageSignature;
