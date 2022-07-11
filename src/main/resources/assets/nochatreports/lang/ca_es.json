@@ -8,5 +8,6 @@
   "gui.nochatreports.status_unknown": "No Chat Reports no ha pogut avaluar la seguretat d'aquest servidor. Això no deuria haver passat, si us plau informi d'aquest error al desenvolupador d'aquest mod.",
   "gui.nochatreports.unsafe_server.header": "Precaució: Servidor insegur",
   "gui.nochatreports.unsafe_server.contents": "Aquest servidor requereix que tots els missatges tinguin signatura, això significa que poden ser reportats a Mojang. Això probablement significa que el propietari del servidor ha mantingut 'enforce-secure-profile' habilitat en server.properties, que és el valor per defecte des de 1.19.1. Pots escollir jugar de totes formes, però No Chat Reports podrà protegir-te.",
-  "gui.nochatreports.unsafe_server.check": "No tornar a mostrar per aquest servidor.", "gui.nochatrepords.reload_config_tooltip": "Recarregar la configuració de No Chat Reports. Utilitzar amb compte."
+  "gui.nochatreports.unsafe_server.check": "No tornar a mostrar per aquest servidor.",
+  "gui.nochatrepords.reload_config_tooltip": "Recarregar la configuració de No Chat Reports. Utilitzar amb compte."
 }
