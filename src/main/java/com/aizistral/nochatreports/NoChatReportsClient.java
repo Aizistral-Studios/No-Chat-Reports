@@ -64,6 +64,7 @@ public class NoChatReportsClient implements ClientModInitializer {
 					screen = new DisconnectedScreen(new JoinMultiplayerScreen(new TitleScreen()),
 							CommonComponents.CONNECT_FAILED, dsc.getReason());
 					client.setScreen(screen);
+					screenOverride = false;
 					return;
 				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
 					if (ServerSafetyState.getLastConnectedServer() != null) {
