@@ -60,6 +60,8 @@ public abstract class MixinChatScreen extends Screen {
 				Component.translatable("gui.socialInteractions.report"));
 		button.active = false;
 		button.visible = true;
+
+		this.addRenderableOnly(button);
 	}
 
 	private int getXOffset(ServerSafetyLevel level) {
