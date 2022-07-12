@@ -22,7 +22,8 @@
 	"client.AccessorDisconnectedScreen",
 	"client.MixinConnectScreen",
 	"client.MixinClientboundHelloPacket",
-	"client.MixinJoinMultiplayerScreen"
+	"client.MixinJoinMultiplayerScreen",
+	"client.MixinGuiMessageTag"
   ],
   "server": [
 	"server.MixinDedicatedServer"
