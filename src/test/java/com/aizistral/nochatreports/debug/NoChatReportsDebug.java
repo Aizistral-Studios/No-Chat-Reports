@@ -54,8 +54,9 @@ public class NoChatReportsDebug implements ModInitializer {
 	}
 
 	public static BanDetails getFakeBan() {
-		return new BanDetails(UUID.fromString(Minecraft.getInstance().getUser().getUuid()),
-				null, null, null);
+		return null;
+		//		return new BanDetails(UUID.fromString(Minecraft.getInstance().getUser().getUuid()),
+		//				null, null, null);
 	}
 
 }
