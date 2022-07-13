@@ -39,7 +39,8 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer, enableDebugLog, convertToGameMessage = true,
-			showServerSafety = true, suppressMessageTrustIndicators = true, alwaysHideReportButton = false;
+			showServerSafety = true, suppressMessageTrustIndicators = true, alwaysHideReportButton = false,
+			versionEasterEgg = true, disableTelemetry = true, showReloadButton = true;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -205,6 +206,36 @@ public class NoReportsConfig {
 
 	public static boolean alwaysHideReportButton() {
 		return getInstance().alwaysHideReportButton;
+	}
+
+	/**
+	 * @return True if "1.19.1" should be changed to "1.19.84" on titlebar and title screen.
+	 *
+	 * This is true by default.
+	 */
+
+	public static boolean versionEasterEgg() {
+		return getInstance().versionEasterEgg;
+	}
+
+	/**
+	 * @return True if sending telemetry to Mojang should be disabled.
+	 *
+	 * This is true by default.
+	 */
+
+	public static boolean disableTelemetry() {
+		return getInstance().disableTelemetry;
+	}
+
+	/**
+	 * @return True if the configuration reload button should be displayed in multiplayer screen.
+	 *
+	 * This is true by default.
+	 */
+
+	public static boolean showReloadButton() {
+		return getInstance().showReloadButton;
 	}
 
 }

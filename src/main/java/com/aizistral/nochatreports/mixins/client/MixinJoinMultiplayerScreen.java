@@ -45,6 +45,9 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
+		if (!NoReportsConfig.showReloadButton())
+			return;
+
 		var button = new ImageButton(this.width/2 + 158, this.height - 52, 20, 20, 0, 0, 20, RELOAD_TEXTURE,
 				64, 64, btn -> NoReportsConfig.loadConfig(), (btn, poseStack, i, j) ->
 				this.renderTooltipNoGap(poseStack, this.minecraft.font.split(RELOAD_TOOLTIP, 250), i, j),

@@ -28,6 +28,9 @@ public class MixinMinecraft {
 
 	@Inject(method = "createTitle", at = @At("RETURN"), cancellable = true, require = 0)
 	private void onCreateTitle(CallbackInfoReturnable<String> info) {
+		if (!NoReportsConfig.versionEasterEgg())
+			return;
+
 		if (info.getReturnValue().contains("1.19.1")) {
 			info.setReturnValue(info.getReturnValue().replace("1.19.1", "1.19.84"));
 		}
