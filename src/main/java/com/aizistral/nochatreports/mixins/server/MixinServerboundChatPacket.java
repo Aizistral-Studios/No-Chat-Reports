@@ -26,7 +26,7 @@ public class MixinServerboundChatPacket {
 
 	@Inject(method = "getSignature", at = @At("RETURN"), cancellable = true)
 	private void onGetSignature(UUID id, CallbackInfoReturnable<MessageSignature> info) {
-		info.setReturnValue(new MessageSignature(Util.NIL_UUID, info.getReturnValue().timeStamp(), SaltSignaturePair.EMPTY));
+		info.setReturnValue(MessageSignature.EMPTY);
 	}
 
 }

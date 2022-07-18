@@ -29,7 +29,7 @@ public class MixinChatListener {
 	 */
 
 	@Inject(method = "evaluateTrustLevel", at = @At("HEAD"), cancellable = true)
-	private void onEvaluateTrustLevel(ChatSender chatSender, PlayerChatMessage playerChatMessage,
+	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage,
 			Component component, PlayerInfo playerInfo, CallbackInfoReturnable<ChatTrustLevel> info) {
 		if (NoReportsConfig.suppressMessageTrustIndicators()) {
 			info.setReturnValue(ChatTrustLevel.SECURE);
@@ -38,9 +38,9 @@ public class MixinChatListener {
 		// Debug never dies
 		if (NoReportsConfig.isDebugLogEnabled()) {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
-					Component.Serializer.toStableJson(playerChatMessage.signedContent()),
-					chatSender.name().getString(),
-					Base64.getEncoder().encodeToString(playerChatMessage.signature().saltSignature().signature()));
+					Component.Serializer.toStableJson(playerChatMessage.signedContent().plain()),
+					playerChatMessage.signer().profileId(),
+					Base64.getEncoder().encodeToString(playerChatMessage.headerSignature().bytes()));
 		}
 	}
 

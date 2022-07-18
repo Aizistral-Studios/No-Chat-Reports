@@ -8,7 +8,9 @@ import net.minecraft.Util;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.ArgumentSignatures;
+import net.minecraft.network.chat.ChatMessageContent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.LastSeenMessages;
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.chat.MessageSigner;
 import net.minecraft.util.Crypt;
@@ -33,9 +35,9 @@ public class MixinLocalPlayer {
 	 */
 
 	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
-	private void onSignMessage(MessageSigner signer, Component message, CallbackInfoReturnable<MessageSignature> info) {
+	private void onSignMessage(MessageSigner signer, ChatMessageContent message, LastSeenMessages messages, CallbackInfoReturnable<MessageSignature> info) {
 		if (!ServerSafetyState.forceSignedMessages()) {
-			info.setReturnValue(MessageSignature.unsigned(signer.sender()));
+			info.setReturnValue(MessageSignature.EMPTY);
 		}
 	}
 
@@ -45,9 +47,9 @@ public class MixinLocalPlayer {
 	 */
 
 	@Inject(method = "signCommandArguments", at = @At("HEAD"), cancellable = true)
-	private void onSignCommand(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, CallbackInfoReturnable<ArgumentSignatures> info) {
+	private void onSignCommand(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, LastSeenMessages messages, CallbackInfoReturnable<ArgumentSignatures> info) {
 		if (!ServerSafetyState.forceSignedMessages()) {
-			info.setReturnValue(ArgumentSignatures.empty());
+			info.setReturnValue(ArgumentSignatures.EMPTY);
 		}
 	}
 
