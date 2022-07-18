@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import com.aizistral.nochatreports.core.NoReportsConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -21,6 +22,7 @@ public class MixinTitleScreen {
 			"Lnet/minecraft/WorldVersion;getName()Ljava/lang/String;"), require = 0)
 	private String onGetVersionName(WorldVersion version) {
 		String original = version.getName();
+		if (!NoReportsConfig.versionEasterEgg()) return original;
 		return original.contains("1.19.1") ? original.replace("1.19.1", "1.19.84") : original;
 	}
 
