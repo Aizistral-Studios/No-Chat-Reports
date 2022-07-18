@@ -1,6 +1,6 @@
 # No Chat Reports
 
-**Current Version:** 1.19.1-pre3-v1.4.3
+**Current Version:** 1.19.1-pre3-v1.5.0
 
 **Minecraft Version:** 1.19.x
 
