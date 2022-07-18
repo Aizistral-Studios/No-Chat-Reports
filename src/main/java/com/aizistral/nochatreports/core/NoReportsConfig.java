@@ -209,7 +209,7 @@ public class NoReportsConfig {
 	}
 
 	/**
-	 * @return True if "1.19.1" should be changed to "1.19.84" on titlebar and title screen.
+	 * @return True if "1.19.1" should be changed to "1.19.84" on titlebar and title screen.<br><br>
 	 *
 	 * This is true by default.
 	 */
@@ -219,7 +219,7 @@ public class NoReportsConfig {
 	}
 
 	/**
-	 * @return True if sending telemetry to Mojang should be disabled.
+	 * @return True if sending telemetry to Mojang should be disabled.<br><br>
 	 *
 	 * This is true by default.
 	 */
@@ -230,6 +230,7 @@ public class NoReportsConfig {
 
 	/**
 	 * @return True if the configuration reload button should be displayed in multiplayer screen.
+	 * <br><br>
 	 *
 	 * This is true by default.
 	 */

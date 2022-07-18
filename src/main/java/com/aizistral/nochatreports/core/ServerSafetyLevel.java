@@ -32,7 +32,7 @@ public enum ServerSafetyLevel {
 
 	/**
 	 * For servers that have <code>enforce-secure-profile</code> enabled, or enforce signed messages
-	 * through some other meands. Users of this mod can choose to play on those servers regardless
+	 * through some other means. Users of this mod can choose to play on those servers regardless
 	 * after being informed of danger, but there is very little mod will be able to do to protect
 	 * them in such case.
 	 */
