@@ -2,4 +2,11 @@
 	"gui.nochatreport.secureChat": "此选项无法与No Chat Reports一起使用，因为没有可用于验证的签名。",
 	"gui.nochatreport.noReporting": "聊天举报在此服务器上被禁用，由No Chat Reports提供。",
 	"disconnect.nochatreports.client": "此服务器没有No Chat Reports，但你已将其配置为要求在服务器上安装。"
+	"gui.nochatreports.status_secure": "此服務器有安裝No Chat Reports, 或其它的管道可以確保您的聊天記錄避免被舉報，您可以放心聊天。",
+	"gui.nochatreports.status_unintrusive": "此服务器不会阻止传出的聊天举报，但有允许您发没足迹的讯息. 您的讯息还是可以被发到Mojang，但不太有可能会算是正式的证据，也不太会招致任何惩罚。", 
+	"gui.nochatreports.status_insecure": "此服务器需求所有发到的讯息要有编号。这个安排你已经同意了。你在这个服务器上发的讯息可以被发到Mojang, 可以被用者作证据来惩罚你。如果你想再被警告到，请从 NoChatReports.json 把这个服务器给擦掉。",
+	"gui.nochatreports.unsafe_server.header": "小心: 此服务器不安全。", 
+	"gui.nochatreports.unsafe_server.contents": "此服务器需求所有发到的讯息要有编号。你在这个服务器上发的讯息可以被发到Mojang。这表示此服务器的server.properties里的'enforce-secure-profile'是开着的。'enforce-secure-profile'从1.19.1以后是默认启用。你还可以连接上，但No Chat Reports不能保护你。",
+	"gui.nochatreports.unsafe_server.check": "不再让这警告出现在这个服务器上。",
+	"gui.nochatrepords.reload_config_tooltip": " 重置No Chat Report的设置。"
 }
