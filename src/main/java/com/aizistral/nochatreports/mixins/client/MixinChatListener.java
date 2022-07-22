@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import java.time.Instant;
 import java.util.Base64;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.core.NoReportsConfig;
 
+import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
@@ -30,8 +32,8 @@ public class MixinChatListener {
 
 	@Inject(method = "evaluateTrustLevel", at = @At("HEAD"), cancellable = true)
 	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage,
-			Component component, PlayerInfo playerInfo, CallbackInfoReturnable<ChatTrustLevel> info) {
-		if (NoReportsConfig.suppressMessageTrustIndicators()) {
+			Component component, PlayerInfo playerInfo, Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
+		if (NoReportsConfig.suppressVanillaSecurityNotices()) {
 			info.setReturnValue(ChatTrustLevel.SECURE);
 		}
 

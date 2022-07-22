@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;
+import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
@@ -39,7 +40,7 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient, demandOnServer, enableDebugLog, convertToGameMessage = true,
-			showServerSafety = true, suppressMessageTrustIndicators = true, alwaysHideReportButton = false,
+			showServerSafety = true, suppressVanillaSecurityNotices = true, alwaysHideReportButton = false,
 			versionEasterEgg = true, disableTelemetry = true, showReloadButton = true;
 	private List<String> whitelistedServers;
 
@@ -175,15 +176,17 @@ public class NoReportsConfig {
 	}
 
 	/**
-	 * @return True if vanilla's Chat Trust Status indicators should be removed.<br><br>
+	 * @return True if vanilla's Chat Trust Status indicators and "Chat messages can't be verified"
+	 * toast should be removed.<br><br>
 	 *
 	 * This is true by default.
 	 *
 	 * @see MixinChatListener#onEvaluateTrustLevel
+	 * @see MixinToastComponent#onAddToast
 	 */
 
-	public static boolean suppressMessageTrustIndicators() {
-		return getInstance().suppressMessageTrustIndicators;
+	public static boolean suppressVanillaSecurityNotices() {
+		return getInstance().suppressVanillaSecurityNotices;
 	}
 
 	/**

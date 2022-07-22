@@ -21,7 +21,7 @@ public class MixinGuiMessageTag {
 
 	@Inject(method = "system", at = @At("HEAD"), cancellable = true)
 	private static void onSystem(CallbackInfoReturnable<GuiMessageTag> info) {
-		if (NoReportsConfig.suppressMessageTrustIndicators()) {
+		if (NoReportsConfig.suppressVanillaSecurityNotices()) {
 			info.setReturnValue(null);
 		}
 	}
