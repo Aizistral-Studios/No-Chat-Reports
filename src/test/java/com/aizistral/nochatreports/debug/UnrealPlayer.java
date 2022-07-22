@@ -65,7 +65,7 @@ public class UnrealPlayer {
 		ServerPlayer player = this.getPlayer(server);
 		ClientboundPlayerChatPacket packet = new ClientboundPlayerChatPacket(new PlayerChatMessage(
 				new SignedMessageHeader(MessageSignature.EMPTY, this.id), MessageSignature.EMPTY,
-				new SignedMessageBody(new ChatMessageContent(Component.literal(message)), Instant.now(), 0,
+				new SignedMessageBody(new ChatMessageContent(message, Component.literal(message)), Instant.now(), 0,
 						LastSeenMessages.EMPTY), unsigned != null ? Optional.of(Component.literal(unsigned))
 								: Optional.empty()),
 				ChatType.bind(ChatType.CHAT, player).toNetwork(server.registryAccess()));
