@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.NoChatReports;
@@ -44,6 +45,18 @@ public class MixinChatListener {
 					playerChatMessage.signer().profileId(),
 					Base64.getEncoder().encodeToString(playerChatMessage.headerSignature().bytes()));
 		}
+	}
+
+	/**
+	 * @reason Prevent client from disconnecting when chat chain is broken.
+	 * Normal average user will not even understand what happened, so this is absolutely
+	 * useless for them.
+	 * @author Aizistral
+	 */
+
+	@Inject(method = "onChatChainBroken", at = @At("HEAD"), cancellable = true)
+	private void stopUselessDisconnects(CallbackInfo info) {
+		info.cancel();
 	}
 
 }
