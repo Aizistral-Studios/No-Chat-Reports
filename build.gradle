@@ -94,7 +94,7 @@ modrinth {
     versionType = "release"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = remapJar
-    gameVersions = ["1.19.1-pre3"]
+    gameVersions = ["1.19.1-rc2"]
 	loaders = ['fabric', 'quilt']
 	
 	dependencies {

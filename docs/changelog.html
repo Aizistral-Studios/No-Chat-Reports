@@ -1,5 +1,15 @@
 <h3><b>The Changelog:</b></h3><br/>
 
+<h5><b>[Release 1.19.1-rc2-v1.6.0]:</b></h5>
+<p>
+&nbsp;- The mod now removes "[Not Secure]" prefix for unsigned messages in server chat log (<a href="https://github.com/Aizistral-Studios/No-Chat-Reports/issues/70">#70</a>);<br/>
+&nbsp;- The "suppressMessageTrustIndicators" config option was renamed to "suppressVanillaSecurityNotices", and now is also responsible for removing "Chat messages can't be verified" toast client-side (<a href="https://github.com/Aizistral-Studios/No-Chat-Reports/issues/87">#87</a>);<br/>
+&nbsp;- Abovementioned toast will never be shown on servers that have "convertToGameMessage" option enabled;<br/>
+&nbsp;- The mod now prevents client from disconnecting when chat chain is broken;<br/>
+&nbsp;- Changed default configuration to demand the mod client-side when installed on server, instead of getting around chat signing with player to system message conversion. Should assist compatibility in the long run.<br/>
+<p/><br/><br/>
+
+
 <h5><b>[Release 1.19.1-pre3-v1.5.0]:</b></h5>
 <p>
 &nbsp;- Added "versionEasterEgg", "disableTelemetry" and "showReloadButton" config options (<a href="https://github.com/Aizistral-Studios/No-Chat-Reports/pull/83">thanks Madis0, #83</a>).<br/>

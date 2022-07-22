@@ -39,7 +39,7 @@ public class NoChatReportsDebug implements ModInitializer {
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
 		server.execute(() -> {
-			UnrealPlayer player = new UnrealPlayer(UUID.randomUUID(), "Notch");
+			UnrealPlayer player = new UnrealPlayer(UUID.fromString("069a79f4-44e9-4726-a5be-fca90e38aaf5"), "Notch");
 			player.join(server, handler);
 			player.sendMessage(server, handler, "This message is so real and legit", null);
 
