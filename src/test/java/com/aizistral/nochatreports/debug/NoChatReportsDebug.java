@@ -41,7 +41,7 @@ public class NoChatReportsDebug implements ModInitializer {
 		server.execute(() -> {
 			UnrealPlayer player = new UnrealPlayer(UUID.randomUUID(), "Notch");
 			player.join(server, handler);
-			//player.sendMessage(server, handler, "This message is so real and legit", null);
+			player.sendMessage(server, handler, "This message is so real and legit", null);
 
 			//UnrealPlayer.DEFAULT.join(server, handler);
 			//UnrealPlayer.DEFAULT.sendMessage(server, handler, "I'm definitely not gay", "§8I§a'§bM §cG§dA§eY");

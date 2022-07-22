@@ -24,8 +24,8 @@ public class MixinServerboundChatPacket {
 	 * @author Aizistral
 	 */
 
-	@Inject(method = "getSignature", at = @At("RETURN"), cancellable = true)
-	private void onGetSignature(UUID id, CallbackInfoReturnable<MessageSignature> info) {
+	@Inject(method = "signature", at = @At("RETURN"), cancellable = true)
+	private void onGetSignature(CallbackInfoReturnable<MessageSignature> info) {
 		info.setReturnValue(MessageSignature.EMPTY);
 	}
 
