@@ -25,7 +25,8 @@
 	"client.MixinConnectScreen",
 	"client.MixinClientboundHelloPacket",
 	"client.MixinJoinMultiplayerScreen",
-	"client.MixinGuiMessageTag"
+	"client.MixinGuiMessageTag",
+	"client.MixinToastComponent"
   ],
   "server": [
 	"server.MixinDedicatedServer"
