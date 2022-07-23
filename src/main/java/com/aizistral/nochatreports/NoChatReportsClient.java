@@ -51,14 +51,15 @@ public class NoChatReportsClient implements ClientModInitializer {
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
 		ScreenEvents.AFTER_INIT.register(this::onScreenInit);
-
-		if (!Minecraft.getInstance().options.skipMultiplayerWarning) {
-			Minecraft.getInstance().options.skipMultiplayerWarning = true;
-			Minecraft.getInstance().options.save();
-		}
 	}
 
 	private void onScreenInit(Minecraft client, Screen screen, int scaledWidth, int scaledHeight) {
+		if (screen instanceof TitleScreen) {
+			if (!Minecraft.getInstance().options.skipMultiplayerWarning) {
+				Minecraft.getInstance().options.skipMultiplayerWarning = true;
+				Minecraft.getInstance().options.save();
+			}
+		}
 		if (screen instanceof AccessorDisconnectedScreen dsc) {
 			if (screenOverride)
 				return;
