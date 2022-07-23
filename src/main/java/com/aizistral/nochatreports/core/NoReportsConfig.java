@@ -41,7 +41,7 @@ public class NoReportsConfig {
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
 			convertToGameMessage = false, showServerSafety = true, suppressVanillaSecurityNotices = true,
-			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true,
+			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true, disableServerBlocklist = true,
 			showReloadButton = true;
 	private List<String> whitelistedServers;
 
@@ -230,6 +230,16 @@ public class NoReportsConfig {
 
 	public static boolean disableTelemetry() {
 		return getInstance().disableTelemetry;
+	}
+
+	/**
+	 * @return True if the Mojang server blocklist should be ignored.<br><br>
+	 *
+	 * This is true by default.
+	 */
+
+	public static boolean disableServerBlocklist() {
+		return getInstance().disableServerBlocklist;
 	}
 
 	/**
