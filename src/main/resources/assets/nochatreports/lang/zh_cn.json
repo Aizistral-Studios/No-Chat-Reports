@@ -8,6 +8,6 @@
 	"gui.nochatreports.status_unknown": "No Chat Reports 无法检测此服务器的安全性。这不应该发生，请将此错误反馈给模组作者。",
 	"gui.nochatreports.unsafe_server.header": "警告：不安全的服务器",
 	"gui.nochatreports.unsafe_server.contents": "此服务器要求所有消息签名，这意味着它们可以被举报给 Mojang。可能是服务器默认开启了 'enforce-secure-profile' 选项。你可以选择继续游玩，但 No Chat Reports 不能提供任何保护。",
-	"gui.nochatreports.unsafe_server.check": "不再此服务器中再次显示",
+	"gui.nochatreports.unsafe_server.check": "不在此服务器中再次显示",
 	"gui.nochatrepords.reload_config_tooltip": "重载 No Chat Reports 配置。请小心使用。"
 }
