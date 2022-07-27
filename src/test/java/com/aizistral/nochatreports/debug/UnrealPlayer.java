@@ -12,6 +12,7 @@ import net.minecraft.network.chat.ChatMessageContent;
 import net.minecraft.network.chat.ChatSender;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FilterMask;
 import net.minecraft.network.chat.LastSeenMessages;
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.chat.PlayerChatMessage;
@@ -67,7 +68,7 @@ public class UnrealPlayer {
 				new SignedMessageHeader(MessageSignature.EMPTY, this.id), MessageSignature.EMPTY,
 				new SignedMessageBody(new ChatMessageContent(message, Component.literal(message)), Instant.now(), 0,
 						LastSeenMessages.EMPTY), unsigned != null ? Optional.of(Component.literal(unsigned))
-								: Optional.empty()),
+								: Optional.empty(), FilterMask.PASS_THROUGH),
 				ChatType.bind(ChatType.CHAT, player).toNetwork(server.registryAccess()));
 
 
