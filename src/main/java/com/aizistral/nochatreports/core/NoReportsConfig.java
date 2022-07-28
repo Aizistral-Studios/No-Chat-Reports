@@ -40,9 +40,9 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
-			convertToGameMessage = false, showServerSafety = true, hideYellowChatIndicators = true,
+			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 
-			hideRedChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
+	        hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true,
 					showReloadButton = true;
 	private List<String> whitelistedServers;

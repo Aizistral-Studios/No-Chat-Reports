@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +23,7 @@ public class MixinGuiMessageTag {
 	@Inject(method = "system", at = @At("HEAD"), cancellable = true)
 	private static void onSystem(CallbackInfoReturnable<GuiMessageTag> info) {
 		if (NoReportsConfig.hideGrayChatIndicators()) {
-			info.setReturnValue(null);
+			info.setReturnValue(new GuiMessageTag(0, null, null, "System"));
 		}
 	}
 

@@ -5,6 +5,8 @@ import java.util.Base64;
 import java.util.UUID;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,14 +24,14 @@ import net.minecraft.network.chat.PlayerChatMessage;
 @Mixin(ChatListener.class)
 public class MixinChatListener {
 
-	@Inject(method = "isSenderLocalPlayer", at = @At("RETURN"))
-	private boolean isSenderLocalPlayer(UUID uuid, CallbackInfoReturnable<Boolean> cir) {
-		return cir.getReturnValue();
+	@Shadow
+	private boolean isSenderLocalPlayer(UUID uuid) {
+		return false;
 	}
 
 	/**
 	 * @reason Removes "Not Secure" and "Modified" statuses of chat messages. They ultimately
-	 * server no purpose but to annoy the user and scare them away from servers that actually
+	 * serve no purpose but to annoy the user and scare them away from servers that actually
 	 * try to protect them by stripping message signatures.
 	 * @author Aizistral
 	 */
@@ -38,7 +40,7 @@ public class MixinChatListener {
 	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage,
 			Component component, PlayerInfo playerInfo, Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
 
-		if (this.isSenderLocalPlayer(playerChatMessage.signer().profileId(), null)){
+		if (isSenderLocalPlayer(playerChatMessage.signer().profileId())){
 			info.setReturnValue(ChatTrustLevel.SECURE);
 		}
 		else {
