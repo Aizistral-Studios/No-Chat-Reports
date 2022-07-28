@@ -23,7 +23,7 @@ public class MixinGuiMessageTag {
 	@Inject(method = "system", at = @At("HEAD"), cancellable = true)
 	private static void onSystem(CallbackInfoReturnable<GuiMessageTag> info) {
 		if (NoReportsConfig.hideGrayChatIndicators()) {
-			info.setReturnValue(new GuiMessageTag(0, null, null, "System"));
+			info.setReturnValue(null);
 		}
 	}
 

@@ -203,7 +203,7 @@ public class NoReportsConfig {
 	}
 
 	/**
-	 * @return True if vanilla's modified/hidden messages trust indicator should be removed.<br><br>
+	 * @return True if vanilla's system messages trust indicator should be removed.<br><br>
 	 *
 	 * This is true by default.
 	 *
