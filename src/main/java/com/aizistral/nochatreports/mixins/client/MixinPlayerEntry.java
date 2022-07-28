@@ -46,7 +46,7 @@ public class MixinPlayerEntry {
 	 */
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen socialInteractionsScreen, UUID uUID, String string, Supplier<ResourceLocation> supplier, CallbackInfo info) {
+	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen socialInteractionsScreen, UUID uUID, String string, Supplier<ResourceLocation> supplier, boolean reportable, CallbackInfo info) {
 		if (NoReportsConfig.alwaysHideReportButton()) {
 			this.reportButton = new Button(0, 0, 20, 20, Component.empty(), button -> {}) {
 				@Override

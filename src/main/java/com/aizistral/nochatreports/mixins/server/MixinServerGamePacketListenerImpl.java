@@ -36,7 +36,7 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 			if (packet instanceof ClientboundPlayerChatPacket chat) {
 				Component component = chat.message().signedContent().decorated();
 				ChatTypeDecoration decoration = this.player.level.registryAccess().registryOrThrow(Registry.CHAT_TYPE_REGISTRY).byId(chat.chatType().chatType()).chat();
-				component = decoration.decorate(component, chat.chatType().resolve(this.player.level.registryAccess()).get());
+				component = decoration.decorate(component, chat.resolveChatType(this.player.level.registryAccess()).get());
 				packet = new ClientboundSystemChatPacket(component, false);
 
 				info.cancel();

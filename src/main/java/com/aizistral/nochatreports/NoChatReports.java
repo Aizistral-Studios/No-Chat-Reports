@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.network.ServerChannelHandler;
 import com.mojang.authlib.minecraft.UserApiService;
+import com.mojang.patchy.MojangBlockListSupplier;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

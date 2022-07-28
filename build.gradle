@@ -43,7 +43,24 @@ java {
 	// withSourcesJar()
 }
 
+task testJar (type: Jar) {
+	classifier = 'test'
+	from sourceSets.test.output
+	testJar.finalizedBy('prepareRemapJar')
+	testJar.finalizedBy('remapJar')
+
+	from("LICENSE") {
+		// NO-OP
+	}
+	
+	doFirst {
+		remapJar.classifier = 'test-reobf'
+		remapJar.inputFile = testJar.outputs.files.singleFile
+	}
+}
+
 jar {
+
 	from("LICENSE") {
 		// NO-OP
 	}
@@ -94,7 +111,7 @@ modrinth {
     versionType = "release"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = remapJar
-    gameVersions = ["1.19.1-rc2"]
+    gameVersions = ["1.19.1"]
 	loaders = ['fabric', 'quilt']
 	
 	dependencies {
