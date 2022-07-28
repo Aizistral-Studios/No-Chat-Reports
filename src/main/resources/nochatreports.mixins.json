@@ -20,7 +20,7 @@
 	"client.MixinTitleScreen",
 	"client.MixinMinecraft",
 	"client.MixinPlayerEntry",
-    "client.MixinChatScreen",
+	"client.MixinChatScreen",
 	"client.AccessorDisconnectedScreen",
 	"client.MixinConnectScreen",
 	"client.MixinClientboundHelloPacket",
