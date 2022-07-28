@@ -40,9 +40,11 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
-			convertToGameMessage = false, showServerSafety = true, suppressVanillaSecurityNotices = true,
+			convertToGameMessage = false, showServerSafety = true, hideYellowChatIndicators = true,
+
+			hideRedChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true,
-			showReloadButton = true;
+					showReloadButton = true;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -177,17 +179,51 @@ public class NoReportsConfig {
 	}
 
 	/**
-	 * @return True if vanilla's Chat Trust Status indicators and "Chat messages can't be verified"
-	 * toast should be removed.<br><br>
+	 * @return True if vanilla's unsigned messages trust indicator should be removed.<br><br>
 	 *
 	 * This is true by default.
 	 *
 	 * @see MixinChatListener#onEvaluateTrustLevel
+	 */
+
+	public static boolean hideRedChatIndicators() {
+		return getInstance().hideRedChatIndicators;
+	}
+
+	/**
+	 * @return True if vanilla's modified/hidden messages trust indicator should be removed.<br><br>
+	 *
+	 * This is true by default.
+	 *
+	 * @see MixinChatListener#onEvaluateTrustLevel
+	 */
+
+	public static boolean hideYellowChatIndicators() {
+		return getInstance().hideYellowChatIndicators;
+	}
+
+	/**
+	 * @return True if vanilla's modified/hidden messages trust indicator should be removed.<br><br>
+	 *
+	 * This is true by default.
+	 *
+	 * @see com.aizistral.nochatreports.mixins.client.MixinGuiMessageTag#onSystem
+	 */
+
+	public static boolean hideGrayChatIndicators() {
+		return getInstance().hideGrayChatIndicators;
+	}
+
+	/**
+	 * @return True if "Chat messages can't be verified" toast should be removed.<br><br>
+	 *
+	 * This is true by default.
+	 *
 	 * @see MixinToastComponent#onAddToast
 	 */
 
-	public static boolean suppressVanillaSecurityNotices() {
-		return getInstance().suppressVanillaSecurityNotices;
+	public static boolean hideWarningToast() {
+		return getInstance().hideWarningToast;
 	}
 
 	/**
