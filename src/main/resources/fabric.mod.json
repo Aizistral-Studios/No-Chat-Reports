@@ -21,8 +21,11 @@
     "main": [
       "com.aizistral.nochatreports.NoChatReports"
     ],
-	"client": [
+	  "client": [
       "com.aizistral.nochatreports.NoChatReportsClient"
+    ],
+    "modmenu": [
+      "com.aizistral.nochatreports.ModMenuIntegration"
     ]
   },
   "mixins": [
