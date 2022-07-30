@@ -17,48 +17,47 @@ import java.util.List;
 
 @Mixin(ChatOptionsScreen.class)
 public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
-    private AbstractWidget onlyShowSecureChat;
+	private AbstractWidget onlyShowSecureChat;
 
-    /**
-     * @implNote Using {@link net.minecraft.client.gui.Font#split} because
-     * {@link net.minecraft.client.OptionInstance#splitTooltip(Minecraft, Component)} is protected.
-     * Field {@link net.minecraft.client.gui.screens.Screen#minecraft} is not used because it can be null.
-     * @author Kevinthegreat
-     */
-    @SuppressWarnings({"JavaDoc", "JavadocReference"})
-    private final List<FormattedCharSequence> secureChatTooltip = Minecraft.getInstance().font.split(Component.translatable("gui.nochatreport.secureChat"), 200);
+	/**
+	 * @implNote Using {@link net.minecraft.client.gui.Font#split} because
+	 * {@link net.minecraft.client.OptionInstance#splitTooltip(Minecraft, Component)} is protected.
+	 * Field {@link net.minecraft.client.gui.screens.Screen#minecraft} is not used because it can be null.
+	 * @author Kevinthegreat
+	 */
+	@SuppressWarnings({"JavaDoc", "JavadocReference"})
+	private final List<FormattedCharSequence> secureChatTooltip = Minecraft.getInstance().font.split(Component.translatable("gui.nochatreport.secureChat"), 200);
 
-    public MixinChatOptionsScreen(Screen screen, Options options, Component component, OptionInstance<?>[] optionInstances) {
-        super(screen, options, component, optionInstances);
-    }
+	public MixinChatOptionsScreen(Screen screen, Options options, Component component, OptionInstance<?>[] optionInstances) {
+		super(screen, options, component, optionInstances);
+		throw new IllegalStateException("Can't touch this");
+	}
 
-    /**
-     * Gray out the only show secure chat option by deactivating the button when the screen is initialized.
-     *
-     * @author Kevinthegreat
-     */
+	/**
+	 * Gray out the only show secure chat option by deactivating the button when the screen is initialized.
+	 * @author Kevinthegreat
+	 */
 
-    @Override
-    protected void init() {
-        super.init();
-        onlyShowSecureChat = list.findOption(Minecraft.getInstance().options.onlyShowSecureChat());
-        if (onlyShowSecureChat != null) {
-            onlyShowSecureChat.active = false;
-        }
-    }
+	@Override
+	protected void init() {
+		super.init();
+		this.onlyShowSecureChat = this.list.findOption(Minecraft.getInstance().options.onlyShowSecureChat());
+		if (this.onlyShowSecureChat != null) {
+			this.onlyShowSecureChat.active = false;
+		}
+	}
 
-    /**
-     * Render the tooltip on mouseover for only show secure chat option.
-     * Minecraft only render tooltips when the widget is active.
-     *
-     * @author Kevinthegreat
-     */
+	/**
+	 * Render the tooltip on mouseover for only show secure chat option.
+	 * Minecraft only render tooltips when the widget is active.
+	 * @author Kevinthegreat
+	 */
 
-    @Override
-    public void render(@NotNull PoseStack poseStack, int x, int y, float f) {
-        super.render(poseStack, x, y, f);
-        if (onlyShowSecureChat != null && onlyShowSecureChat.visible && x >= (double) onlyShowSecureChat.x && y >= (double) onlyShowSecureChat.y && x < (double) (onlyShowSecureChat.x + onlyShowSecureChat.getWidth()) && y < (double) (onlyShowSecureChat.y + onlyShowSecureChat.getHeight())) {
-            renderTooltip(poseStack, secureChatTooltip, x, y);
-        }
-    }
+	@Override
+	public void render(@NotNull PoseStack poseStack, int x, int y, float f) {
+		super.render(poseStack, x, y, f);
+		if (this.onlyShowSecureChat != null && this.onlyShowSecureChat.visible && x >= (double) this.onlyShowSecureChat.x && y >= (double) this.onlyShowSecureChat.y && x < (double) (this.onlyShowSecureChat.x + this.onlyShowSecureChat.getWidth()) && y < (double) (this.onlyShowSecureChat.y + this.onlyShowSecureChat.getHeight())) {
+			this.renderTooltip(poseStack, this.secureChatTooltip, x, y);
+		}
+	}
 }
