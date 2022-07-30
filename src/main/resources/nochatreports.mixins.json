@@ -6,21 +6,33 @@
   "refmap": "nochatreports.refmap.json",
   "verbose": true,
   "mixins": [
-	"MixinPlayer",
-	"MixinServerboundChatPacket",
-	"MixinServerGamePacketListenerImpl"
+	"server.MixinPlayer",
+	"server.MixinServerboundChatPacket",
+	"server.MixinServerGamePacketListenerImpl",
+	"server.MixinServerStatus",
+	"server.MixinPlayerList"
   ],
   "client": [
-	"MixinLocalPlayer",
-	"MixinClientPacketListener",
-	"MixinOptions",
-	"MixinProfileKeyPairManager",
-	"MixinClientTelemetryManager",
-	"MixinMinecraft",
-	"MixinBrandingControl"
+	"client.MixinLocalPlayer",
+	"client.MixinOptions",
+	"client.MixinChatListener",
+    "client.MixinChatOptionsScreen",
+	"client.MixinProfileKeyPairManager",
+	"client.MixinClientTelemetryManager",
+	"client.MixinBrandingControl",
+	"client.MixinMinecraft",
+	"client.MixinPlayerEntry",
+	"client.MixinChatScreen",
+	"client.AccessorDisconnectedScreen",
+	"client.MixinConnectScreen",
+	"client.MixinClientboundHelloPacket",
+	"client.MixinJoinMultiplayerScreen",
+	"client.MixinGuiMessageTag",
+	"client.MixinToastComponent",
+	"client.MixinRealmsConnect"
   ],
   "server": [
-	"MixinDedicatedServer"
+	"server.MixinDedicatedServer"
   ],
   "injectors": {
     "defaultRequire": 1

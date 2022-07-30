@@ -1,4 +1,5 @@
-package com.aizistral.nochatreports.mixins;
+
+package com.aizistral.nochatreports.mixins.client;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
@@ -17,17 +18,16 @@ public class MixinOptions {
 
 	/**
 	 * @reason Disable secure chat option, since it will not work anyways.
-	 * @author Aizistral (Overwrite)
-	 * @author Aven (Inject)
+	 * @author Aizistral
 	 */
 
-	@Inject(method = "onlyShowSecureChat", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "onlyShowSecureChat", at = @At("RETURN"), cancellable = true)
 	private void onlyShowSecureChat(CallbackInfoReturnable<OptionInstance<Boolean>> cir) {
 		if (this.alternativeOption == null) {
 			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
 					OptionInstance.cachedConstantTooltip(Component.translatable("gui.nochatreport.secureChat")),
 					(component, value) -> value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF,
-					new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
+							new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
 		}
 
 		cir.setReturnValue(this.alternativeOption);

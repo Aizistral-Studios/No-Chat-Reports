@@ -23,7 +23,7 @@ buildscript {
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
 		
 		// custom MixinGradle fork, because it keeps screwing up eclipse task
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-1.0.0-SNAPSHOT' 
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT' 
     }
 }
 
@@ -62,9 +62,9 @@ mixin {
 
 minecraft {
 	println("Specifying MCP mappings...")
-    mappings channel: 'official', version: '1.19'
+    mappings channel: 'official', version: project.version_mc
 	println("Specifying Access Transformer configuration...")	
-	// accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
 	runs {
         client {

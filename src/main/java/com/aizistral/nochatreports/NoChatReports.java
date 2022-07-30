@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.aizistral.nochatreports.handlers.NoReportsConfig;
+import com.aizistral.nochatreports.core.NoReportsConfig;
 
 import net.minecraft.network.protocol.login.ServerboundHelloPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +24,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.event.EventNetworkChannel;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 @Mod(NoChatReports.MODID)
@@ -32,7 +33,8 @@ public class NoChatReports {
 	public static final Logger LOGGER = LogManager.getLogger();
 	private static final String PTC_VERSION = "1";
 	private static final Predicate<String> ANY = obj -> true;
-	private static SimpleChannel packetInstance;
+	private static SimpleChannel channel;
+	private static boolean detectedOnClient = false, detectedOnServer = false;
 
 	public NoChatReports() {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -46,28 +48,46 @@ public class NoChatReports {
 		NoReportsConfig.loadConfig();
 	}
 
-	private void onLoadComplete(final FMLLoadCompleteEvent event) {
+	private void onLoadComplete(FMLLoadCompleteEvent event) {
 		// NO-OP
 	}
 
-	private void setup(final FMLCommonSetupEvent event) {
-		packetInstance = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "main"))
+	private void setup(FMLCommonSetupEvent event) {
+		channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "main"))
 				.networkProtocolVersion(() -> PTC_VERSION)
-				.clientAcceptedVersions(NoReportsConfig.demandsOnServer() ? PTC_VERSION::equals : ANY)
-				.serverAcceptedVersions(NoReportsConfig.demandsOnClient() ? PTC_VERSION::equals : ANY)
+				.clientAcceptedVersions(version -> {
+					detectedOnServer = !isAbsentOrVanilla(version);
+					return NoReportsConfig.demandsOnServer() ? PTC_VERSION.equals(version) : true;
+				})
+				.serverAcceptedVersions(version -> {
+					detectedOnClient = !isAbsentOrVanilla(version);
+					return NoReportsConfig.demandsOnClient() ? PTC_VERSION.equals(version) : true;
+				})
 				.simpleChannel();
 	}
 
-	private void doClientStuff(final FMLClientSetupEvent event) {
+	private void doClientStuff(FMLClientSetupEvent event) {
 		// NO-OP
 	}
 
-	private void enqueueIMC(final InterModEnqueueEvent event) {
+	private void enqueueIMC(InterModEnqueueEvent event) {
 		// NO-OP
 	}
 
-	private void processIMC(final InterModProcessEvent event) {
+	private void processIMC(InterModProcessEvent event) {
 		// NO-OP
+	}
+
+	private static boolean isAbsentOrVanilla(String protocol) {
+		return NetworkRegistry.ABSENT.equals(protocol) || NetworkRegistry.ACCEPTVANILLA.equals(protocol);
+	}
+
+	public static boolean isDetectedOnClient() {
+		return detectedOnClient;
+	}
+
+	public static boolean isDetectedOnServer() {
+		return detectedOnServer;
 	}
 
 }
