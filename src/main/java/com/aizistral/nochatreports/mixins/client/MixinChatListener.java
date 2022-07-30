@@ -25,7 +25,7 @@ public class MixinChatListener {
 
 	@Shadow
 	private boolean isSenderLocalPlayer(UUID uuid) {
-		return false;
+		throw new IllegalStateException("@Shadow transformation failed. Should never happen.");
 	}
 
 	/**
@@ -36,24 +36,27 @@ public class MixinChatListener {
 	 */
 
 	@Inject(method = "evaluateTrustLevel", at = @At("HEAD"), cancellable = true)
-	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage,
-			Component component, PlayerInfo playerInfo, Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
+	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage, Component component, PlayerInfo playerInfo,
+			Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
 
-		if (isSenderLocalPlayer(playerChatMessage.signer().profileId())){
+		if (this.isSenderLocalPlayer(playerChatMessage.signer().profileId())) {
 			info.setReturnValue(ChatTrustLevel.SECURE);
-		}
-		else {
+		} else {
 			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, playerInfo, instant);
-			if((evaluate == ChatTrustLevel.NOT_SECURE || evaluate == ChatTrustLevel.BROKEN_CHAIN) && NoReportsConfig.hideRedChatIndicators())
+
+			if ((evaluate == ChatTrustLevel.NOT_SECURE || evaluate == ChatTrustLevel.BROKEN_CHAIN)
+					&& NoReportsConfig.hideRedChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
-			if((evaluate == ChatTrustLevel.FILTERED || evaluate == ChatTrustLevel.MODIFIED) && NoReportsConfig.hideYellowChatIndicators())
+			} else if ((evaluate == ChatTrustLevel.FILTERED || evaluate == ChatTrustLevel.MODIFIED)
+					&& NoReportsConfig.hideYellowChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
+			}
 		}
 
 		// Debug never dies
 		if (NoReportsConfig.isDebugLogEnabled()) {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
-					Component.Serializer.toStableJson(playerChatMessage.signedContent().decorated()),
+					Component.Serializer.toStableJson(playerChatMessage.serverContent()),
 					playerChatMessage.signer().profileId(),
 					Base64.getEncoder().encodeToString(playerChatMessage.headerSignature().bytes()));
 		}
