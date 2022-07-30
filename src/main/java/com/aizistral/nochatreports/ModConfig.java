@@ -1,8 +1,13 @@
 package com.aizistral.nochatreports;
 
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+
 @Config(name = "NoChatReports")
 public class ModConfig implements ConfigData {
 
+    @ConfigEntry.Gui.Tooltip
     public boolean demandOnClient = true;
     @ConfigEntry.Gui.Tooltip
     public boolean demandOnServer = false;
@@ -22,5 +27,4 @@ public class ModConfig implements ConfigData {
     public boolean disableTelemetry = true;
     @ConfigEntry.Gui.Tooltip
     public boolean showReloadButton = true;
-    @ConfigEntry.Gui.Tooltip
 }
