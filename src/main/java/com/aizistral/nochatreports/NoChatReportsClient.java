@@ -33,8 +33,9 @@ import net.minecraft.realms.RealmsConnect;
 import net.minecraft.realms.RealmsScreen;
 
 import com.aizistral.nochatreports.ModConfig;
+import com.aizistral.nochatreports.ModMenuIntegration;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 /**
  * Client initializer for the mod. Some networking setup here, as well as few screen-related events.
@@ -59,7 +60,7 @@ public class NoChatReportsClient implements ClientModInitializer {
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
 		ScreenEvents.AFTER_INIT.register(this::onScreenInit);
-		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
 	}
 
