@@ -1,6 +1,4 @@
 {
-	"modmenu.descriptionTranslation.nochatreports": "NCR",
-	
 	"gui.nochatreport.secureChat": "This option cannot work with No Chat Reports, since there are no signatures to verify.",
 	"gui.nochatreport.noReporting": "Chat reports are disabled on this server, courtesy of No Chat Reports.",
 	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
@@ -13,7 +11,25 @@
 	"gui.nochatreports.unsafe_server.check": "Do not show again for this server",
 	"gui.nochatrepords.reload_config_tooltip": "Reload No Chat Reports config. Use carefully.",
 
-	"text.autoconfig.nochatreports.option.demandOnClient": "Demand on Client",
-	"text.autoconfig.nochatreports.option.demandOnClient.@Tooltip": "Demand on Client Tooltip"
-
+	"text.autoconfig.NoChatReports.title": "No Chat Reports",
+	"text.autoconfig.NoChatReports.option.demandOnClient": "Force NoChatReports on the client",
+	"text.autoconfig.NoChatReports.option.demandOnClient.@Tooltip": "Toggles to force NoChatReports on the client.",
+	"text.autoconfig.NoChatReports.option.demandOnServer": "Force NoChatReports on server",
+	"text.autoconfig.NoChatReports.option.demandOnServer.@Tooltip": "Toggles to force NoChatReports on server.",
+	"text.autoconfig.NoChatReports.option.enableDebugLog": "Debug Log",
+	"text.autoconfig.NoChatReports.option.enableDebugLog.@Tooltip": "Toggles the debug log.",
+	"text.autoconfig.NoChatReports.option.convertToGameMessage": "Convert messages to game messages",
+	"text.autoconfig.NoChatReports.option.convertToGameMessage.@Tooltip": "Toggles converting messages to game messages.",
+	"text.autoconfig.NoChatReports.option.showServerSafety": "Show server safety",
+	"text.autoconfig.NoChatReports.option.showServerSafety.@Tooltip": "Toggles the ability to see server safety.",
+	"text.autoconfig.NoChatReports.option.suppressVanillaSecurityNotices": "Hide vanilla security notices",
+	"text.autoconfig.NoChatReports.option.suppressVanillaSecurityNotices.@Tooltip": "Toggles the vanilla security notices.",
+	"text.autoconfig.NoChatReports.option.alwaysHideReportButton": "Hide report button",
+	"text.autoconfig.NoChatReports.option.alwaysHideReportButton.@Tooltip": "Toggles the report button in social interactions.",
+	"text.autoconfig.NoChatReports.option.versionEasterEgg": "Version easter egg",
+	"text.autoconfig.NoChatReports.option.versionEasterEgg.@Tooltip": "Toggles 1.19.84 version.",
+	"text.autoconfig.NoChatReports.option.disableTelemetry": "Telemetry",
+	"text.autoconfig.NoChatReports.option.disableTelemetry.@Tooltip": "Toggles telemetry.",
+	"text.autoconfig.NoChatReports.option.showReloadButton": "Show reload button",
+	"text.autoconfig.NoChatReports.option.showReloadButton.@Tooltip": "Toggles the reload button in multiplayer menu."
 }

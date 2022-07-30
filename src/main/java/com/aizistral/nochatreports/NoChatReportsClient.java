@@ -32,6 +32,10 @@ import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.realms.RealmsConnect;
 import net.minecraft.realms.RealmsScreen;
 
+import com.aizistral.nochatreports.ModConfig;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+
 /**
  * Client initializer for the mod. Some networking setup here, as well as few screen-related events.
  * @author Aizistral
@@ -46,6 +50,8 @@ public class NoChatReportsClient implements ClientModInitializer {
 			);
 	private static boolean screenOverride = false;
 
+	public static ModConfig CONFIG = new ModConfig();
+
 	@Override
 	public void onInitializeClient() {
 		NoChatReports.LOGGER.info("Client initialization...");
@@ -53,6 +59,8 @@ public class NoChatReportsClient implements ClientModInitializer {
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
 		ScreenEvents.AFTER_INIT.register(this::onScreenInit);
+		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+        CONFIG = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
 	}
 
 	private void onScreenInit(Minecraft client, Screen screen, int scaledWidth, int scaledHeight) {
