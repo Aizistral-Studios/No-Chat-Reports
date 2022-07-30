@@ -1,8 +1,8 @@
 # No Chat Reports
 
-**Current Version:** 1.19-v1.2.3
+**Current Version:** 1.19-v1.3.0
 
-**Minecraft Version:** 1.19.x
+**Minecraft Version:** 1.19.1
 
 **Forge Version:** 41.0.0 or later.
 
