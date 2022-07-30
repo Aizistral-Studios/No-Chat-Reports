@@ -26,7 +26,7 @@ public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
 	 * @author Kevinthegreat
 	 */
 	@SuppressWarnings({"JavaDoc", "JavadocReference"})
-	private final List<FormattedCharSequence> secureChatTooltip = Minecraft.getInstance().font.split(Component.translatable("gui.nochatreport.secureChat"), 200);
+	private List<FormattedCharSequence> secureChatTooltip;
 
 	public MixinChatOptionsScreen(Screen screen, Options options, Component component, OptionInstance<?>[] optionInstances) {
 		super(screen, options, component, optionInstances);
@@ -41,7 +41,9 @@ public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
 	@Override
 	protected void init() {
 		super.init();
+		this.secureChatTooltip = Minecraft.getInstance().font.split(Component.translatable("gui.nochatreport.secureChat"), 200);
 		this.onlyShowSecureChat = this.list.findOption(Minecraft.getInstance().options.onlyShowSecureChat());
+
 		if (this.onlyShowSecureChat != null) {
 			this.onlyShowSecureChat.active = false;
 		}
