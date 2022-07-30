@@ -13,6 +13,7 @@
   ],
   "client": [
 	"client.MixinLocalPlayer",
+	"client.MixinOptions",
 	"client.MixinChatListener",
     "client.MixinChatOptionsScreen",
 	"client.MixinProfileKeyPairManager",
