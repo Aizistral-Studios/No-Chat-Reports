@@ -17,7 +17,7 @@ public class MixinToastComponent {
 
 	@Inject(method = "addToast", at = @At("HEAD"), cancellable = true)
 	private void onAddToast(Toast toast, CallbackInfo info) {
-		if (NoReportsConfig.suppressVanillaSecurityNotices())
+		if (NoReportsConfig.hideWarningToast())
 			if (toast instanceof SystemToast sys && sys.getToken() == SystemToastIds.UNSECURE_SERVER_WARNING) {
 				info.cancel();
 			}
