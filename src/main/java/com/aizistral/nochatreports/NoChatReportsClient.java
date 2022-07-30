@@ -26,7 +26,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = NoChatReports.MODID, bus = Bus.FORGE)
 public class NoChatReportsClient {
 	private static final List<String> KEY_DISCONNECT_REASONS = ImmutableList.of(
@@ -41,6 +40,7 @@ public class NoChatReportsClient {
 	}
 
 	@SubscribeEvent
+	@OnlyIn(Dist.CLIENT)
 	public static void onScreenInit(ScreenEvent.Init.Post event) {
 		Minecraft client = Minecraft.getInstance();
 		Screen screen = event.getScreen();
@@ -77,12 +77,14 @@ public class NoChatReportsClient {
 	}
 
 	@SubscribeEvent
+	@OnlyIn(Dist.CLIENT)
 	public static void onDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
 		Minecraft client = Minecraft.getInstance();
 		client.execute(ServerSafetyState::reset);
 	}
 
 	@SubscribeEvent
+	@OnlyIn(Dist.CLIENT)
 	public static void onJoin(ClientPlayerNetworkEvent.LoggingIn event) {
 		Minecraft client = Minecraft.getInstance();
 
@@ -102,6 +104,7 @@ public class NoChatReportsClient {
 		});
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	public static void reconnectLastServer() {
 		ServerSafetyState.setReconnectCount(ServerSafetyState.getReconnectCount() + 1);
 		ConnectScreen.startConnecting(new JoinMultiplayerScreen(new TitleScreen()), Minecraft.getInstance(),
