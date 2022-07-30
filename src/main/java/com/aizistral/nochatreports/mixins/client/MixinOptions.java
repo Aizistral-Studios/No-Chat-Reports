@@ -1,3 +1,4 @@
+
 package com.aizistral.nochatreports.mixins.client;
 
 import com.google.common.collect.ImmutableList;
@@ -16,8 +17,7 @@ public class MixinOptions {
 	private OptionInstance<Boolean> alternativeOption;
 
 	/**
-	 * @reason Disable secure chat option, since it will not work anyways. I would prefer to have
-	 * the button greyed out instead, but there is no elegant solution to implement this.
+	 * @reason Disable secure chat option, since it will not work anyways.
 	 * @author Aizistral
 	 */
 

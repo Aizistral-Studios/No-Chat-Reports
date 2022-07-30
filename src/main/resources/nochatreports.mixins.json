@@ -13,8 +13,9 @@
   ],
   "client": [
 	"client.MixinLocalPlayer",
-	"client.MixinChatListener",
 	"client.MixinOptions",
+	"client.MixinChatListener",
+    "client.MixinChatOptionsScreen",
 	"client.MixinProfileKeyPairManager",
 	"client.MixinClientTelemetryManager",
 	"client.MixinTitleScreen",
