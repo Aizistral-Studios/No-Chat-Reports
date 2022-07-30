@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/no-chat-reports",
-    "sources": "https://github.com/Aizistral-Studios/No-Chat-Reports"
+    "sources": "https://github.com/Aizistral-Studios/No-Chat-Reports",
+    "issues": "https://github.com/Aizistral-Studios/No-Chat-Reports/issues"
   },
 
   "license": "WTFPL",
