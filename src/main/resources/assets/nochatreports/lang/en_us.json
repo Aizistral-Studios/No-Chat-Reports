@@ -12,8 +12,8 @@
 	"gui.nochatrepords.reload_config_tooltip": "Reload No Chat Reports config. Use carefully.",
 
 	"text.autoconfig.NoChatReports.title": "No Chat Reports",
-	"text.autoconfig.NoChatReports.option.demandOnClient": "Demand on client",
-	"text.autoconfig.NoChatReports.option.demandOnClient.@Tooltip": "True if client with No Chat Reports installed should demand that mod is present on every server that it tries to join.",
+	"text.autoconfig.NoChatReports.option.demandOnServer": "Demand on server",
+	"text.autoconfig.NoChatReports.option.demandOnServer.@Tooltip": "True if client with No Chat Reports installed should demand that mod is present on every server that it tries to join.",
 	"text.autoconfig.NoChatReports.option.enableDebugLog": "Enable debug log",
 	"text.autoconfig.NoChatReports.option.enableDebugLog.@Tooltip": "True if mod should log some additional information about its activity and message signatures. Generally only useful for debugging.",
 	"text.autoconfig.NoChatReports.option.showServerSafety": "Show server safety",
