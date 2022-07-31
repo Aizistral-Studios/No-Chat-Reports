@@ -9,7 +9,5 @@
 	"gui.nochatreports.unsafe_server.header": "Caution: Unsafe Server",
 	"gui.nochatreports.unsafe_server.contents": "This server requires all chat messages to be signed, which means they can be reported to Mojang, which may result in a ban from all multiplayer servers. This likely means that the server owner kept \"enforce-secure-profile\" enabled in the server.properties, which is the default since 1.19.1. You can choose to play anyway, but No Chat Reports will not be able to protect you.",
 	"gui.nochatreports.unsafe_server.check": "Do not show again for this server",
-	"gui.nochatrepords.reload_config_tooltip": "Reload No Chat Reports config. Use carefully.",
-	"modmenu.modrinth": "Modrinth",
-	"modmenu.curseforge": "CurseForge" 
+	"gui.nochatrepords.reload_config_tooltip": "Reload No Chat Reports config. Use carefully."
 }
