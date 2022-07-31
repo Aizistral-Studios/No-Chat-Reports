@@ -1,0 +1,21 @@
+name: Suggestion
+labels:
+  - enhancement
+assignees:
+  - Aizistral
+description: Suggest a change or new feature
+body:
+  - type: textarea
+    attributes:
+      label: Idea
+      placeholder: Describe your suggestion.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reasoning
+      placeholder: Describe why you want this, if you have any reasons.
+  - type: textarea
+    attributes:
+      label: Other information
+      description: Any other relevant information.
