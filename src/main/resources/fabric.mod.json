@@ -22,8 +22,11 @@
     "main": [
       "com.aizistral.nochatreports.NoChatReports"
     ],
-	"client": [
+	  "client": [
       "com.aizistral.nochatreports.NoChatReportsClient"
+    ],
+    "modmenu": [
+      "com.aizistral.nochatreports.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -33,6 +36,7 @@
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
+    "cloth-config2": "*",
     "minecraft": "=1.19.1",
     "java": ">=17"
   },
