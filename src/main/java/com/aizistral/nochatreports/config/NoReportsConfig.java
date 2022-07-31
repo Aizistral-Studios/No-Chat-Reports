@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -17,13 +16,9 @@ import com.aizistral.nochatreports.mixins.client.MixinChatListener;
 import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.util.Tuple;
 
 /**
  * Simple implementation of JSON-config for the mod. Can be loaded at any time and does not depend
@@ -40,10 +35,10 @@ public class NoReportsConfig {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	private boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
-			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
-			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
-			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true,
-			showReloadButton = true;
+			convertToGameMessage = false, includeQueryData = true, showServerSafety = true,
+			hideRedChatIndicators = true, hideYellowChatIndicators = true, hideGrayChatIndicators = true,
+			hideWarningToast = true, alwaysHideReportButton = false, versionEasterEgg = true,
+			disableTelemetry = true, showReloadButton = true;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -140,6 +135,16 @@ public class NoReportsConfig {
 
 	public static boolean convertToGameMessage() {
 		return getInstance().convertToGameMessage;
+	}
+
+	/**
+	 * @return True if server should include extra query data to help clients know that your server is secure.<br><br>
+	 *
+	 * This is true by default.
+	 */
+
+	public static boolean includeQueryData() {
+		return getInstance().includeQueryData;
 	}
 
 	/**
