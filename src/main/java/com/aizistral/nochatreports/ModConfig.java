@@ -10,13 +10,17 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip()
     public boolean demandOnClient = true;
     @ConfigEntry.Gui.Tooltip()
-    public boolean demandOnServer = false;
-    @ConfigEntry.Gui.Tooltip()
     public boolean enableDebugLog = false;
     @ConfigEntry.Gui.Tooltip()
-    public boolean convertToGameMessage = false;
-    @ConfigEntry.Gui.Tooltip()
     public boolean showServerSafety = true;
+    @ConfigEntry.Gui.Tooltip()
+    public boolean hideRedChatIndicators = true;
+    @ConfigEntry.Gui.Tooltip()
+    public boolean hideYellowChatIndicators = true;
+    @ConfigEntry.Gui.Tooltip()
+    public boolean hideGrayChatIndicators = true;
+    @ConfigEntry.Gui.Tooltip()
+    public boolean hideWarningToast = true;
     @ConfigEntry.Gui.Tooltip()
     public boolean suppressVanillaSecurityNotices = true;
     @ConfigEntry.Gui.Tooltip()
