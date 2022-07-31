@@ -2,7 +2,7 @@ name: Bug Report
 labels:
   - bug
 description: Report a bug with No Chat Reports
- - type: dropdown
+  - type: dropdown
     id: modloader
     attributes:
       label: Modloader
