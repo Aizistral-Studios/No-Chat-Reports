@@ -3,7 +3,7 @@ labels:
   - bug
 assignees:
   - Aizistral
-description: Report a bug with No Chat Reports
+description: Report a bug
 body:
   - type: dropdown
     id: modloader
