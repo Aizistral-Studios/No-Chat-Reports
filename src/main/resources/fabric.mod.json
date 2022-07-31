@@ -37,5 +37,14 @@
     "java": ">=17"
   },
   "suggests": {},
-  "accessWidener" : "nochatreports.accesswidener"
+  "accessWidener" : "nochatreports.accesswidener",
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.modrinth": "https://modrinth.com/mod/no-chat-reports",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/no-chat-reports"
+      }
+    }
+  }
 }
