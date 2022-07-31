@@ -46,7 +46,7 @@ body:
         If playing a modpack, post the link to it!
   - type: input
     attributes:
-      label: "The `latest.log` File"
+      label: "The latest.log File"
       description: "Please use a paste site such as [gist](https://gist.github.com/) / [pastebin](https://pastebin.com/) / etc."
     validations:
       required: true
