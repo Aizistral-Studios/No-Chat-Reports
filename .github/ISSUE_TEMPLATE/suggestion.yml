@@ -17,5 +17,5 @@ body:
       description: Describe why you want this, if you have any reasons.
   - type: textarea
     attributes:
-      label: Other information
+      label: Other Information
       description: Any other relevant information.
