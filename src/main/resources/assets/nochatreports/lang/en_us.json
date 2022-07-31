@@ -25,7 +25,7 @@
 	"text.autoconfig.NoChatReports.option.hideGrayChatIndicators": "Hide gray chat indicators",
 	"text.autoconfig.NoChatReports.option.hideGrayChatIndicators.@Tooltip": "True if vanilla's system messages trust indicator should be removed.",
 	"text.autoconfig.NoChatReports.option.hideWarningToast": "Hide warning toast",
-	"text.autoconfig.NoChatReports.option.hideWarningToast.@Tooltip": "True if Chat messages can't be verified toast should be removed.",
+	"text.autoconfig.NoChatReports.option.hideWarningToast.@Tooltip": "True if  chat messages can't be verified toast should be removed.",
 	"text.autoconfig.NoChatReports.option.suppressVanillaSecurityNotices": "Suppress vanilla security notices",
 	"text.autoconfig.NoChatReports.option.suppressVanillaSecurityNotices.@Tooltip": "Toggles the vanilla security notices.",
 	"text.autoconfig.NoChatReports.option.alwaysHideReportButton": "Always hide report button",
