@@ -8,7 +8,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 public class ModConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip()
-    public boolean demandOnClient = true;
+    public boolean demandOnServer = true;
     @ConfigEntry.Gui.Tooltip()
     public boolean enableDebugLog = false;
     @ConfigEntry.Gui.Tooltip()
