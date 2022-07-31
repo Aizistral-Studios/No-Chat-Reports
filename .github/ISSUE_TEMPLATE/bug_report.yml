@@ -46,7 +46,7 @@ body:
         If playing a modpack, post the link to it!
   - type: input
     attributes:
-      label: "The latest.log file"
+      label: "The `latest.log` File"
       description: "Please use a paste site such as [gist](https://gist.github.com/) / [pastebin](https://pastebin.com/) / etc."
     validations:
       required: true
@@ -58,12 +58,12 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Steps to reproduce
+      label: Steps to Reproduce
       placeholder: |
         1. First step
         2. Second step
         3. etc...
   - type: textarea
     attributes:
-      label: Other information
+      label: Other Information
       description: Any other relevant information that is related to this issue, such as other mods and their versions.
