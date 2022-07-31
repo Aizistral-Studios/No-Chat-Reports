@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.config;
+package com.aizistral.nochatreports.core;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +12,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;
 import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
@@ -40,14 +39,14 @@ public class NoReportsConfig {
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
-	protected boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
+	private boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
-			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
-			whitelistAllServers = false;
-	protected List<String> whitelistedServers;
+			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true,
+			showReloadButton = true;
+	private List<String> whitelistedServers;
 
-	protected static NoReportsConfig getInstance() {
+	private static NoReportsConfig getInstance() {
 		if (INSTANCE == null) {
 			loadConfig();
 		}
@@ -136,7 +135,7 @@ public class NoReportsConfig {
 	 * do not feature signatures and look completely identical in the chat, with exception of gray line
 	 * next to them added in pre-release 3. They are also unselectable for chat reporting.<br><br>
 	 *
-	 * This is false by default.
+	 * This is true by default.
 	 */
 
 	public static boolean convertToGameMessage() {
@@ -249,6 +248,16 @@ public class NoReportsConfig {
 	}
 
 	/**
+	 * @return True if "1.19.1" should be changed to "1.19.84" on titlebar and title screen.<br><br>
+	 *
+	 * This is true by default.
+	 */
+
+	public static boolean versionEasterEgg() {
+		return getInstance().versionEasterEgg;
+	}
+
+	/**
 	 * @return True if sending telemetry to Mojang should be disabled.<br><br>
 	 *
 	 * This is true by default.
@@ -267,18 +276,6 @@ public class NoReportsConfig {
 
 	public static boolean showReloadButton() {
 		return getInstance().showReloadButton;
-	}
-
-	/**
-	 * @return True if the full-screen warning should be skipped for servers that require chat signing,
-	 * letting users simply join the server. Because of that, servers will no longer be added to the whitelist.
-	 * <br><br>
-	 *
-	 * This is false by default.
-	 */
-
-	public static boolean whitelistAllServers() {
-		return getInstance().whitelistAllServers;
 	}
 
 }
