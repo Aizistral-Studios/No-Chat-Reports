@@ -31,7 +31,7 @@ public class ModMenuIntegration implements ModMenuApi {
             // Set an option for demandOnServer
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
             general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnServer"), NoReportsConfig.getInstance().demandOnServer)
-                    .setDefaultValue(true)
+                    .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.demandOnServer.tooltip"))
                     .setSaveConsumer(newValue -> NoReportsConfig.getInstance().demandOnServer = newValue)
                     .build());
