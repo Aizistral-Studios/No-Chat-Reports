@@ -12,7 +12,7 @@
 	"gui.nochatrepords.reload_config_tooltip": "Reload No Chat Reports config. Use carefully.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
-	"configuration.NoChatReports.category.general": "General Cat",
+	"configuration.NoChatReports.category.general": "General",
 	"option.NoChatReports.demandOnServer": "Demand on server",
 	"option.NoChatReports.demandOnServer.tooltip": "True if client with No Chat Reports installed should demand that mod is present on every server that it tries to join.",
 	"option.NoChatReports.enableDebugLog": "Enable debug log",
