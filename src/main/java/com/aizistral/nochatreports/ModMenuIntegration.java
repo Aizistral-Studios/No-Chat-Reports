@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 
 import java.util.Properties;
+import java.util.Optional;
 
 public class ModMenuIntegration implements ModMenuApi {
 
@@ -36,71 +37,71 @@ public class ModMenuIntegration implements ModMenuApi {
                     .build());
 
             // Set an option for enableDebugLog
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NoReportsConfig.enableDebugLog)
                     .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.enableDebugLog.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.enableDebugLog = newValue)
                     .build());
 
             // Set an option for convertToGameMessage
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.convertToGameMessage)
                     .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.convertToGameMessage.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.convertToGameMessage = newValue)
                     .build());
 
             // Set an option for showServerSafety
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NoReportsConfig.showServerSafety)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.showServerSafety.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.showServerSafety = newValue)
                     .build());
 
             // Set an option for hideRedChatIndicators
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NoReportsConfig.hideRedChatIndicators)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.hideRedChatIndicators.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.hideRedChatIndicators = newValue)
                     .build());
 
             // Set an option for hideYellowChatIndicators
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NoReportsConfig.hideYellowChatIndicators)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.hideYellowChatIndicators.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.hideYellowChatIndicators = newValue)
                     .build());
 
             // Set an option for alwaysHideReportButton
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NoReportsConfig.alwaysHideReportButton)
                     .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.alwaysHideReportButton.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.alwaysHideReportButton = newValue)
                     .build());
 
             // Set an option for versionEasterEgg
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.versionEasterEgg"), NoReportsConfig.demandOnClient)
-                    //.setDefaultValue(true)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.versionEasterEgg"), NoReportsConfig.versionEasterEgg)
+                    .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.versionEasterEgg.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.versionEasterEgg = newValue)
                     .build());
 
             // Set an option for disableTelemetry
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NoReportsConfig.disableTelemetry)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.disableTelemetry.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.disableTelemetry = newValue)
                     .build());
 
             // Set an option for showReloadButton
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NoReportsConfig.showReloadButton)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.showReloadButton.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.showReloadButton = newValue)
                     .build());
 
             // Save config
             builder.setSavingRunnable(() -> {
-                // Create a Property
+                /* // Create a Property
                 Properties configProperties = new Properties();
                 // Set the property
                 configProperties.setProperty("demandOnClient", String.valueOf(NoReportsConfig.demandOnClient));
@@ -115,10 +116,10 @@ public class ModMenuIntegration implements ModMenuApi {
                 configProperties.setProperty("versionEasterEgg", String.valueOf(NoReportsConfig.versionEasterEgg));
                 configProperties.setProperty("disableTelemetry", String.valueOf(NoReportsConfig.disableTelemetry));
                 configProperties.setProperty("showReloadButton", String.valueOf(NoReportsConfig.showReloadButton));
-                // Save the properties
+                // Save the properties */
                 NoReportsConfig.saveConfig();
                 NoChatReports.LOGGER.info("line 121 logger info config");
-                NoReportsConfig.loadConfig();
+                NoReportsConfig.loadConfig(); 
             });
 
 

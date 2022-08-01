@@ -44,7 +44,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 	}
 
 	@Inject(method = "init", at = @At("HEAD"))
-	private void onInit(CallbackInfo info) {
+	public void onInit(CallbackInfo info) {
 		if (!NoReportsConfig.showReloadButton())
 			return;
 
