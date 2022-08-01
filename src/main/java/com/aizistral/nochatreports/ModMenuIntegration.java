@@ -109,7 +109,6 @@ public class ModMenuIntegration implements ModMenuApi {
             // Save config
             builder.setSavingRunnable(() -> {
                 NoReportsConfig.saveConfig();
-                NoChatReports.LOGGER.info("line 121 logger info config");
                 NoReportsConfig.loadConfig(); 
             });
 
