@@ -17,6 +17,8 @@
 	"option.NoChatReports.demandOnServer.tooltip": "True if client with No Chat Reports installed should demand that mod is present on every server that it tries to join.",
 	"option.NoChatReports.enableDebugLog": "Enable debug log",
 	"option.NoChatReports.enableDebugLog.tooltip": "True if mod should log some additional information about its activity and message signatures. Generally only useful for debugging.",
+	"option.NoChatReports.convertToGameMessage": "Convert to game message",
+	"option.NoChatReports.convertToGameMessage.tooltip": "True if server should convert all player messages to system messages.",
 	"option.NoChatReports.showServerSafety":"Show server safety",
 	"option.NoChatReports.showServerSafety.tooltip":"True if current server safety level should be indicated on client by an icon in the bottom-right corner of chat screen.",
 	"option.NoChatReports.hideRedChatIndicators":"Hide red chat indicators",

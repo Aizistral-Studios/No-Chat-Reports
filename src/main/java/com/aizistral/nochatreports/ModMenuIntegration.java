@@ -42,6 +42,13 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setTooltip(Component.translatable("option.NoChatReports.enableDebugLog.tooltip"))
                     .setSaveConsumer(newValue -> NoReportsConfig.getInstance().enableDebugLog = newValue)
                     .build());
+                
+            // Set an option for convertToGameMessage
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.getInstance().convertToGameMessage)
+                    .setDefaultValue(false)
+                    .setTooltip(Component.translatable("option.NoChatReports.convertToGameMessage.tooltip"))
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().convertToGameMessage = newValue)
+                    .build());        
 
             // Set an option for showServerSafety
             general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NoReportsConfig.getInstance().showServerSafety)
