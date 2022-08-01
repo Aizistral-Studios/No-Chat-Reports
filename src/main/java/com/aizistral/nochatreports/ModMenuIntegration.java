@@ -101,22 +101,6 @@ public class ModMenuIntegration implements ModMenuApi {
 
             // Save config
             builder.setSavingRunnable(() -> {
-                /* // Create a Property
-                Properties configProperties = new Properties();
-                // Set the property
-                configProperties.setProperty("demandOnClient", String.valueOf(NoReportsConfig.demandOnClient));
-                configProperties.setProperty("enableDebugLog", String.valueOf(NoReportsConfig.enableDebugLog));
-                configProperties.setProperty("convertToGameMessage", String.valueOf(NoReportsConfig.convertToGameMessage));
-                configProperties.setProperty("showServerSafety", String.valueOf(NoReportsConfig.showServerSafety));
-                configProperties.setProperty("hideRedChatIndicators", String.valueOf(NoReportsConfig.hideRedChatIndicators));
-                configProperties.setProperty("hideYellowChatIndicators", String.valueOf(NoReportsConfig.hideYellowChatIndicators));
-                configProperties.setProperty("hideGrayChatIndicators", String.valueOf(NoReportsConfig.hideGrayChatIndicators));
-                configProperties.setProperty("hideWarningToast", String.valueOf(NoReportsConfig.hideWarningToast));
-                configProperties.setProperty("alwaysHideReportButton", String.valueOf(NoReportsConfig.alwaysHideReportButton));
-                configProperties.setProperty("versionEasterEgg", String.valueOf(NoReportsConfig.versionEasterEgg));
-                configProperties.setProperty("disableTelemetry", String.valueOf(NoReportsConfig.disableTelemetry));
-                configProperties.setProperty("showReloadButton", String.valueOf(NoReportsConfig.showReloadButton));
-                // Save the properties */
                 NoReportsConfig.saveConfig();
                 NoChatReports.LOGGER.info("line 121 logger info config");
                 NoReportsConfig.loadConfig(); 
