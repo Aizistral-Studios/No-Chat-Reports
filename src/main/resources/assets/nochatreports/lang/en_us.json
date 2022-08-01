@@ -31,7 +31,7 @@
 	"option.NoChatReports.alwaysHideReportButton.tooltip":"True if reporting buttons should always be hidden from social interactions screen.",
 	"option.NoChatReports.versionEasterEgg":"Version easter egg",
 	"option.NoChatReports.versionEasterEgg.tooltip":"True if \u00221.19.1\u0022 should be changed to \u00221.19.84\u0022 on titlebar and title screen.",
-	"option.NoChatReports.disableTelemetry":"Diable telemetry",
+	"option.NoChatReports.disableTelemetry":"Disable telemetry",
 	"option.NoChatReports.disableTelemetry.tooltip":"True if sending telemetry to Mojang should be disabled.",
 	"option.NoChatReports.showReloadButton":"Show reload button",
 	"option.NoChatReports.showReloadButton.tooltip":"True if the configuration reload button should be displayed in multiplayer screen."
