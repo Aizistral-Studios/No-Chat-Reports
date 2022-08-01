@@ -30,73 +30,73 @@ public class ModMenuIntegration implements ModMenuApi {
 
             // Set an option for demandOnClient
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnClient"), NoReportsConfig.demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnClient"), NoReportsConfig.getInstance().demandOnClient)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.demandOnClient.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.demandOnClient = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().demandOnClient = newValue)
                     .build());
 
             // Set an option for enableDebugLog
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NoReportsConfig.enableDebugLog)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NoReportsConfig.getInstance().enableDebugLog)
                     .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.enableDebugLog.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.enableDebugLog = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().enableDebugLog = newValue)
                     .build());
 
             // Set an option for convertToGameMessage
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.convertToGameMessage)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.getInstance().convertToGameMessage)
                     .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.convertToGameMessage.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.convertToGameMessage = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().convertToGameMessage = newValue)
                     .build());
 
             // Set an option for showServerSafety
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NoReportsConfig.showServerSafety)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NoReportsConfig.getInstance().showServerSafety)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.showServerSafety.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.showServerSafety = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().showServerSafety = newValue)
                     .build());
 
             // Set an option for hideRedChatIndicators
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NoReportsConfig.hideRedChatIndicators)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NoReportsConfig.getInstance().hideRedChatIndicators)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.hideRedChatIndicators.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.hideRedChatIndicators = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideRedChatIndicators = newValue)
                     .build());
 
             // Set an option for hideYellowChatIndicators
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NoReportsConfig.hideYellowChatIndicators)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NoReportsConfig.getInstance().hideYellowChatIndicators)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.hideYellowChatIndicators.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.hideYellowChatIndicators = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideYellowChatIndicators = newValue)
                     .build());
 
             // Set an option for alwaysHideReportButton
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NoReportsConfig.alwaysHideReportButton)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NoReportsConfig.getInstance().alwaysHideReportButton)
                     .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.alwaysHideReportButton.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.alwaysHideReportButton = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().alwaysHideReportButton = newValue)
                     .build());
 
             // Set an option for versionEasterEgg
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.versionEasterEgg"), NoReportsConfig.versionEasterEgg)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.versionEasterEgg"), NoReportsConfig.getInstance().versionEasterEgg)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.versionEasterEgg.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.versionEasterEgg = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().versionEasterEgg = newValue)
                     .build());
 
             // Set an option for disableTelemetry
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NoReportsConfig.disableTelemetry)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NoReportsConfig.getInstance().disableTelemetry)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.disableTelemetry.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.disableTelemetry = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().disableTelemetry = newValue)
                     .build());
 
             // Set an option for showReloadButton
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NoReportsConfig.showReloadButton)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NoReportsConfig.getInstance().showReloadButton)
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.showReloadButton.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.showReloadButton = newValue)
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().showReloadButton = newValue)
                     .build());
 
             // Save config
