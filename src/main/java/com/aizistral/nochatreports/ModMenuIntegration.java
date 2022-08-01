@@ -28,12 +28,12 @@ public class ModMenuIntegration implements ModMenuApi {
             // Set category
             ConfigCategory general = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.general"));
 
-            // Set an option for demandOnClient
+            // Set an option for demandOnServer
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnClient"), NoReportsConfig.getInstance().demandOnClient)
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnServer"), NoReportsConfig.getInstance().demandOnServer)
                     .setDefaultValue(true)
-                    .setTooltip(Component.translatable("option.NoChatReports.demandOnClient.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().demandOnClient = newValue)
+                    .setTooltip(Component.translatable("option.NoChatReports.demandOnServer.tooltip"))
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().demandOnServer = newValue)
                     .build());
 
             // Set an option for enableDebugLog
@@ -41,13 +41,6 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setDefaultValue(false)
                     .setTooltip(Component.translatable("option.NoChatReports.enableDebugLog.tooltip"))
                     .setSaveConsumer(newValue -> NoReportsConfig.getInstance().enableDebugLog = newValue)
-                    .build());
-
-            // Set an option for convertToGameMessage
-            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.getInstance().convertToGameMessage)
-                    .setDefaultValue(false)
-                    .setTooltip(Component.translatable("option.NoChatReports.convertToGameMessage.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().convertToGameMessage = newValue)
                     .build());
 
             // Set an option for showServerSafety
@@ -69,6 +62,20 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.hideYellowChatIndicators.tooltip"))
                     .setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideYellowChatIndicators = newValue)
+                    .build());
+
+            // Set an option for hideGrayChatIndicators
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NoReportsConfig.getInstance().hideGrayChatIndicators)
+                    .setDefaultValue(true)
+                    .setTooltip(Component.translatable("option.NoChatReports.hideGrayChatIndicators.tooltip"))
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideGrayChatIndicators = newValue)
+                    .build());
+
+            // Set an option for hideWarningToast
+            general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideWarningToast"), NoReportsConfig.getInstance().hideWarningToast)
+                    .setDefaultValue(true)
+                    .setTooltip(Component.translatable("option.NoChatReports.hideWarningToast.tooltip"))
+                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideWarningToast = newValue)
                     .build());
 
             // Set an option for alwaysHideReportButton
