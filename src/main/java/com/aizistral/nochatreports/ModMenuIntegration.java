@@ -45,7 +45,7 @@ public class ModMenuIntegration implements ModMenuApi {
                 
             // Set an option for convertToGameMessage
             general.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.getInstance().convertToGameMessage)
-                    .setDefaultValue(false)
+                    .setDefaultValue(true)
                     .setTooltip(Component.translatable("option.NoChatReports.convertToGameMessage.tooltip"))
                     .setSaveConsumer(newValue -> NoReportsConfig.getInstance().convertToGameMessage = newValue)
                     .build());        
