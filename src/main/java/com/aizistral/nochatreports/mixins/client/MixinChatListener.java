@@ -44,8 +44,12 @@ public class MixinChatListener {
 		} else {
 			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, playerInfo, instant);
 
-			if ((evaluate == ChatTrustLevel.NOT_SECURE || evaluate == ChatTrustLevel.BROKEN_CHAIN)
-					&& NoReportsConfig.hideRedChatIndicators()) {
+			if (evaluate == ChatTrustLevel.BROKEN_CHAIN) {
+				info.setReturnValue(evaluate);
+				return;
+			}
+
+			if (evaluate == ChatTrustLevel.NOT_SECURE && NoReportsConfig.hideRedChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			} else if ((evaluate == ChatTrustLevel.FILTERED || evaluate == ChatTrustLevel.MODIFIED)
 					&& NoReportsConfig.hideYellowChatIndicators()) {
