@@ -135,7 +135,7 @@ public class NoReportsConfig {
 	 * do not feature signatures and look completely identical in the chat, with exception of gray line
 	 * next to them added in pre-release 3. They are also unselectable for chat reporting.<br><br>
 	 *
-	 * This is true by default.
+	 * This is false by default.
 	 */
 
 	public static boolean convertToGameMessage() {
