@@ -47,6 +47,8 @@ public enum ServerSafetyLevel {
 
 	@Environment(EnvType.CLIENT)
 	public Component getTooltip() {
+		if(NoReportsConfig.whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
+			return Component.translatable("gui.nochatreports.status_insecure_whitelist_all_servers");
 		return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
 	}
 }

@@ -70,7 +70,7 @@ public class NoChatReportsClient implements ClientModInitializer {
 					return;
 				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
 					if (ServerSafetyState.getLastConnectedServer() != null) {
-						if (!NoReportsConfig.isWhitelistedServer(ServerSafetyState.getLastConnectedServer())) {
+						if (!NoReportsConfig.isWhitelistedServer(ServerSafetyState.getLastConnectedServer()) && !NoReportsConfig.whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
 						} else {
 							if (ServerSafetyState.getReconnectCount() <= 0) {

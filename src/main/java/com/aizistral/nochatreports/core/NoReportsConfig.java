@@ -43,7 +43,7 @@ public class NoReportsConfig {
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true,
-			showReloadButton = true;
+			showReloadButton = true, whitelistAllServers = false;
 	private List<String> whitelistedServers;
 
 	private static NoReportsConfig getInstance() {
@@ -276,6 +276,18 @@ public class NoReportsConfig {
 
 	public static boolean showReloadButton() {
 		return getInstance().showReloadButton;
+	}
+
+	/**
+	 * @return True if the full-screen warning should be skipped for servers that require chat signing,
+	 * letting users simply join the server. Because of that, servers will no longer be added to the whitelist.
+	 * <br><br>
+	 *
+	 * This is false by default.
+	 */
+
+	public static boolean whitelistAllServers() {
+		return getInstance().whitelistAllServers;
 	}
 
 }
