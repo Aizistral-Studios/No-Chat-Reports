@@ -43,8 +43,8 @@ public class NoReportsConfig {
 	public boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
-			alwaysHideReportButton = false, versionEasterEgg = true, disableTelemetry = true,
-			showReloadButton = true, whitelistAllServers = false;
+			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
+			whitelistAllServers = false;
 	private List<String> whitelistedServers;
 
 	public static NoReportsConfig getInstance() {
@@ -246,16 +246,6 @@ public class NoReportsConfig {
 
 	public static boolean alwaysHideReportButton() {
 		return getInstance().alwaysHideReportButton;
-	}
-
-	/**
-	 * @return True if "1.19.1" should be changed to "1.19.84" on titlebar and title screen.<br><br>
-	 *
-	 * This is true by default.
-	 */
-
-	public static boolean versionEasterEgg() {
-		return getInstance().versionEasterEgg;
 	}
 
 	/**
