@@ -15,6 +15,7 @@
 	"configuration.NoChatReports.config": "No Chat Reports",
 	"configuration.NoChatReports.category.visual": "Visual",
 	"configuration.NoChatReports.category.technical": "Technical",
+	"configuration.NoChatReports.category.whitelistedServers": "Whitelisted servers",
 	"option.NoChatReports.demandOnServer": "Demand on server",
 	"option.NoChatReports.demandOnServer.tooltip": "True if client with No Chat Reports installed should demand that mod is present on every server that it tries to join.",
 	"option.NoChatReports.enableDebugLog": "Enable debug log",
@@ -38,5 +39,9 @@
 	"option.NoChatReports.showReloadButton":"Show reload button",
 	"option.NoChatReports.showReloadButton.tooltip":"True if the configuration reload button should be displayed in multiplayer screen.",
 	"option.NoChatReports.whitelistAllServers":"Whitelist all servers",
-	"option.NoChatReports.whitelistAllServers.tooltip":"True if the full-screen warning should be skipped for servers that require chat signing, letting users simply join the server.\nBecause of that, servers will no longer be added to the whitelist."
+	"option.NoChatReports.whitelistAllServers.tooltip":"True if the full-screen warning should be skipped for servers that require chat signing, letting users simply join the server.\nBecause of that, servers will no longer be added to the whitelist.",
+	"option.NoChatReports.whitelistedServers":"Whitelisted servers",
+	"option.NoChatReports.whitelistedServers.tooltip":"Current list of whitelisted unsafe servers.\nUsed on client to remember which servers user disabled unsafety warnings for.",
+	"option.NoChatReports.whitelistedServers.addButtonTooltip":"Add server",
+	"option.NoChatReports.whitelistedServers.removeButtonTooltip":"Remove server"
 }

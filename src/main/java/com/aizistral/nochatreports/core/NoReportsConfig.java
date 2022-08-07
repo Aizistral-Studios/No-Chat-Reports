@@ -45,7 +45,7 @@ public class NoReportsConfig {
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false;
-	private List<String> whitelistedServers;
+	public List<String> whitelistedServers;
 
 	public static NoReportsConfig getInstance() {
 		if (INSTANCE == null) {
