@@ -2,8 +2,8 @@
 	"gui.nochatreport.secureChat": "Ta opcja nie działa z No Chat Reports, ponieważ nie ma podpisów do weryfikacji.",
 	"gui.nochatreport.noReporting": "Raporty czatu są wyłączone na tym serwerze, dzięki No Chat Reports.",
 	"disconnect.nochatreports.client": "Na tym serwerze nie ma No Chat Reports, a został skonfigurowany tak, aby był wymagany na serwerze."
-	"gui.nochatreports.status_secure": "Ten serwer ma zainstalowane No Chat Reports lub uniemożliwia raportowanie wiadomości w inny znany sposób. Nikt nie będzie widzieć czerwonego paska czy symbolu (!) lub może wyłączyć wiadomości przez opcję \"Tylko bezpieczny czat\". Możesz bezpiecznie chatować.",
-	"gui.nochatreports.status_unintrusive": "Ten serwer pozwala na wysyłanie nie podpisanych wiadomości, których nie można zgłosić do Mojangu. Jednakże u klientów Vanilla wiadomości będą mieć czerwony pasek po lewej i symbol (!) po prawej, a włączenie opcji \"Tylko bezpieczny czat\" przez kogokolwiek nie pokaże im twoich wiadomości w ogóle.",
+	"gui.nochatreports.status_secure": "Ten serwer ma zainstalowane No Chat Reports lub uniemożliwia raportowanie wiadomości w inny znany sposób. Możesz bezpiecznie chatować.",
+	"gui.nochatreports.status_unintrusive": "Ten serwer pozwala na wysyłanie nie podpisanych wiadomości, których nie można zgłosić do Mojangu. Klienci Vanilla dalej będą wysyłać podpisane wiadomości, pokazywać nie podpisane jako \"Nie zabezpieczone\" i nie pokaże ich przy włączonej opcji \"Tylko bezpieczny czat\".",
 	"gui.nochatreports.status_insecure": "Ten serwer wymaga podpisania wszystkich wiadomości graczy, a ty zgodziłeś się kontynuować z tym. Wszystko, co wysyłasz na czacie, jest potencjalnie obciążającym dowodem, który można wykorzystać przeciwko tobie w zgłoszeniu. Możesz ręcznie usunąć ten serwer z NoChatReports.json w folderze konfiguracyjnym, aby ponownie otrzymać ostrzeżenie.",
 	"gui.nochatreports.status_unknown": "No Chat Reports nie może ocenić bezpieczeństwa tego serwera. To nigdy nie powinno się zdarzyć, zgłoś to jako błąd twórcy modów.",
 	"gui.nochatreports.unsafe_server.header": "Uwaga: Niezabezpieczony serwer",
