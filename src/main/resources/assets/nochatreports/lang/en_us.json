@@ -33,8 +33,6 @@
 	"option.NoChatReports.hideWarningToast.tooltip":"True if \"Chat messages can't be verified\" toast should be removed.",
 	"option.NoChatReports.alwaysHideReportButton":"Always hide report button",
 	"option.NoChatReports.alwaysHideReportButton.tooltip":"True if reporting buttons should always be hidden from social interactions screen.",
-	"option.NoChatReports.versionEasterEgg":"Version easter egg",
-	"option.NoChatReports.versionEasterEgg.tooltip":"True if \"1.19.1\" should be changed to \"1.19.84\" on titlebar and title screen.",
 	"option.NoChatReports.disableTelemetry":"Disable telemetry",
 	"option.NoChatReports.disableTelemetry.tooltip":"True if sending telemetry to Mojang should be disabled.",
 	"option.NoChatReports.showReloadButton":"Show reload button",

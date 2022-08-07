@@ -73,15 +73,7 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setTooltip(Component.translatable("option.NoChatReports.alwaysHideReportButton.tooltip"))
                     .setSaveConsumer(newValue -> NoReportsConfig.getInstance().alwaysHideReportButton = newValue)
                     .build());
-
-            // Set an option for versionEasterEgg
-            visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.versionEasterEgg"), NoReportsConfig.getInstance().versionEasterEgg)
-                    .setDefaultValue(true)
-                    .setTooltip(Component.translatable("option.NoChatReports.versionEasterEgg.tooltip"))
-                    .setSaveConsumer(newValue -> NoReportsConfig.getInstance().versionEasterEgg = newValue)
-                    .build());    
-        
-
+         
             // Set an option for demandOnServer
             technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnServer"), NoReportsConfig.getInstance().demandOnServer)
                     .setDefaultValue(false)
