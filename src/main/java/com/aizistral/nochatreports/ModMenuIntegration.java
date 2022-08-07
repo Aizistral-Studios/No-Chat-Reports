@@ -117,6 +117,10 @@ public class ModMenuIntegration implements ModMenuApi {
                 .setSaveConsumer(newValue -> NoReportsConfig.getInstance().whitelistAllServers = newValue)
                 .build());
 
+        // Instructions for adding servers
+        whitelistedServers.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.whitelistedServers.instructions"))
+                .build());
+        
         // Add or remove whitelisted servers
         whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NoReportsConfig.getInstance().whitelistedServers)
                 .setExpanded(true)

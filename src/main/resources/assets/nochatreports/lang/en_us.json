@@ -43,5 +43,6 @@
 	"option.NoChatReports.whitelistedServers":"Whitelisted servers",
 	"option.NoChatReports.whitelistedServers.tooltip":"Current list of whitelisted unsafe servers.\nUsed on client to remember which servers user disabled unsafety warnings for.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip":"Add server",
-	"option.NoChatReports.whitelistedServers.removeButtonTooltip":"Remove server"
+	"option.NoChatReports.whitelistedServers.removeButtonTooltip":"Remove server",
+	"option.NoChatReports.whitelistedServers.instructions":"When adding a server click below Whitelisted servers to type in the field."
 }
