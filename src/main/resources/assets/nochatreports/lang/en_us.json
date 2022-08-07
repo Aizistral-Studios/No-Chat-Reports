@@ -18,7 +18,7 @@
 	"option.NoChatReports.demandOnServer": "Demand on server",
 	"option.NoChatReports.demandOnServer.tooltip": "True if client with No Chat Reports installed should demand that mod is present on every server that it tries to join.",
 	"option.NoChatReports.enableDebugLog": "Enable debug log",
-	"option.NoChatReports.enableDebugLog.tooltip": "True if mod should log some additional information about its activity and message signatures. Generally only useful for debugging.",
+	"option.NoChatReports.enableDebugLog.tooltip": "True if mod should log some additional information about its activity and message signatures.\nGenerally only useful for debugging.",
 	"option.NoChatReports.convertToGameMessage": "Convert to game message",
 	"option.NoChatReports.convertToGameMessage.tooltip": "True if server should convert all player messages to system messages.",
 	"option.NoChatReports.showServerSafety":"Show server safety",
@@ -38,5 +38,7 @@
 	"option.NoChatReports.disableTelemetry":"Disable telemetry",
 	"option.NoChatReports.disableTelemetry.tooltip":"True if sending telemetry to Mojang should be disabled.",
 	"option.NoChatReports.showReloadButton":"Show reload button",
-	"option.NoChatReports.showReloadButton.tooltip":"True if the configuration reload button should be displayed in multiplayer screen."
+	"option.NoChatReports.showReloadButton.tooltip":"True if the configuration reload button should be displayed in multiplayer screen.",
+	"option.NoChatReports.whitelistAllServers":"Whitelist all servers",
+	"option.NoChatReports.whitelistAllServers.tooltip":"True if the full-screen warning should be skipped for servers that require chat signing, letting users simply join the server.\nBecause of that, servers will no longer be added to the whitelist."
 }
