@@ -23,7 +23,7 @@ buildscript {
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
 		
 		// custom MixinGradle fork, because it keeps screwing up eclipse task
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT' 
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-1.0.0-SNAPSHOT' 
     }
 }
 
