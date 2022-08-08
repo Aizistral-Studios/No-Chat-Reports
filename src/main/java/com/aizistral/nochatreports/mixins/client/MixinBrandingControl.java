@@ -4,6 +4,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import com.aizistral.nochatreports.core.NoReportsConfig;
+
 import net.minecraftforge.internal.BrandingControl;
 import net.minecraftforge.versions.mcp.MCPVersion;
 
@@ -18,7 +20,8 @@ public class MixinBrandingControl {
 	@Redirect(method = "computeBranding", at = @At(value = "INVOKE", target =
 			"Lnet/minecraftforge/versions/mcp/MCPVersion;getMCVersion()Ljava/lang/String;"))
 	private static String onGetMCVersion() {
-		return MCPVersion.getMCVersion().equals("1.19.1") ? "1.19.84" : MCPVersion.getMCPVersion();
+		return NoReportsConfig.versionEasterEgg() && MCPVersion.getMCVersion().equals("1.19.1") ? "1.19.84"
+				: MCPVersion.getMCPVersion();
 	}
 
 }
