@@ -40,7 +40,7 @@
 	"option.NoChatReports.showReloadButton.tooltip":"True if the configuration reload button should be displayed in multiplayer screen.",
 	"option.NoChatReports.whitelistAllServers":"Whitelist all servers",
 	"option.NoChatReports.whitelistAllServers.tooltip":"True if the full-screen warning should be skipped for servers that require chat signing, letting users simply join the server.\nBecause of that, servers will no longer be added to the whitelist.",
-	"option.NoChatReports.whitelistedServers":"Whitelisted servers",
+	"option.NoChatReports.whitelistedServers":"Whitelisted Servers",
 	"option.NoChatReports.whitelistedServers.tooltip":"Current list of whitelisted unsafe servers.\nUsed on client to remember which servers user disabled unsafety warnings for.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip":"Add server",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip":"Remove server",
