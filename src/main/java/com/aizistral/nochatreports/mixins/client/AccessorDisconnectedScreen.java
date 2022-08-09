@@ -3,6 +3,7 @@ package com.aizistral.nochatreports.mixins.client;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+import com.aizistral.nochatreports.NoChatReportsClient;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 
 import net.minecraft.client.gui.screens.DisconnectedScreen;

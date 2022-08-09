@@ -22,8 +22,6 @@
     "client.MixinChatOptionsScreen",
 	"client.MixinProfileKeyPairManager",
 	"client.MixinClientTelemetryManager",
-	"client.MixinBrandingControl",
-	"client.MixinMinecraft",
 	"client.MixinPlayerEntry",
 	"client.MixinChatScreen",
 	"client.AccessorDisconnectedScreen",
