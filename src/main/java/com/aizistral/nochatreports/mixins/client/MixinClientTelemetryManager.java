@@ -24,7 +24,10 @@ public class MixinClientTelemetryManager {
 			+ "newTelemetrySession(Ljava/util/concurrent/Executor;)Lcom/mojang/authlib/minecraft/TelemetrySession;",
 			remap = false))
 	private TelemetrySession onCreateTelemetrySession(UserApiService service, Executor executor) {
-		return TelemetrySession.DISABLED;
+		if (NoReportsConfig.disableTelemetry())
+			return TelemetrySession.DISABLED;
+		else
+			return service.newTelemetrySession(executor);
 	}
 
 }
