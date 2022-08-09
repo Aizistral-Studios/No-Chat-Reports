@@ -13,6 +13,9 @@
 	"server.MixinPlayerList"
   ],
   "client": [
+	"forge.client.MixinClientHandshakePacketListenerImpl",
+	"forge.client.MixinClientPacketListener",
+	"forge.client.MixinClientConnection",
 	"client.MixinLocalPlayer",
 	"client.MixinOptions",
 	"client.MixinChatListener",

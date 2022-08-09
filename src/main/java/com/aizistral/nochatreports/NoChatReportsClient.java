@@ -76,10 +76,8 @@ public class NoChatReportsClient {
 		}
 	}
 
-	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
-	public static void onDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
-		Minecraft client = Minecraft.getInstance();
+	public static void onDisconnect(Minecraft client) {
 		client.execute(ServerSafetyState::reset);
 	}
 
