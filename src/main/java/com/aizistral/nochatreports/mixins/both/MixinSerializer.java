@@ -23,9 +23,9 @@ public class MixinSerializer {
 			"Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;",
 			at = @At("RETURN"))
 	private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
-			CallbackInfoReturnable<JsonElement> cir) {
+			CallbackInfoReturnable<JsonElement> info) {
 		if (NoReportsConfig.includeQueryData() && serverStatus instanceof NoReportServerStatus noReportStatus) {
-			((JsonObject)cir.getReturnValue()).addProperty("saveMinecraft", noReportStatus.hasChatReporting());
+			((JsonObject)info.getReturnValue()).addProperty("saveMinecraft", noReportStatus.hasChatReporting());
 		}
 	}
 
@@ -34,7 +34,7 @@ public class MixinSerializer {
 			"Lnet/minecraft/network/protocol/status/ServerStatus;",
 			locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
 	private void onDeserialize(JsonElement jsonElement, Type arg1, JsonDeserializationContext context,
-			CallbackInfoReturnable<ServerStatus> cir, JsonObject jsonObj, ServerStatus status) {
+			CallbackInfoReturnable<ServerStatus> info, JsonObject jsonObj, ServerStatus status) {
 		if (jsonObj.has("saveMinecraft") && status instanceof NoReportServerStatus noReportStatus) {
 			noReportStatus.setChatReporting(GsonHelper.getAsBoolean(jsonObj, "saveMinecraft"));
 		}
