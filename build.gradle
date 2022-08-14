@@ -91,7 +91,7 @@ curseforge {
 		addGameVersion 'Java 17'
 		
 		relations {
-			requiredLibrary 'fabric-api'
+			embeddedLibrary 'fabric-api'
 		}
 		
 		afterEvaluate {
@@ -121,7 +121,7 @@ modrinth {
 	
 	dependencies {
 		// The scope can be `required`, `optional`, or `incompatible`
-		required.project "fabric-api"
+		embedded.project "fabric-api"
     }
 	
 	//syncBodyFrom = rootProject.file("docs/README.md").text
