@@ -24,7 +24,12 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	include(fabricApi.module("fabric-api-base", project.fabric_version))
+	modImplementation include(fabricApi.module("fabric-networking-api-v1", project.fabric_version))
+	modImplementation include(fabricApi.module("fabric-screen-api-v1", project.fabric_version))
+	modImplementation include(fabricApi.module("fabric-rendering-v1", project.fabric_version))
+	modImplementation include(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
 }
 
 processResources {
