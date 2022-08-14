@@ -1,7 +1,7 @@
 package com.aizistral.nochatreports.mixins.both;
 
 import com.aizistral.nochatreports.core.NoReportsConfig;
-import com.aizistral.nochatreports.core.NoReportServerStatus;
+import com.aizistral.nochatreports.core.NoChatReportingOption;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,9 +24,8 @@ public class MixinSerializer {
 			at = @At("RETURN"))
 	private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
 			CallbackInfoReturnable<JsonElement> info) {
-		if (NoReportsConfig.includeQueryData() && serverStatus instanceof NoReportServerStatus noReportStatus) {
-			((JsonObject)info.getReturnValue()).addProperty("saveMinecraft", noReportStatus.hasChatReporting());
-		}
+		if (!NoReportsConfig.includeQueryData()) return;
+		((JsonObject)info.getReturnValue()).addProperty("noChatReporting", NoReportsConfig.convertToGameMessage());
 	}
 
 	@Inject(method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;" +
@@ -35,9 +34,8 @@ public class MixinSerializer {
 			locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
 	private void onDeserialize(JsonElement jsonElement, Type arg1, JsonDeserializationContext context,
 			CallbackInfoReturnable<ServerStatus> info, JsonObject jsonObj, ServerStatus status) {
-		if (jsonObj.has("saveMinecraft") && status instanceof NoReportServerStatus noReportStatus) {
-			noReportStatus.setChatReporting(GsonHelper.getAsBoolean(jsonObj, "saveMinecraft"));
-		}
+		if (!jsonObj.has("noChatReporting")) return;
+		((NoChatReportingOption)status).setNoChatReporting(GsonHelper.getAsBoolean(jsonObj, "noChatReporting"));
 	}
 
 }

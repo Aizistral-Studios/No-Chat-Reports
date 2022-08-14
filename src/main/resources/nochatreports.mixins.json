@@ -6,12 +6,11 @@
   "verbose": true,
   "mixins": [
     "both.MixinSerializer",
-    "server.MixinMinecraftServer",
+    "both.MixinServerStatus",
     "server.MixinPlayer",
     "server.MixinPlayerList",
     "server.MixinServerboundChatPacket",
-    "server.MixinServerGamePacketListenerImpl",
-    "server.MixinServerStatus"
+    "server.MixinServerGamePacketListenerImpl"
   ],
   "client": [
     "client.AccessorDisconnectedScreen",
@@ -29,6 +28,8 @@
     "client.MixinPlayerEntry",
     "client.MixinProfileKeyPairManager",
     "client.MixinRealmsConnect",
+    "client.MixinServerData",
+    "client.MixinServerStatusPinger$1",
     "client.MixinTitleScreen",
     "client.MixinToastComponent"
   ],
