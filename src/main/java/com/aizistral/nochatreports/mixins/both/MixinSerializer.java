@@ -19,7 +19,6 @@ import java.lang.reflect.Type;
 @Mixin(ServerStatus.Serializer.class)
 public class MixinSerializer {
 
-
 	@Inject(method = "serialize(Lnet/minecraft/network/protocol/status/ServerStatus;" +
 			"Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;",
 			at = @At("RETURN"))
@@ -29,7 +28,6 @@ public class MixinSerializer {
 			((JsonObject)cir.getReturnValue()).addProperty("saveMinecraft", noReportStatus.hasChatReporting());
 		}
 	}
-
 
 	@Inject(method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;" +
 			"Lcom/google/gson/JsonDeserializationContext;)" +
@@ -41,4 +39,5 @@ public class MixinSerializer {
 			noReportStatus.setChatReporting(GsonHelper.getAsBoolean(jsonObj, "saveMinecraft"));
 		}
 	}
+
 }
