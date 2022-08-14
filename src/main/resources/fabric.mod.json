@@ -36,7 +36,7 @@
     "fabric-screen-api-v1": "*",
     "fabric-rendering-v1": "*",
     "fabric-resource-loader-v0": "*",
-    "minecraft": "=1.19.1",
+    "minecraft": "=1.19.2",
     "java": ">=17"
   },
   "suggests": {},

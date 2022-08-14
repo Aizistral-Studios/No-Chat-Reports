@@ -5,6 +5,7 @@
 	"gui.nochatreports.status_secure": "此服务器安装了 No Chat Reports 或其他已知的方法避免消息被举报。这也会避免 \"仅显示安全的聊天\" 挡你的消息。你可以安全地聊天。",
 	"gui.nochatreports.status_unintrusive": "此服务器不能防止聊天举报，但允许发送未签名的消息。这意味着你发的消息不能被举报给 Mojang，但其他人还可以用 \"仅显示安全的聊天\" 挡你的消息",
 	"gui.nochatreports.status_insecure": "此服务器要求所有玩家的消息签名，你也同意在这设置下继续游戏。你所发送的任何消息都可能成为你被举报时潜在的违规证据。你可以在 NoChatReports.json 中手动移除此服务器，以再次获得相同的警告。",
+	"gui.nochatreports.status_insecure_whitelist_all_servers": "此服务器要求对所有聊天消息进行签名，并且你为其禁用了全屏警告。 你在聊天中发送的所有内容都可能是有罪的证据，可以在报告中用于对你不利。 你可以从配置文件夹中的 NoChatReports.json 禁用 \"whitelistAllServers\" 以再次收到警告。",
 	"gui.nochatreports.status_unknown": "No Chat Reports 无法检测此服务器的安全性。这不应该发生，请将此错误反馈给模组作者。",
 	"gui.nochatreports.unsafe_server.header": "警告：不安全的服务器",
 	"gui.nochatreports.unsafe_server.contents": "此服务器要求所有消息签名，这意味着它们可以被举报给 Mojang。可能是服务器默认开启了 'enforce-secure-profile' 选项。你可以选择继续游玩，但 No Chat Reports 不能提供任何保护。",
