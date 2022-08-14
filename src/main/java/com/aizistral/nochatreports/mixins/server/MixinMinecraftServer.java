@@ -10,16 +10,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(MinecraftServer.class)
 public class MixinMinecraftServer {
 
+	@Redirect(method = "<init>", at = @At(value = "NEW",
+			target = "Lnet/minecraft/network/protocol/status/ServerStatus;<init>()V"), require = 0)
+	private ServerStatus useCustomServerStatus() {
+		return new NoReportServerStatus();
+	}
 
-    @Redirect(
-            method = "<init>",
-            at = @At(
-                    value = "NEW",
-                    target = "Lnet/minecraft/network/protocol/status/ServerStatus;<init>()V"
-            ),
-            require = 0
-    )
-    private ServerStatus useCustomServerStatus() {
-        return new NoReportServerStatus();
-    }
 }

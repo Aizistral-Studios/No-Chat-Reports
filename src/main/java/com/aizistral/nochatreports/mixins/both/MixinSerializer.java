@@ -20,28 +20,25 @@ import java.lang.reflect.Type;
 public class MixinSerializer {
 
 
-    @Inject(
-            method = "serialize(Lnet/minecraft/network/protocol/status/ServerStatus;" +
-                    "Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;",
-            at = @At("RETURN")
-    )
-    private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
-                                  CallbackInfoReturnable<JsonElement> cir) {
-        if (NoReportsConfig.includeQueryData() && serverStatus instanceof NoReportServerStatus noReportStatus)
-            ((JsonObject)cir.getReturnValue()).addProperty("saveMinecraft", noReportStatus.hasChatReporting());
-    }
+	@Inject(method = "serialize(Lnet/minecraft/network/protocol/status/ServerStatus;" +
+			"Ljava/lang/reflect/Type;Lcom/google/gson/JsonSerializationContext;)Lcom/google/gson/JsonElement;",
+			at = @At("RETURN"))
+	private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
+			CallbackInfoReturnable<JsonElement> cir) {
+		if (NoReportsConfig.includeQueryData() && serverStatus instanceof NoReportServerStatus noReportStatus) {
+			((JsonObject)cir.getReturnValue()).addProperty("saveMinecraft", noReportStatus.hasChatReporting());
+		}
+	}
 
 
-    @Inject(
-            method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;" +
-                    "Lcom/google/gson/JsonDeserializationContext;)" +
-                    "Lnet/minecraft/network/protocol/status/ServerStatus;",
-            locals = LocalCapture.CAPTURE_FAILSOFT,
-            at = @At("RETURN")
-    )
-    private void onDeserialize(JsonElement jsonElement, Type arg1, JsonDeserializationContext context,
-                               CallbackInfoReturnable<ServerStatus> cir, JsonObject jsonObj, ServerStatus status) {
-        if (jsonObj.has("saveMinecraft") && status instanceof NoReportServerStatus noReportStatus)
-            noReportStatus.setChatReporting(GsonHelper.getAsBoolean(jsonObj, "saveMinecraft"));
-    }
+	@Inject(method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;" +
+			"Lcom/google/gson/JsonDeserializationContext;)" +
+			"Lnet/minecraft/network/protocol/status/ServerStatus;",
+			locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
+	private void onDeserialize(JsonElement jsonElement, Type arg1, JsonDeserializationContext context,
+			CallbackInfoReturnable<ServerStatus> cir, JsonObject jsonObj, ServerStatus status) {
+		if (jsonObj.has("saveMinecraft") && status instanceof NoReportServerStatus noReportStatus) {
+			noReportStatus.setChatReporting(GsonHelper.getAsBoolean(jsonObj, "saveMinecraft"));
+		}
+	}
 }
