@@ -138,7 +138,8 @@ public class NoReportsConfig {
 	}
 
 	/**
-	 * @return True if server should include extra query data to help clients know that your server is secure.<br><br>
+	 * @return True if server should include extra query data to help clients know that your server
+	 * is secure.<br><br>
 	 *
 	 * This is true by default.
 	 */
