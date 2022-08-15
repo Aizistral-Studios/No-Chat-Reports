@@ -25,20 +25,17 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-<<<<<<< HEAD
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	modImplementation "com.terraformersmc:modmenu:4.0.6"
 	modApi("me.shedaniel.cloth:cloth-config-fabric:8.0.75") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-=======
 
 	include(fabricApi.module("fabric-api-base", project.fabric_version))
 	modImplementation include(fabricApi.module("fabric-networking-api-v1", project.fabric_version))
 	modImplementation include(fabricApi.module("fabric-screen-api-v1", project.fabric_version))
 	modImplementation include(fabricApi.module("fabric-rendering-v1", project.fabric_version))
 	modImplementation include(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
->>>>>>> 3ba5ad30eac2e9fd7f544574e83695d9a9dadba2
 }
 
 processResources {
