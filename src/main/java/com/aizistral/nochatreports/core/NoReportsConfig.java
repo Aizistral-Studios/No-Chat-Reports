@@ -36,8 +36,7 @@ import net.minecraft.util.Tuple;
  */
 
 public class NoReportsConfig {
-
-	public static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
+	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
 	public boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
@@ -87,7 +86,7 @@ public class NoReportsConfig {
 	}
 
 	@Nullable
-	public static NoReportsConfig readFile() {
+	private static NoReportsConfig readFile() {
 		if (!Files.isRegularFile(CONFIG_FILE))
 			return null;
 
@@ -98,7 +97,7 @@ public class NoReportsConfig {
 		}
 	}
 
-	public static void writeFile(NoReportsConfig instance) {
+	private static void writeFile(NoReportsConfig instance) {
 		try (BufferedWriter writer = Files.newBufferedWriter(CONFIG_FILE)) {
 			GSON.toJson(instance, writer);
 		} catch (Exception ex) {

@@ -24,7 +24,7 @@
 	"option.NoChatReports.convertToGameMessage.tooltip": "Makes the server convert all player messages into system\nmessages. System messages don't have any signatures\nattached and cannot be reported; on unmodified clients\nthey will display with gray bar to the left.",
 	"option.NoChatReports.showServerSafety":"Show server safety",
 	"option.NoChatReports.showServerSafety.tooltip":"Allows the client to display server safety status in\nbottom-right corner of chat screen. The icon is\nhoverable for additional information:",
-	"option.NoChatReports.showServerSafety.currentSafetyLevels":"More information on safety levels here",
+	"option.NoChatReports.showServerSafety.currentSafetyLevels":"More information on server safety levels linked here",
 	"option.NoChatReports.hideRedChatIndicators":"Hide red chat indicators",
 	"option.NoChatReports.hideRedChatIndicators.tooltip":"Prevents the client from displaying \"Not Secure\"\nindicators, in the form of red bar to the left\nand §c§l(§r§c!§c§l)§r icon to the right of chat message.",
 	"option.NoChatReports.hideYellowChatIndicators":"Hide yellow chat indicators",

@@ -12,6 +12,12 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Component;
 
+/**
+ * Implementation of ModMenu and ClothConfig support for the mod.
+ *
+ * @author MODKILLER1001
+ */
+
 public class ModMenuIntegration implements ModMenuApi {
 
     @Override
