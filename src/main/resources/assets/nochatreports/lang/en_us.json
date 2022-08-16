@@ -30,7 +30,7 @@
 	"option.NoChatReports.hideYellowChatIndicators":"Hide yellow chat indicators",
 	"option.NoChatReports.hideYellowChatIndicators.tooltip":"Prevents the client from displaying \"Modified\"\nindicators, in the form of yellow bar to the left\nand §e§l(§r§e?§e§l)§r icon to the right of chat message.",
 	"option.NoChatReports.hideGrayChatIndicators":"Hide gray chat indicators",
-	"option.NoChatReports.hideGrayChatIndicators.tooltip":"Prevents the client from displaying special indicators\nfor system messages, in the form of gray bar to the left.",
+	"option.NoChatReports.hideGrayChatIndicators.tooltip":"Prevents the client from displaying special\nindicators for system messages, in the form\nof gray bar to the left.",
 	"option.NoChatReports.hideWarningToast":"Hide warning toast",
 	"option.NoChatReports.hideWarningToast.tooltip":"Removes a warning toast that is displayed when entering\nservers with disabled §lenforce-secure-profile§r.",
 	"option.NoChatReports.alwaysHideReportButton":"Always hide report button",

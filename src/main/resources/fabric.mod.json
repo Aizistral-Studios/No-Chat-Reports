@@ -26,7 +26,7 @@
       "com.aizistral.nochatreports.NoChatReportsClient"
     ],
     "modmenu": [
-      "com.aizistral.nochatreports.ModMenuIntegration"  
+      "com.aizistral.nochatreports.core.ModMenuIntegration"  
     ]
   },
   "mixins": [

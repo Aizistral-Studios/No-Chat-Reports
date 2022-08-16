@@ -1,6 +1,5 @@
-package com.aizistral.nochatreports;
+package com.aizistral.nochatreports.core;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 

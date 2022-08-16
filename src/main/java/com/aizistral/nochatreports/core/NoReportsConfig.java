@@ -39,14 +39,14 @@ public class NoReportsConfig {
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
-	public boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
+	protected boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false;
-	public List<String> whitelistedServers;
+	protected List<String> whitelistedServers;
 
-	public static NoReportsConfig getInstance() {
+	protected static NoReportsConfig getInstance() {
 		if (INSTANCE == null) {
 			loadConfig();
 		}
