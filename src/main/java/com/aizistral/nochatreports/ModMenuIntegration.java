@@ -8,12 +8,9 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
-
-import java.util.Properties;
-import java.util.Optional;
 
 public class ModMenuIntegration implements ModMenuApi {
 
@@ -40,6 +37,12 @@ public class ModMenuIntegration implements ModMenuApi {
                 .setSaveConsumer(newValue -> NoReportsConfig.getInstance().showServerSafety = newValue)
                 .build());
 
+        // Add link for documentation for showServerSafety
+        visual.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.showServerSafety.currentSafetyLevels")
+                .withStyle(s -> s
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))))
+                .build());
+  
         // Set an option for hideRedChatIndicators
         visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NoReportsConfig.getInstance().hideRedChatIndicators)
                 .setDefaultValue(true)

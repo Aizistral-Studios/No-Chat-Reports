@@ -38,8 +38,8 @@ import net.minecraft.util.Tuple;
 public class NoReportsConfig {
 
 	public static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
-	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-	public static NoReportsConfig INSTANCE;
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	private static NoReportsConfig INSTANCE;
 	public boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
