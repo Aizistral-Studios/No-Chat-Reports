@@ -48,7 +48,7 @@ public class UnsafeServerScreen extends WarningScreen {
 	@Override
 	protected void initButtons(int i) {
 		this.addRenderableWidget(new Button(this.width / 2 - 155, 100 + i, 150, 20, CommonComponents.GUI_PROCEED, button -> {
-			ServerAddress address = ServerSafetyState.getLastConnectedServer();
+			ServerAddress address = ServerSafetyState.getLastServerAddress();
 
 			if (address != null) {
 				if (this.stopShowing.selected()) {

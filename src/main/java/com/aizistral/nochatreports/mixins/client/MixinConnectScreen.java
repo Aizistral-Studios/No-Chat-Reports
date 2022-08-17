@@ -30,12 +30,13 @@ public class MixinConnectScreen {
 	private static void onStartConnecting(Screen screen, Minecraft minecraft, ServerAddress serverAddress,
 			@Nullable ServerData serverData, CallbackInfo info) {
 		ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN); // just to be 100% sure
-		ServerSafetyState.setLastConnectedServer(serverAddress);
+		ServerSafetyState.setLastConnectedServer(serverAddress, serverData);
 
 		if (NoReportsConfig.isDebugLogEnabled()) {
 			NoChatReports.LOGGER.info("Connecting to: {}, will expose public key: {}",
 					serverAddress.getHost() + ":" + serverAddress.getPort(),
 					ServerSafetyState.allowsUnsafeServer());
+			NoChatReports.LOGGER.info("Server Data IP: {}", serverData != null ? serverData.ip : "null");
 		}
 	}
 

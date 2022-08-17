@@ -69,8 +69,8 @@ public class NoChatReportsClient implements ClientModInitializer {
 					screenOverride = false;
 					return;
 				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
-					if (ServerSafetyState.getLastConnectedServer() != null) {
-						if (!NoReportsConfig.isWhitelistedServer(ServerSafetyState.getLastConnectedServer()) && !NoReportsConfig.whitelistAllServers()) {
+					if (ServerSafetyState.getLastServerAddress() != null) {
+						if (!NoReportsConfig.isWhitelistedServer(ServerSafetyState.getLastServerAddress()) && !NoReportsConfig.whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
 						} else {
 							if (ServerSafetyState.getReconnectCount() <= 0) {
@@ -115,7 +115,7 @@ public class NoChatReportsClient implements ClientModInitializer {
 	public static void reconnectLastServer() {
 		ServerSafetyState.setReconnectCount(ServerSafetyState.getReconnectCount() + 1);
 		ConnectScreen.startConnecting(new JoinMultiplayerScreen(new TitleScreen()), Minecraft.getInstance(),
-				ServerSafetyState.getLastConnectedServer(), null);
+				ServerSafetyState.getLastServerAddress(), ServerSafetyState.getLastServerData());
 	}
 
 }

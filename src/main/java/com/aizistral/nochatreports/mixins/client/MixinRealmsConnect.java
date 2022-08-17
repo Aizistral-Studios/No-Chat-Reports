@@ -22,7 +22,7 @@ public class MixinRealmsConnect {
 
 	@Inject(method = "connect", at = @At("HEAD"))
 	private void onConnect(RealmsServer realmsServer, ServerAddress serverAddress, CallbackInfo info) {
-		ServerSafetyState.setLastConnectedServer(serverAddress);
+		ServerSafetyState.setLastConnectedServer(serverAddress, null);
 		ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 		ServerSafetyState.setAllowsUnsafeServer(true);
 	}

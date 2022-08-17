@@ -9,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.util.Tuple;
 
 /**
  * All this global state is questionable, but we have to...
@@ -18,7 +19,8 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 @Environment(EnvType.CLIENT)
 public class ServerSafetyState {
 	private static ServerSafetyLevel current = ServerSafetyLevel.UNKNOWN;
-	private static ServerAddress lastConnectedServer = null;
+	private static ServerAddress lastServerAddress = null;
+	private static ServerData lastServerData = null;
 	private static boolean allowUnsafeServer = false, sessionRequestedKey = false;
 	private static int reconnectCount = 0;
 
@@ -51,12 +53,18 @@ public class ServerSafetyState {
 	}
 
 	@Nullable
-	public static ServerAddress getLastConnectedServer() {
-		return lastConnectedServer;
+	public static ServerAddress getLastServerAddress() {
+		return lastServerAddress;
 	}
 
-	public static void setLastConnectedServer(@Nullable ServerAddress address) {
-		lastConnectedServer = address;
+	@Nullable
+	public static ServerData getLastServerData() {
+		return lastServerData;
+	}
+
+	public static void setLastConnectedServer(@Nullable ServerAddress address, @Nullable ServerData data) {
+		lastServerAddress = address;
+		lastServerData = data;
 	}
 
 	public static int getReconnectCount() {
