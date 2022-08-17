@@ -1,5 +1,5 @@
 {
-	"gui.nochatreport.secureChat": "Esta opción no puede funcionar con No Chat Reports, ya que no hay signaturas para verificar.",
+	"gui.nochatreport.secureChat": "Esta opción no puede funcionar con No Chat Reports, ya que no hay firmas para verificar.",
 	"gui.nochatreport.noReporting": "Los reportes de chat están deshabilitados en este servidor, cortesía de No Chat Reports.",
 	"disconnect.nochatreports.client": "Este servidor no tiene No Chat Reports, y usted lo tiene configurado para que sea requerido en el servidor.",
 	"gui.nochatreports.status_secure": "Este servidor tiene No Chat Reports instalado, o previene que sus mensajes sean reportados de algún otro modo conocido. Puedes chatear con seguridad.",
