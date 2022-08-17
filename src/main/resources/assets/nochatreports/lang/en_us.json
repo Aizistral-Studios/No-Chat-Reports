@@ -17,7 +17,7 @@
 	"configuration.NoChatReports.category.technical": "Technical",
 	"configuration.NoChatReports.category.whitelistedServers": "Whitelisted Servers",
 	"option.NoChatReports.showServerSafety": "Show server safety",
-	"option.NoChatReports.showServerSafety.tooltip": "Allows the client to display server safety status in\nbottom-right corner of chat screen. The icon is\nhoverable for additional information.",
+	"option.NoChatReports.showServerSafety.tooltip": "Allows the client to display server safety status in bottom-right corner of chat screen. The icon is hoverable for additional information.",
 	"option.NoChatReports.showServerSafety.moreInfo": "§bClick here to read more about server safety levels",
 	"option.NoChatReports.hideRedChatIndicators": "Hide red chat indicators",
 	"option.NoChatReports.hideRedChatIndicators.tooltip": "Prevents the client from displaying \"Not Secure\"\nindicators, in the form of red bar to the left\nand §c§l(§r§c!§c§l)§r icon to the right of chat message.",
