@@ -1,6 +1,6 @@
 package com.aizistral.nochatreports.mixins.client;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.brigadier.ParseResults;
 

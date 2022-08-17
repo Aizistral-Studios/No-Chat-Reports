@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.blaze3d.vertex.PoseStack;

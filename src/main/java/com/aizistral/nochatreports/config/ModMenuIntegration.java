@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.core;
+package com.aizistral.nochatreports.config;
 
 import java.util.List;
 
@@ -9,6 +9,8 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
@@ -25,6 +27,7 @@ import net.minecraft.network.chat.Component;
  * @author MODKILLER1001
  */
 
+@Environment(EnvType.CLIENT)
 public class ModMenuIntegration implements ModMenuApi {
 
 	private Component[] makeTooltip(String key) {
@@ -167,4 +170,5 @@ public class ModMenuIntegration implements ModMenuApi {
 			return builder.build();
 		};
 	}
+
 }

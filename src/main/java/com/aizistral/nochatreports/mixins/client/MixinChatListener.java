@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.multiplayer.chat.ChatListener;

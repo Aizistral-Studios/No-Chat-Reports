@@ -1,6 +1,7 @@
 package com.aizistral.nochatreports.core;
 
 import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

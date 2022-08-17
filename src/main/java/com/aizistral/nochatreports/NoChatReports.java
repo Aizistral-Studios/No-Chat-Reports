@@ -3,7 +3,7 @@ package com.aizistral.nochatreports;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 import com.aizistral.nochatreports.network.ServerChannelHandler;
 import com.mojang.authlib.minecraft.UserApiService;
 import com.mojang.patchy.MojangBlockListSupplier;

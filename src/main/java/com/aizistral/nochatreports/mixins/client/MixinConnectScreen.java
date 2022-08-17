@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 

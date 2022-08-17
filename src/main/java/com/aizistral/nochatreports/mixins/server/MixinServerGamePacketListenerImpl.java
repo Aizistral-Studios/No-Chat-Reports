@@ -1,7 +1,5 @@
 package com.aizistral.nochatreports.mixins.server;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
-
 import net.minecraft.core.Registry;
 import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.chat.ChatTypeDecoration;
@@ -20,6 +18,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.aizistral.nochatreports.config.NoReportsConfig;
 
 @Mixin(ServerGamePacketListenerImpl.class)
 public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerConnection {

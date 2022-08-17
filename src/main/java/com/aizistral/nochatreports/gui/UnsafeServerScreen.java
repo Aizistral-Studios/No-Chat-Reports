@@ -3,7 +3,7 @@ package com.aizistral.nochatreports.gui;
 import javax.print.attribute.standard.MediaSize.NA;
 
 import com.aizistral.nochatreports.NoChatReportsClient;
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
 import net.fabricmc.api.EnvType;

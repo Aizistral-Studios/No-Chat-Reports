@@ -2,8 +2,8 @@ package com.aizistral.nochatreports;
 
 import java.util.List;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.config.NoReportsConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.AccessorDisconnectedScreen;

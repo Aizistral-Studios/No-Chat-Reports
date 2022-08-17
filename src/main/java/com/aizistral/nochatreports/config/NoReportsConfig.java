@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.core;
+package com.aizistral.nochatreports.config;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;
 import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
