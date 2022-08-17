@@ -40,7 +40,7 @@
 	"option.NoChatReports.showReloadButton":"Show reload button",
 	"option.NoChatReports.showReloadButton.tooltip":"Adds a button for config reloading to Multiplayer menu.",
 	"option.NoChatReports.whitelistAllServers":"Whitelist all servers",
-	"option.NoChatReports.whitelistAllServers.tooltip":"Makes the mod behave as if all servers were\nadded to §lwhitelistedServers§r list.",
+	"option.NoChatReports.whitelistAllServers.tooltip":"Makes the mod behave as if all servers were\nadded to §owhitelistedServers§r list.",
 	"option.NoChatReports.whitelistedServers":"Whitelisted Servers",
 	"option.NoChatReports.whitelistedServers.tooltip":"Contains servers for which \"Unsafe Server\" warning\nscreen should never display. Servers are added to\nthis list automatically when you check \"Do not show\nagain for this server\" box in that screen. Format is\nthat of a common JSON array, each entry is a string\nthat is formatted as §l<server-ip>:<port>§r.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip":"Add server",
