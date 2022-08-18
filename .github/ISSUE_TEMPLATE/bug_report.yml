@@ -12,6 +12,7 @@ body:
       options:
         - Forge
         - Fabric
+        - Quilt
     validations:
       required: true
   - type: input
