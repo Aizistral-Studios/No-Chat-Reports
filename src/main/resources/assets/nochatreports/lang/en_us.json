@@ -1,4 +1,5 @@
 {
+	"modmenu.descriptionTranslation.nochatreports": "Strips cryptographic signatures from player messages, making it impossible to track and associate them with your Mojang/Microsoft account, as well as use Player Chat Reporting feature.",
 	"gui.nochatreport.secureChat": "This option cannot work with No Chat Reports, since there are no signatures to verify.",
 	"gui.nochatreport.noReporting": "Chat reports are disabled on this server, courtesy of No Chat Reports.",
 	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
