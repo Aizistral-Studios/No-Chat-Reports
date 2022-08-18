@@ -25,7 +25,7 @@ public class MixinSerializer {
 	private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
 			CallbackInfoReturnable<JsonElement> info) {
 		if (!NoReportsConfig.includeQueryData()) return;
-		((JsonObject)info.getReturnValue()).addProperty("noChatReporting", NoReportsConfig.convertToGameMessage());
+		((JsonObject)info.getReturnValue()).addProperty("noChatReporting", true);
 	}
 
 	@Inject(method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;" +
