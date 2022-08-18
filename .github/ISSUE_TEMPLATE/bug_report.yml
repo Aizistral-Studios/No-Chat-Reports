@@ -59,7 +59,7 @@ body:
   - type: textarea
     attributes:
       label: Steps to Reproduce
-      description: description: |
+      description: |
         Describe exact steps necessary to reproduce this bug. Leave empty if description above is self-explanatory.
       placeholder: |
         1. First step
@@ -68,4 +68,5 @@ body:
   - type: textarea
     attributes:
       label: Other Information
-      description: Any other relevant information that is related to this issue, such as other mods and their versions. Leave empty if there is none.
+      description: |
+        Any other relevant information that is related to this issue, such as other mods and their versions. Leave empty if there is none.
