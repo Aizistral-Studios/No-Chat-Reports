@@ -44,13 +44,12 @@ body:
     attributes:
       label: Modpack Info
       description: |
-        If playing a modpack, post the link to it!
+        If playing a modpack, post the link to it. Leave empty otherwise.
   - type: input
     attributes:
       label: "The latest.log File"
-      description: "Please use a paste site such as [gist](https://gist.github.com/) / [pastebin](https://pastebin.com/) / etc."
-    validations:
-      required: true
+      description: description: |
+        Please use a paste site such as [gist](https://gist.github.com/)/[pastebin](https://pastebin.com/)/etc. Leave empty if log is not relevant.
   - type: textarea
     attributes:
       label: Bug Description
@@ -60,6 +59,8 @@ body:
   - type: textarea
     attributes:
       label: Steps to Reproduce
+      description: description: |
+        Describe exact steps necessary to reproduce this bug. Leave empty if description above is self-explanatory.
       placeholder: |
         1. First step
         2. Second step
@@ -67,4 +68,4 @@ body:
   - type: textarea
     attributes:
       label: Other Information
-      description: Any other relevant information that is related to this issue, such as other mods and their versions.
+      description: Any other relevant information that is related to this issue, such as other mods and their versions. Leave empty if there is none.
