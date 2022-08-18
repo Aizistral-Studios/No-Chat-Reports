@@ -48,7 +48,7 @@ body:
   - type: input
     attributes:
       label: "The latest.log File"
-      description: description: |
+      description: |
         Please use a paste site such as [gist](https://gist.github.com/)/[pastebin](https://pastebin.com/)/etc. Leave empty if log is not relevant.
   - type: textarea
     attributes:
