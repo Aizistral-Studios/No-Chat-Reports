@@ -42,7 +42,7 @@
 	"option.NoChatReports.whitelistAllServers": "Whitelist all servers",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Makes the mod behave as if all servers were added to §oWhitelisted Servers§r list.",
 	"option.NoChatReports.whitelistedServers": "Whitelisted Servers",
-	"option.NoChatReports.whitelistedServers.tooltip": "Contains servers for which \"Unsafe Server\" warning screen should never display. Servers are added to this list automatically when you check \"Do not show again for this server\" box in that screen. Each entry is a string that is formatted as §l<server-ip>:<port>§r.",
+	"option.NoChatReports.whitelistedServers.tooltip": "Contains servers for which \"Unsafe Server\" warning screen should never display. Servers are added to this list automatically when you check \"Do not show again for this server\" box in that screen.\nEach entry is a string that is formatted as §l<server-ip>:<port>§r.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Add server",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Remove server",
 	"option.NoChatReports.whitelistedServers.instructions": "When adding a server click below Whitelisted Servers to type in the field."
