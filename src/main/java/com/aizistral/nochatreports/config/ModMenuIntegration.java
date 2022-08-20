@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.aizistral.nochatreports.gui.FontHelper;
@@ -41,6 +42,9 @@ public class ModMenuIntegration implements ModMenuApi {
 
 		return tooltip;
 	}
+
+	private static final ArrayList<String> DEFAULT_SERVER_ADD = new ArrayList<>(List.of(
+			"mc.example.com"));
 
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
@@ -155,6 +159,7 @@ public class ModMenuIntegration implements ModMenuApi {
 			// Add or remove whitelisted servers
 			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NoReportsConfig.getInstance().whitelistedServers)
 					.setExpanded(true)
+					.setDefaultValue(DEFAULT_SERVER_ADD)
 					.setInsertInFront(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
