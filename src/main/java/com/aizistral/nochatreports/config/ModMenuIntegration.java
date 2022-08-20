@@ -10,6 +10,7 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.gui.entries.StringListListEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -43,8 +44,7 @@ public class ModMenuIntegration implements ModMenuApi {
 		return tooltip;
 	}
 
-	private static final ArrayList<String> DEFAULT_SERVER_ADD = new ArrayList<>(List.of(
-			"mc.example.com"));
+	private static final ArrayList<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>(List.of());
 
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
@@ -159,12 +159,13 @@ public class ModMenuIntegration implements ModMenuApi {
 			// Add or remove whitelisted servers
 			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NoReportsConfig.getInstance().whitelistedServers)
 					.setExpanded(true)
-					.setDefaultValue(DEFAULT_SERVER_ADD)
 					.setInsertInFront(true)
+					.setDefaultValue(DEFAULT_WHITELISTED_SERVERS)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
 					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().whitelistedServers = newValue)
+					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell("Click here to edit server address", (StringListListEntry) baseListEntry))
 					.build());
 
 			// Save config
