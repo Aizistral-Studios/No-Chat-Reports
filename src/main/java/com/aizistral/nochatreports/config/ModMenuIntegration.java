@@ -165,7 +165,7 @@ public class ModMenuIntegration implements ModMenuApi {
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
 					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().whitelistedServers = newValue)
-					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell("Click here to edit server address", (StringListListEntry) baseListEntry))
+					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), (StringListListEntry) baseListEntry))
 					.build());
 
 			// Save config
