@@ -2,7 +2,7 @@
 	"modmenu.descriptionTranslation.nochatreports": "Usuwa podpisy kryptograficzne z wiadomości graczy, uniemożliwiając ich śledzenie i powiązanie z kontem Mojang/Microsoft, a także korzystanie z funkcji raportowania czatu gracza.",
 	"gui.nochatreport.secureChat": "Ta opcja nie działa z No Chat Reports, ponieważ nie ma podpisów do weryfikacji.",
 	"gui.nochatreport.noReporting": "Raporty czatu są wyłączone na tym serwerze, dzięki No Chat Reports.",
-	"disconnect.nochatreports.client": "Na tym serwerze nie ma No Chat Reports, a został skonfigurowany tak, aby był wymagany na serwerze."
+	"disconnect.nochatreports.client": "Na tym serwerze nie ma No Chat Reports, a został skonfigurowany tak, aby był wymagany na serwerze.",
 	"gui.nochatreports.status_secure": "Ten serwer ma zainstalowane No Chat Reports lub uniemożliwia raportowanie wiadomości w inny znany sposób. Możesz bezpiecznie chatować.",
 	"gui.nochatreports.status_unintrusive": "Ten serwer pozwala na wysyłanie nie podpisanych wiadomości, których nie można zgłosić do Mojangu. Klienci Vanilla dalej będą wysyłać podpisane wiadomości, pokazywać nie podpisane jako \"Nie zabezpieczone\" i nie pokaże ich przy włączonej opcji \"Tylko bezpieczny czat\".",
 	"gui.nochatreports.status_insecure": "Ten serwer wymaga podpisania wszystkich wiadomości graczy, a ty zgodziłeś się kontynuować z tym. Wszystko, co wysyłasz na czacie, jest potencjalnie obciążającym dowodem, który można wykorzystać przeciwko tobie w zgłoszeniu. Możesz ręcznie usunąć ten serwer z NoChatReports.json w folderze konfiguracyjnym, aby ponownie otrzymać ostrzeżenie.",
