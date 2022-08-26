@@ -10,7 +10,6 @@
 	"server.MixinPlayer",
 	"server.MixinServerboundChatPacket",
 	"server.MixinServerGamePacketListenerImpl",
-	"server.MixinServerStatus",
 	"server.MixinPlayerList"
   ],
   "client": [
