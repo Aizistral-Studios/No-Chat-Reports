@@ -22,7 +22,18 @@ import net.fabricmc.loader.api.FabricLoader;
 public abstract class AbstractJSONConfig {
 	protected static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
 	protected static final Gson GSON = new GsonBuilder().setPrettyPrinting()
-			.setExclusionStrategies(JSONExclusions.INSTANCE).create();
+			.setExclusionStrategies(new ExclusionStrategy() {
+				@Override
+				public boolean shouldSkipField(FieldAttributes field) {
+					return field.getDeclaringClass() == AbstractJSONConfig.class;
+				}
+
+				@Override
+				public boolean shouldSkipClass(Class<?> theClass) {
+					return false;
+				}
+			}).create();
+
 	protected final String fileName;
 	protected final Path filePath;
 
@@ -72,25 +83,6 @@ public abstract class AbstractJSONConfig {
 			NoChatReports.LOGGER.fatal("Could not write config file: {}", file);
 			throw new RuntimeException(ex);
 		}
-	}
-
-	private static final class JSONExclusions implements ExclusionStrategy {
-		private static final JSONExclusions INSTANCE = new JSONExclusions();
-
-		private JSONExclusions() {
-			// TODO NO-OP
-		}
-
-		@Override
-		public boolean shouldSkipField(FieldAttributes field) {
-			return field.getDeclaringClass() == AbstractJSONConfig.class;
-		}
-
-		@Override
-		public boolean shouldSkipClass(Class<?> theClass) {
-			return false;
-		}
-
 	}
 
 }
