@@ -5,10 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "verbose": true,
   "mixins": [
+	"common.MixinServerStatus",
+	"common.MixinServerStatusSerializer",
 	"server.MixinPlayer",
 	"server.MixinServerboundChatPacket",
 	"server.MixinServerGamePacketListenerImpl",
-	"server.MixinServerStatus",
 	"server.MixinPlayerList"
   ],
   "client": [
@@ -26,7 +27,9 @@
 	"client.MixinJoinMultiplayerScreen",
 	"client.MixinGuiMessageTag",
 	"client.MixinToastComponent",
-	"client.MixinRealmsConnect"
+	"client.MixinRealmsConnect",
+	"client.MixinServerData",
+	"client.MixinServerStatusPinger$1"
   ],
   "server": [
 	"server.MixinDedicatedServer"
