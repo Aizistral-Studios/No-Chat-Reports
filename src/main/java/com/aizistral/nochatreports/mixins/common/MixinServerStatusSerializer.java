@@ -1,6 +1,6 @@
 package com.aizistral.nochatreports.mixins.common;
 
-import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.config.NCRConfigLegacy;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -30,7 +30,7 @@ public class MixinServerStatusSerializer {
 			at = @At("RETURN"))
 	private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
 			CallbackInfoReturnable<JsonElement> info) {
-		if (!NCRConfig.addQueryData())
+		if (!NCRConfigLegacy.addQueryData())
 			return;
 
 		((JsonObject) info.getReturnValue()).addProperty("preventsChatReports", true);

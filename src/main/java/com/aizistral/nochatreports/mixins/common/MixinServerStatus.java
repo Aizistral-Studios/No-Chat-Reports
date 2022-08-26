@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.config.NCRConfigLegacy;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 
 import net.minecraft.network.protocol.game.ClientboundServerDataPacket;
@@ -34,7 +34,7 @@ public class MixinServerStatus implements ServerDataExtension {
 
 	@Inject(method = "enforcesSecureChat", at = @At("HEAD"), cancellable = true)
 	public void onSecureChatCheck(CallbackInfoReturnable<Boolean> info) {
-		if (NCRConfig.convertToGameMessage()) {
+		if (NCRConfigLegacy.convertToGameMessage()) {
 			info.setReturnValue(true);
 		}
 	}

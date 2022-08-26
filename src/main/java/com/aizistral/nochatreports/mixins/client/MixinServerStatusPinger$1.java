@@ -1,7 +1,7 @@
 package com.aizistral.nochatreports.mixins.client;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.config.NCRConfigLegacy;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
@@ -31,7 +31,7 @@ public class MixinServerStatusPinger$1 {
 		boolean preventsReports = ((ServerDataExtension) packet.getStatus()).preventsChatReports();
 		((ServerDataExtension) this.val$data).setPreventsChatReports(preventsReports);
 
-		if (NCRConfig.enableDebugLog()) {
+		if (NCRConfigLegacy.enableDebugLog()) {
 			NoChatReports.LOGGER.info("Received status response packet from server, preventsChatReports: {}",
 					preventsReports);
 		}

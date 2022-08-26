@@ -3,7 +3,7 @@ package com.aizistral.nochatreports.gui;
 import javax.print.attribute.standard.MediaSize.NA;
 
 import com.aizistral.nochatreports.NoChatReportsClient;
-import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.config.NCRConfigLegacy;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
 import net.fabricmc.api.EnvType;
@@ -52,8 +52,8 @@ public final class UnsafeServerScreen extends WarningScreen {
 
 			if (address != null) {
 				if (this.stopShowing.selected()) {
-					NCRConfig.getWhitelistedServers().add(address.getHost() + ":" + address.getPort());
-					NCRConfig.saveConfig();
+					NCRConfigLegacy.getWhitelistedServers().add(address.getHost() + ":" + address.getPort());
+					NCRConfigLegacy.saveConfig();
 				}
 
 				ServerSafetyState.setAllowsUnsafeServer(true);

@@ -1,6 +1,6 @@
 package com.aizistral.nochatreports.mixins.client;
 
-import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.config.NCRConfigLegacy;
 import com.mojang.authlib.minecraft.TelemetrySession;
 import com.mojang.authlib.minecraft.UserApiService;
 
@@ -24,7 +24,7 @@ public class MixinClientTelemetryManager {
 			+ "newTelemetrySession(Ljava/util/concurrent/Executor;)Lcom/mojang/authlib/minecraft/TelemetrySession;",
 			remap = false))
 	private TelemetrySession onCreateTelemetrySession(UserApiService service, Executor executor) {
-		if (NCRConfig.disableTelemetry())
+		if (NCRConfigLegacy.disableTelemetry())
 			return TelemetrySession.DISABLED;
 		else
 			return service.newTelemetrySession(executor);
