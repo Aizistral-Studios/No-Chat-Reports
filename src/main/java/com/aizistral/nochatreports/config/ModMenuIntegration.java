@@ -31,6 +31,7 @@ import net.minecraft.network.chat.Component;
 
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
+	private static final List<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>();
 
 	private Component[] makeTooltip(String key) {
 		String localized = Language.getInstance().getOrDefault(key);
@@ -43,8 +44,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 
 		return tooltip;
 	}
-
-	private static final ArrayList<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>(List.of());
 
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
