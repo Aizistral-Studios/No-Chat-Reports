@@ -10,6 +10,7 @@ import net.minecraft.util.Signer;
 import net.minecraft.world.entity.player.ProfilePublicKey;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Group;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -37,10 +38,25 @@ public class MixinProfileKeyPairManager {
 	 * @author Aizistral
 	 */
 
+	@Group(min = 1, max = 1)
 	@Inject(method = "parsePublicKey", at = @At("HEAD"), cancellable = true)
 	private static void onParsePublicKey(KeyPairResponse response, CallbackInfoReturnable<ProfilePublicKey.Data> info) {
 		if (!ServerSafetyState.allowsUnsafeServer()) {
 			info.setReturnValue(null);
+		}
+	}
+
+	/**
+	 * @reason Accomplishes the same thing as {@link #onParsePublicKey(KeyPairResponse, CallbackInfoReturnable)},
+	 * but only in 1.19.1.
+	 * @author Aizistral
+	 */
+
+	@Group(min = 1, max = 1)
+	@Inject(method = "profilePublicKeyData", at = @At("HEAD"), cancellable = true)
+	private void onProfilePublicKeyData(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
+		if (!ServerSafetyState.allowsUnsafeServer()) {
+			info.setReturnValue(Optional.empty());
 		}
 	}
 
