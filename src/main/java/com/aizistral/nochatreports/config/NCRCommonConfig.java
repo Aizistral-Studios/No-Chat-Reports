@@ -1,8 +1,15 @@
 package com.aizistral.nochatreports.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.base.Preconditions;
+
 public final class NCRCommonConfig extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
-	protected String demandOnClientMessage = "You do not have No Chat Reports, and this server is configured to require it on client!";
+
+	protected String demandOnClientMessage = "You do not have No Chat Reports, and this server is"
+			+ " configured to require it on client!";
 	protected boolean demandOnClient = true, enableDebugLog = false, convertToGameMessage = false,
 			addQueryData = true;
 

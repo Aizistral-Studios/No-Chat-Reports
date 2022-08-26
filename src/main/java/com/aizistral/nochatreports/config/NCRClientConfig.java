@@ -12,11 +12,13 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
 public final class NCRClientConfig extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
+	protected static final List<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>();
+
 	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false;
-	protected List<String> whitelistedServers = new ArrayList<>();
+	protected List<String> whitelistedServers = DEFAULT_WHITELISTED_SERVERS;
 
 	protected NCRClientConfig() {
 		super(FILE_NAME);

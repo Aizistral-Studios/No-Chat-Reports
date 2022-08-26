@@ -27,7 +27,6 @@ import net.minecraft.network.chat.HoverEvent;
 
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
-	private static final List<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>();
 
 	private Component[] makeTooltip(String key) {
 		String localized = Language.getInstance().getOrDefault(key);
@@ -159,7 +158,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfig.getClient().whitelistedServers)
 					.setExpanded(true)
 					.setInsertInFront(true)
-					.setDefaultValue(DEFAULT_WHITELISTED_SERVERS)
+					.setDefaultValue(NCRClientConfig.DEFAULT_WHITELISTED_SERVERS)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
