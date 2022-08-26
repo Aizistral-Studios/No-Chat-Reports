@@ -3,7 +3,7 @@ package com.aizistral.nochatreports;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.network.ServerChannelHandler;
 import com.mojang.authlib.minecraft.UserApiService;
 import com.mojang.patchy.MojangBlockListSupplier;
@@ -39,12 +39,12 @@ public final class NoChatReports implements ModInitializer {
 
 		ServerPlayNetworking.registerGlobalReceiver(CHANNEL, ServerChannelHandler.INSTANCE);
 		ServerPlayConnectionEvents.JOIN.register(this::onPlayReady);
-		NoReportsConfig.loadConfig();
+		NCRConfig.loadConfig();
 	}
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
 		server.execute(() -> {
-			if (NoReportsConfig.demandsOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
+			if (NCRConfig.demandsOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
 				handler.disconnect(Component.literal("You do not have No Chat Reports, and this server is configured to require it on client!"));
 			}
 

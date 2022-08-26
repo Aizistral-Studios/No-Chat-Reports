@@ -3,7 +3,7 @@ package com.aizistral.nochatreports;
 import java.util.List;
 
 import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.AccessorDisconnectedScreen;
@@ -70,7 +70,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 					return;
 				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
 					if (ServerSafetyState.getLastServerAddress() != null) {
-						if (!NoReportsConfig.isWhitelistedServer(ServerSafetyState.getLastServerAddress()) && !NoReportsConfig.whitelistAllServers()) {
+						if (!NCRConfig.isWhitelistedServer(ServerSafetyState.getLastServerAddress()) && !NCRConfig.whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
 						} else {
 							if (ServerSafetyState.getReconnectCount() <= 0) {
@@ -106,7 +106,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				}
 			}
 
-			if (NoReportsConfig.demandsOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
+			if (NCRConfig.demandsOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});

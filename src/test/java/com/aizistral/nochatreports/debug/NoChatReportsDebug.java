@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.network.ServerChannelHandler;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.BanDetails;

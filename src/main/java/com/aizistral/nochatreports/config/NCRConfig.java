@@ -36,10 +36,10 @@ import net.minecraft.util.Tuple;
  * @author Aizistral
  */
 
-public final class NoReportsConfig {
+public final class NCRConfig {
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-	private static NoReportsConfig INSTANCE;
+	private static NCRConfig INSTANCE;
 	protected boolean demandOnClient = true, demandOnServer = false, enableDebugLog = false,
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
@@ -47,7 +47,7 @@ public final class NoReportsConfig {
 			whitelistAllServers = false, addQueryData = true;
 	protected List<String> whitelistedServers;
 
-	protected static NoReportsConfig getInstance() {
+	protected static NCRConfig getInstance() {
 		if (INSTANCE == null) {
 			loadConfig();
 		}
@@ -66,7 +66,7 @@ public final class NoReportsConfig {
 		INSTANCE = readFile();
 
 		if (INSTANCE == null) {
-			INSTANCE = new NoReportsConfig();
+			INSTANCE = new NCRConfig();
 		}
 
 		if (INSTANCE.whitelistedServers == null) {
@@ -87,18 +87,18 @@ public final class NoReportsConfig {
 	}
 
 	@Nullable
-	private static NoReportsConfig readFile() {
+	private static NCRConfig readFile() {
 		if (!Files.isRegularFile(CONFIG_FILE))
 			return null;
 
 		try (BufferedReader reader = Files.newBufferedReader(CONFIG_FILE)) {
-			return GSON.fromJson(reader, NoReportsConfig.class);
+			return GSON.fromJson(reader, NCRConfig.class);
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
 
-	private static void writeFile(NoReportsConfig instance) {
+	private static void writeFile(NCRConfig instance) {
 		try (BufferedWriter writer = Files.newBufferedWriter(CONFIG_FILE)) {
 			GSON.toJson(instance, writer);
 		} catch (Exception ex) {

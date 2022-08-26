@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 
 import java.util.UUID;
 
@@ -20,7 +20,7 @@ public class MixinServerboundChatPacket {
 	/**
 	 * @reason Strip signatures before relaying messages to other clients, if they arrive signed
 	 * This is important for mod to be able to operate in server-only mode without
-	 * {@link NoReportsConfig#convertToGameMessage()} enabled.
+	 * {@link NCRConfig#convertToGameMessage()} enabled.
 	 * @author Aizistral
 	 */
 

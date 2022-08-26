@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 
 @Mixin(ServerGamePacketListenerImpl.class)
 public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerConnection {
@@ -35,7 +35,7 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;)V", at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, CallbackInfo info) {
-		if (NoReportsConfig.convertToGameMessage()) {
+		if (NCRConfig.convertToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatHeaderPacket) {
 				info.cancel();
 			} else if (packet instanceof ClientboundPlayerChatPacket chat) {
@@ -57,7 +57,7 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
 			at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo info) {
-		if (NoReportsConfig.convertToGameMessage()) {
+		if (NCRConfig.convertToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatHeaderPacket) {
 				info.cancel();
 			} else if (packet instanceof ClientboundPlayerChatPacket chat && packetSendListener != null) {

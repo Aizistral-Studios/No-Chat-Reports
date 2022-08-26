@@ -62,10 +62,10 @@ public final class ModMenuIntegration implements ModMenuApi {
 			ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
 			// Set an option for showServerSafety
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NoReportsConfig.getInstance().showServerSafety)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NCRConfig.getInstance().showServerSafety)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.showServerSafety.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().showServerSafety = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().showServerSafety = newValue)
 					.build());
 
 			// Add link for documentation for showServerSafety
@@ -75,80 +75,80 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.build());
 
 			// Set an option for hideRedChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NoReportsConfig.getInstance().hideRedChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NCRConfig.getInstance().hideRedChatIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideRedChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideRedChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().hideRedChatIndicators = newValue)
 					.build());
 
 			// Set an option for hideYellowChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NoReportsConfig.getInstance().hideYellowChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NCRConfig.getInstance().hideYellowChatIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideYellowChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideYellowChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().hideYellowChatIndicators = newValue)
 					.build());
 
 			// Set an option for hideGrayChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NoReportsConfig.getInstance().hideGrayChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NCRConfig.getInstance().hideGrayChatIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideGrayChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideGrayChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().hideGrayChatIndicators = newValue)
 					.build());
 
 			// Set an option for hideWarningToast
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideWarningToast"), NoReportsConfig.getInstance().hideWarningToast)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideWarningToast"), NCRConfig.getInstance().hideWarningToast)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideWarningToast.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().hideWarningToast = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().hideWarningToast = newValue)
 					.build());
 
 			// Set an option for alwaysHideReportButton
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NoReportsConfig.getInstance().alwaysHideReportButton)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NCRConfig.getInstance().alwaysHideReportButton)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.alwaysHideReportButton.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().alwaysHideReportButton = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().alwaysHideReportButton = newValue)
 					.build());
 
 			// Set an option for demandOnServer
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnServer"), NoReportsConfig.getInstance().demandOnServer)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnServer"), NCRConfig.getInstance().demandOnServer)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnServer.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().demandOnServer = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().demandOnServer = newValue)
 					.build());
 
 			// Set an option for enableDebugLog
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NoReportsConfig.getInstance().enableDebugLog)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NCRConfig.getInstance().enableDebugLog)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.enableDebugLog.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().enableDebugLog = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().enableDebugLog = newValue)
 					.build());
 
 			// Set an option for convertToGameMessage
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NoReportsConfig.getInstance().convertToGameMessage)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfig.getInstance().convertToGameMessage)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.convertToGameMessage.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().convertToGameMessage = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().convertToGameMessage = newValue)
 					.build());
 
 			// Set an option for disableTelemetry
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NoReportsConfig.getInstance().disableTelemetry)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NCRConfig.getInstance().disableTelemetry)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.disableTelemetry.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().disableTelemetry = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().disableTelemetry = newValue)
 					.build());
 
 			// Set an option for showReloadButton
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NoReportsConfig.getInstance().showReloadButton)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NCRConfig.getInstance().showReloadButton)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.showReloadButton.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().showReloadButton = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().showReloadButton = newValue)
 					.build());
 
 			// Set an option for whitelistAllServers
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.whitelistAllServers"), NoReportsConfig.getInstance().whitelistAllServers)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.whitelistAllServers"), NCRConfig.getInstance().whitelistAllServers)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistAllServers.tooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().whitelistAllServers = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().whitelistAllServers = newValue)
 					.build());
 
 			// Instructions for adding servers
@@ -156,21 +156,21 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.build());
 
 			// Add or remove whitelisted servers
-			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NoReportsConfig.getInstance().whitelistedServers)
+			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfig.getInstance().whitelistedServers)
 					.setExpanded(true)
 					.setInsertInFront(true)
 					.setDefaultValue(DEFAULT_WHITELISTED_SERVERS)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
-					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().whitelistedServers = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getInstance().whitelistedServers = newValue)
 					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), baseListEntry))
 					.build());
 
 			// Save config
 			builder.setSavingRunnable(() -> {
-				NoReportsConfig.saveConfig();
-				NoReportsConfig.loadConfig();
+				NCRConfig.saveConfig();
+				NCRConfig.loadConfig();
 			});
 			return builder.build();
 		};

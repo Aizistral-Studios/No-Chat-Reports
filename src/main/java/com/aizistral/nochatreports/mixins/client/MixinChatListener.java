@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.multiplayer.chat.ChatListener;
@@ -49,16 +49,16 @@ public class MixinChatListener {
 				return;
 			}
 
-			if (evaluate == ChatTrustLevel.NOT_SECURE && NoReportsConfig.hideRedChatIndicators()) {
+			if (evaluate == ChatTrustLevel.NOT_SECURE && NCRConfig.hideRedChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			} else if ((evaluate == ChatTrustLevel.FILTERED || evaluate == ChatTrustLevel.MODIFIED)
-					&& NoReportsConfig.hideYellowChatIndicators()) {
+					&& NCRConfig.hideYellowChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			}
 		}
 
 		// Debug never dies
-		if (NoReportsConfig.enableDebugLog()) {
+		if (NCRConfig.enableDebugLog()) {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
 					Component.Serializer.toStableJson(playerChatMessage.serverContent()),
 					playerChatMessage.signer().profileId(),

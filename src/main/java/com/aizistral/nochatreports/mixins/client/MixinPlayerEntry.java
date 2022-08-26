@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -47,7 +47,7 @@ public class MixinPlayerEntry {
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen socialInteractionsScreen, UUID uUID, String string, Supplier<ResourceLocation> supplier, boolean reportable, CallbackInfo info) {
-		if (NoReportsConfig.alwaysHideReportButton()) {
+		if (NCRConfig.alwaysHideReportButton()) {
 			this.reportButton = new Button(0, 0, 20, 20, Component.empty(), button -> {}) {
 				@Override
 				public void render(PoseStack poseStack, int i, int j, float f) {

@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.aizistral.nochatreports.config.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.components.toasts.SystemToast.SystemToastIds;
@@ -17,7 +17,7 @@ public class MixinToastComponent {
 
 	@Inject(method = "addToast", at = @At("HEAD"), cancellable = true)
 	private void onAddToast(Toast toast, CallbackInfo info) {
-		if (NoReportsConfig.hideWarningToast())
+		if (NCRConfig.hideWarningToast())
 			if (toast instanceof SystemToast sys && sys.getToken() == SystemToastIds.UNSECURE_SERVER_WARNING) {
 				info.cancel();
 			}
