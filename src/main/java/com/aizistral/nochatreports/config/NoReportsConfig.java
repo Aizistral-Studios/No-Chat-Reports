@@ -44,7 +44,7 @@ public class NoReportsConfig {
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
-			whitelistAllServers = false;
+			whitelistAllServers = false, includeQueryData = true;
 	protected List<String> whitelistedServers;
 
 	protected static NoReportsConfig getInstance() {
@@ -279,6 +279,17 @@ public class NoReportsConfig {
 
 	public static boolean whitelistAllServers() {
 		return getInstance().whitelistAllServers;
+	}
+
+	/**
+	 * @return True if server should include extra query data to help clients know that your server
+	 * is secure.<br><br>
+	 *
+	 * This is true by default.
+	 */
+
+	public static boolean includeQueryData() {
+		return getInstance().includeQueryData;
 	}
 
 }
