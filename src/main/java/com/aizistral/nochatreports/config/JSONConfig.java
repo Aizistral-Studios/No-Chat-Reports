@@ -48,9 +48,15 @@ public abstract class JSONConfig {
 		writeFile(this.fileName, this);
 	}
 
+	protected void uponLoad() {
+		// NO-OP
+	}
+
 	public static <T extends JSONConfig> T loadConfig(Class<T> configClass, Supplier<T> freshInstance, String fileName) {
 		NoChatReports.LOGGER.info("Reading config file {}...", fileName);
-		return readFile(fileName, configClass).orElseGet(freshInstance);
+		T config = readFile(fileName, configClass).orElseGet(freshInstance);
+		config.uponLoad();
+		return config;
 	}
 
 	private static <T extends JSONConfig> Optional<T> readFile(String fileName, Class<T> configClass) {
