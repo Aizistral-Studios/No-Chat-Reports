@@ -19,13 +19,13 @@ import com.google.gson.GsonBuilder;
 
 import net.fabricmc.loader.api.FabricLoader;
 
-public abstract class AbstractJSONConfig {
+public abstract class JSONConfig {
 	protected static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
 	protected static final Gson GSON = new GsonBuilder().setPrettyPrinting()
 			.setExclusionStrategies(new ExclusionStrategy() {
 				@Override
 				public boolean shouldSkipField(FieldAttributes field) {
-					return field.getDeclaringClass() == AbstractJSONConfig.class;
+					return field.getDeclaringClass() == JSONConfig.class;
 				}
 
 				@Override
@@ -37,7 +37,7 @@ public abstract class AbstractJSONConfig {
 	protected final String fileName;
 	protected final Path filePath;
 
-	protected AbstractJSONConfig(String file) {
+	protected JSONConfig(String file) {
 		this.fileName = file;
 		this.filePath = CONFIG_DIR.resolve(this.fileName);
 	}
@@ -46,17 +46,17 @@ public abstract class AbstractJSONConfig {
 		return this.filePath;
 	}
 
-	protected void save() {
+	public void saveFile() {
 		NoChatReports.LOGGER.info("Writing config file {}...", this.fileName);
 		writeFile(this.fileName, this);
 	}
 
-	protected static <T extends AbstractJSONConfig> T loadConfig(Class<T> configClass, Supplier<T> freshInstance, String fileName) {
+	public static <T extends JSONConfig> T loadConfig(Class<T> configClass, Supplier<T> freshInstance, String fileName) {
 		NoChatReports.LOGGER.info("Reading config file {}...", fileName);
 		return readFile(fileName, configClass).orElseGet(freshInstance);
 	}
 
-	private static <T extends AbstractJSONConfig> Optional<T> readFile(String fileName, Class<T> configClass) {
+	private static <T extends JSONConfig> Optional<T> readFile(String fileName, Class<T> configClass) {
 		Path file = CONFIG_DIR.resolve(fileName);
 
 		if (!Files.isRegularFile(file))

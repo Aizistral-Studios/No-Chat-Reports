@@ -10,7 +10,7 @@ import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
-public final class NCRClientConfig extends AbstractJSONConfig {
+public final class NCRClientConfig extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,

@@ -15,7 +15,7 @@ public final class NCRConfig {
 		throw new IllegalStateException("Can't touch this");
 	}
 
-	public static AbstractJSONConfig getCommon() {
+	public static JSONConfig getCommon() {
 		if (common == null) {
 			load();
 		}
@@ -24,7 +24,7 @@ public final class NCRConfig {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static AbstractJSONConfig getClient() {
+	public static JSONConfig getClient() {
 		if (client == null) {
 			load();
 		}
@@ -33,20 +33,20 @@ public final class NCRConfig {
 	}
 
 	public static void load() {
-		common = AbstractJSONConfig.loadConfig(NCRCommonConfig.class, NCRCommonConfig::new, NCRCommonConfig.FILE_NAME);
-		common.save();
+		common = JSONConfig.loadConfig(NCRCommonConfig.class, NCRCommonConfig::new, NCRCommonConfig.FILE_NAME);
+		common.saveFile();
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			client = AbstractJSONConfig.loadConfig(NCRClientConfig.class, NCRClientConfig::new, NCRClientConfig.FILE_NAME);
-			client.save();
+			client = JSONConfig.loadConfig(NCRClientConfig.class, NCRClientConfig::new, NCRClientConfig.FILE_NAME);
+			client.saveFile();
 		}
 	}
 
 	public static void save() {
-		Objects.requireNonNull(common, "Cannot save config because it was not loaded!").save();
+		Objects.requireNonNull(common, "Cannot save config because it was not loaded!").saveFile();
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			Objects.requireNonNull(client, "Cannot save config because it was not loaded!").save();
+			Objects.requireNonNull(client, "Cannot save config because it was not loaded!").saveFile();
 		}
 	}
 
