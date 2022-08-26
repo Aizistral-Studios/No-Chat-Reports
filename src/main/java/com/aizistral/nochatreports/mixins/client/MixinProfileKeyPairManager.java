@@ -1,6 +1,9 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.mojang.authlib.yggdrasil.response.KeyPairResponse;
+
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;
 import net.minecraft.util.Signer;
@@ -35,7 +38,7 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Inject(method = "parsePublicKey", at = @At("HEAD"), cancellable = true)
-	private static void onProfilePublicKeyData(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
+	private static void onParsePublicKey(KeyPairResponse response, CallbackInfoReturnable<ProfilePublicKey.Data> info) {
 		if (!ServerSafetyState.allowsUnsafeServer()) {
 			info.setReturnValue(null);
 		}

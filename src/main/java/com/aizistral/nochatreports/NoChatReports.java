@@ -51,4 +51,5 @@ public final class NoChatReports implements ModInitializer {
 			//handler.disconnect(Component.translatable("multiplayer.disconnect.missing_public_key"));
 		});
 	}
+
 }
