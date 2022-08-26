@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.aizistral.nochatreports.gui.FontHelper;
@@ -9,6 +10,7 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.gui.entries.StringListListEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -41,6 +43,8 @@ public class ModMenuIntegration implements ModMenuApi {
 
 		return tooltip;
 	}
+
+	private static final ArrayList<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>(List.of());
 
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
@@ -156,10 +160,12 @@ public class ModMenuIntegration implements ModMenuApi {
 			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NoReportsConfig.getInstance().whitelistedServers)
 					.setExpanded(true)
 					.setInsertInFront(true)
+					.setDefaultValue(DEFAULT_WHITELISTED_SERVERS)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
 					.setSaveConsumer(newValue -> NoReportsConfig.getInstance().whitelistedServers = newValue)
+					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), (StringListListEntry) baseListEntry))
 					.build());
 
 			// Save config
