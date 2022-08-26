@@ -46,5 +46,6 @@
 	"option.NoChatReports.whitelistedServers.tooltip": "Zawiera serwery, dla których ekran ostrzeżenia \"Niebezpieczny serwer\" nigdy nie powinien być wyświetlany. Serwery są dodawane do tej listy automatycznie po zaznaczeniu pola \"Nie pokazuj ponownie dla tego serwera\" na tym ekranie.\nKażdy wpis jest łańcuchem w formacie §l<adres-serwera>:<port>§r.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Dodaj serwer",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Usuń serwer",
-	"option.NoChatReports.whitelistedServers.instructions": "Podczas dodawania serwera kliknij poniżej Serwery w białej liscie, aby wpisać w polu."
+	"option.NoChatReports.whitelistedServers.instructions": "Kliknij +, aby dodać serwer. Kliknij -, aby usunąć wybrany serwer.",
+	"option.NoChatReports.whitelistedServers.serverAddress": "Kliknij tutaj, aby edytować adres serwera"
 }
