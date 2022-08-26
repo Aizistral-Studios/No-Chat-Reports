@@ -32,7 +32,7 @@ import net.minecraft.network.chat.Component;
  */
 
 @Environment(EnvType.CLIENT)
-public class UnsafeServerScreen extends WarningScreen {
+public final class UnsafeServerScreen extends WarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.unsafe_server.header").withStyle(ChatFormatting.BOLD);
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.unsafe_server.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.unsafe_server.check");

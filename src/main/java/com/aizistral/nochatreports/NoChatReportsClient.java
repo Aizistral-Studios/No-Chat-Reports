@@ -38,7 +38,7 @@ import net.minecraft.realms.RealmsScreen;
  */
 
 @Environment(EnvType.CLIENT)
-public class NoChatReportsClient implements ClientModInitializer {
+public final class NoChatReportsClient implements ClientModInitializer {
 	private static final List<String> KEY_DISCONNECT_REASONS = ImmutableList.of(
 			"multiplayer.disconnect.missing_public_key",
 			"multiplayer.disconnect.invalid_public_key_signature",

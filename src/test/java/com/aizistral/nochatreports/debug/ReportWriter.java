@@ -24,7 +24,7 @@ import net.fabricmc.loader.api.FabricLoader;
  * @author Aizistral
  */
 
-public class ReportWriter {
+public final class ReportWriter {
 	private static final ObjectMapper MAPPER = ObjectMapper.create();
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 

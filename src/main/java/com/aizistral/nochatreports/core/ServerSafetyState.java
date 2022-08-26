@@ -17,7 +17,7 @@ import net.minecraft.util.Tuple;
  */
 
 @Environment(EnvType.CLIENT)
-public class ServerSafetyState {
+public final class ServerSafetyState {
 	private static ServerSafetyLevel current = ServerSafetyLevel.UNKNOWN;
 	private static ServerAddress lastServerAddress = null;
 	private static ServerData lastServerData = null;

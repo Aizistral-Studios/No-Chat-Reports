@@ -17,7 +17,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
  */
 
 @Environment(EnvType.CLIENT)
-public class ClientChannelHandler implements PlayChannelHandler {
+public final class ClientChannelHandler implements PlayChannelHandler {
 	public static final ClientChannelHandler INSTANCE = new ClientChannelHandler();
 
 	private ClientChannelHandler() {

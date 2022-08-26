@@ -29,7 +29,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
  * @author Aizistral
  */
 
-public class NoChatReports implements ModInitializer {
+public final class NoChatReports implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final ResourceLocation CHANNEL = new ResourceLocation("nochatreports", "sync");
 

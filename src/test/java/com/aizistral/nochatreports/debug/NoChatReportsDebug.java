@@ -31,7 +31,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
-public class NoChatReportsDebug implements ModInitializer {
+public final class NoChatReportsDebug implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ServerPlayConnectionEvents.JOIN.register(this::onPlayReady);

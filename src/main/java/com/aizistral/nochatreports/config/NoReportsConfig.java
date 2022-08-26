@@ -36,7 +36,7 @@ import net.minecraft.util.Tuple;
  * @author Aizistral
  */
 
-public class NoReportsConfig {
+public final class NoReportsConfig {
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;

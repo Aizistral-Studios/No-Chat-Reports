@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
  * @author Aizistral
  */
 
-public class ServerChannelHandler implements PlayChannelHandler {
+public final class ServerChannelHandler implements PlayChannelHandler {
 	public static final ServerChannelHandler INSTANCE = new ServerChannelHandler();
 
 	private ServerChannelHandler() {
