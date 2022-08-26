@@ -2,6 +2,7 @@ package com.aizistral.nochatreports.config;
 
 public final class NCRCommonConfig extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
+	protected String demandOnClientMessage = "You do not have No Chat Reports, and this server is configured to require it on client!";
 	protected boolean demandOnClient = true, enableDebugLog = false, convertToGameMessage = false,
 			addQueryData = true;
 
@@ -16,8 +17,17 @@ public final class NCRCommonConfig extends JSONConfig {
 	 * This is false by default.
 	 */
 
-	public boolean demandsOnClient() {
+	public boolean demandOnClient() {
 		return this.demandOnClient;
+	}
+
+	/**
+	 * @return Disconnect message that should be shown to client if <code>demandOnClient</code> is
+	 * true and it tries to join without No Chat Reports installed.
+	 */
+
+	public String demandOnClientMessage() {
+		return this.demandOnClientMessage;
 	}
 
 	/**

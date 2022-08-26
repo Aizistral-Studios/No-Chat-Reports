@@ -35,8 +35,8 @@ public final class NoChatReports implements ModInitializer {
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
 		server.execute(() -> {
-			if (NCRConfig.getCommon().demandsOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
-				handler.disconnect(Component.literal("You do not have No Chat Reports, and this server is configured to require it on client!"));
+			if (NCRConfig.getCommon().demandOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
+				handler.disconnect(Component.literal(NCRConfig.getCommon().demandOnClientMessage()));
 			}
 
 			//handler.disconnect(Component.translatable("multiplayer.disconnect.missing_public_key"));

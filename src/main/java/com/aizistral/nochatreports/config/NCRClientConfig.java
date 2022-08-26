@@ -32,7 +32,7 @@ public final class NCRClientConfig extends JSONConfig {
 	 * This is false by default.
 	 */
 
-	public boolean demandsOnServer() {
+	public boolean demandOnServer() {
 		return this.demandOnServer;
 	}
 

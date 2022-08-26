@@ -102,7 +102,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				}
 			}
 
-			if (NCRConfig.getClient().demandsOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
+			if (NCRConfig.getClient().demandOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});
