@@ -1,7 +1,7 @@
 package com.aizistral.nochatreports.mixins.common;
 
 import com.aizistral.nochatreports.config.NoReportsConfig;
-import com.aizistral.nochatreports.core.NoChatReportingOption;
+import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -15,6 +15,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.lang.reflect.Type;
 
+/**
+ * Handles "preventsChatReports" property during serialization and deserialization of {@link ServerStatus}.
+ *
+ * @author fxmorin (original implementation)
+ * @author Aizistral (current version)
+ */
+
 @Mixin(ServerStatus.Serializer.class)
 public class MixinServerStatusSerializer {
 
@@ -23,18 +30,22 @@ public class MixinServerStatusSerializer {
 			at = @At("RETURN"))
 	private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
 			CallbackInfoReturnable<JsonElement> info) {
-		if (!NoReportsConfig.includeQueryData()) return;
-		((JsonObject)info.getReturnValue()).addProperty("noChatReporting", true);
+		if (!NoReportsConfig.addQueryData())
+			return;
+
+		((JsonObject) info.getReturnValue()).addProperty("preventsChatReports", true);
 	}
 
 	@Inject(method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;" +
 			"Lcom/google/gson/JsonDeserializationContext;)" +
 			"Lnet/minecraft/network/protocol/status/ServerStatus;",
 			locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
-	private void onDeserialize(JsonElement jsonElement, Type arg1, JsonDeserializationContext context,
-			CallbackInfoReturnable<ServerStatus> info, JsonObject jsonObj, ServerStatus status) {
-		if (!jsonObj.has("noChatReporting")) return;
-		((NoChatReportingOption)status).setNoChatReporting(GsonHelper.getAsBoolean(jsonObj, "noChatReporting"));
+	private void onDeserialize(JsonElement element, Type type, JsonDeserializationContext context,
+			CallbackInfoReturnable<ServerStatus> info, JsonObject json, ServerStatus status) {
+		if (!json.has("preventsChatReports"))
+			return;
+
+		((ServerDataExtension) status).setPreventsChatReports(GsonHelper.getAsBoolean(json, "preventsChatReports"));
 	}
 
 }

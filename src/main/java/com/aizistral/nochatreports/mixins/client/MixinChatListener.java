@@ -58,7 +58,7 @@ public class MixinChatListener {
 		}
 
 		// Debug never dies
-		if (NoReportsConfig.isDebugLogEnabled()) {
+		if (NoReportsConfig.enableDebugLog()) {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
 					Component.Serializer.toStableJson(playerChatMessage.serverContent()),
 					playerChatMessage.signer().profileId(),

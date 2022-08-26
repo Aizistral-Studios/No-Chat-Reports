@@ -32,7 +32,7 @@ public class MixinConnectScreen {
 		ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN); // just to be 100% sure
 		ServerSafetyState.setLastConnectedServer(serverAddress, serverData);
 
-		if (NoReportsConfig.isDebugLogEnabled()) {
+		if (NoReportsConfig.enableDebugLog()) {
 			NoChatReports.LOGGER.info("Connecting to: {}, will expose public key: {}",
 					serverAddress.getHost() + ":" + serverAddress.getPort(),
 					ServerSafetyState.allowsUnsafeServer());

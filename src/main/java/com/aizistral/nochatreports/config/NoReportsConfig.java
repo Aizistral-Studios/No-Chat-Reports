@@ -44,7 +44,7 @@ public class NoReportsConfig {
 			convertToGameMessage = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
-			whitelistAllServers = false, includeQueryData = true;
+			whitelistAllServers = false, addQueryData = true;
 	protected List<String> whitelistedServers;
 
 	protected static NoReportsConfig getInstance() {
@@ -233,7 +233,7 @@ public class NoReportsConfig {
 	 * This is false by default.
 	 */
 
-	public static boolean isDebugLogEnabled() {
+	public static boolean enableDebugLog() {
 		return getInstance().enableDebugLog;
 	}
 
@@ -288,8 +288,8 @@ public class NoReportsConfig {
 	 * This is true by default.
 	 */
 
-	public static boolean includeQueryData() {
-		return getInstance().includeQueryData;
+	public static boolean addQueryData() {
+		return getInstance().addQueryData;
 	}
 
 }
