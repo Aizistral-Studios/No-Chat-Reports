@@ -1,19 +1,22 @@
 package com.aizistral.nochatreports.mixins.common;
 
-import com.aizistral.nochatreports.config.NCRConfigLegacy;
-import com.aizistral.nochatreports.core.ServerDataExtension;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import net.minecraft.network.protocol.status.ServerStatus;
-import net.minecraft.util.GsonHelper;
+import java.lang.reflect.Type;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import java.lang.reflect.Type;
+
+import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.core.ServerDataExtension;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+
+import net.minecraft.network.protocol.status.ServerStatus;
+import net.minecraft.util.GsonHelper;
 
 /**
  * Handles "preventsChatReports" property during serialization and deserialization of {@link ServerStatus}.
@@ -30,7 +33,7 @@ public class MixinServerStatusSerializer {
 			at = @At("RETURN"))
 	private void onSerialize(ServerStatus serverStatus, Type type, JsonSerializationContext context,
 			CallbackInfoReturnable<JsonElement> info) {
-		if (!NCRConfigLegacy.addQueryData())
+		if (!NCRConfig.getCommon().addQueryData())
 			return;
 
 		((JsonObject) info.getReturnValue()).addProperty("preventsChatReports", true);

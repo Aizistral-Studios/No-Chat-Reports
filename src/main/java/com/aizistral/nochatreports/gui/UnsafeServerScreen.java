@@ -1,21 +1,17 @@
 package com.aizistral.nochatreports.gui;
 
-import javax.print.attribute.standard.MediaSize.NA;
-
 import com.aizistral.nochatreports.NoChatReportsClient;
-import com.aizistral.nochatreports.config.NCRConfigLegacy;
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.multiplayer.WarningScreen;
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -52,8 +48,8 @@ public final class UnsafeServerScreen extends WarningScreen {
 
 			if (address != null) {
 				if (this.stopShowing.selected()) {
-					NCRConfigLegacy.getWhitelistedServers().add(address.getHost() + ":" + address.getPort());
-					NCRConfigLegacy.saveConfig();
+					NCRConfig.getClient().getWhitelistedServers().add(address.getHost() + ":" + address.getPort());
+					NCRConfig.getClient().saveFile();
 				}
 
 				ServerSafetyState.setAllowsUnsafeServer(true);

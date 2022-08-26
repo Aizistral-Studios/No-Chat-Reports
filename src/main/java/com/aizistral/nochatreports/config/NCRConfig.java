@@ -1,6 +1,5 @@
 package com.aizistral.nochatreports.config;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import net.fabricmc.api.EnvType;
@@ -15,7 +14,7 @@ public final class NCRConfig {
 		throw new IllegalStateException("Can't touch this");
 	}
 
-	public static JSONConfig getCommon() {
+	public static NCRCommonConfig getCommon() {
 		if (common == null) {
 			load();
 		}
@@ -24,7 +23,7 @@ public final class NCRConfig {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static JSONConfig getClient() {
+	public static NCRClientConfig getClient() {
 		if (client == null) {
 			load();
 		}

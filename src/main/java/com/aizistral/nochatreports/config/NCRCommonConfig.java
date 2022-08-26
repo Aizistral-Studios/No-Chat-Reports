@@ -1,15 +1,5 @@
 package com.aizistral.nochatreports.config;
 
-import java.nio.file.Path;
-import java.util.List;
-
-import com.aizistral.nochatreports.core.ServerSafetyLevel;
-import com.aizistral.nochatreports.gui.UnsafeServerScreen;
-import com.aizistral.nochatreports.mixins.client.MixinChatListener;
-import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
-
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
-
 public final class NCRCommonConfig extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
 	protected boolean demandOnClient = true, enableDebugLog = false, convertToGameMessage = false,

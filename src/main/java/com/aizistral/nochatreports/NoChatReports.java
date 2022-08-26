@@ -4,23 +4,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.aizistral.nochatreports.config.NCRConfig;
-import com.aizistral.nochatreports.config.NCRConfigLegacy;
 import com.aizistral.nochatreports.network.ServerChannelHandler;
-import com.mojang.authlib.minecraft.UserApiService;
-import com.mojang.patchy.MojangBlockListSupplier;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.DetectedVersion;
-import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.PlayerChatMessage;
-import net.minecraft.network.protocol.login.ServerboundHelloPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -40,13 +30,12 @@ public final class NoChatReports implements ModInitializer {
 
 		ServerPlayNetworking.registerGlobalReceiver(CHANNEL, ServerChannelHandler.INSTANCE);
 		ServerPlayConnectionEvents.JOIN.register(this::onPlayReady);
-		NCRConfigLegacy.loadConfig();
 		NCRConfig.load();
 	}
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
 		server.execute(() -> {
-			if (NCRConfigLegacy.demandsOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
+			if (NCRConfig.getCommon().demandsOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
 				handler.disconnect(Component.literal("You do not have No Chat Reports, and this server is configured to require it on client!"));
 			}
 

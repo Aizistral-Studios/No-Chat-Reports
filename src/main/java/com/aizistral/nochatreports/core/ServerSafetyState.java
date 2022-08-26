@@ -1,15 +1,11 @@
 package com.aizistral.nochatreports.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nullable;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.util.Tuple;
 
 /**
  * All this global state is questionable, but we have to...

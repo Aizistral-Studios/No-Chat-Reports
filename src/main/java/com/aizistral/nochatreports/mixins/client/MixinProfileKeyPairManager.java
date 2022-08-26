@@ -1,6 +1,13 @@
 package com.aizistral.nochatreports.mixins.client;
 
-import com.aizistral.nochatreports.NoChatReports;
+import java.util.Optional;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Group;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.authlib.yggdrasil.response.KeyPairResponse;
 
@@ -8,13 +15,6 @@ import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;
 import net.minecraft.util.Signer;
 import net.minecraft.world.entity.player.ProfilePublicKey;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Group;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Optional;
 
 @Mixin(ProfileKeyPairManager.class)
 public class MixinProfileKeyPairManager {

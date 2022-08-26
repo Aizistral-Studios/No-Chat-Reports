@@ -1,12 +1,9 @@
 package com.aizistral.nochatreports.core;
 
-import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NCRConfigLegacy;
+import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.Component;
 
 /**
@@ -48,8 +45,10 @@ public enum ServerSafetyLevel {
 
 	@Environment(EnvType.CLIENT)
 	public Component getTooltip() {
-		if(NCRConfigLegacy.whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
+		if (NCRConfig.getClient().whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
 			return Component.translatable("gui.nochatreports.status_insecure_whitelist_all_servers");
-		return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
+		else
+			return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
 	}
+
 }

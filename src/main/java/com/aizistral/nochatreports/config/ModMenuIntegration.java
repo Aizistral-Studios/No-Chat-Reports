@@ -14,14 +14,10 @@ import me.shedaniel.clothconfig2.gui.entries.StringListListEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 
 /**
  * Implementation of ModMenu and ClothConfig support for the mod.
@@ -49,6 +45,8 @@ public final class ModMenuIntegration implements ModMenuApi {
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
 		return screen -> {
 
+			// TODO Sort config options into client and common instead of visual and technical
+
 			// Get the previous screen
 			ConfigBuilder builder = ConfigBuilder.create()
 					.setParentScreen(Minecraft.getInstance().screen)
@@ -62,10 +60,10 @@ public final class ModMenuIntegration implements ModMenuApi {
 			ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
 			// Set an option for showServerSafety
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NCRConfigLegacy.getInstance().showServerSafety)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NCRConfig.getClient().showServerSafety)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.showServerSafety.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().showServerSafety = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().showServerSafety = newValue)
 					.build());
 
 			// Add link for documentation for showServerSafety
@@ -75,80 +73,82 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.build());
 
 			// Set an option for hideRedChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NCRConfigLegacy.getInstance().hideRedChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NCRConfig.getClient().hideRedChatIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideRedChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().hideRedChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideRedChatIndicators = newValue)
 					.build());
 
 			// Set an option for hideYellowChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NCRConfigLegacy.getInstance().hideYellowChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NCRConfig.getClient().hideYellowChatIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideYellowChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().hideYellowChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideYellowChatIndicators = newValue)
 					.build());
 
 			// Set an option for hideGrayChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NCRConfigLegacy.getInstance().hideGrayChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NCRConfig.getClient().hideGrayChatIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideGrayChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().hideGrayChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideGrayChatIndicators = newValue)
 					.build());
 
 			// Set an option for hideWarningToast
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideWarningToast"), NCRConfigLegacy.getInstance().hideWarningToast)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideWarningToast"), NCRConfig.getClient().hideWarningToast)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideWarningToast.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().hideWarningToast = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideWarningToast = newValue)
 					.build());
 
 			// Set an option for alwaysHideReportButton
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NCRConfigLegacy.getInstance().alwaysHideReportButton)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.alwaysHideReportButton"), NCRConfig.getClient().alwaysHideReportButton)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.alwaysHideReportButton.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().alwaysHideReportButton = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().alwaysHideReportButton = newValue)
 					.build());
 
 			// Set an option for demandOnServer
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnServer"), NCRConfigLegacy.getInstance().demandOnServer)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnServer"), NCRConfig.getClient().demandOnServer)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnServer.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().demandOnServer = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().demandOnServer = newValue)
 					.build());
 
+			// TODO Where's the one for demandOnClient?
+
 			// Set an option for enableDebugLog
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NCRConfigLegacy.getInstance().enableDebugLog)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NCRConfig.getCommon().enableDebugLog)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.enableDebugLog.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().enableDebugLog = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().enableDebugLog = newValue)
 					.build());
 
 			// Set an option for convertToGameMessage
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfigLegacy.getInstance().convertToGameMessage)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfig.getCommon().convertToGameMessage)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.convertToGameMessage.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().convertToGameMessage = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().convertToGameMessage = newValue)
 					.build());
 
 			// Set an option for disableTelemetry
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NCRConfigLegacy.getInstance().disableTelemetry)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.disableTelemetry"), NCRConfig.getClient().disableTelemetry)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.disableTelemetry.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().disableTelemetry = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().disableTelemetry = newValue)
 					.build());
 
 			// Set an option for showReloadButton
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NCRConfigLegacy.getInstance().showReloadButton)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NCRConfig.getClient().showReloadButton)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.showReloadButton.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().showReloadButton = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().showReloadButton = newValue)
 					.build());
 
 			// Set an option for whitelistAllServers
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.whitelistAllServers"), NCRConfigLegacy.getInstance().whitelistAllServers)
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.whitelistAllServers"), NCRConfig.getClient().whitelistAllServers)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistAllServers.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().whitelistAllServers = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().whitelistAllServers = newValue)
 					.build());
 
 			// Instructions for adding servers
@@ -156,22 +156,19 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.build());
 
 			// Add or remove whitelisted servers
-			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfigLegacy.getInstance().whitelistedServers)
+			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfig.getClient().whitelistedServers)
 					.setExpanded(true)
 					.setInsertInFront(true)
 					.setDefaultValue(DEFAULT_WHITELISTED_SERVERS)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
-					.setSaveConsumer(newValue -> NCRConfigLegacy.getInstance().whitelistedServers = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().whitelistedServers = newValue)
 					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), baseListEntry))
 					.build());
 
 			// Save config
-			builder.setSavingRunnable(() -> {
-				NCRConfigLegacy.saveConfig();
-				NCRConfigLegacy.loadConfig();
-			});
+			builder.setSavingRunnable(NCRConfig::save);
 			return builder.build();
 		};
 	}

@@ -1,18 +1,19 @@
 package com.aizistral.nochatreports.mixins.client;
 
-import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NCRConfigLegacy;
-import com.aizistral.nochatreports.core.ServerDataExtension;
-import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
-import net.minecraft.network.protocol.status.ServerStatus;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.core.ServerDataExtension;
+
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
+import net.minecraft.network.protocol.status.ServerStatus;
 
 @Mixin(targets = "net/minecraft/client/multiplayer/ServerStatusPinger$1")
 public class MixinServerStatusPinger$1 {
@@ -31,7 +32,7 @@ public class MixinServerStatusPinger$1 {
 		boolean preventsReports = ((ServerDataExtension) packet.getStatus()).preventsChatReports();
 		((ServerDataExtension) this.val$data).setPreventsChatReports(preventsReports);
 
-		if (NCRConfigLegacy.enableDebugLog()) {
+		if (NCRConfig.getCommon().enableDebugLog()) {
 			NoChatReports.LOGGER.info("Received status response packet from server, preventsChatReports: {}",
 					preventsReports);
 		}

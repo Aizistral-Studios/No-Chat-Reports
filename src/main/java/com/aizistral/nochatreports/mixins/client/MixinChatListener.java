@@ -8,11 +8,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NCRConfigLegacy;
+import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.multiplayer.chat.ChatListener;
@@ -49,16 +48,16 @@ public class MixinChatListener {
 				return;
 			}
 
-			if (evaluate == ChatTrustLevel.NOT_SECURE && NCRConfigLegacy.hideRedChatIndicators()) {
+			if (evaluate == ChatTrustLevel.NOT_SECURE && NCRConfig.getClient().hideRedChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			} else if ((evaluate == ChatTrustLevel.FILTERED || evaluate == ChatTrustLevel.MODIFIED)
-					&& NCRConfigLegacy.hideYellowChatIndicators()) {
+					&& NCRConfig.getClient().hideYellowChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			}
 		}
 
 		// Debug never dies
-		if (NCRConfigLegacy.enableDebugLog()) {
+		if (NCRConfig.getCommon().enableDebugLog()) {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
 					Component.Serializer.toStableJson(playerChatMessage.serverContent()),
 					playerChatMessage.signer().profileId(),

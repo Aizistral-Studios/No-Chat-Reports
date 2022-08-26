@@ -1,9 +1,6 @@
 package com.aizistral.nochatreports.debug;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
@@ -13,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.mojang.authlib.minecraft.client.ObjectMapper;
-import com.mojang.authlib.minecraft.report.AbuseReport;
 import com.mojang.authlib.yggdrasil.request.AbuseReportRequest;
 
 import net.fabricmc.loader.api.FabricLoader;

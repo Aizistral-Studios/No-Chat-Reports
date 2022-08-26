@@ -1,6 +1,12 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Mixin;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
@@ -10,10 +16,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.SimpleOptionsSubScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
-import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Mixin;
-
-import java.util.List;
 
 @Mixin(ChatOptionsScreen.class)
 public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {

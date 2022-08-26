@@ -1,13 +1,15 @@
 package com.aizistral.nochatreports.mixins.client;
 
-import com.aizistral.nochatreports.core.ServerDataExtension;
-import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import com.aizistral.nochatreports.core.ServerDataExtension;
+
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.nbt.CompoundTag;
 
 /**
  * Adds "preventsChatReports" property to {@link ServerData} and handles it during serialization to

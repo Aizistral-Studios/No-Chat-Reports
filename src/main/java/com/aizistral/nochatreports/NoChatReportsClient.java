@@ -2,13 +2,12 @@ package com.aizistral.nochatreports;
 
 import java.util.List;
 
-import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.config.NCRConfigLegacy;
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
+import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.AccessorDisconnectedScreen;
 import com.aizistral.nochatreports.network.ClientChannelHandler;
-import com.aizistral.nochatreports.network.ServerChannelHandler;
 import com.google.common.collect.ImmutableList;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -18,7 +17,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.DisconnectedScreen;
@@ -29,8 +27,6 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.realms.RealmsConnect;
-import net.minecraft.realms.RealmsScreen;
 
 /**
  * Client initializer for the mod. Some networking setup here, as well as few screen-related events.
@@ -70,7 +66,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 					return;
 				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
 					if (ServerSafetyState.getLastServerAddress() != null) {
-						if (!NCRConfigLegacy.isWhitelistedServer(ServerSafetyState.getLastServerAddress()) && !NCRConfigLegacy.whitelistAllServers()) {
+						if (!NCRConfig.getClient().isWhitelistedServer(ServerSafetyState.getLastServerAddress()) && !NCRConfig.getClient().whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
 						} else {
 							if (ServerSafetyState.getReconnectCount() <= 0) {
@@ -106,7 +102,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				}
 			}
 
-			if (NCRConfigLegacy.demandsOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
+			if (NCRConfig.getClient().demandsOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});
