@@ -55,6 +55,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 			ConfigCategory visual = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.visual"));
 			ConfigCategory technical = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.technical"));
 			ConfigCategory whitelistedServers = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.whitelistedServers"));
+			ConfigCategory lanOptions = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.lanOptions"));
 
 			ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
@@ -69,6 +70,27 @@ public final class ModMenuIntegration implements ModMenuApi {
 			visual.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.showServerSafety.moreInfo")
 					.withStyle(s -> s
 							.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))))
+					.build());
+
+			// Set an option for verifiedIconEnabled
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.verifiedIconEnabled"), NCRConfig.getClient().verifiedIconEnabled)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.verifiedIconEnabled.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().verifiedIconEnabled = newValue)
+					.build());
+
+			// Set an option for verifiedIconOffsetX
+			visual.addEntry(entryBuilder.startIntSlider(Component.translatable("option.NoChatReports.verifiedIconOffsetX"), NCRConfig.getClient().verifiedIconOffsetX, 0, 10)
+					.setDefaultValue(0)
+					.setTooltip(this.makeTooltip("option.NoChatReports.verifiedIconOffsetX.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().verifiedIconOffsetX = newValue)
+					.build());
+
+			// Set an option for verifiedIconOffsetY
+			visual.addEntry(entryBuilder.startIntSlider(Component.translatable("option.NoChatReports.verifiedIconOffsetY"), NCRConfig.getClient().verifiedIconOffsetY, 0, 10)
+					.setDefaultValue(0)
+					.setTooltip(this.makeTooltip("option.NoChatReports.verifiedIconOffsetY.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().verifiedIconOffsetY = newValue)
 					.build());
 
 			// Set an option for hideRedChatIndicators
@@ -113,20 +135,11 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().demandOnServer = newValue)
 					.build());
 
-			// TODO Where's the one for demandOnClient?
-
 			// Set an option for enableDebugLog
 			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableDebugLog"), NCRConfig.getCommon().enableDebugLog)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.enableDebugLog.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getCommon().enableDebugLog = newValue)
-					.build());
-
-			// Set an option for convertToGameMessage
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfig.getCommon().convertToGameMessage)
-					.setDefaultValue(false)
-					.setTooltip(this.makeTooltip("option.NoChatReports.convertToGameMessage.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getCommon().convertToGameMessage = newValue)
 					.build());
 
 			// Set an option for disableTelemetry
@@ -164,6 +177,27 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().whitelistedServers = newValue)
 					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), baseListEntry))
+					.build());
+
+			// Set an option for demandOnClient
+			lanOptions.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnClient"), NCRConfig.getCommon().demandOnClient)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnClient.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClient = newValue)
+					.build());
+
+			// Set an option for convertToGameMessage
+			lanOptions.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfig.getCommon().convertToGameMessage)
+					.setDefaultValue(false)
+					.setTooltip(this.makeTooltip("option.NoChatReports.convertToGameMessage.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().convertToGameMessage = newValue)
+					.build());
+
+			// Set an option for addQueryData
+			lanOptions.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.addQueryData"), NCRConfig.getCommon().addQueryData)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.addQueryData.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().addQueryData = newValue)
 					.build());
 
 			// Save config
