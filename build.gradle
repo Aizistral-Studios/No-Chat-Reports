@@ -98,6 +98,8 @@ curseforge {
 		
 		relations {
 			embeddedLibrary 'fabric-api'
+			optionalDependency 'modmenu'
+			optionalDependency 'cloth-config'
 		}
 		
 		afterEvaluate {
@@ -128,6 +130,8 @@ modrinth {
 	dependencies {
 		// The scope can be `required`, `optional`, or `incompatible`
 		embedded.project "fabric-api"
+		optional.project "modmenu"
+		optional.project "cloth-config"
     }
 	
 	//syncBodyFrom = rootProject.file("docs/README.md").text
