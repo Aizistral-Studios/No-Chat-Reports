@@ -80,14 +80,14 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.build());
 
 			// Set an option for verifiedIconOffsetX
-			visual.addEntry(entryBuilder.startIntSlider(Component.translatable("option.NoChatReports.verifiedIconOffsetX"), NCRConfig.getClient().verifiedIconOffsetX, 0, 10)
+			visual.addEntry(entryBuilder.startIntSlider(Component.translatable("option.NoChatReports.verifiedIconOffsetX"), NCRConfig.getClient().verifiedIconOffsetX, -5, 5)
 					.setDefaultValue(0)
 					.setTooltip(this.makeTooltip("option.NoChatReports.verifiedIconOffsetX.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().verifiedIconOffsetX = newValue)
 					.build());
 
 			// Set an option for verifiedIconOffsetY
-			visual.addEntry(entryBuilder.startIntSlider(Component.translatable("option.NoChatReports.verifiedIconOffsetY"), NCRConfig.getClient().verifiedIconOffsetY, 0, 10)
+			visual.addEntry(entryBuilder.startIntSlider(Component.translatable("option.NoChatReports.verifiedIconOffsetY"), NCRConfig.getClient().verifiedIconOffsetY, -5, 5)
 					.setDefaultValue(0)
 					.setTooltip(this.makeTooltip("option.NoChatReports.verifiedIconOffsetY.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().verifiedIconOffsetY = newValue)
