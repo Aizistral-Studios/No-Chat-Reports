@@ -45,5 +45,6 @@
 	"option.NoChatReports.whitelistedServers.tooltip": "Sisaldab servereid, mille puhul \"ebaturvaline server\" hoiatuskuva ei kuvata. Serverid lisatakse siia loendisse automaatselt, kui märgid sellel kuval valiku \"Ära kuva selle serveri puhul uuesti\".\nIga kirje on §l<serveri-ip>:<port>§r vormistusega string.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Lisa server",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Eemalda server",
-	"option.NoChatReports.whitelistedServers.instructions": "Serverit lisades klõpsa aadressi kirjutamiseks \"lubamisloendis serverite\" alla."
+	"option.NoChatReports.whitelistedServers.instructions": "Serveri lisamiseks vajuta + nuppu. Valitud serveri eemaldamiseks vajuta - nuppu.",
+	"option.NoChatReports.whitelistedServers.serverAddress": "Klõpsa siia serveri aadressi muutmiseks"
 }
