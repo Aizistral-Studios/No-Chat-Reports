@@ -17,7 +17,8 @@ public final class NCRClientConfig extends JSONConfig {
 	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
-			whitelistAllServers = false;
+			whitelistAllServers = false, verifiedIconEnabled = true;
+	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 	protected List<String> whitelistedServers = DEFAULT_WHITELISTED_SERVERS;
 
 	protected NCRClientConfig() {
@@ -155,14 +156,42 @@ public final class NCRClientConfig extends JSONConfig {
 
 	/**
 	 * @return True if the full-screen warning should be skipped for servers that require chat signing,
-	 * letting users simply join the server. Because of that, servers will no longer be added to the whitelist.
-	 * <br><br>
+	 * letting users simply join the server. Because of that, servers will no longer be added to the
+	 * whitelist.<br><br>
 	 *
 	 * This is false by default.
 	 */
 
 	public boolean whitelistAllServers() {
 		return this.whitelistAllServers;
+	}
+
+	/**
+	 * @return True if "Safe Server" icon should be displayed in multiplayer menu for servers that
+	 * declare themselves as preventing chat reports.<br><br>
+	 *
+	 * This is true by default.
+	 */
+
+	public boolean verifiedIconEnabled() {
+		return this.verifiedIconEnabled;
+	}
+
+
+	/**
+	 * @return X offset for "Safe Server" icon in multiplayer menu.
+	 */
+
+	public int getVerifiedIconOffsetX() {
+		return 16 + this.verifiedIconOffsetX;
+	}
+
+	/**
+	 * @return Y offset for "Safe Server" icon in multiplayer menu.
+	 */
+
+	public int getVerifiedIconOffsetY() {
+		return 12 + this.verifiedIconOffsetY;
 	}
 
 }

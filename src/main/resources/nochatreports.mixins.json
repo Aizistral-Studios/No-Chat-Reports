@@ -29,7 +29,8 @@
 	"client.MixinToastComponent",
 	"client.MixinRealmsConnect",
 	"client.MixinServerData",
-	"client.MixinServerStatusPinger$1"
+	"client.MixinServerStatusPinger$1",
+	"client.MixinOnlineServerEntry"
   ],
   "server": [
 	"server.MixinDedicatedServer"
