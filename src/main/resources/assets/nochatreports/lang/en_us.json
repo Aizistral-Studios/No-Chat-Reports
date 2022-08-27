@@ -47,7 +47,7 @@
 	"option.NoChatReports.disableTelemetry": "Disable telemetry",
 	"option.NoChatReports.disableTelemetry.tooltip": "Allows the mod to disable built-in telemetry, similar to how No Telemetry does.",
 	"option.NoChatReports.showReloadButton": "Show reload button",
-	"option.NoChatReports.showReloadButton.tooltip": "Adds a button for config reloading to Multiplayer menu.",
+	"option.NoChatReports.showReloadButton.tooltip": "Adds a button for config reloading to multiplayer menu.",
 	"option.NoChatReports.whitelistAllServers": "Whitelist all servers",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Makes the mod behave as if all servers were added to §oWhitelisted Servers§r list.",
 
@@ -56,7 +56,7 @@
 	"option.NoChatReports.whitelistedServers": "Whitelisted Servers",
 	"option.NoChatReports.whitelistedServers.tooltip": "Contains servers for which \"Unsafe Server\" warning screen should never display. Servers are added to this list automatically when you check \"Do not show again for this server\" box in that screen.\nEach entry is a string that is formatted as §l<server-ip>:<port>§r.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Add server",
-	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Remove server",
+	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Remove selected server",
 	"option.NoChatReports.whitelistedServers.instructions": "Click the + to add a server. Click the - to remove the selected server.",
 	"option.NoChatReports.whitelistedServers.serverAddress": "Click here to edit server address",
 
