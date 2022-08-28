@@ -58,7 +58,6 @@
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Add server",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Remove selected server",
 	"option.NoChatReports.whitelistedServers.instructions": "Click the + to add a server. Click the - to remove the selected server.",
-<<<<<<< HEAD
 	"option.NoChatReports.whitelistedServers.serverAddress": "Click here to edit server address",
 
 	"configuration.NoChatReports.category.lanOptions": "LAN Options",
@@ -70,7 +69,3 @@
 	"option.NoChatReports.addQueryData": "Add query data",
 	"option.NoChatReports.addQueryData.tooltip": "Allows the server to send additional data to client when handling pings. This is used for displaying \"Safe Server\" icon, as well as some other technical purposes."
 }
-=======
-	"option.NoChatReports.whitelistedServers.serverAddress": "Click here to edit server address"
-}
->>>>>>> b866000650d995a1095aaf5ccbd4b855df6bc9d1
