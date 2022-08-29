@@ -12,6 +12,7 @@
 	"gui.nochatreports.unsafe_server.contents": "Ten serwer wymaga podpisania wszystkich wiadomości czatu, co oznacza, że można je zgłaszać do Mojang. Prawdopodobnie oznacza to, że właściciel serwera pozostawił włączony „enforce-secure-profile” w server.properties, co jest ustawieniem domyślnym od 1.19.1. Pomimo to możesz dalej zagrać, ale No Chat Reports nie będzie w stanie Cię ochronić.",
 	"gui.nochatreports.unsafe_server.check": "Nie pokazuj ponownie dla tego serwera",
 	"gui.nochatrepords.reload_config_tooltip": "Przeładuj konfigurację No Chat Reports. Używaj ostrożnie.",
+	"gui.nochatreports.verified_server": "§a§lBezpieczny serwer§r\nMożemy sprawdzić, czy na tym serwerze zainstalowano No Chat Reports lub w inny znany sposób zapobiec raportowaniu z czatu. Możesz tam bezpiecznie czatować.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 	"configuration.NoChatReports.category.visual": "Wizualne",
