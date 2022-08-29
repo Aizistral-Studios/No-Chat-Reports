@@ -46,7 +46,7 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 		if (!NCRConfig.getClient().verifiedIconEnabled())
 			return;
 
-		if (this.serverData.ping > 0 && ((ServerDataExtension) this.serverData).preventsChatReports()) {
+		if (this.serverData.ping >= 0 && ((ServerDataExtension) this.serverData).preventsChatReports()) {
 			int xOffset = NCRConfig.getClient().getVerifiedIconOffsetX(),
 					yOffset = NCRConfig.getClient().getVerifiedIconOffsetY();
 
