@@ -3,6 +3,7 @@ package com.aizistral.nochatreports;
 import java.util.List;
 
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
@@ -96,9 +97,15 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 				if (canSend) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
+				} else if (ServerSafetyState.forceSignedMessages()) {
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 				} else {
-					ServerSafetyState.updateCurrent(ServerSafetyState.forceSignedMessages() ?
-							ServerSafetyLevel.INSECURE : ServerSafetyLevel.UNINTRUSIVE);
+					if (ServerSafetyState.getLastServerData() instanceof ServerDataExtension ext
+							&& ext.preventsChatReports()) {
+						ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
+					} else {
+						ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
+					}
 				}
 			}
 
