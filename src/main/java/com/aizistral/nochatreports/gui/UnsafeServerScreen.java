@@ -48,8 +48,8 @@ public final class UnsafeServerScreen extends WarningScreen {
 
 			if (address != null) {
 				if (this.stopShowing.selected()) {
-					NCRConfig.getClient().getWhitelistedServers().add(address.getHost() + ":" + address.getPort());
-					NCRConfig.getClient().saveFile();
+					NCRConfig.getServerWhitelist().getList().add(address.getHost() + ":" + address.getPort());
+					NCRConfig.getServerWhitelist().saveFile();
 				}
 
 				ServerSafetyState.setAllowsUnsafeServer(true);

@@ -168,14 +168,14 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.build());
 
 			// Add or remove whitelisted servers
-			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfig.getClient().whitelistedServers)
+			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfig.getServerWhitelist().whitelistedServers)
 					.setExpanded(true)
 					.setInsertInFront(true)
-					.setDefaultValue(NCRConfigClient.DEFAULT_WHITELISTED_SERVERS)
+					.setDefaultValue(NCRServerWhitelist.DEFAULT_WHITELISTED_SERVERS)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().whitelistedServers = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getServerWhitelist().whitelistedServers = newValue)
 					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), baseListEntry))
 					.build());
 

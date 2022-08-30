@@ -67,7 +67,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 					return;
 				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
 					if (ServerSafetyState.getLastServerAddress() != null) {
-						if (!NCRConfig.getClient().isWhitelistedServer(ServerSafetyState.getLastServerAddress()) && !NCRConfig.getClient().whitelistAllServers()) {
+						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress()) && !NCRConfig.getClient().whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
 						} else {
 							if (ServerSafetyState.getReconnectCount() <= 0) {

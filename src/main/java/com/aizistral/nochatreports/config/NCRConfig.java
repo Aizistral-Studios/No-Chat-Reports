@@ -5,6 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.function.Supplier;
+
+import javax.annotation.Nullable;
 
 import com.aizistral.nochatreports.NoChatReports;
 
@@ -15,26 +18,32 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
+	private static NCRServerWhitelist whitelist = null;
 
 	private NCRConfig() {
 		throw new IllegalStateException("Can't touch this");
 	}
 
 	public static NCRConfigCommon getCommon() {
-		if (common == null) {
-			load();
-		}
-
-		return common;
+		return checkLoaded(() -> common);
 	}
 
 	@Environment(EnvType.CLIENT)
 	public static NCRConfigClient getClient() {
-		if (client == null) {
+		return checkLoaded(() -> client);
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static NCRServerWhitelist getServerWhitelist() {
+		return checkLoaded(() -> whitelist);
+	}
+
+	private static <T extends JSONConfig> T checkLoaded(Supplier<T> config) {
+		if (config.get() == null) {
 			load();
 		}
 
-		return client;
+		return config.get();
 	}
 
 	public static void load() {
@@ -42,16 +51,18 @@ public final class NCRConfig {
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
+			whitelist = JSONConfig.loadConfig(NCRServerWhitelist.class, NCRServerWhitelist::new, NCRServerWhitelist.FILE_NAME);
 		}
 
 		save();
 	}
 
 	public static void save() {
-		Objects.requireNonNull(common, "Cannot save config because it was not loaded!").saveFile();
+		checkLoaded(() -> common).saveFile();
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			Objects.requireNonNull(client, "Cannot save config because it was not loaded!").saveFile();
+			checkLoaded(() -> client).saveFile();
+			checkLoaded(() -> whitelist).saveFile();
 		}
 
 		Path readme = JSONConfig.CONFIG_DIR.resolve("NoChatReports/README.md");

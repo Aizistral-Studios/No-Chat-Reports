@@ -12,14 +12,12 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
-	protected static final List<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>();
 
 	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false, verifiedIconEnabled = true;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
-	protected List<String> whitelistedServers = DEFAULT_WHITELISTED_SERVERS;
 
 	protected NCRConfigClient() {
 		super(FILE_NAME);
@@ -53,30 +51,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean showServerSafety() {
 		return this.showServerSafety;
-	}
-
-	/**
-	 * @return Current list of whitelisted unsafe servers. Used on client to remember which servers
-	 * user disabled unsafety warnings for.<br><br>
-	 *
-	 * This is empty by default.
-	 *
-	 * @see UnsafeServerScreen
-	 */
-
-	public List<String> getWhitelistedServers() {
-		return this.whitelistedServers;
-	}
-
-	/**
-	 * @param address Address of the server to be check.
-	 * @return Whether this server is in the whitelist of unsafe servers, as returned by
-	 * {@link #getWhitelistedServers()}.
-	 * @see UnsafeServerScreen
-	 */
-
-	public boolean isWhitelistedServer(ServerAddress address) {
-		return this.getWhitelistedServers().contains(address.getHost() + ":" + address.getPort());
 	}
 
 	/**
