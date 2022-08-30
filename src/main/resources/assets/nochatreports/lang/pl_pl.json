@@ -15,12 +15,18 @@
 	"gui.nochatreports.verified_server": "§a§lBezpieczny serwer§r\nMożemy sprawdzić, czy na tym serwerze zainstalowano No Chat Reports lub w inny znany sposób zapobiec raportowaniu z czatu. Możesz tam bezpiecznie czatować.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
+	
 	"configuration.NoChatReports.category.visual": "Wizualne",
-	"configuration.NoChatReports.category.technical": "Techniczne",
-	"configuration.NoChatReports.category.whitelistedServers": "Serwery w białej liście",
+	
 	"option.NoChatReports.showServerSafety": "Pokaż bezpieczeństwo serwera",
 	"option.NoChatReports.showServerSafety.tooltip": "Umożliwia klientowi wyświetlanie stanu bezpieczeństwa serwera w prawym dolnym rogu ekranu czatu. Ikonę można przesunąć, aby uzyskać dodatkowe informacje.",
 	"option.NoChatReports.showServerSafety.moreInfo": "§bKliknij tutaj, aby przeczytać więcej o poziomach bezpieczeństwa serwerów",
+	"option.NoChatReports.verifiedIconEnabled": "Zweryfikowana ikona włączona",
+	"option.NoChatReports.verifiedIconEnabled.tooltip": "Pozwala modowi wyświetlać specjalną ikonę w menu gry wieloosobowej dla serwerów, na których zainstalowano No Chat Reports lub inne środki zapobiegające zgłaszaniu czatów.",
+	"option.NoChatReports.verifiedIconOffsetX": "Przesunięcie X zweryfikowanej ikony",
+	"option.NoChatReports.verifiedIconOffsetX.tooltip": "Definiuje przesunięcie osi X dla renderowania ikony \"Bezpieczny serwer\".",
+	"option.NoChatReports.verifiedIconOffsetY": "Przesunięcie Y zweryfikowanej ikony",
+	"option.NoChatReports.verifiedIconOffsetY.tooltip": "Definiuje przesunięcie osi Y dla renderowania ikony \"Bezpieczny serwer\".",
 	"option.NoChatReports.hideRedChatIndicators": "Ukryj czerwone wskaźniki czatu",
 	"option.NoChatReports.hideRedChatIndicators.tooltip": "Zapobiega wyświetlaniu przez klienta wskaźników \"Niezabezpieczonych\" w postaci czerwonego paska po lewej stronie i ikony §c§l(§r§c!§c§l)§r po prawej stronie wiadomości czatu.",
 	"option.NoChatReports.hideYellowChatIndicators": "Ukryj żółte wskaźniki czatu",
@@ -31,22 +37,36 @@
 	"option.NoChatReports.hideWarningToast.tooltip": "Usuwa ostrzeżenie wyświetlane podczas wchodzenia na serwery z wyłączonym §oenforce-secure-profile§r.",
 	"option.NoChatReports.alwaysHideReportButton": "Zawsze ukrywaj przycisk raportu",
 	"option.NoChatReports.alwaysHideReportButton.tooltip": "Zapobiega wyświetlaniu przez klienta przycisku raportu na ekranie interakcji społecznościowych. Domyślnie jest to wyłączone, a mod po prostu dezaktywuje przycisk na serwerach, na których nie zainstalowano żadnych raportów czatu, dodając wyjaśnienie do podpowiedzi przycisku.",
+	
+	"configuration.NoChatReports.category.technical": "Techniczne",
+	
 	"option.NoChatReports.demandOnServer": "Wymagaj na serwerze",
 	"option.NoChatReports.demandOnServer.tooltip": "Uniemożliwia klientowi dołączanie do serwerów, na których nie zainstalowano No Chat Reports.",
 	"option.NoChatReports.enableDebugLog": "Włącz dziennik debugowania",
 	"option.NoChatReports.enableDebugLog.tooltip": "Umożliwia rejestrowanie pewnych informacji debugowania. Jest to generalnie bezużyteczne dla osób niebędących programistami.",
-	"option.NoChatReports.convertToGameMessage": "Konwertuj na wiadomość z gry",
-	"option.NoChatReports.convertToGameMessage.tooltip": "Sprawia, że serwer konwertuje wszystkie wiadomości gracza na wiadomości systemowe. Wiadomości systemowe nie mają żadnych podpisów i nie mogą być raportowane; na niezmodyfikowanych klientach będą wyświetlane z szarym paskiem po lewej stronie.",
 	"option.NoChatReports.disableTelemetry": "Wyłącz telementrię",
 	"option.NoChatReports.disableTelemetry.tooltip": "Umożliwia modowi wyłączenie wbudowanej telemetrii, podobnie jak w przypadku No Telementry.",
 	"option.NoChatReports.showReloadButton": "Pokaż przycisk przeładowania",
 	"option.NoChatReports.showReloadButton.tooltip": "Dodaje przycisk przeładowania konfiguracji do menu gry wieloosobowej.",
 	"option.NoChatReports.whitelistAllServers": "Dodaj wszystkie serwery do białej listy",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Sprawia, że mod zachowuje się tak, jakby wszystkie serwery zostały dodane do §oBiałej listy serwerów§r.",
+	
+	"configuration.NoChatReports.category.whitelistedServers": "Serwery w białej liście",
+	
 	"option.NoChatReports.whitelistedServers": "Serwery w białej liście",
 	"option.NoChatReports.whitelistedServers.tooltip": "Zawiera serwery, dla których ekran ostrzeżenia \"Niebezpieczny serwer\" nigdy nie powinien być wyświetlany. Serwery są dodawane do tej listy automatycznie po zaznaczeniu pola \"Nie pokazuj ponownie dla tego serwera\" na tym ekranie.\nKażdy wpis jest łańcuchem w formacie §l<adres-serwera>:<port>§r.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Dodaj serwer",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Usuń serwer",
 	"option.NoChatReports.whitelistedServers.instructions": "Kliknij +, aby dodać serwer. Kliknij -, aby usunąć wybrany serwer.",
-	"option.NoChatReports.whitelistedServers.serverAddress": "Kliknij tutaj, aby edytować adres serwera"
+	"option.NoChatReports.whitelistedServers.serverAddress": "Kliknij tutaj, aby edytować adres serwera",
+	
+	"configuration.NoChatReports.category.lanOptions": "LAN Options",
+	
+	"option.NoChatReports.demandOnClient": "Wymagaj na kliencie",
+	"option.NoChatReports.demandOnClient.tooltip": "Sprawia, że serwer wymaga, aby wszyscy dołączający klienci mieli zainstalowany No Chat Reports.",
+	"option.NoChatReports.convertToGameMessage": "Konwertuj na wiadomość z gry",
+	"option.NoChatReports.convertToGameMessage.tooltip": "Sprawia, że serwer konwertuje wszystkie wiadomości gracza na wiadomości systemowe. Wiadomości systemowe nie mają żadnych podpisów i nie mogą być raportowane; na niezmodyfikowanych klientach będą wyświetlane z szarym paskiem po lewej stronie.",
+	"option.NoChatReports.addQueryData": "Dodaj dane zapytania",
+	"option.NoChatReports.addQueryData.tooltip": "Umożliwia serwerowi wysyłanie dodatkowych danych do klienta podczas obsługi pingów. Służy do wyświetlania ikony \"Bezpieczny serwer\", a także do innych celów technicznych."
+
 }
