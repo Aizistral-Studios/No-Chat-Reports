@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.google.common.base.Preconditions;
 
-public final class NCRCommonConfig extends JSONConfig {
+public final class NCRConfigCommon extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
 
 	protected String demandOnClientMessage = "You do not have No Chat Reports, and this server is"
@@ -13,13 +13,13 @@ public final class NCRCommonConfig extends JSONConfig {
 	protected boolean demandOnClient = true, enableDebugLog = false, convertToGameMessage = false,
 			addQueryData = true;
 
-	protected NCRCommonConfig() {
+	protected NCRConfigCommon() {
 		super(FILE_NAME);
 	}
 
 	@Override
-	public NCRCommonConfig getDefault() {
-		return new NCRCommonConfig();
+	public NCRConfigCommon getDefault() {
+		return new NCRConfigCommon();
 	}
 
 	/**

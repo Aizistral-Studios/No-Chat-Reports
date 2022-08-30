@@ -10,7 +10,7 @@ import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
-public final class NCRClientConfig extends JSONConfig {
+public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 	protected static final List<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>();
 
@@ -21,13 +21,13 @@ public final class NCRClientConfig extends JSONConfig {
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 	protected List<String> whitelistedServers = DEFAULT_WHITELISTED_SERVERS;
 
-	protected NCRClientConfig() {
+	protected NCRConfigClient() {
 		super(FILE_NAME);
 	}
 
 	@Override
-	public NCRClientConfig getDefault() {
-		return new NCRClientConfig();
+	public NCRConfigClient getDefault() {
+		return new NCRConfigClient();
 	}
 
 	/**

@@ -13,14 +13,14 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 
 public final class NCRConfig {
-	private static NCRCommonConfig common = null;
-	private static NCRClientConfig client = null;
+	private static NCRConfigCommon common = null;
+	private static NCRConfigClient client = null;
 
 	private NCRConfig() {
 		throw new IllegalStateException("Can't touch this");
 	}
 
-	public static NCRCommonConfig getCommon() {
+	public static NCRConfigCommon getCommon() {
 		if (common == null) {
 			load();
 		}
@@ -29,7 +29,7 @@ public final class NCRConfig {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static NCRClientConfig getClient() {
+	public static NCRConfigClient getClient() {
 		if (client == null) {
 			load();
 		}
@@ -38,10 +38,10 @@ public final class NCRConfig {
 	}
 
 	public static void load() {
-		common = JSONConfig.loadConfig(NCRCommonConfig.class, NCRCommonConfig::new, NCRCommonConfig.FILE_NAME);
+		common = JSONConfig.loadConfig(NCRConfigCommon.class, NCRConfigCommon::new, NCRConfigCommon.FILE_NAME);
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			client = JSONConfig.loadConfig(NCRClientConfig.class, NCRClientConfig::new, NCRClientConfig.FILE_NAME);
+			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
 		}
 
 		save();

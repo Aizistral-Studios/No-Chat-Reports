@@ -171,7 +171,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 			whitelistedServers.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfig.getClient().whitelistedServers)
 					.setExpanded(true)
 					.setInsertInFront(true)
-					.setDefaultValue(NCRClientConfig.DEFAULT_WHITELISTED_SERVERS)
+					.setDefaultValue(NCRConfigClient.DEFAULT_WHITELISTED_SERVERS)
 					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
 					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
