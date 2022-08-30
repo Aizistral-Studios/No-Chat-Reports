@@ -53,7 +53,7 @@ public class MixinProfileKeyPairManager {
 	 */
 
 	@Group(min = 1, max = 1)
-	@Inject(method = "profilePublicKeyData", at = @At("HEAD"), cancellable = true)
+	@Inject(method = { "profilePublicKeyData", "method_43784" }, at = @At("HEAD"), cancellable = true, remap = false)
 	private void onProfilePublicKeyData(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
 		if (!ServerSafetyState.allowsUnsafeServer()) {
 			info.setReturnValue(Optional.empty());
