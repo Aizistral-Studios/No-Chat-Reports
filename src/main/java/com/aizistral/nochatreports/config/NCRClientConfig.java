@@ -25,6 +25,11 @@ public final class NCRClientConfig extends JSONConfig {
 		super(FILE_NAME);
 	}
 
+	@Override
+	public NCRClientConfig getDefault() {
+		return new NCRClientConfig();
+	}
+
 	/**
 	 * @return True if client with No Chat Reports installed should demand that mod is present on
 	 * every server that it tries to join. In that case client will not be able to join servers that

@@ -52,6 +52,8 @@ public abstract class JSONConfig {
 		// NO-OP
 	}
 
+	public abstract JSONConfig getDefault();
+
 	public static <T extends JSONConfig> T loadConfig(Class<T> configClass, Supplier<T> freshInstance, String fileName) {
 		NoChatReports.LOGGER.info("Reading config file {}...", fileName);
 		T config = readFile(fileName, configClass).orElseGet(freshInstance);

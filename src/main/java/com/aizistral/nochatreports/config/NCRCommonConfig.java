@@ -17,6 +17,11 @@ public final class NCRCommonConfig extends JSONConfig {
 		super(FILE_NAME);
 	}
 
+	@Override
+	public NCRCommonConfig getDefault() {
+		return new NCRCommonConfig();
+	}
+
 	/**
 	 * @return True if server with No Chat Reports installed should demand that mod is present on
 	 * every client that tries to join. Mod's installation on client is optional otherwise.<br><br>
