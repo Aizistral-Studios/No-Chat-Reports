@@ -1,6 +1,6 @@
 # No Chat Reports
 
-**Current Version:** 1.19.2-v1.10.2
+**Current Version:** 1.19.2-v1.11.0
 
 **Minecraft Version:** 1.19.2
 
@@ -8,4 +8,4 @@ Strips cryptographic signatures from player messages, making it impossible to tr
 
 **GitLab Mirror:** https://gitlab.com/Aizistral-Studios/No-Chat-Reports
 
-**Tutorial for server owners:** https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Protecting-server-players
+**Tutorial for server owners:** https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Protecting-Server-Players
