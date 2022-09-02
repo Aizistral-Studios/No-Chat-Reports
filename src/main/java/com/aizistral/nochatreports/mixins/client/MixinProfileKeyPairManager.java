@@ -38,7 +38,7 @@ public class MixinProfileKeyPairManager {
 	 * @author Aizistral
 	 */
 
-	@Group(min = 1, max = 1)
+	@Group(min = 1, max = 2)
 	@Inject(method = "parsePublicKey", at = @At("HEAD"), cancellable = true)
 	private static void onParsePublicKey(KeyPairResponse response, CallbackInfoReturnable<ProfilePublicKey.Data> info) {
 		if (!ServerSafetyState.allowsUnsafeServer()) {
@@ -52,7 +52,7 @@ public class MixinProfileKeyPairManager {
 	 * @author Aizistral
 	 */
 
-	@Group(min = 1, max = 1)
+	@Group(min = 1, max = 2)
 	@Inject(method = { "profilePublicKeyData", "method_43784" }, at = @At("HEAD"), cancellable = true, remap = false)
 	private void onProfilePublicKeyData(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
 		if (!ServerSafetyState.allowsUnsafeServer()) {
