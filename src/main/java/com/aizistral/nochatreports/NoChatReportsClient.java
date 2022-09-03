@@ -41,6 +41,12 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			"multiplayer.disconnect.invalid_public_key_signature",
 			"multiplayer.disconnect.invalid_public_key"
 			);
+
+	private static final List<String> STRING_DISCONNECT_REASONS = ImmutableList.of(
+			"A secure profile is required to join this server.",
+			"Secure profile expired.",
+			"Secure profile invalid."
+	);
 	private static boolean screenOverride = false;
 
 	@Override
@@ -58,14 +64,15 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				return;
 
 			screenOverride = true;
-			if (dsc.getReason().getContents() instanceof TranslatableContents contents) {
+			var disconnectReason = dsc.getReason();
+			if (disconnectReason != null) {
 				if (ServerSafetyState.allowsUnsafeServer()) {
 					screen = new DisconnectedScreen(new JoinMultiplayerScreen(new TitleScreen()),
 							CommonComponents.CONNECT_FAILED, dsc.getReason());
 					client.setScreen(screen);
 					screenOverride = false;
 					return;
-				} else if (KEY_DISCONNECT_REASONS.contains(contents.getKey())) {
+				} else if ((STRING_DISCONNECT_REASONS.contains((disconnectReason.getString())) || KEY_DISCONNECT_REASONS.contains(((TranslatableContents)disconnectReason.getContents()).getKey()))) {
 					if (ServerSafetyState.getLastServerAddress() != null) {
 						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress()) && !NCRConfig.getClient().whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
