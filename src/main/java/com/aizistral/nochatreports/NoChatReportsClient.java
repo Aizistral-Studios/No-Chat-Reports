@@ -46,6 +46,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			"Secure profile expired.",
 			"Secure profile invalid."
 			);
+	private static final Component CONNECT_FAILED_NCR = Component.translatable("connect.failed");
 	private static boolean screenOverride = false;
 
 	@Override
@@ -61,6 +62,8 @@ public final class NoChatReportsClient implements ClientModInitializer {
 		if (screen instanceof AccessorDisconnectedScreen dsc) {
 			if (screenOverride)
 				return;
+			if (screen.getTitle() == CONNECT_FAILED_NCR)
+				return;
 
 			screenOverride = true;
 			var disconnectReason = dsc.getReason();
@@ -68,7 +71,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			if (disconnectReason != null) {
 				if (ServerSafetyState.allowsUnsafeServer()) {
 					screen = new DisconnectedScreen(new JoinMultiplayerScreen(new TitleScreen()),
-							CommonComponents.CONNECT_FAILED, dsc.getReason());
+							CONNECT_FAILED_NCR, dsc.getReason());
 					client.setScreen(screen);
 					screenOverride = false;
 					return;
