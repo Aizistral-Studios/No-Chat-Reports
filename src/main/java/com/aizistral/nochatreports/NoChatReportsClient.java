@@ -84,9 +84,13 @@ public final class NoChatReportsClient implements ClientModInitializer {
 						} else {
 							if (ServerSafetyState.getReconnectCount() <= 0) {
 								ServerSafetyState.setAllowsUnsafeServer(true);
+								screenOverride = false;
 								reconnectLastServer();
+								return;
 							} else {
 								ServerSafetyState.setReconnectCount(0);
+								screenOverride = false;
+								return;
 							}
 						}
 					}
