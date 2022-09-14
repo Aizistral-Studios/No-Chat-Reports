@@ -34,3 +34,4 @@ bin/
 run/
 **/TestEventHandler*
 /.apt_generated_tests/
+src/test/java/com/aizistral/nochatreports/debug/Main.java
