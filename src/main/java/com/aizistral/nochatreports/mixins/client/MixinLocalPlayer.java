@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.brigadier.ParseResults;
 
@@ -30,6 +31,9 @@ public class MixinLocalPlayer {
 
 	@Inject(method = "signMessage", at = @At("HEAD"), cancellable = true)
 	private void onSignMessage(MessageSigner signer, ChatMessageContent message, LastSeenMessages messages, CallbackInfoReturnable<MessageSignature> info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (!ServerSafetyState.forceSignedMessages()) {
 			info.setReturnValue(MessageSignature.EMPTY);
 		}
@@ -42,6 +46,9 @@ public class MixinLocalPlayer {
 
 	@Inject(method = "signCommandArguments", at = @At("HEAD"), cancellable = true)
 	private void onSignCommand(MessageSigner signer, ParseResults<SharedSuggestionProvider> results, @Nullable Component component, LastSeenMessages messages, CallbackInfoReturnable<ArgumentSignatures> info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (!ServerSafetyState.forceSignedMessages()) {
 			info.setReturnValue(ArgumentSignatures.EMPTY);
 		}

@@ -46,7 +46,7 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		if (!NCRConfig.getClient().showServerSafety())
+		if (!NCRConfig.getClient().showServerSafety() || !NCRConfig.getClient().enableMod())
 			return;
 
 		ServerSafetyLevel trust = this.minecraft.isLocalServer() ? ServerSafetyLevel.SECURE : ServerSafetyState.getCurrent();

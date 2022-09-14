@@ -3,6 +3,7 @@ package com.aizistral.nochatreports;
 import java.util.List;
 
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
@@ -52,13 +53,20 @@ public final class NoChatReportsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		NoChatReports.LOGGER.info("Client initialization...");
-		ClientPlayNetworking.registerGlobalReceiver(NoChatReports.CHANNEL, ClientChannelHandler.INSTANCE);
+
+		if (NCRConfig.getClient().enableMod()) {
+			ClientChannelHandler.INSTANCE.register();
+		}
+
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
 		ScreenEvents.AFTER_INIT.register(this::onScreenInit);
 	}
 
 	private void onScreenInit(Minecraft client, Screen screen, int scaledWidth, int scaledHeight) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (screen instanceof AccessorDisconnectedScreen dsc) {
 			if (screenOverride)
 				return;
@@ -84,8 +92,8 @@ public final class NoChatReportsClient implements ClientModInitializer {
 						} else {
 							if (ServerSafetyState.getReconnectCount() <= 0) {
 								ServerSafetyState.setAllowsUnsafeServer(true);
-								screenOverride = false;
 								reconnectLastServer();
+								screenOverride = false;
 								return;
 							} else {
 								ServerSafetyState.setReconnectCount(0);
@@ -101,10 +109,16 @@ public final class NoChatReportsClient implements ClientModInitializer {
 	}
 
 	private void onDisconnect(ClientPacketListener handler, Minecraft client) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		client.execute(ServerSafetyState::reset);
 	}
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		client.execute(() -> {
 			ServerSafetyState.setReconnectCount(0);
 

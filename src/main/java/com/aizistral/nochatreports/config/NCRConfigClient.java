@@ -16,7 +16,8 @@ public final class NCRConfigClient extends JSONConfig {
 	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
-			whitelistAllServers = false, verifiedIconEnabled = true;
+			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
+			enableMod = true;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 
 	protected NCRConfigClient() {
@@ -26,6 +27,10 @@ public final class NCRConfigClient extends JSONConfig {
 	@Override
 	public NCRConfigClient getDefault() {
 		return new NCRConfigClient();
+	}
+
+	public void toggleMod() {
+		this.enableMod = !this.enableMod;
 	}
 
 	/**
@@ -171,6 +176,23 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public int getVerifiedIconOffsetY() {
 		return 12 + this.verifiedIconOffsetY;
+	}
+
+	/**
+	 * @return True if button to disable/enable entire mod should be displayed in
+	 * multiplayer menu.
+	 */
+
+	public boolean showNCRButton() {
+		return this.showNCRButton;
+	}
+
+	/**
+	 * @return Whether or not No Chat Reports should provide networking-related functionality.
+	 */
+
+	public boolean enableMod() {
+		return this.enableMod;
 	}
 
 }
