@@ -53,7 +53,11 @@
     "option.NoChatReports.showReloadButton.tooltip": "Lisab mitmikmängu serverite loendisse seadistuste taaslaadimise nupu.",
     "option.NoChatReports.whitelistAllServers": "Kõik serverid lubamisloendisse",
     "option.NoChatReports.whitelistAllServers.tooltip": "Sunnib modi käituma nii, nagu kõik serverid oleksid lisatud §olubamisloendis serverite§r loendisse.",
-
+    "option.NoChatReports.showNCRButton": "Kuva NCRi nupp",
+    "option.NoChatReports.showNCRButton.tooltip": "Lisab mitmikmängumenüüsse nupu, mis lülitab enamikku modi kliendipoolsest funktsionaalsusest.",
+    "option.NoChatReports.enableMod": "Mod lubatud",
+    "option.NoChatReports.enableMod.tooltip": "Vastutab enamiku modi kliendipoolse funktsionaalsuse eest, vaata ülalolevat valikut.",
+    
     "configuration.NoChatReports.category.whitelistedServers": "Lubamisloendis serverid",
 
     "option.NoChatReports.whitelistedServers": "Lubamisloendis serverid",
