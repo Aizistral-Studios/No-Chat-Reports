@@ -13,6 +13,9 @@
 	"gui.nochatreports.unsafe_server.check": "Do not show again fer this here server",
 	"gui.nochatrepords.reload_config_tooltip": "Reload No Chat Reports config. Use carefully.",
 	"gui.nochatreports.verified_server": "§a§lSafe Server§r\nWe could verify that there this here server 'as No Chat Reports installed, or prevents chat reports in some other known way. Ye can chat there safely.",
+	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nDisable or enable most o' the mod's client-sided functionality. Ye may 'ave to do this here to join some Paper/Velocity servers, as they be known fer causin' issues with NCR.\nCertain networking-unrelated things, such as chat trust status tweaks an' removal o' vanilla's \"Chat messages can't be verified\" toast will still work; they can be disabled in config individually.",
+	"gui.nochatreports.ncr_state_on": "§a§lEnabled§r",
+	"gui.nochatreports.ncr_state_off": "§c§lDisabled§r",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 
@@ -50,6 +53,10 @@
 	"option.NoChatReports.showReloadButton.tooltip": "Adds a button fer config reloadin' to multiplayer menu.",
 	"option.NoChatReports.whitelistAllServers": "Whitelist all servers",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Makes the mod behave as if all servers was added to §oWhitelisted Servers§r list.",
+	"option.NoChatReports.showNCRButton": "Show NCR button",
+	"option.NoChatReports.showNCRButton.tooltip": "Adds a button that there toggles most o' the mod's client-sided functionality to multiplayer menu.",
+	"option.NoChatReports.enableMod": "Enable mod",
+	"option.NoChatReports.enableMod.tooltip": "Responsible fer enablin' most o' the mod's client-sided functionality, see option above.",
 
 	"configuration.NoChatReports.category.whitelistedServers": "Whitelisted Servers",
 

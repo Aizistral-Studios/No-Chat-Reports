@@ -163,6 +163,20 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().whitelistAllServers = newValue)
 					.build());
 
+			// Set an option for showNCRButton
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showNCRButton"), NCRConfig.getClient().showNCRButton)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.showNCRButton.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().showNCRButton = newValue)
+					.build());
+
+			// Set an option for enableMod
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getClient().enableMod)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.enableMod.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().enableMod = newValue)
+					.build());
+
 			// Instructions for adding servers
 			whitelistedServers.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.whitelistedServers.instructions"))
 					.build());
