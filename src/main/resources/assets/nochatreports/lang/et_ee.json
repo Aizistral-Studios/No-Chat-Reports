@@ -14,8 +14,8 @@
     "gui.nochatrepords.reload_config_tooltip": "Laadi No Chat Reports seadistus uuesti. Kasuta ettevaatlikult.",
     "gui.nochatreports.verified_server": "§a§lTurvaline server§r\nKinnitasime, et serverile on paigaldatud mod No Chat Reports või see piirab sõnumitest teatamist mõnel muul teadaoleval viisil.  Sa saad turvaliselt vestelda.",
     "gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nKeela või luba enamus modi kliendipoolsest funktsionaalsusest. See võib olla vajalik teatud Paper/Velocity serveritega ühendumiseks, kuna need on teadaolevalt NCRiga probleeme põhjustanud.\nTeatud võrguga mitteseonduvad asjad, nagu serveri turvataseme kuvamine ning vanilli \"Vestlussõnumeid ei saa kinnitada\" hüpiku eemaldus töötavad siiski; neid saab seadistustes individuaalselt lülitada.",
-    "gui.nochatreports.ncr_state_on": "§a§lLubatud§r",
-    "gui.nochatreports.ncr_state_off": "§c§lKeelatud§r",
+    "gui.nochatreports.ncr_state_on": "§a§llubatud§r",
+    "gui.nochatreports.ncr_state_off": "§c§lkeelatud§r",
 
     "configuration.NoChatReports.config": "No Chat Reports",
 
