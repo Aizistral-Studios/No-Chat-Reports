@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.aizistral.nochatreports.config.NCRConfig;
@@ -47,6 +48,9 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			"Secure profile expired.",
 			"Secure profile invalid."
 			);
+	private static final List<String> ARG_DISCONNECT_REASONS = ImmutableList.of(
+			"Internal Exception: io.netty.handler.codec.DecoderException: java.lang.NullPointerException: Cannot invoke \"net.minecraft.class_2539$class_4532.method_22310(int, net.minecraft.class_2540)\" because the return value of \"java.util.Map.get(Object)\" is null"
+			);
 	private static final Component CONNECT_FAILED_NCR = Component.translatable("connect.failed");
 	private static boolean screenOverride = false;
 
@@ -85,7 +89,8 @@ public final class NoChatReportsClient implements ClientModInitializer {
 					return;
 				} else if (STRING_DISCONNECT_REASONS.contains(disconnectReason.getString())
 						|| (disconnectReason.getContents() instanceof TranslatableContents translatable &&
-								KEY_DISCONNECT_REASONS.contains(translatable.getKey()))) {
+						(KEY_DISCONNECT_REASONS.contains(translatable.getKey()) ||
+								translatable.getKey().equals("disconnect.genericReason") && ARG_DISCONNECT_REASONS.contains((Arrays.toString(((TranslatableContents) disconnectReason.getContents()).getArgs())))))) {
 					if (ServerSafetyState.getLastServerAddress() != null) {
 						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress()) && !NCRConfig.getClient().whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
