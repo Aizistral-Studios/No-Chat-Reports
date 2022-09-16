@@ -90,7 +90,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				} else if (STRING_DISCONNECT_REASONS.contains(disconnectReason.getString())
 						|| (disconnectReason.getContents() instanceof TranslatableContents translatable &&
 						(KEY_DISCONNECT_REASONS.contains(translatable.getKey()) ||
-								translatable.getKey().equals("disconnect.genericReason") && ARG_DISCONNECT_REASONS.contains((Arrays.toString(((TranslatableContents) disconnectReason.getContents()).getArgs())))))) {
+								(translatable.getKey().equals("disconnect.genericReason") && ARG_DISCONNECT_REASONS.contains((Arrays.toString(((TranslatableContents) disconnectReason.getContents()).getArgs()))))))) {
 					if (ServerSafetyState.getLastServerAddress() != null) {
 						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress()) && !NCRConfig.getClient().whitelistAllServers()) {
 							client.setScreen(new UnsafeServerScreen());
