@@ -14,7 +14,7 @@
 	"gui.nochatreports.unsafe_server.check": "Больше не предупреждать об этом сервере",
 	"gui.nochatrepords.reload_config_tooltip": "Перезагрузить настройки No Chat Reports. Используйте с осторожностью.",
 	"gui.nochatreports.verified_server": "§a§lБезопасный сервер§r\nБыло обнаружено, что сервер либо содержит No Chat Reports, либо предотвращает возможность отправки жалоб иным известным способом. Здесь можно общаться безопасно.",
-	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nПереключение большей части клиентского функционала мода. Это может быть необходимо для игры на серверах с Paper/Velocity, так как они известны своими проблемами с NCR.\nНекоторые несвязанные с сетевым взаимодействием функции, такие как \"удаление пугающих уведомлений\", всё ещё могут работать и быть настроены индивидуально.",
+	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nПереключение большей части клиентского функционала мода. Это может быть необходимо для игры на серверах с Paper/Velocity, так как они известны своими проблемами с NCR.\nНекоторые несвязанные с сетевым взаимодействием функции, такие как \"удаление запугивающих уведомлений\", всё ещё могут работать и быть настроены индивидуально.",
 	"gui.nochatreports.ncr_state_on": "§a§lВключено§r",
 	"gui.nochatreports.ncr_state_off": "§c§lВыключено§r",
 
@@ -37,7 +37,7 @@
 	"option.NoChatReports.hideYellowChatIndicators.tooltip": "Отключить отображение меток изменений в виде жёлтой полосы сбоку от сообщения и значка §e§l(§r§e?§e§l)§r в его конце.",
 	"option.NoChatReports.hideGrayChatIndicators": "Скрыть серые метки в чате",
 	"option.NoChatReports.hideGrayChatIndicators.tooltip": "Отключить отображение особой системной метки в виде серой полосы сбоку от сообщения.",
-	"option.NoChatReports.hideWarningToast": "Удалять пугающие уведомления",
+	"option.NoChatReports.hideWarningToast": "Удалять запугивающие уведомления",
 	"option.NoChatReports.hideWarningToast.tooltip": "Удалять запугивающие уведомления, которые появляются каждый раз при присоединении к серверу с отключёным §oenforce-secure-profile§r.",
 	"option.NoChatReports.alwaysHideReportButton": "Скрыть кнопку жалобы",
 	"option.NoChatReports.alwaysHideReportButton.tooltip": "Предотвратить даже отображение кнопки жалобы игроку на экране социальных взаимодействий. Отключено по умолчанию - мод просто делает кнопку неактивной на серверах с No Chat Reports, добавляя к ней подсказку с объяснением.",
