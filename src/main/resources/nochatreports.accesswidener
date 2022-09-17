@@ -6,3 +6,7 @@ accessible field net/minecraft/client/gui/components/ImageButton xTexStart I
 accessible field net/minecraft/client/gui/components/ImageButton yTexStart I
 mutable field net/minecraft/client/gui/components/ImageButton xTexStart I
 mutable field net/minecraft/client/gui/components/ImageButton yTexStart I
+accessible field net/minecraft/network/chat/contents/TranslatableContents args [Ljava/lang/Object;
+mutable field net/minecraft/network/chat/contents/TranslatableContents args [Ljava/lang/Object;
+accessible field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;
+mutable field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;

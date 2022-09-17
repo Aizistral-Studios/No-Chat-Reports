@@ -30,7 +30,9 @@
 	"client.MixinRealmsConnect",
 	"client.MixinServerData",
 	"client.MixinServerStatusPinger$1",
-	"client.MixinOnlineServerEntry"
+	"client.MixinOnlineServerEntry",
+	"client.MixinChatComponent",
+	"client.MixinGuiMessageTagIcon"
   ],
   "server": [
 	"server.MixinDedicatedServer"

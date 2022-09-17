@@ -7,7 +7,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.config.NCRConfig;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.GuiMessageTag;
+import net.minecraft.client.GuiMessageTag.Icon;
+import net.minecraft.network.chat.Component;
 
 @Mixin(GuiMessageTag.class)
 public class MixinGuiMessageTag {

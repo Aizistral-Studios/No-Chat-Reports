@@ -7,8 +7,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -42,6 +44,16 @@ public abstract class MixinChatScreen extends Screen {
 	protected MixinChatScreen() {
 		super(null);
 		throw new IllegalStateException("Can't touch this");
+	}
+
+	@Inject(method = "normalizeChatMessage", at = @At("RETURN"), cancellable = true)
+	public void onBeforeMessage(String original, CallbackInfoReturnable<String> info) {
+		String message = info.getReturnValue();
+
+		if (!message.isEmpty() && !message.startsWith("/")) {
+			NCRConfig.getClient().chatEncryption().ifPresent(e ->
+			info.setReturnValue(e.encrypt("#%" + message)));
+		}
 	}
 
 	@Inject(method = "init", at = @At("HEAD"))

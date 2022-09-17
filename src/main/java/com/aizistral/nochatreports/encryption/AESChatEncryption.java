@@ -18,13 +18,11 @@ import javax.crypto.spec.SecretKeySpec;
 import net.minecraft.server.network.ServerLoginPacketListenerImpl;
 
 public class AESChatEncryption extends ChatEncryption {
-	private static final Base64.Encoder ENCODER = Base64.getEncoder();
-	private static final Base64.Decoder DECODER = Base64.getDecoder();
 	private final SecretKey key;
 	private final Cipher encryptor, decryptor;
 
 	public AESChatEncryption(String key) throws InvalidKeyException {
-		this(new SecretKeySpec(key.getBytes(), "AES"));
+		this(new SecretKeySpec(BASE64_DECODER.decode(key), "AES"));
 	}
 
 	public AESChatEncryption(SecretKey key) throws InvalidKeyException {
@@ -46,7 +44,7 @@ public class AESChatEncryption extends ChatEncryption {
 	@Override
 	public String encrypt(String message) {
 		try {
-			return ENCODER.encodeToString(this.encryptor.doFinal(message.getBytes()));
+			return BASE64_ENCODER.encodeToString(this.encryptor.doFinal(message.getBytes()));
 		} catch (IllegalBlockSizeException | BadPaddingException ex) {
 			throw new RuntimeException(ex);
 		}
@@ -55,7 +53,7 @@ public class AESChatEncryption extends ChatEncryption {
 	@Override
 	public String decrypt(String message) {
 		try {
-			return new String(this.decryptor.doFinal(DECODER.decode(message)), StandardCharsets.UTF_8);
+			return new String(this.decryptor.doFinal(BASE64_DECODER.decode(message)), StandardCharsets.UTF_8);
 		} catch (IllegalBlockSizeException | BadPaddingException ex) {
 			throw new RuntimeException(ex);
 		}
@@ -63,12 +61,12 @@ public class AESChatEncryption extends ChatEncryption {
 
 	@Override
 	public String getAlgorithm() {
-		return this.key.getAlgorithm() + "Base64";
+		return this.key.getAlgorithm() + "+Base64";
 	}
 
 	@Override
 	public String getKey() {
-		return new String(this.key.getEncoded(), StandardCharsets.UTF_8);
+		return BASE64_ENCODER.encodeToString(this.key.getEncoded());
 	}
 
 	public static AESChatEncryption withRandomKey() {
