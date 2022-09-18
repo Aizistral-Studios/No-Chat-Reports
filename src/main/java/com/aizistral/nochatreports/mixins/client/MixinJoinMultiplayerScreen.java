@@ -100,7 +100,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 		if (list.isEmpty())
 			return;
 		int k = 0;
-		int l = list.size() == 1 ? -2 : 0;
+		int l = list.size() == 1 ? -2 : -2;
 		for (ClientTooltipComponent clientTooltipComponent : list) {
 			m = clientTooltipComponent.getWidth(this.font);
 			if (m > k) {

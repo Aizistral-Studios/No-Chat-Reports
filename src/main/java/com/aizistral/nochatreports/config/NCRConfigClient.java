@@ -39,6 +39,10 @@ public final class NCRConfigClient extends JSONConfig {
 		this.enableMod = !this.enableMod;
 	}
 
+	public void toggleEncryption() {
+		this.enableChatEncryption = !this.enableChatEncryption;
+	}
+
 	/**
 	 * @return True if client with No Chat Reports installed should demand that mod is present on
 	 * every server that it tries to join. In that case client will not be able to join servers that

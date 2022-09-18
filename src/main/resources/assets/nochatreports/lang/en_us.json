@@ -17,7 +17,10 @@
 	"gui.nochatreports.ncr_state_on": "§a§lEnabled§r",
 	"gui.nochatreports.ncr_state_off": "§c§lDisabled§r",
 	"tag.nochatreports.encrypted": "Encrypted using: %1$s",
-	"tag.nochatreports.encrypted_original": "Undecrypted: %1$s",
+	"tag.nochatreports.encrypted_original": "Non-decrypted: %1$s",
+	"gui.nochatreports.encryption_tooltip": "§lEncryption:§r %1$s\nRight-click to configure.",
+	"gui.nochatreports.encryption_state_on": "§a§lEnabled§r",
+	"gui.nochatreports.encryption_state_off": "§c§lDisabled§r",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 

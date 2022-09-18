@@ -22,12 +22,14 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -40,6 +42,7 @@ import net.minecraft.util.FormattedCharSequence;
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons.png");
+	private static final ResourceLocation ENCRYPTION_BUTTON = new ResourceLocation("nochatreports", "textures/gui/encryption_toggle_button.png");
 
 	protected MixinChatScreen() {
 		super(null);
@@ -66,11 +69,42 @@ public abstract class MixinChatScreen extends Screen {
 		var button = new ImageButton(this.width - 23, this.height - 37, 20, 20, this.getXOffset(trust),
 				0, 20, CHAT_STATUS_ICONS, 64, 64, btn -> {}, (btn, poseStack, i, j) ->
 				this.renderTooltipNoGap(poseStack, this.minecraft.font.split(trust.getTooltip(), 250), i, j),
-				Component.translatable("gui.socialInteractions.report"));
+				Component.empty());
 		button.active = false;
 		button.visible = true;
 
 		this.addRenderableOnly(button);
+
+		button = new ImageButton(this.width - 48, this.height - 37, 20, 20, NCRConfig.getClient().enableChatEncryption() ? 0 : 20,
+				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
+					NCRConfig.getClient().toggleEncryption();
+					((ImageButton)btn).xTexStart = NCRConfig.getClient().enableChatEncryption() ? 0 : 20;
+				}, (btn, poseStack, i, j) ->
+				this.renderTooltip(poseStack, this.minecraft.font.split(
+						Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
+								.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getClient()
+										.enableChatEncryption() ? "on" : "off")), 250), 250), i, j),
+				Component.empty()) {
+
+			@Override
+			public boolean mouseClicked(double x, double y, int i) {
+				if (!this.active || !this.visible)
+					return false;
+
+				if (i == 1 && this.clicked(x, y)) {
+					this.playDownSound(Minecraft.getInstance().getSoundManager());
+					// TODO Open GUI
+					return true;
+				}
+
+				return super.mouseClicked(x, y, i);
+			}
+
+		};
+		button.active = true;
+		button.visible = true;
+
+		this.addRenderableWidget(button);
 	}
 
 	private int getXOffset(ServerSafetyLevel level) {
@@ -92,7 +126,7 @@ public abstract class MixinChatScreen extends Screen {
 		if (list.isEmpty())
 			return;
 		int k = 0;
-		int l = list.size() == 1 ? -2 : 0;
+		int l = list.size() == 1 ? -2 : -2;
 		for (ClientTooltipComponent clientTooltipComponent : list) {
 			m = clientTooltipComponent.getWidth(this.font);
 			if (m > k) {
