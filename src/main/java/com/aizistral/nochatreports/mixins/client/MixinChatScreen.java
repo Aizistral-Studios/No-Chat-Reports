@@ -13,6 +13,7 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.EncryptionWarningScreen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -93,7 +94,7 @@ public abstract class MixinChatScreen extends Screen {
 
 				if (i == 1 && this.clicked(x, y)) {
 					this.playDownSound(Minecraft.getInstance().getSoundManager());
-					// TODO Open GUI
+					Minecraft.getInstance().setScreen(new EncryptionWarningScreen(MixinChatScreen.this));
 					return true;
 				}
 

@@ -21,6 +21,9 @@
 	"gui.nochatreports.encryption_tooltip": "§lEncryption:§r %1$s\nRight-click to configure.",
 	"gui.nochatreports.encryption_state_on": "§a§lEnabled§r",
 	"gui.nochatreports.encryption_state_off": "§c§lDisabled§r",
+	"gui.nochatreports.encryption_warning.header": "About Encryption",
+	"gui.nochatreports.encryption_warning.contents": "Communicate to the user that encryption is not always good here.",
+	"gui.nochatreports.encryption_config.key_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin fermentum leo vel orci porta non. Ac turpis egestas maecenas pharetra convallis posuere morbi leo.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 
