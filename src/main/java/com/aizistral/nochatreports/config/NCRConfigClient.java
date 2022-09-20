@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
-import com.aizistral.nochatreports.encryption.AESChatEncryption;
-import com.aizistral.nochatreports.encryption.ChatEncryption;
+import com.aizistral.nochatreports.encryption.AESEncryptor;
+import com.aizistral.nochatreports.encryption.Encryptor;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;
 import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
@@ -22,8 +22,7 @@ public final class NCRConfigClient extends JSONConfig {
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
-			enableMod = true, enableChatEncryption = false;
-	protected String chatEncryptionKey = "", chatEncryptionAlgorithm = "AES+Base64";
+			enableMod = true;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 
 	protected NCRConfigClient() {
@@ -37,10 +36,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public void toggleMod() {
 		this.enableMod = !this.enableMod;
-	}
-
-	public void toggleEncryption() {
-		this.enableChatEncryption = !this.enableChatEncryption;
 	}
 
 	/**
@@ -203,45 +198,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean enableMod() {
 		return this.enableMod;
-	}
-
-	/**
-	 * @return Whether or not chat encryption is enabled.
-	 */
-
-	public boolean enableChatEncryption() {
-		return this.enableChatEncryption;
-	}
-
-	/**
-	 * @return Current chat encryption algorithm.
-	 */
-
-	public String chatEncryptionAlgorithm() {
-		return this.chatEncryptionAlgorithm;
-	}
-
-	/**
-	 * @return Base64-encoded AES encryption key (hopefully).
-	 */
-
-	public String chatEncryptionKey() {
-		return this.chatEncryptionKey;
-	}
-
-	/**
-	 * @return Chat encryption, if such is enabled and user specified valid key in config.
-	 */
-
-	public Optional<ChatEncryption> chatEncryption() {
-		if (!this.enableChatEncryption() || StringUtil.isNullOrEmpty(this.chatEncryptionKey))
-			return Optional.empty();
-
-		try {
-			return Optional.of(new AESChatEncryption(this.chatEncryptionKey));
-		} catch (InvalidKeyException ex) {
-			return Optional.empty();
-		}
 	}
 
 }

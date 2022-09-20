@@ -22,11 +22,12 @@ public class EncryptionWarningScreen extends WarningScreen {
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.encryption_warning.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.encryption_warning.check");
 	private static final Component NARRATION = TITLE.copy().append("\n").append(CONTENT);
+	private static boolean sessionSeen = false;
 
 	private final Screen previous;
 
 	public EncryptionWarningScreen(Screen previous) {
-		super(TITLE, CONTENT, null, NARRATION);
+		super(TITLE, CONTENT, CHECK, NARRATION);
 		this.previous = previous;
 	}
 
@@ -34,10 +35,19 @@ public class EncryptionWarningScreen extends WarningScreen {
 	protected void initButtons(int i) {
 		this.addRenderableWidget(new Button(this.width / 2 - 155, 100 + i, 150, 20, CommonComponents.GUI_PROCEED, button -> {
 			this.minecraft.setScreen(new EncryptionConfigScreen(this.previous));
+			if (this.stopShowing.selected()) {
+				NCRConfig.getEncryption().disableWarning();
+			}
+
+			sessionSeen = true;
 		}));
 		this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, 100 + i, 150, 20, CommonComponents.GUI_BACK, button -> {
 			this.minecraft.setScreen(this.previous);
 		}));
+	}
+
+	public static boolean seenOnThisSession() {
+		return sessionSeen;
 	}
 
 }

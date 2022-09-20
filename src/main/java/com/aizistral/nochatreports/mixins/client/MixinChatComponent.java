@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At.Shift;
 
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
-import com.aizistral.nochatreports.encryption.ChatEncryption;
+import com.aizistral.nochatreports.encryption.Encryptor;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GuiMessage;
@@ -32,7 +32,7 @@ public class MixinChatComponent {
 	@ModifyVariable(method = "addRecentChat", at = @At("HEAD"), argsOnly = true)
 	private String onAddRecentChat(String message) {
 		if (!message.startsWith("/"))
-			return NCRConfig.getClient().chatEncryption().map(e -> e.decrypt(message)).orElse(message);
+			return NCRConfig.getEncryption().getEncryptor().map(e -> e.decrypt(message)).orElse(message);
 		else
 			return message;
 	}
@@ -46,7 +46,7 @@ public class MixinChatComponent {
 		if (this.lastMessageEncrypted) {
 			this.lastMessageEncrypted = false;
 			Component tooltip = Component.empty().append(Component.translatable("tag.nochatreports.encrypted",
-					Component.literal(NCRConfig.getClient().chatEncryptionAlgorithm())
+					Component.literal(NCRConfig.getEncryption().getAlgorithm().getName())
 					.withStyle(ChatFormatting.BOLD))).append(CommonComponents.NEW_LINE).append(
 							Component.translatable("tag.nochatreports.encrypted_original",
 									this.lastMessageOriginal));
@@ -61,11 +61,11 @@ public class MixinChatComponent {
 					+ "wrapComponents(Lnet/minecraft/network/chat/FormattedText;I"
 					+ "Lnet/minecraft/client/gui/Font;)Ljava/util/List;", ordinal = 0))
 	private FormattedText modifyGUIMessage(FormattedText msg) {
-		var optional = NCRConfig.getClient().chatEncryption();
+		var optional = NCRConfig.getEncryption().getEncryptor();
 
 		if (optional.isEmpty())
 			return msg;
-		ChatEncryption encryption = optional.get();
+		Encryptor<?> encryption = optional.get();
 		this.lastMessageOriginal = Component.Serializer.fromJson(Component.Serializer.toStableJson(((Component) msg)));
 		ComponentContents contents = ((Component)msg).getContents();
 

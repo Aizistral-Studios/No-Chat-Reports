@@ -13,6 +13,7 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.EncryptionConfigScreen;
 import com.aizistral.nochatreports.gui.EncryptionWarningScreen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -55,7 +56,7 @@ public abstract class MixinChatScreen extends Screen {
 		String message = info.getReturnValue();
 
 		if (!message.isEmpty() && !message.startsWith("/")) {
-			NCRConfig.getClient().chatEncryption().ifPresent(e ->
+			NCRConfig.getEncryption().getEncryptor().ifPresent(e ->
 			info.setReturnValue(e.encrypt("#%" + message)));
 		}
 	}
@@ -76,16 +77,30 @@ public abstract class MixinChatScreen extends Screen {
 
 		this.addRenderableOnly(button);
 
-		button = new ImageButton(this.width - 48, this.height - 37, 20, 20, NCRConfig.getClient().enableChatEncryption() ? 0 : 20,
+		int xStart = !NCRConfig.getEncryption().isValid() ? 40 : (NCRConfig.getEncryption().isEnabled() ? 0 : 20);
+
+		button = new ImageButton(this.width - 48, this.height - 37, 20, 20, xStart,
 				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
-					NCRConfig.getClient().toggleEncryption();
-					((ImageButton)btn).xTexStart = NCRConfig.getClient().enableChatEncryption() ? 0 : 20;
-				}, (btn, poseStack, i, j) ->
-				this.renderTooltip(poseStack, this.minecraft.font.split(
-						Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
-								.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getClient()
-										.enableChatEncryption() ? "on" : "off")), 250), 250), i, j),
-				Component.empty()) {
+					if (NCRConfig.getEncryption().isValid()) {
+						NCRConfig.getEncryption().toggleEncryption();
+						((ImageButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
+					} else {
+						MixinChatScreen.this.openEncryptionConfig();
+					}
+				}, (btn, poseStack, i, j) -> {
+					if (NCRConfig.getEncryption().isValid()) {
+						this.renderTooltip(poseStack, this.minecraft.font.split(
+								Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
+										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
+												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
+					} else {
+						this.renderTooltip(poseStack, this.minecraft.font.split(
+								Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
+										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
+												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
+
+					}
+				}, Component.empty()) {
 
 			@Override
 			public boolean mouseClicked(double x, double y, int i) {
@@ -94,7 +109,7 @@ public abstract class MixinChatScreen extends Screen {
 
 				if (i == 1 && this.clicked(x, y)) {
 					this.playDownSound(Minecraft.getInstance().getSoundManager());
-					Minecraft.getInstance().setScreen(new EncryptionWarningScreen(MixinChatScreen.this));
+					MixinChatScreen.this.openEncryptionConfig();
 					return true;
 				}
 
@@ -106,6 +121,14 @@ public abstract class MixinChatScreen extends Screen {
 		button.visible = true;
 
 		this.addRenderableWidget(button);
+	}
+
+	private void openEncryptionConfig() {
+		if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()) {
+			Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
+		} else {
+			Minecraft.getInstance().setScreen(new EncryptionConfigScreen(this));
+		}
 	}
 
 	private int getXOffset(ServerSafetyLevel level) {
