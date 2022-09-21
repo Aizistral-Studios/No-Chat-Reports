@@ -47,6 +47,7 @@ public class NCRConfigEncryption extends JSONConfig {
 
 	public void setAlgorithm(Encryption encryption) {
 		this.algorithm = encryption;
+		this.algorithmName = encryption.getName();
 		this.validate();
 		this.saveFile();
 	}

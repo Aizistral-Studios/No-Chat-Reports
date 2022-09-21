@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.AlgorithmParameterSpec;
 import java.util.Base64;
 import java.util.Random;
 
@@ -35,7 +36,7 @@ public class AESCFB8Encryptor extends AESEncryptor<AESCFB8Encryption> {
 	}
 
 	@Override
-	protected Tuple<IvParameterSpec, byte[]> generateIV() throws UnsupportedOperationException {
+	protected Tuple<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException {
 		long nonce = RANDOM.nextLong();
 		byte[] iv = new byte[16];
 		new Random(nonce).nextBytes(iv);
@@ -43,7 +44,7 @@ public class AESCFB8Encryptor extends AESEncryptor<AESCFB8Encryption> {
 	}
 
 	@Override
-	protected Tuple<IvParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException {
+	protected Tuple<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException {
 		ByteBuffer buffer = ByteBuffer.wrap(message);
 		int size = buffer.capacity();
 		long nonce = buffer.getLong();

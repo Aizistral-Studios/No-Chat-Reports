@@ -11,9 +11,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.AlgorithmParameterSpec;
 import java.util.Random;
 
 import javax.annotation.Nullable;
+import javax.crypto.AEADBadTagException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -45,7 +47,7 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 
 			Cipher encryptor = Cipher.getInstance(this.key.getAlgorithm() + "/" + mode + "/" + padding);
 			if (this.useIV) {
-				encryptor.init(ENCRYPT_MODE, this.key, new IvParameterSpec(key.getEncoded()));
+				encryptor.init(ENCRYPT_MODE, this.key, this.generateIV().getA());
 			} else {
 				encryptor.init(ENCRYPT_MODE, this.key);
 
@@ -54,7 +56,7 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 
 			Cipher decryptor = Cipher.getInstance(this.key.getAlgorithm() + "/" + mode + "/" + padding);
 			if (this.useIV) {
-				decryptor.init(DECRYPT_MODE, this.key, new IvParameterSpec(key.getEncoded()));
+				decryptor.init(DECRYPT_MODE, this.key, this.generateIV().getA());
 			} else {
 				decryptor.init(DECRYPT_MODE, this.key);
 			}
@@ -93,6 +95,8 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 				return new String(this.decryptor.doFinal(tuple.getB()), StandardCharsets.UTF_8);
 			} else
 				return new String(this.decryptor.doFinal(BASE64_DECODER.decode(message)), StandardCharsets.UTF_8);
+		} catch (AEADBadTagException ex) {
+			return "???";
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {
 			throw new RuntimeException(ex);
 		}
@@ -108,8 +112,8 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 		return this.encryption;
 	}
 
-	protected abstract Tuple<IvParameterSpec, byte[]> generateIV() throws UnsupportedOperationException;
+	protected abstract Tuple<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException;
 
-	protected abstract Tuple<IvParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException;
+	protected abstract Tuple<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException;
 
 }

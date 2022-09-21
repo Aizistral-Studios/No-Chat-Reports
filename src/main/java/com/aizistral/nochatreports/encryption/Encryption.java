@@ -13,6 +13,7 @@ public abstract class Encryption {
 	protected static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
 
 	public static final AESCFB8Encryption AES_CFB8 = new AESCFB8Encryption();
+	public static final AESGCMEncryption AES_GCM = new AESGCMEncryption();
 	public static final AESECBEncryption AES_ECB = new AESECBEncryption();
 	public static final CaesarEncryption CAESAR = new CaesarEncryption();
 
