@@ -23,7 +23,7 @@
 	"gui.nochatreports.encryption_state_on": "§a§lEnabled§r",
 	"gui.nochatreports.encryption_state_off": "§c§lDisabled§r",
 	"gui.nochatreports.encryption_warning.header": "About Encryption",
-	"gui.nochatreports.encryption_warning.contents": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin fermentum leo vel orci porta non. Ac turpis egestas maecenas pharetra convallis posuere morbi leo.",
+	"gui.nochatreports.encryption_warning.contents": "You can encrypt your messages using a secret key. Only people who know this key will be able to decrypt them. No Chat Reports will automatically decrypt all encrypted messages when suitable key is provided and feature is enabled.\nHowever, be aware that encryption is not a \"magic wand\" kind of solution. Moderators on third-party servers can mute or ban you for sending what will appear to them as garbled mess in chat. Futhermore, it is recommended that you generate custom encryption key, and communicate it to other people only via secure channels.",
 	"gui.nochatreports.encryption_warning.check": "Don't show again",
 	"gui.nochatreports.encryption_config.header": "Encryption Settings",
 	"gui.nochatreports.encryption_config.key_desc": "§lEncryption Key§r\nKey that will be used to encrypt and decrypt your messages. It's format depends on algorithm; for AES it will be 128 bits of Base64-encoded binary data.",

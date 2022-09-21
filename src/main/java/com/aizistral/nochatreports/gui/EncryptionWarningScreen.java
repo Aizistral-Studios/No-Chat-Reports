@@ -7,7 +7,10 @@ import com.aizistral.nochatreports.core.ServerSafetyState;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.CommandBlockEditScreen;
@@ -22,6 +25,7 @@ public class EncryptionWarningScreen extends WarningScreen {
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.encryption_warning.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.encryption_warning.check");
 	private static final Component NARRATION = TITLE.copy().append("\n").append(CONTENT);
+	private static final String WIKI_LINK = "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-To-Encrypt";
 	private static boolean sessionSeen = false;
 
 	private final Screen previous;
@@ -33,7 +37,9 @@ public class EncryptionWarningScreen extends WarningScreen {
 
 	@Override
 	protected void initButtons(int i) {
-		this.addRenderableWidget(new Button(this.width / 2 - 155, 100 + i, 150, 20, CommonComponents.GUI_PROCEED, button -> {
+		int offset = 28;
+
+		this.addRenderableWidget(new Button(this.width / 2 - 260 + offset, 100 + i, 150, 20, CommonComponents.GUI_PROCEED, button -> {
 			this.minecraft.setScreen(new EncryptionConfigScreen(this.previous));
 			if (this.stopShowing.selected()) {
 				NCRConfig.getEncryption().disableWarning();
@@ -41,7 +47,16 @@ public class EncryptionWarningScreen extends WarningScreen {
 
 			sessionSeen = true;
 		}));
-		this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, 100 + i, 150, 20, CommonComponents.GUI_BACK, button -> {
+		this.addRenderableWidget(new Button(this.width / 2 - 100 + offset, 100 + i, 150, 20, Component.literal("Learn More"), button -> {
+			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
+				if (agree) {
+					Util.getPlatform().openUri(WIKI_LINK);
+				}
+
+				Minecraft.getInstance().setScreen(this);
+			}, WIKI_LINK, true));
+		}));
+		this.addRenderableWidget(new Button(this.width / 2 + 60 + offset, 100 + i, 150, 20, CommonComponents.GUI_BACK, button -> {
 			this.minecraft.setScreen(this.previous);
 		}));
 	}
