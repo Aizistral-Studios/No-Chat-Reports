@@ -89,7 +89,9 @@ public abstract class MixinChatScreen extends Screen {
 
 		button = new ImageButton(this.width - 48, this.height - 37, 20, 20, xStart,
 				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
-					if (NCRConfig.getEncryption().isValid()) {
+					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()) {
+						Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
+					} else if (NCRConfig.getEncryption().isValid()) {
 						NCRConfig.getEncryption().toggleEncryption();
 						((ImageButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
 					} else {
