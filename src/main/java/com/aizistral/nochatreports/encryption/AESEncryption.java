@@ -2,12 +2,11 @@ package com.aizistral.nochatreports.encryption;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Optional;
 import java.util.Random;
 
-import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -16,8 +15,18 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import net.minecraft.util.StringUtil;
+import net.minecraft.util.Tuple;
 
-public class AESEncryption extends Encryption {
+public abstract class AESEncryption extends Encryption {
+	private final String mode, padding;
+	private final boolean requiresIV;
+
+	protected AESEncryption(String mode, String padding, boolean requiresIV) {
+		super("aes_" + mode.toLowerCase() + "_base64", "AES/" + mode + "+Base64");
+		this.mode = mode;
+		this.padding = padding;
+		this.requiresIV = requiresIV;
+	}
 
 	@Override
 	public String getRandomKey() {
@@ -72,28 +81,16 @@ public class AESEncryption extends Encryption {
 		return true;
 	}
 
-	@Override
-	public String getName() {
-		return "AES/CFB8+Base64";
+	public String getMode() {
+		return this.mode;
 	}
 
-	@Override
-	public String getID() {
-		return "aes_base64";
+	public String getPadding() {
+		return this.padding;
 	}
 
-	@Override
-	public AESEncryptor getProcessor(String key) throws InvalidKeyException {
-		return new AESEncryptor(key);
-	}
-
-	@Override
-	public AESEncryptor getRandomProcessor() {
-		try {
-			return this.getProcessor(this.getRandomKey());
-		} catch (InvalidKeyException ex) {
-			throw new RuntimeException(ex);
-		}
+	public boolean requiresIV() {
+		return this.requiresIV;
 	}
 
 }

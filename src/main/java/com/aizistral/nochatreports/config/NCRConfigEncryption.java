@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.aizistral.nochatreports.encryption.AESEncryptor;
+import com.aizistral.nochatreports.encryption.AESCFB8Encryptor;
 import com.aizistral.nochatreports.encryption.Encryption;
 import com.aizistral.nochatreports.encryption.Encryptor;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
@@ -16,8 +16,8 @@ import net.minecraft.util.StringUtil;
 public class NCRConfigEncryption extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Encryption.json";
 	protected boolean skipWarning = false, enableEncryption = false;
-	protected String encryptionKey = Encryption.AES.getDefaultKey(), encryptionPassphrase = "",
-			algorithmName = Encryption.AES.getName();
+	protected String encryptionKey = Encryption.AES_CFB8.getDefaultKey(), encryptionPassphrase = "",
+			algorithmName = Encryption.AES_CFB8.getName();
 	private transient Encryption algorithm;
 	private transient boolean isValid = false;
 

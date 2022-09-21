@@ -34,7 +34,9 @@
 	"gui.nochatreports.encryption_config.pass_not_allowed": "<not supported>",
 	"gui.nochatreports.encryption_config.algorithm": "Algorithm: %1$s",
 	"gui.nochatreports.encryption_config.default_key": "<default: %1$s>",
-	"algorithm.nochatreports.aes_base64": "§lAES/CFB8+Base64§r\nStandard symmetric encryption algorithm. Uses 128 bit keys, output is Base64-encoded to permit transfer via Minecraft's chat. As a downside - messages will gain roughly 30% increase in length, and server might truncate them if they exceed size limit.",
+	"algorithm.nochatreports.aes_cfb8_base64": "§lAES/CFB8+Base64§r\nStandard symmetric encryption algorithm. Uses 128 bit keys, output is Base64-encoded to permit transfer via Minecraft's chat. As a downside - messages will gain roughly 30% increase in length, and server might truncate them if they exceed size limit.",
+	"algorithm.nochatreports.aes_ecb_base64": "§lAES/ECB+Base64§r\nLess secure than CFB mode, but saves you some bytes by not requiring IV. Still beats Caesar.",
+	"algorithm.nochatreports.caesar": "§lCaesar§r\nMeme cipher. With this you're basically hoping that people will give up without even trying to decrypt your messages. That might be true in many cases, so viability of using it depends on your threat model.\nKey should be integer from 1 to 1024. Shift is done by character code instead of alphabetically, to ensure compatibility with any language.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 

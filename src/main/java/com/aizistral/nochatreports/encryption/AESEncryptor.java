@@ -1,45 +1,63 @@
 package com.aizistral.nochatreports.encryption;
 
+import static com.aizistral.nochatreports.encryption.Encryption.AES_CFB8;
+import static com.aizistral.nochatreports.encryption.Encryption.BASE64_DECODER;
+import static com.aizistral.nochatreports.encryption.Encryption.BASE64_ENCODER;
+import static javax.crypto.Cipher.DECRYPT_MODE;
+import static javax.crypto.Cipher.ENCRYPT_MODE;
+
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Random;
 
-import javax.crypto.AEADBadTagException;
+import javax.annotation.Nullable;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import net.minecraft.server.network.ServerLoginPacketListenerImpl;
-import static com.aizistral.nochatreports.encryption.Encryption.*;
-import static javax.crypto.Cipher.*;
+import net.minecraft.util.Tuple;
 
-public class AESEncryptor extends Encryptor<AESEncryption> {
+public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T> {
+	private final T encryption;
 	private final SecretKey key;
 	private final Cipher encryptor, decryptor;
+	private final boolean useIV;
 
-	protected AESEncryptor(String key) throws InvalidKeyException {
-		this(new SecretKeySpec(decodeBinaryKey(key), "AES"));
+	protected AESEncryptor(String key, T encryption) throws InvalidKeyException {
+		this(new SecretKeySpec(decodeBinaryKey(key), "AES"), encryption);
 	}
 
-	protected AESEncryptor(SecretKey key) throws InvalidKeyException {
+	protected AESEncryptor(SecretKey key, T encryption) throws InvalidKeyException {
+		this.encryption = encryption;
+		this.useIV = encryption.requiresIV();
+		String mode = encryption.getMode();
+		String padding = encryption.getPadding();
+
 		try {
 			this.key = key;
 
-			Cipher encryptor = Cipher.getInstance(this.key.getAlgorithm() + "/CFB8/NoPadding");
-			encryptor.init(ENCRYPT_MODE, this.key, new IvParameterSpec(key.getEncoded()));
+			Cipher encryptor = Cipher.getInstance(this.key.getAlgorithm() + "/" + mode + "/" + padding);
+			if (this.useIV) {
+				encryptor.init(ENCRYPT_MODE, this.key, new IvParameterSpec(key.getEncoded()));
+			} else {
+				encryptor.init(ENCRYPT_MODE, this.key);
+
+			}
 			this.encryptor = encryptor;
 
-			Cipher decryptor = Cipher.getInstance(this.key.getAlgorithm() + "/CFB8/NoPadding");
-			decryptor.init(DECRYPT_MODE, this.key, new IvParameterSpec(key.getEncoded()));
+			Cipher decryptor = Cipher.getInstance(this.key.getAlgorithm() + "/" + mode + "/" + padding);
+			if (this.useIV) {
+				decryptor.init(DECRYPT_MODE, this.key, new IvParameterSpec(key.getEncoded()));
+			} else {
+				decryptor.init(DECRYPT_MODE, this.key);
+			}
 			this.decryptor = decryptor;
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException ex) {
 			throw new RuntimeException(ex);
@@ -51,14 +69,15 @@ public class AESEncryptor extends Encryptor<AESEncryption> {
 	@Override
 	public String encrypt(String message) {
 		try {
-			long nonce = RANDOM.nextLong();
-			byte[] iv = new byte[16];
-			new Random(nonce).nextBytes(iv);
+			if (this.useIV) {
+				var tuple = this.generateIV();
 
-			this.encryptor.init(ENCRYPT_MODE, this.key, new IvParameterSpec(iv));
-			byte[] encrypted = this.encryptor.doFinal(message.getBytes());
+				this.encryptor.init(ENCRYPT_MODE, this.key, tuple.getA());
+				byte[] encrypted = this.encryptor.doFinal(message.getBytes());
 
-			return BASE64_ENCODER.encodeToString(ByteBuffer.allocate(encrypted.length + 8).putLong(nonce).put(encrypted).array());
+				return BASE64_ENCODER.encodeToString(ByteBuffer.allocate(encrypted.length + tuple.getB().length).put(tuple.getB()).put(encrypted).array());
+			} else
+				return BASE64_ENCODER.encodeToString(this.encryptor.doFinal(message.getBytes()));
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {
 			throw new RuntimeException(ex);
 		}
@@ -67,29 +86,30 @@ public class AESEncryptor extends Encryptor<AESEncryption> {
 	@Override
 	public String decrypt(String message) {
 		try {
-			ByteBuffer buffer = ByteBuffer.wrap(BASE64_DECODER.decode(message));
-			int size = buffer.capacity();
-			long nonce = buffer.getLong();
-			byte[] encrypted = new byte[size - 8];
-			buffer.get(encrypted);
-			byte[] iv = new byte[16];
-			new Random(nonce).nextBytes(iv);
+			if (this.useIV) {
+				var tuple = this.splitIV(BASE64_DECODER.decode(message));
 
-			this.decryptor.init(DECRYPT_MODE, this.key, new IvParameterSpec(iv));
-			return new String(this.decryptor.doFinal(encrypted), StandardCharsets.UTF_8);
+				this.decryptor.init(DECRYPT_MODE, this.key, tuple.getA());
+				return new String(this.decryptor.doFinal(tuple.getB()), StandardCharsets.UTF_8);
+			} else
+				return new String(this.decryptor.doFinal(BASE64_DECODER.decode(message)), StandardCharsets.UTF_8);
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
 
 	@Override
-	public AESEncryption getAlgorithm() {
-		return AES;
-	}
-
-	@Override
 	public String getKey() {
 		return encodeBinaryKey(this.key.getEncoded());
 	}
+
+	@Override
+	public T getAlgorithm() {
+		return this.encryption;
+	}
+
+	protected abstract Tuple<IvParameterSpec, byte[]> generateIV() throws UnsupportedOperationException;
+
+	protected abstract Tuple<IvParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException;
 
 }
