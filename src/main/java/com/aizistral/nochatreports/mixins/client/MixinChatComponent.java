@@ -31,8 +31,8 @@ public class MixinChatComponent {
 
 	@ModifyVariable(method = "addRecentChat", at = @At("HEAD"), argsOnly = true)
 	private String onAddRecentChat(String message) {
-		if (!message.startsWith("/"))
-			return NCRConfig.getEncryption().getEncryptor().map(e -> e.decrypt(message)).orElse(message);
+		if (NCRConfig.getEncryption().isEnabledAndValid())
+			return NCRConfig.getEncryption().getLastMessage();
 		else
 			return message;
 	}
@@ -42,7 +42,7 @@ public class MixinChatComponent {
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ComponentRenderUtils;"
 					+ "wrapComponents(Lnet/minecraft/network/chat/FormattedText;ILnet/minecraft/client/gui/Font;"
 					+ ")Ljava/util/List;", ordinal = 0, shift = Shift.AFTER), argsOnly = true)
-	private GuiMessageTag modifyGUITag(GuiMessageTag tag) {
+	private synchronized GuiMessageTag modifyGUITag(GuiMessageTag tag) {
 		if (this.lastMessageEncrypted) {
 			this.lastMessageEncrypted = false;
 			Component tooltip = Component.empty().append(Component.translatable("tag.nochatreports.encrypted",
@@ -50,6 +50,8 @@ public class MixinChatComponent {
 					.withStyle(ChatFormatting.BOLD))).append(CommonComponents.NEW_LINE).append(
 							Component.translatable("tag.nochatreports.encrypted_original",
 									this.lastMessageOriginal));
+
+			//System.out.println("Last message original: " + last);
 			return new GuiMessageTag(0x8B3EC7, ENCRYPTED_ICON, tooltip, "Encrypted");
 		} else
 			return tag;
@@ -62,12 +64,13 @@ public class MixinChatComponent {
 					+ "Lnet/minecraft/client/gui/Font;)Ljava/util/List;", ordinal = 0))
 	private FormattedText modifyGUIMessage(FormattedText msg) {
 		var optional = NCRConfig.getEncryption().getEncryptor();
-
 		if (optional.isEmpty())
 			return msg;
+
 		Encryptor<?> encryption = optional.get();
-		this.lastMessageOriginal = Component.Serializer.fromJson(Component.Serializer.toStableJson(((Component) msg)));
-		ComponentContents contents = ((Component)msg).getContents();
+		Component copy = this.recreate((Component) msg);
+		this.lastMessageOriginal = this.recreate(copy);
+		ComponentContents contents = copy.getContents();
 
 		if (contents instanceof TranslatableContents translatable) {
 			for (Object arg : translatable.args) {
@@ -86,7 +89,11 @@ public class MixinChatComponent {
 			}
 		}
 
-		return msg;
+		return copy;
+	}
+
+	private Component recreate(Component component) {
+		return Component.Serializer.fromJson(Component.Serializer.toStableJson(component));
 	}
 
 }

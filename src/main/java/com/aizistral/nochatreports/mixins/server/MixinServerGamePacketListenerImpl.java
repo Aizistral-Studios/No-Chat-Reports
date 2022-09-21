@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.minecraft.network.PacketSendListener;
@@ -32,13 +33,16 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;)V", at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, CallbackInfo info) {
+		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
+			NoChatReports.LOGGER.info("Sending message: {}", chat.message().serverContent());
+		}
+
 		if (NCRConfig.getCommon().convertToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatHeaderPacket) {
 				info.cancel();
 			} else if (packet instanceof ClientboundPlayerChatPacket chat) {
 				packet = new ClientboundSystemChatPacket(chat.chatType().resolve(this.player.level.registryAccess())
 						.get().decorate(chat.message().serverContent()), false);
-
 
 				info.cancel();
 				this.send(packet);
@@ -54,6 +58,10 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
 			at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo info) {
+		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
+			NoChatReports.LOGGER.info("Sending message: {}", chat.message().serverContent());
+		}
+
 		if (NCRConfig.getCommon().convertToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatHeaderPacket) {
 				info.cancel();

@@ -54,10 +54,18 @@ public abstract class MixinChatScreen extends Screen {
 	@Inject(method = "normalizeChatMessage", at = @At("RETURN"), cancellable = true)
 	public void onBeforeMessage(String original, CallbackInfoReturnable<String> info) {
 		String message = info.getReturnValue();
+		NCRConfig.getEncryption().setLastMessage(message);
 
-		if (!message.isEmpty() && !message.startsWith("/")) {
-			NCRConfig.getEncryption().getEncryptor().ifPresent(e ->
-			info.setReturnValue(e.encrypt("#%" + message)));
+		if (!message.isEmpty() && NCRConfig.getEncryption().shouldEncrypt(message)) {
+			NCRConfig.getEncryption().getEncryptor().ifPresent(e -> {
+				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message);
+				String noencrypt = message.substring(0, index);
+				String encrypt = message.substring(index, message.length());
+
+				if (encrypt.length() > 0) {
+					info.setReturnValue(noencrypt + e.encrypt("#%" + encrypt));
+				}
+			});
 		}
 	}
 
@@ -124,7 +132,8 @@ public abstract class MixinChatScreen extends Screen {
 	}
 
 	private void openEncryptionConfig() {
-		if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()) {
+		if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
+				&& !NCRConfig.getEncryption().isEnabledAndValid()) {
 			Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
 		} else {
 			Minecraft.getInstance().setScreen(new EncryptionConfigScreen(this));

@@ -16,6 +16,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
@@ -44,6 +45,7 @@ public class EncryptionConfigScreen extends Screen {
 	private static final Component VALIDATION_FAILED = Component.translatable("gui.nochatreports.encryption_config.validation_failed");
 	private static final Component DICE_TOOLTIP = Component.translatable("gui.nochatreports.encryption_config.dice_tooltip");
 	private static final Component PASS_NOT_ALLOWED = Component.translatable("gui.nochatreports.encryption_config.pass_not_allowed");
+	private static final Component ENCRYPT_PUBLIC = Component.translatable("gui.nochatreports.encryption_config.encrypt_public");
 
 	private static final int FIELDS_Y_START = 45;
 	private final Screen previous;
@@ -51,6 +53,7 @@ public class EncryptionConfigScreen extends Screen {
 	private ImageButton validationIcon;
 	private CycleButton<Encryption> algorithmButton;
 	private MultiLineLabel keyDesc = MultiLineLabel.EMPTY, passDesc = MultiLineLabel.EMPTY;
+	protected Checkbox encryptPublicCheck;
 	private boolean settingPassKey = false;
 
 	public EncryptionConfigScreen(Screen previous) {
@@ -131,8 +134,12 @@ public class EncryptionConfigScreen extends Screen {
 
 		this.addRenderableOnly(button);
 
+		int checkWidth = this.font.width(ENCRYPT_PUBLIC);
+		this.encryptPublicCheck = new Checkbox(this.width / 2 - checkWidth / 2 - 8, this.passField.y + 24, checkWidth + 24, 20,
+				ENCRYPT_PUBLIC, NCRConfig.getEncryption().shouldEncryptPublic());
+		this.addRenderableWidget(this.encryptPublicCheck);
 
-		this.addRenderableWidget(new Button(this.width / 2 + 4, this.passField.y + 42, 219, 20,
+		this.addRenderableWidget(new Button(this.width / 2 + 4, this.passField.y + 48, 219, 20,
 				CommonComponents.GUI_DONE, btn -> {
 					this.onDone();
 					this.onClose();
@@ -143,7 +150,7 @@ public class EncryptionConfigScreen extends Screen {
 		}).withValues(Encryption.getRegistered()).displayOnlyValue().withInitialValue(this.getConfig()
 				.getAlgorithm()).withTooltip(value -> this.minecraft.font.split(
 						Component.translatable("algorithm.nochatreports." + value.getID()), 250))
-				.create(this.width / 2 - 4 - 218, this.passField.y + 42, 218, 20, CommonComponents.EMPTY,
+				.create(this.width / 2 - 4 - 218, this.passField.y + 48, 218, 20, CommonComponents.EMPTY,
 						(cycleButton, value) -> {
 							this.unfocusFields();
 							this.onAlgorithmUpdate(value);
@@ -265,6 +272,7 @@ public class EncryptionConfigScreen extends Screen {
 		config.setAlgorithm(encryption);
 		config.setEncryptionKey(!StringUtil.isNullOrEmpty(this.keyField.getValue()) ? this.keyField.getValue()
 				: encryption.getDefaultKey());
+		config.setEncryptPublic(this.encryptPublicCheck.selected());
 	}
 
 	@Override

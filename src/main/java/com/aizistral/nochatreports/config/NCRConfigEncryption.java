@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.config;
 
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,13 @@ import net.minecraft.util.StringUtil;
 
 public class NCRConfigEncryption extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Encryption.json";
-	protected boolean skipWarning = false, enableEncryption = false;
+	protected boolean skipWarning = false, enableEncryption = false, encryptPublic = true;
 	protected String encryptionKey = Encryption.AES_CFB8.getDefaultKey(), encryptionPassphrase = "",
 			algorithmName = Encryption.AES_CFB8.getName();
+	protected List<String> encryptableCommands = List.of("msg:1", "w:1", "whisper:1", "tell:1", "r:0", "dm:1", "me:0");
 	private transient Encryption algorithm;
 	private transient boolean isValid = false;
+	private transient String lastMessage = "???";
 
 	protected NCRConfigEncryption() {
 		super(FILE_NAME);
@@ -43,6 +46,7 @@ public class NCRConfigEncryption extends JSONConfig {
 
 	public void toggleEncryption() {
 		this.enableEncryption = !this.enableEncryption;
+		this.saveFile();
 	}
 
 	public void setAlgorithm(Encryption encryption) {
@@ -60,6 +64,11 @@ public class NCRConfigEncryption extends JSONConfig {
 
 	public void setEncryptionPassphrase(String pass) {
 		this.encryptionPassphrase = pass;
+		this.saveFile();
+	}
+
+	public void setEncryptPublic(boolean encryptPublic) {
+		this.encryptPublic = encryptPublic;
 		this.saveFile();
 	}
 
@@ -87,12 +96,75 @@ public class NCRConfigEncryption extends JSONConfig {
 		return this.isValid;
 	}
 
+	public boolean shouldEncryptPublic() {
+		return this.encryptPublic;
+	}
+
 	public boolean isEnabledAndValid() {
 		return this.isEnabled() && this.isValid();
 	}
 
 	public Encryption getAlgorithm() {
 		return this.algorithm;
+	}
+
+	public boolean shouldEncrypt(String message) {
+		return this.isEnabledAndValid() && this.getEncryptionStartIndex(message) != -1;
+	}
+
+	public int getEncryptionStartIndex(String message) {
+		if (!message.startsWith("/"))
+			return this.encryptPublic ? 0 : -1;
+		else {
+			for (String rule : this.encryptableCommands) {
+				String[] splat = rule.split(":");
+
+				if (splat.length != 2)
+					throw new IllegalArgumentException("Invalid encryptable command definition: " + rule
+							+ ", in file: " + FILE_NAME);
+
+				String cmd = splat[0];
+				String args = splat[1];
+				int argnum = 0;
+
+				try {
+					argnum = Integer.valueOf(args);
+				} catch (NumberFormatException ex) {
+					throw new IllegalArgumentException("Invalid encryptable command definition: " + rule
+							+ ", in file: " + FILE_NAME);
+				}
+
+				String prefix = "/" + cmd + " ";
+				if (message.startsWith(prefix)) {
+					char[] array = message.substring(prefix.length(), message.length()).toCharArray();
+
+					for (int i = 0; i < array.length; i++) {
+						char ch = array[i];
+						if (argnum > 0) {
+							if (ch == ' ') {
+								argnum--;
+							}
+							continue;
+						} else {
+							int index = i + prefix.length();
+							return index < message.length() ? index : -1;
+						}
+					}
+				} else {
+					continue;
+				}
+			}
+
+			return -1;
+		}
+	}
+
+	public void setLastMessage(String lastMessage) {
+		this.lastMessage = lastMessage;
+	}
+
+	public String getLastMessage() {
+		return this.lastMessage;
 	}
 
 	/**
