@@ -13,6 +13,17 @@
 	"gui.nochatreports.unsafe_server.check": "Nie pokazuj ponownie dla tego serwera",
 	"gui.nochatrepords.reload_config_tooltip": "Przeładuj konfigurację No Chat Reports. Używaj ostrożnie.",
 	"gui.nochatreports.verified_server": "§a§lBezpieczny serwer§r\nMożemy sprawdzić, czy na tym serwerze zainstalowano No Chat Reports lub w inny znany sposób zapobiec raportowaniu z czatu. Możesz tam bezpiecznie czatować.",
+	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nWyłącz lub włącz większość funkcji po stronie klienta moda. Być może będziesz musiał to zrobić, aby dołączyć do niektórych serwerów Paper/Velocity, ponieważ są one znane z powodowania problemów z NCR.\nNiektóre rzeczy niezwiązane z siecią, takie jak szyfrowanie, poprawianie stanu zaufania czatu i usuwanie wanilii „Wiadomości na czacie nie mogą być zweryfikowane\" toasty nadal będą działać; można je wyłączyć w konfiguracji indywidualnie.",
+	"gui.nochatreports.ncr_state_on": "§a§lWłączony§r",
+	"gui.nochatreports.ncr_state_off": "§c§lWyłączony§r",
+	"tag.nochatreports.encrypted": "Zaszyfrowany używając: %1$s",
+	"tag.nochatreports.encrypted_original": "Nieodszyfrowane: %1$s",
+	"gui.nochatreports.encryption_tooltip": "§lSzyfrowanie:§r %1$s\nKliknij prawym przyciskiem, aby skonfigurować.",
+	"gui.nochatreports.encryption_state_on": "§a§lWłączone§r",
+	"gui.nochatreports.encryption_state_off": "§c§lWyłączone§r",
+	"gui.nochatreports.encryption_warning.header": "O szyfrowaniu",
+	"gui.nochatreports.encryption_warning.contents": "Poinformuj użytkownika, że szyfrowanie nie zawsze jest tutaj dobre.",
+	"gui.nochatreports.encryption_config.key_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin fermentum leo vel orci porta non. Ac turpis egestas maecenas pharetra convallis posuere morbi leo.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 	
@@ -50,6 +61,10 @@
 	"option.NoChatReports.showReloadButton.tooltip": "Dodaje przycisk przeładowania konfiguracji do menu gry wieloosobowej.",
 	"option.NoChatReports.whitelistAllServers": "Dodaj wszystkie serwery do białej listy",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Sprawia, że mod zachowuje się tak, jakby wszystkie serwery zostały dodane do §oBiałej listy serwerów§r.",
+	"option.NoChatReports.showNCRButton": "Pokaż przycisk NCR",
+	"option.NoChatReports.showNCRButton.tooltip": "Dodaje przycisk, który przełącza większość funkcjonalności moda po stronie klienta do menu gry wieloosobowej.",
+	"option.NoChatReports.enableMod": "Włącz modyfikacje",
+	"option.NoChatReports.enableMod.tooltip": "Odpowiedzialny za włączenie większości funkcjonalności modów po stronie klienta, patrz opcja powyżej.",
 	
 	"configuration.NoChatReports.category.whitelistedServers": "Serwery w białej liście",
 	
@@ -68,5 +83,4 @@
 	"option.NoChatReports.convertToGameMessage.tooltip": "Sprawia, że serwer konwertuje wszystkie wiadomości gracza na wiadomości systemowe. Wiadomości systemowe nie mają żadnych podpisów i nie mogą być raportowane; na niezmodyfikowanych klientach będą wyświetlane z szarym paskiem po lewej stronie.",
 	"option.NoChatReports.addQueryData": "Dodaj dane zapytania",
 	"option.NoChatReports.addQueryData.tooltip": "Umożliwia serwerowi wysyłanie dodatkowych danych do klienta podczas obsługi pingów. Służy do wyświetlania ikony \"Bezpieczny serwer\", a także do innych celów technicznych."
-
 }
