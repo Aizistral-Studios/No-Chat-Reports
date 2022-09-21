@@ -47,7 +47,7 @@ public class EncryptionWarningScreen extends WarningScreen {
 
 			sessionSeen = true;
 		}));
-		this.addRenderableWidget(new Button(this.width / 2 - 100 + offset, 100 + i, 150, 20, Component.literal("Learn More"), button -> {
+		this.addRenderableWidget(new Button(this.width / 2 - 100 + offset, 100 + i, 150, 20, Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
 			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
 				if (agree) {
 					Util.getPlatform().openUri(WIKI_LINK);
