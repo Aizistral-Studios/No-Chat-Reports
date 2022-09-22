@@ -134,9 +134,10 @@ public class NCRConfigEncryption extends JSONConfig {
 							+ ", in file: " + FILE_NAME);
 				}
 
-				String prefix = "/" + cmd + " ";
-				if (message.startsWith(prefix)) {
-					char[] array = message.substring(prefix.length(), message.length()).toCharArray();
+				String prefix = "/(" + cmd + "|.*:" + cmd + ") .*";
+				if (message.matches(prefix)) {
+					splat = message.split(" ", 2);
+					char[] array = splat[1].toCharArray();
 
 					for (int i = 0; i < array.length; i++) {
 						char ch = array[i];
@@ -146,7 +147,7 @@ public class NCRConfigEncryption extends JSONConfig {
 							}
 							continue;
 						} else {
-							int index = i + prefix.length();
+							int index = i + splat[0].length() + 1;
 							return index < message.length() ? index : -1;
 						}
 					}
