@@ -71,25 +71,28 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		if (!NCRConfig.getClient().showServerSafety() || !NCRConfig.getClient().enableMod())
+		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
+			ServerSafetyLevel trust = this.minecraft.isLocalServer() ? ServerSafetyLevel.SECURE : ServerSafetyState.getCurrent();
+
+			var button = new ImageButton(this.width - 23, this.height - 37, 20, 20, this.getXOffset(trust),
+					0, 20, CHAT_STATUS_ICONS, 64, 64, btn -> {}, (btn, poseStack, i, j) ->
+					this.renderTooltipNoGap(poseStack, this.minecraft.font.split(trust.getTooltip(), 250), i, j),
+					Component.empty());
+			button.active = false;
+			button.visible = true;
+
+			this.addRenderableOnly(button);
+		}
+
+		if (!NCRConfig.getEncryption().showEncryptionButton())
 			return;
-
-		ServerSafetyLevel trust = this.minecraft.isLocalServer() ? ServerSafetyLevel.SECURE : ServerSafetyState.getCurrent();
-
-		var button = new ImageButton(this.width - 23, this.height - 37, 20, 20, this.getXOffset(trust),
-				0, 20, CHAT_STATUS_ICONS, 64, 64, btn -> {}, (btn, poseStack, i, j) ->
-				this.renderTooltipNoGap(poseStack, this.minecraft.font.split(trust.getTooltip(), 250), i, j),
-				Component.empty());
-		button.active = false;
-		button.visible = true;
-
-		this.addRenderableOnly(button);
 
 		int xStart = !NCRConfig.getEncryption().isValid() ? 40 : (NCRConfig.getEncryption().isEnabled() ? 0 : 20);
 
-		button = new ImageButton(this.width - 48, this.height - 37, 20, 20, xStart,
+		var button = new ImageButton(this.width - 48, this.height - 37, 20, 20, xStart,
 				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
-					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()) {
+					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
+							&& !NCRConfig.getEncryption().isEnabled()) {
 						Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
 					} else if (NCRConfig.getEncryption().isValid()) {
 						NCRConfig.getEncryption().toggleEncryption();

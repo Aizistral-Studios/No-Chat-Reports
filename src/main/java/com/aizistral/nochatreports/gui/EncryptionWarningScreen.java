@@ -25,7 +25,7 @@ public class EncryptionWarningScreen extends WarningScreen {
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.encryption_warning.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.encryption_warning.check");
 	private static final Component NARRATION = TITLE.copy().append("\n").append(CONTENT);
-	private static final String WIKI_LINK = "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-To-Encrypt";
+	private static final String WIKI_LINK = "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-to-Encrypt";
 	private static boolean sessionSeen = false;
 
 	private final Screen previous;
