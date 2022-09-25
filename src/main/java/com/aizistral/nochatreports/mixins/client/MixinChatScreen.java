@@ -13,6 +13,7 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.EncryptionButton;
 import com.aizistral.nochatreports.gui.EncryptionConfigScreen;
 import com.aizistral.nochatreports.gui.EncryptionWarningScreen;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -89,16 +90,16 @@ public abstract class MixinChatScreen extends Screen {
 
 		int xStart = !NCRConfig.getEncryption().isValid() ? 40 : (NCRConfig.getEncryption().isEnabled() ? 0 : 20);
 
-		var button = new ImageButton(this.width - 48, this.height - 37, 20, 20, xStart,
+		var button = new EncryptionButton(this.width - 48, this.height - 37, 20, 20, xStart,
 				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
 					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
 							&& !NCRConfig.getEncryption().isEnabled()) {
 						Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
 					} else if (NCRConfig.getEncryption().isValid()) {
 						NCRConfig.getEncryption().toggleEncryption();
-						((ImageButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
+						((EncryptionButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
 					} else {
-						MixinChatScreen.this.openEncryptionConfig();
+						((EncryptionButton)btn).openEncryptionConfig();
 					}
 				}, (btn, poseStack, i, j) -> {
 					if (NCRConfig.getEncryption().isValid()) {
@@ -113,36 +114,11 @@ public abstract class MixinChatScreen extends Screen {
 												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
 
 					}
-				}, Component.empty()) {
-
-			@Override
-			public boolean mouseClicked(double x, double y, int i) {
-				if (!this.active || !this.visible)
-					return false;
-
-				if (i == 1 && this.clicked(x, y)) {
-					this.playDownSound(Minecraft.getInstance().getSoundManager());
-					MixinChatScreen.this.openEncryptionConfig();
-					return true;
-				}
-
-				return super.mouseClicked(x, y, i);
-			}
-
-		};
+				}, Component.empty(), this);
 		button.active = true;
 		button.visible = true;
 
 		this.addRenderableWidget(button);
-	}
-
-	private void openEncryptionConfig() {
-		if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
-				&& !NCRConfig.getEncryption().isEnabledAndValid()) {
-			Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
-		} else {
-			Minecraft.getInstance().setScreen(new EncryptionConfigScreen(this));
-		}
 	}
 
 	private int getXOffset(ServerSafetyLevel level) {
