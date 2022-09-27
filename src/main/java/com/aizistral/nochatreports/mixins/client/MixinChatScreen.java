@@ -72,10 +72,12 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
+		int buttonX = this.width - 23;
+
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
 			ServerSafetyLevel trust = this.minecraft.isLocalServer() ? ServerSafetyLevel.SECURE : ServerSafetyState.getCurrent();
 
-			var button = new ImageButton(this.width - 23, this.height - 37, 20, 20, this.getXOffset(trust),
+			var button = new ImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(trust),
 					0, 20, CHAT_STATUS_ICONS, 64, 64, btn -> {}, (btn, poseStack, i, j) ->
 					this.renderTooltipNoGap(poseStack, this.minecraft.font.split(trust.getTooltip(), 250), i, j),
 					Component.empty());
@@ -83,6 +85,7 @@ public abstract class MixinChatScreen extends Screen {
 			button.visible = true;
 
 			this.addRenderableOnly(button);
+			buttonX -= 25;
 		}
 
 		if (!NCRConfig.getEncryption().showEncryptionButton())
@@ -90,7 +93,7 @@ public abstract class MixinChatScreen extends Screen {
 
 		int xStart = !NCRConfig.getEncryption().isValid() ? 40 : (NCRConfig.getEncryption().isEnabled() ? 0 : 20);
 
-		var button = new EncryptionButton(this.width - 48, this.height - 37, 20, 20, xStart,
+		var button = new EncryptionButton(buttonX, this.height - 37, 20, 20, xStart,
 				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
 					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
 							&& !NCRConfig.getEncryption().isEnabled()) {
