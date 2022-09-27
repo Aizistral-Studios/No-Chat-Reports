@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.At.Shift;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.encryption.Encryptor;
@@ -63,6 +64,11 @@ public class MixinChatComponent {
 					+ "wrapComponents(Lnet/minecraft/network/chat/FormattedText;I"
 					+ "Lnet/minecraft/client/gui/Font;)Ljava/util/List;", ordinal = 0))
 	private FormattedText modifyGUIMessage(FormattedText msg) {
+		if (NCRConfig.getCommon().enableDebugLog()) {
+			NoChatReports.LOGGER.info("Adding chat message, structure: " +
+					Component.Serializer.toStableJson((Component) msg));
+		}
+
 		var optional = NCRConfig.getEncryption().getEncryptor();
 		if (optional.isEmpty())
 			return msg;
