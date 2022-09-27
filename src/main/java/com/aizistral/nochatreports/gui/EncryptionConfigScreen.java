@@ -81,7 +81,7 @@ public class EncryptionConfigScreen extends Screen {
 
 		w -= 52;
 
-		this.keyField = new CustomEditBox(this.font, (this.width - w)/2 - 2, FIELDS_Y_START + keyDescSpace - 16,
+		this.keyField = new CustomEditBox(this.font, (this.width - w)/2 - 2, (this.hugeGUI() ? 30 : FIELDS_Y_START) + keyDescSpace - 15,
 				w, 18, CommonComponents.EMPTY);
 		this.keyField.setMaxLength(512);
 		this.keyField.setResponder(this::onKeyUpdate);
@@ -120,7 +120,7 @@ public class EncryptionConfigScreen extends Screen {
 		w += 25;
 
 		this.passField = new CustomEditBox(this.font, (this.width - w)/2 + 11, this.keyField.y +
-				this.keyField.getHeight() + passDescSpace + 10, w, 18, CommonComponents.EMPTY);
+				this.keyField.getHeight() + passDescSpace + (this.hugeGUI() ? -3 : 13), w, 18, CommonComponents.EMPTY);
 		this.passField.setMaxLength(512);
 		this.passField.setResponder(this::onPassphraseUpdate);
 		this.addWidget(this.passField);
@@ -174,6 +174,8 @@ public class EncryptionConfigScreen extends Screen {
 
 	@Override
 	public void render(PoseStack poseStack, int i, int j, float f) {
+		this.init();
+
 		if (!this.passField.isActive()) {
 			if (this.passField.isFocused()) {
 				this.passField.setFocused(false);
@@ -182,13 +184,13 @@ public class EncryptionConfigScreen extends Screen {
 		}
 
 		this.renderBackground(poseStack);
-		Screen.drawCenteredString(poseStack, this.font, HEADER, this.width / 2, 16, 0xFFFFFF);
+		Screen.drawCenteredString(poseStack, this.font, HEADER, this.width / 2, this.hugeGUI() ? 12 : 16, 0xFFFFFF);
 
-		this.keyDesc.renderLeftAligned(poseStack, this.keyField.x - 20, FIELDS_Y_START, this.getLineHeight(), 0xFFFFFF);
+		this.keyDesc.renderLeftAligned(poseStack, this.keyField.x - 20, (this.hugeGUI() ? 30 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
 
 		this.keyField.render(poseStack, i, j, f);
 
-		this.passDesc.renderLeftAligned(poseStack, this.passField.x - 20, this.keyField.y + this.keyField.getHeight() + 28,
+		this.passDesc.renderLeftAligned(poseStack, this.passField.x - 20, this.keyField.y + this.keyField.getHeight() + (this.hugeGUI() ? 12 : 28),
 				this.getLineHeight(), 0xFFFFFF);
 
 		this.passField.render(poseStack, i, j, f);
@@ -216,7 +218,10 @@ public class EncryptionConfigScreen extends Screen {
 	}
 
 	private int getLineHeight() {
-		return this.font.lineHeight * 2;
+		if (this.minecraft.options.guiScale().get() > 3)
+			return (int) (this.minecraft.font.lineHeight * 1.5) + 1;
+		else
+			return this.minecraft.font.lineHeight * 2;
 	}
 
 	@Override
@@ -273,6 +278,10 @@ public class EncryptionConfigScreen extends Screen {
 		config.setEncryptionKey(!StringUtil.isNullOrEmpty(this.keyField.getValue()) ? this.keyField.getValue()
 				: encryption.getDefaultKey());
 		config.setEncryptPublic(this.encryptPublicCheck.selected());
+	}
+
+	private boolean hugeGUI() {
+		return this.height <= 1080 / 4;
 	}
 
 	@Override

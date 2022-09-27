@@ -10,3 +10,4 @@ accessible field net/minecraft/network/chat/contents/TranslatableContents args [
 mutable field net/minecraft/network/chat/contents/TranslatableContents args [Ljava/lang/Object;
 accessible field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;
 mutable field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;
+accessible field net/minecraft/client/gui/screens/multiplayer/WarningScreen message Lnet/minecraft/client/gui/components/MultiLineLabel;
