@@ -19,6 +19,7 @@ import net.minecraft.network.chat.SignedMessageBody;
 import net.minecraft.network.chat.SignedMessageHeader;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket.Action;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -58,6 +59,12 @@ public class UnrealPlayer {
 
 	public ServerPlayer getPlayer(MinecraftServer server) {
 		return new ServerPlayer(server, server.overworld(), new GameProfile(this.id, this.name), null);
+	}
+
+	public void sendSystem(MinecraftServer server, ServerGamePacketListenerImpl connection, Component message) {
+		ServerPlayer player = this.getPlayer(server);
+		ClientboundSystemChatPacket packet = new ClientboundSystemChatPacket(message, false);
+		connection.send(packet);
 	}
 
 	public void sendMessage(MinecraftServer server, ServerGamePacketListenerImpl connection, String message, @Nullable String unsigned) {

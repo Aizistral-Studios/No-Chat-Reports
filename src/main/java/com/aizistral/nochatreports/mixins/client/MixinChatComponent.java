@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import javax.annotation.Nullable;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -82,20 +84,55 @@ public class MixinChatComponent {
 			for (Object arg : translatable.args) {
 				if (arg instanceof MutableComponent mutable
 						&& mutable.getContents() instanceof LiteralContents literal) {
-					try {
-						String decrypted = encryption.decrypt(literal.text());
-						if (decrypted.startsWith("#%")) {
-							mutable.contents = new LiteralContents(decrypted.substring(2, decrypted.length()));
-							this.lastMessageEncrypted = true;
-						}
-					} catch (Exception ex) {
-						continue;
+					String decrypted = this.tryDecrypt(literal.text(), encryption);
+					if (decrypted != null) {
+						mutable.contents = new LiteralContents(decrypted);
+						this.lastMessageEncrypted = true;
 					}
 				}
 			}
+		} else {
+			this.lastMessageEncrypted = this.tryDecrypt(copy, encryption);
 		}
 
 		return copy;
+	}
+
+	private boolean tryDecrypt(Component component, Encryptor<?> encryptor) {
+		boolean decryptedSiblings = false;
+		for (Component sibling : component.getSiblings()) {
+			if (this.tryDecrypt(sibling, encryptor)) {
+				decryptedSiblings = true;
+			}
+		}
+
+		if (component.getContents() instanceof LiteralContents literal) {
+			String decrypted = this.tryDecrypt(literal.text(), encryptor);
+
+			if (decrypted != null) {
+				((MutableComponent)component).contents = new LiteralContents(decrypted);
+				return true;
+			}
+		}
+
+		return decryptedSiblings;
+	}
+
+	@Nullable
+	private String tryDecrypt(String message, Encryptor<?> encryptor) {
+		try {
+			String[] splat = message.contains(" ") ? message.split(" ") : new String[] { message };
+			String decryptable = splat[splat.length-1];
+
+			String decrypted = encryptor.decrypt(decryptable);
+
+			if (decrypted.startsWith("#%"))
+				return message.substring(0, message.length() - decryptable.length()) + decrypted.substring(2, decrypted.length());
+			else
+				return null;
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 
 	private Component recreate(Component component) {

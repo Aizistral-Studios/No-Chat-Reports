@@ -12,6 +12,7 @@ import com.aizistral.nochatreports.encryption.Encryptor;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringUtil;
 
 public class NCRConfigEncryption extends JSONConfig {
