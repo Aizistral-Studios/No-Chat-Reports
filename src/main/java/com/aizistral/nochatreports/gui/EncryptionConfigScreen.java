@@ -174,8 +174,6 @@ public class EncryptionConfigScreen extends Screen {
 
 	@Override
 	public void render(PoseStack poseStack, int i, int j, float f) {
-		this.init();
-
 		if (!this.passField.isActive()) {
 			if (this.passField.isFocused()) {
 				this.passField.setFocused(false);
