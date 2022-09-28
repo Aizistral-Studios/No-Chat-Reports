@@ -216,7 +216,7 @@ public class EncryptionConfigScreen extends Screen {
 	}
 
 	private int getLineHeight() {
-		if (this.minecraft.options.guiScale().get() > 3)
+		if (this.hugeGUI())
 			return (int) (this.minecraft.font.lineHeight * 1.5) + 1;
 		else
 			return this.minecraft.font.lineHeight * 2;
