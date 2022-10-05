@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At.Shift;
 import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
+import com.aizistral.nochatreports.core.EncryptionUtil;
 import com.aizistral.nochatreports.encryption.Encryptor;
 
 import net.minecraft.ChatFormatting;
@@ -71,72 +72,14 @@ public class MixinChatComponent {
 					Component.Serializer.toStableJson((Component) msg));
 		}
 
-		var optional = NCRConfig.getEncryption().getEncryptor();
-		if (optional.isEmpty())
-			return msg;
+		var decrypted = EncryptionUtil.tryDecrypt((Component) msg);
 
-		Encryptor<?> encryption = optional.get();
-		Component copy = this.recreate((Component) msg);
-		this.lastMessageOriginal = this.recreate(copy);
-		ComponentContents contents = copy.getContents();
+		decrypted.ifPresentOrElse(component -> {
+			this.lastMessageOriginal = EncryptionUtil.recreate((Component) msg);
+			this.lastMessageEncrypted = true;
+		}, () -> this.lastMessageEncrypted = false);
 
-		if (contents instanceof TranslatableContents translatable) {
-			for (Object arg : translatable.args) {
-				if (arg instanceof MutableComponent mutable
-						&& mutable.getContents() instanceof LiteralContents literal) {
-					String decrypted = this.tryDecrypt(literal.text(), encryption);
-					if (decrypted != null) {
-						mutable.contents = new LiteralContents(decrypted);
-						this.lastMessageEncrypted = true;
-					}
-				}
-			}
-		} else {
-			this.lastMessageEncrypted = this.tryDecrypt(copy, encryption);
-		}
-
-		return copy;
-	}
-
-	private boolean tryDecrypt(Component component, Encryptor<?> encryptor) {
-		boolean decryptedSiblings = false;
-		for (Component sibling : component.getSiblings()) {
-			if (this.tryDecrypt(sibling, encryptor)) {
-				decryptedSiblings = true;
-			}
-		}
-
-		if (component.getContents() instanceof LiteralContents literal) {
-			String decrypted = this.tryDecrypt(literal.text(), encryptor);
-
-			if (decrypted != null) {
-				((MutableComponent)component).contents = new LiteralContents(decrypted);
-				return true;
-			}
-		}
-
-		return decryptedSiblings;
-	}
-
-	@Nullable
-	private String tryDecrypt(String message, Encryptor<?> encryptor) {
-		try {
-			String[] splat = message.contains(" ") ? message.split(" ") : new String[] { message };
-			String decryptable = splat[splat.length-1];
-
-			String decrypted = encryptor.decrypt(decryptable);
-
-			if (decrypted.startsWith("#%"))
-				return message.substring(0, message.length() - decryptable.length()) + decrypted.substring(2, decrypted.length());
-			else
-				return null;
-		} catch (Exception ex) {
-			return null;
-		}
-	}
-
-	private Component recreate(Component component) {
-		return Component.Serializer.fromJson(Component.Serializer.toStableJson(component));
+		return this.lastMessageEncrypted ? decrypted.get() : msg;
 	}
 
 }
