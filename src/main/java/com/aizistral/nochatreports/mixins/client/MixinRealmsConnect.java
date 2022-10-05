@@ -27,7 +27,7 @@ public class MixinRealmsConnect {
 			return;
 
 		ServerSafetyState.setLastConnectedServer(serverAddress, null);
-		ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
+		ServerSafetyState.updateCurrent(ServerSafetyLevel.REALMS);
 		ServerSafetyState.setAllowsUnsafeServer(true);
 	}
 

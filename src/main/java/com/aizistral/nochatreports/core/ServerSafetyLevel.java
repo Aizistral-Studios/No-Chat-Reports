@@ -38,6 +38,12 @@ public enum ServerSafetyLevel {
 	INSECURE,
 
 	/**
+	 * For Realms specifically, as these are a whole new level of unsafe.
+	 */
+
+	REALMS,
+
+	/**
 	 * Transient status for when evaluation of safety level is not yet complete for current server.
 	 */
 

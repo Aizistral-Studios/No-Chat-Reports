@@ -148,7 +148,9 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			if (!client.isLocalServer()) {
 				boolean canSend = ClientPlayNetworking.canSend(NoChatReports.CHANNEL);
 
-				if (canSend) {
+				if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+					// NO-OP
+				} else if (canSend) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 				} else if (ServerSafetyState.forceSignedMessages()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);

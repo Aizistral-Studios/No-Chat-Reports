@@ -44,7 +44,7 @@ import net.minecraft.util.FormattedCharSequence;
 
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
-	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons.png");
+	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons_extended.png");
 	private static final ResourceLocation ENCRYPTION_BUTTON = new ResourceLocation("nochatreports", "textures/gui/encryption_toggle_button.png");
 
 	protected MixinChatScreen() {
@@ -78,7 +78,7 @@ public abstract class MixinChatScreen extends Screen {
 			ServerSafetyLevel trust = this.minecraft.isLocalServer() ? ServerSafetyLevel.SECURE : ServerSafetyState.getCurrent();
 
 			var button = new ImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(trust),
-					0, 20, CHAT_STATUS_ICONS, 64, 64, btn -> {}, (btn, poseStack, i, j) ->
+					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {}, (btn, poseStack, i, j) ->
 					this.renderTooltipNoGap(poseStack, this.minecraft.font.split(trust.getTooltip(), 250), i, j),
 					Component.empty());
 			button.active = false;
@@ -129,6 +129,7 @@ public abstract class MixinChatScreen extends Screen {
 		case SECURE -> 21;
 		case UNINTRUSIVE, UNKNOWN -> 42;
 		case INSECURE -> 0;
+		case REALMS -> 63;
 		};
 	}
 
