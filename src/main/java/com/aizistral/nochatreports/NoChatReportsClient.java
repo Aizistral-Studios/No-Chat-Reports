@@ -71,9 +71,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			return;
 
 		if (screen instanceof AccessorDisconnectedScreen dsc) {
-			if (screenOverride)
-				return;
-			if (screen.getTitle() == CONNECT_FAILED_NCR)
+			if (screenOverride || ServerSafetyState.isOnServer() || screen.getTitle() == CONNECT_FAILED_NCR)
 				return;
 
 			screenOverride = true;
@@ -145,6 +143,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 		client.execute(() -> {
 			ServerSafetyState.setReconnectCount(0);
+			ServerSafetyState.setOnServer(true);
 
 			if (!client.isLocalServer()) {
 				boolean canSend = ClientPlayNetworking.canSend(NoChatReports.CHANNEL);

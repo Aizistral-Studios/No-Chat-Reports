@@ -24,7 +24,8 @@ public final class ServerSafetyState {
 	private static ServerSafetyLevel current = ServerSafetyLevel.UNKNOWN;
 	private static ServerAddress lastServerAddress = null;
 	private static ServerData lastServerData = null;
-	private static AtomicBoolean allowUnsafeServer = new AtomicBoolean(false), sessionRequestedKey =  new AtomicBoolean(false);
+	private static AtomicBoolean allowUnsafeServer = new AtomicBoolean(false),
+			sessionRequestedKey =  new AtomicBoolean(false), isOnServer = new AtomicBoolean(false);
 	private static AtomicInteger reconnectCount = new AtomicInteger(0);
 	private static AtomicLong disconnectMillis = new AtomicLong(0);
 
@@ -92,10 +93,19 @@ public final class ServerSafetyState {
 		disconnectMillis.set(millis);
 	}
 
+	public static boolean isOnServer() {
+		return isOnServer.get();
+	}
+
+	public static void setOnServer(boolean on) {
+		isOnServer.set(on);
+	}
+
 	public static void reset() {
 		current = ServerSafetyLevel.UNKNOWN;
 		allowUnsafeServer.set(false);
 		sessionRequestedKey.set(false);
+		isOnServer.set(false);
 
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NoChatReports.LOGGER.info("allowUnsafeServer: {}", allowUnsafeServer.get());
