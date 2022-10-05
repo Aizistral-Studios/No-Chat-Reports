@@ -146,7 +146,8 @@ public class EncryptionConfigScreen extends Screen {
 				}));
 
 		CycleButton<Encryption> cycle = CycleButton.<Encryption>builder(value -> {
-			return Component.translatable("gui.nochatreports.encryption_config.algorithm", value.getName());
+			return Component.translatable("gui.nochatreports.encryption_config.algorithm",
+					Component.translatable("algorithm.nochatreports." + value.getID() + ".name"));
 		}).withValues(Encryption.getRegistered()).displayOnlyValue().withInitialValue(this.getConfig()
 				.getAlgorithm()).withTooltip(value -> this.minecraft.font.split(
 						Component.translatable("algorithm.nochatreports." + value.getID()), 250))
