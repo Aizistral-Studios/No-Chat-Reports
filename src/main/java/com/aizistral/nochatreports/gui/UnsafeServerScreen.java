@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.gui;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.NoChatReportsClient;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
@@ -52,8 +53,13 @@ public final class UnsafeServerScreen extends WarningScreen {
 					NCRConfig.getServerWhitelist().saveFile();
 				}
 
+				if (NCRConfig.getCommon().enableDebugLog()) {
+					NoChatReports.LOGGER.info("Proceeding with unsafe connection to {}, added to whitelist: {}",
+							address.getHost() + ":" + address.getPort(), this.stopShowing.selected());
+				}
+
 				ServerSafetyState.setAllowsUnsafeServer(true);
-				NoChatReportsClient.reconnectLastServer();
+				this.minecraft.setScreen(new AwaitConnectionScreen(this.joinMultiplayer));
 			}
 		}));
 		this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, 100 + i, 150, 20, CommonComponents.GUI_BACK, button -> {
