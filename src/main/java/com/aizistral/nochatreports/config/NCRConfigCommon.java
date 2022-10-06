@@ -8,9 +8,9 @@ import com.google.common.base.Preconditions;
 public final class NCRConfigCommon extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
 
-	protected String demandOnClientMessage = "You do not have No Chat Reports, and this server is"
+	protected volatile String demandOnClientMessage = "You do not have No Chat Reports, and this server is"
 			+ " configured to require it on client!";
-	protected boolean demandOnClient = true, enableDebugLog = false, convertToGameMessage = false,
+	protected volatile boolean demandOnClient = true, enableDebugLog = false, convertToGameMessage = false,
 			addQueryData = true;
 
 	protected NCRConfigCommon() {

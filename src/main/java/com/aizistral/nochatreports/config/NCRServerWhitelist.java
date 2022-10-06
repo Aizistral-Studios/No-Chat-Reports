@@ -10,7 +10,7 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 public class NCRServerWhitelist extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-ServerWhitelist.json";
 	protected static final List<String> DEFAULT_WHITELISTED_SERVERS = new ArrayList<>();
-	protected List<String> whitelistedServers = DEFAULT_WHITELISTED_SERVERS;
+	protected volatile List<String> whitelistedServers = DEFAULT_WHITELISTED_SERVERS;
 
 	protected NCRServerWhitelist() {
 		super(FILE_NAME);

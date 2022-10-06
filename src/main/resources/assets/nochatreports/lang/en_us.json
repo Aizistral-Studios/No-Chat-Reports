@@ -47,6 +47,10 @@
 	"algorithm.nochatreports.caesar": "§lCaesar§r\nMeme cipher. With this you're basically hoping that people will give up without even trying to decrypt your messages. That might be true in many cases, so viability of using it depends on your threat model.\nKey should be integer from 1 to 1024. Shift is done by character code instead of alphabetically, to ensure compatibility with any language.",
 	"nochatreports.connect.nokey_rejected": "Server rejected connection without chat signing key.",
 	"nochatreports.connect.await": "Awaiting reconnection: %1$s seconds...",
+	"gui.nochatreports.realms_warning.header": "Caution: Realms",
+	"gui.nochatreports.realms_warning.contents": "Please be aware that from standpoint of both privacy and security, Realms servers are inherently unsafe to play on. Not only there is no way around chat reports there, but Mojang employ automated chat monitoring to identify potential \"online harms\" and escalate them to human review. Even as realm owner there is nothing you can do to prevent this, and rules are known to be enforced indiscriminately, regardless of consensus between chat participants. Use of encryption is highly advised.",
+	"gui.nochatreports.realms_warning.check": "Don't show again",
+	"gui.nochatreports.realms_warning.learn_more": "Learn More",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 

@@ -18,12 +18,13 @@ import net.minecraft.util.StringUtil;
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
-	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
+	protected volatile boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
-			enableMod = true;
-	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4, postDisconnectAwaitSeconds = 10;
+			enableMod = true, skipRealmsWarning = false;
+	protected volatile int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
+			postDisconnectAwaitSeconds = 10;
 
 	protected NCRConfigClient() {
 		super(FILE_NAME);
@@ -216,6 +217,18 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public int getPostDisconnectAwaitSeconds() {
 		return this.postDisconnectAwaitSeconds;
+	}
+
+	/**
+	 * @return Whether warning on entering Realms screen should not be displayed.
+	 */
+
+	public boolean skipRealmsWarning() {
+		return this.skipRealmsWarning;
+	}
+
+	public void setSkipRealmsWarning(boolean skipRealmsWarning) {
+		this.skipRealmsWarning = skipRealmsWarning;
 	}
 
 }

@@ -8,10 +8,12 @@ import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.AwaitConnectionScreen;
+import com.aizistral.nochatreports.gui.RealmsWarningScreen;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.AccessorDisconnectedScreen;
 import com.aizistral.nochatreports.network.ClientChannelHandler;
 import com.google.common.collect.ImmutableList;
+import com.mojang.realmsclient.RealmsMainScreen;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -32,6 +34,7 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.realms.RealmsScreen;
 
 /**
  * Client initializer for the mod. Some networking setup here, as well as few screen-related events.
