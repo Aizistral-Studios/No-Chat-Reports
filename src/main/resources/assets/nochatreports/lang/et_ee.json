@@ -28,7 +28,7 @@
     "gui.nochatreports.encryption_warning.learn_more": "Lisateave",
     "gui.nochatreports.encryption_config.header": "Krüpteeringu seaded",
     "gui.nochatreports.encryption_config.key_desc": "§lKrüpteerimisvõti§r\nVõti, mida kasutatakse sinu sõnumite krüpteerimiseks ja dekrüpteerimiseks. Selle vorming sõltub algoritmist; AES puhul on see 128 bitti Base64-kodeeritud binaarandmeid.",
-    "gui.nochatreports.encryption_config.passphrase_desc": "§lKrüpteeringu paroolfraas§r\nJuhusliku võtme genereerimise asemel saad selle tuletada oma valitud paroolist. Seda kasutades veendu salafraasi tugevuses. Kõik algoritmid ei toeta paroolfraase.",
+    "gui.nochatreports.encryption_config.passphrase_desc": "§lKrüpteeringu paroolfraas§r\nJuhusliku võtme genereerimise asemel saad selle tuletada oma valitud paroolist. Seda kasutades veendu paroolfraasi tugevuses. Kõik algoritmid ei toeta paroolfraase.",
     "gui.nochatreports.encryption_config.validation_ok": "Võtmekinnitus: §a§lläbitud",
     "gui.nochatreports.encryption_config.validation_failed": "Võtmekinnitus: §c§lebaõnnestus",
     "gui.nochatreports.encryption_config.dice_tooltip": "Genereeri uus juhuslik võti genereerimine valitud krüpteerimisalgoritmiga.",
