@@ -17,11 +17,11 @@ import net.minecraft.util.StringUtil;
 
 public class NCRConfigEncryption extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Encryption.json";
-	protected volatile boolean skipWarning = false, enableEncryption = false, encryptPublic = true,
+	protected boolean skipWarning = false, enableEncryption = false, encryptPublic = true,
 			showEncryptionButton = true;
-	protected volatile String encryptionKey = Encryption.AES_CFB8.getDefaultKey(), encryptionPassphrase = "",
+	protected String encryptionKey = Encryption.AES_CFB8.getDefaultKey(), encryptionPassphrase = "",
 			algorithmName = Encryption.AES_CFB8.getName();
-	protected volatile List<String> encryptableCommands = List.of("msg:1", "w:1", "whisper:1", "tell:1", "r:0", "dm:1",
+	protected List<String> encryptableCommands = List.of("msg:1", "w:1", "whisper:1", "tell:1", "r:0", "dm:1",
 			"me:0", "m:1", "t:1", "pm:1", "emsg:1", "epm:1", "etell:1", "ewhisper:1");
 	private transient Encryption algorithm;
 	private transient boolean isValid = false;

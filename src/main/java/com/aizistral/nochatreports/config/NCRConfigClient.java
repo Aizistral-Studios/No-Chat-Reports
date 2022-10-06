@@ -18,12 +18,12 @@ import net.minecraft.util.StringUtil;
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
-	protected volatile boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
+	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
 			enableMod = true, skipRealmsWarning = false;
-	protected volatile int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
+	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
 			postDisconnectAwaitSeconds = 10;
 
 	protected NCRConfigClient() {

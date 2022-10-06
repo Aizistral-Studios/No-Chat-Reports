@@ -36,11 +36,10 @@ public final class NoChatReports implements ModInitializer {
 	}
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
-			if (!NCRConfig.getClient().enableMod())
+		server.execute(() -> {
+			if (server.isSingleplayerOwner(handler.player.getGameProfile()))
 				return;
 
-		server.execute(() -> {
 			if (NCRConfig.getCommon().demandOnClient() && !ServerPlayNetworking.canSend(handler, CHANNEL)) {
 				handler.disconnect(Component.literal(NCRConfig.getCommon().demandOnClientMessage()));
 			}
