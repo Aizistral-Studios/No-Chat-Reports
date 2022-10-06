@@ -37,7 +37,7 @@
 	"gui.nochatreports.encryption_config.algorithm": "Algorithm: %1$s",
 	"gui.nochatreports.encryption_config.default_key": "<default: %1$s>",
 	"gui.nochatreports.encryption_config.encrypt_public": "Encrypt public messages",
-	"algorithm.nochatreports.aes_cfb8_base64.name": "AES/CFB8+Base",
+	"algorithm.nochatreports.aes_cfb8_base64.name": "AES/CFB8+Base64",
 	"algorithm.nochatreports.aes_cfb8_base64": "§lAES/CFB8+Base64§r\nStandard symmetric encryption algorithm. Uses 128 bit keys, output is Base64-encoded to permit transfer via Minecraft's chat. As a downside - messages will gain roughly 30% increase in length, and server might truncate them if they exceed size limit.",
 	"algorithm.nochatreports.aes_gcm_base64.name": "AES/GCM+Base64",
 	"algorithm.nochatreports.aes_gcm_base64": "§lAES/GCM+Base64§r\nMore security in exchange for severe increase in message size (12 bytes for initialization vector and 12 for authentication tag, Base64 encoding on top). Choose if you value security over anything else.",
