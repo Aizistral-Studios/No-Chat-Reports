@@ -36,7 +36,7 @@
     "gui.nochatreports.encryption_config.algorithm": "Algoritm: %1$s",
     "gui.nochatreports.encryption_config.default_key": "<vaikimisi: %1$s>",
     "gui.nochatreports.encryption_config.encrypt_public": "Krüpteeri avalikud sõnumid",
-    "algorithm.nochatreports.aes_cfb8_base64.name": "AES/CFB8+Base",
+    "algorithm.nochatreports.aes_cfb8_base64.name": "AES/CFB8+Base64",
     "algorithm.nochatreports.aes_cfb8_base64": "§lAES/CFB8+Base64§r\nStandardne sümmeetriline krüpteerimisalgoritm. Kasutab 128-bitiseid võtmeid, väljund on Base64-kodeeritud, et võimaldada edastamist Minecrafti vestluse kaudu. Miinusena - sõnumite pikkus suureneb umbes 30% ja server võib neid kärpida, kui need ületavad suuruspiirangut.",
     "algorithm.nochatreports.aes_gcm_base64.name": "AES/GCM+Base64",
     "algorithm.nochatreports.aes_gcm_base64": "§lAES/GCM+Base64§r\nSuurem turvalisus vastukaaluks sõnumi suuruse tõsisele suurenemisele (12 baiti initsialiseerimisvektorile ja 12 baiti autentimissildile, lisaks Base64-kodeering). Vali, kui sulle on turvalisus tähtsam kui miski muu.",
