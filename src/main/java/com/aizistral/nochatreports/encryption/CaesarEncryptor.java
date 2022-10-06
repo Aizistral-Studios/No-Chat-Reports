@@ -2,6 +2,8 @@ package com.aizistral.nochatreports.encryption;
 
 import java.security.InvalidKeyException;
 
+import net.minecraft.SharedConstants;
+
 public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 	private final int shift;
 
@@ -21,6 +23,10 @@ public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 
 		for (int i = 0; i < chars.length; i++) {
 			chars[i] = (char) (chars[i] + this.shift);
+
+			if (!SharedConstants.isAllowedChatCharacter(chars[i])) {
+				chars[i] = (char) (chars[i] + 2048);
+			}
 		}
 
 		return new String(chars);
@@ -32,6 +38,10 @@ public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 
 		for (int i = 0; i < chars.length; i++) {
 			chars[i] = (char) (chars[i] - this.shift);
+
+			if (chars[i] >= ' ' + 2048) {
+				chars[i] = (char) (chars[i] - 2048);
+			}
 		}
 
 		return new String(chars);
