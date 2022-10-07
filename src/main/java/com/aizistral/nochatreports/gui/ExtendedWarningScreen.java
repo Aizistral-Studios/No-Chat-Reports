@@ -38,10 +38,10 @@ public abstract class ExtendedWarningScreen extends Screen {
 	protected void init() {
 		this.clearWidgets();
 		super.init();
-		this.message = MultiLineLabel.create(this.font, this.CONTENT, this.width - 100);
+		this.message = MultiLineLabel.create(this.font, this.CONTENT, this.width - (this.hugeGUI() ? 65 : 100));
 		int i = (this.message.getLineCount() + 1) * this.getLineHeight();
 		if (this.CHECK != null) {
-			int checkY = this.hugeGUI() ? 32 : 76;
+			int checkY = this.hugeGUI() ? 27 : 76;
 			int j = this.font.width(this.CHECK);
 			this.stopShowing = new Checkbox(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.CHECK, false);
 			this.addRenderableWidget(this.stopShowing);
@@ -51,7 +51,7 @@ public abstract class ExtendedWarningScreen extends Screen {
 
 	private void initButtons(int i) {
 		int offset = 28;
-		int buttonY = this.hugeGUI() ? 60 : 100;
+		int buttonY = this.hugeGUI() ? 55 : 100;
 
 		this.addRenderableWidget(new Button(this.width / 2 - 260 + offset, buttonY + i, 150, 20, CommonComponents.GUI_PROCEED, this::onProceed));
 		this.addRenderableWidget(new Button(this.width / 2 - 100 + offset, buttonY + i, 150, 20, Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
@@ -75,7 +75,7 @@ public abstract class ExtendedWarningScreen extends Screen {
 		this.renderBackground(poseStack);
 		this.renderTitle(poseStack);
 		int k = this.width / 2 - this.message.getWidth() / 2;
-		this.message.renderLeftAligned(poseStack, k, this.hugeGUI() ? 40 : 70, this.getLineHeight(), 0xFFFFFF);
+		this.message.renderLeftAligned(poseStack, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);
 		super.render(poseStack, i, j, f);
 	}
 

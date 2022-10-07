@@ -71,7 +71,7 @@ public class EncryptionConfigScreen extends Screen {
 		this.clearWidgets();
 		super.init();
 
-		int w = (int) (this.width * 0.7);
+		int w = (int) (this.width * (this.hugeGUI() ? 0.9 : 0.7));
 
 		this.keyDesc = MultiLineLabel.create(this.font, KEY_DESC, w - 5);
 		int keyDescSpace = (this.keyDesc.getLineCount() + 1) * this.getLineHeight();
@@ -81,7 +81,7 @@ public class EncryptionConfigScreen extends Screen {
 
 		w -= 52;
 
-		this.keyField = new CustomEditBox(this.font, (this.width - w)/2 - 2, (this.hugeGUI() ? 30 : FIELDS_Y_START) + keyDescSpace - 15,
+		this.keyField = new CustomEditBox(this.font, (this.width - w)/2 - 2, (this.hugeGUI() ? 25 : FIELDS_Y_START) + keyDescSpace - 15,
 				w, 18, CommonComponents.EMPTY);
 		this.keyField.setMaxLength(512);
 		this.keyField.setResponder(this::onKeyUpdate);
@@ -183,9 +183,9 @@ public class EncryptionConfigScreen extends Screen {
 		}
 
 		this.renderBackground(poseStack);
-		Screen.drawCenteredString(poseStack, this.font, HEADER, this.width / 2, this.hugeGUI() ? 12 : 16, 0xFFFFFF);
+		Screen.drawCenteredString(poseStack, this.font, HEADER, this.width / 2, this.hugeGUI() ? 8 : 16, 0xFFFFFF);
 
-		this.keyDesc.renderLeftAligned(poseStack, this.keyField.x - 20, (this.hugeGUI() ? 30 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
+		this.keyDesc.renderLeftAligned(poseStack, this.keyField.x - 20, (this.hugeGUI() ? 25 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
 
 		this.keyField.render(poseStack, i, j, f);
 
