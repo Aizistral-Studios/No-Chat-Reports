@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports;
 
+import java.nio.charset.Charset;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +31,7 @@ public final class NoChatReports implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("KONNICHIWA ZA WARUDO!");
+		LOGGER.info("Default JVM text encoding is: " + Charset.defaultCharset().displayName());
 
 		ServerPlayNetworking.registerGlobalReceiver(CHANNEL, ServerChannelHandler.INSTANCE);
 		ServerPlayConnectionEvents.JOIN.register(this::onPlayReady);

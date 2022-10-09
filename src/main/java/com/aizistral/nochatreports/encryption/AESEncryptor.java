@@ -75,11 +75,12 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 				var tuple = this.generateIV();
 
 				this.encryptor.init(ENCRYPT_MODE, this.key, tuple.getA());
-				byte[] encrypted = this.encryptor.doFinal(message.getBytes());
+				byte[] encrypted = this.encryptor.doFinal(toBytes(message));
 
-				return BASE64_ENCODER.encodeToString(ByteBuffer.allocate(encrypted.length + tuple.getB().length).put(tuple.getB()).put(encrypted).array()).replace('/', '\\');
+				return encodeBase64(ByteBuffer.allocate(encrypted.length + tuple.getB().length).put(tuple.getB())
+						.put(encrypted).array());
 			} else
-				return BASE64_ENCODER.encodeToString(this.encryptor.doFinal(message.getBytes())).replace('/', '\\');
+				return encodeBase64(this.encryptor.doFinal(toBytes(message)));
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {
 			throw new RuntimeException(ex);
 		}
@@ -89,12 +90,12 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 	public String decrypt(String message) {
 		try {
 			if (this.useIV) {
-				var tuple = this.splitIV(BASE64_DECODER.decode(message.replace('\\', '/')));
+				var tuple = this.splitIV(decodeBase64Bytes(message));
 
 				this.decryptor.init(DECRYPT_MODE, this.key, tuple.getA());
-				return new String(this.decryptor.doFinal(tuple.getB()), StandardCharsets.UTF_8);
+				return fromBytes(this.decryptor.doFinal(tuple.getB()));
 			} else
-				return new String(this.decryptor.doFinal(BASE64_DECODER.decode(message.replace('\\', '/'))), StandardCharsets.UTF_8);
+				return fromBytes(this.decryptor.doFinal(decodeBase64Bytes(message)));
 		} catch (AEADBadTagException ex) {
 			return "???";
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {

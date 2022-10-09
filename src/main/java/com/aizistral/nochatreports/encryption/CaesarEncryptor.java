@@ -2,9 +2,13 @@ package com.aizistral.nochatreports.encryption;
 
 import java.security.InvalidKeyException;
 
+import com.aizistral.nochatreports.NoChatReports;
+
 import net.minecraft.SharedConstants;
 
 public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
+	private static final char PARAGRAPH = '\u00a7', PARAGRAPH_PLACEHOLDER = '\uffef',
+			DELETE = '\u007f', DELETE_PLACEHOLDER = '\ufff0';
 	private final int shift;
 
 	protected CaesarEncryptor(int shift) throws InvalidKeyException {
@@ -19,13 +23,15 @@ public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 
 	@Override
 	public String encrypt(String message) {
-		char[] chars = message.toCharArray();
+		char[] chars = ensureUTF8(message).toCharArray();
 
 		for (int i = 0; i < chars.length; i++) {
 			chars[i] = (char) (chars[i] + this.shift);
 
-			if (!SharedConstants.isAllowedChatCharacter(chars[i])) {
-				chars[i] = (char) (chars[i] + 2048);
+			if (chars[i] == PARAGRAPH) {
+				chars[i] = PARAGRAPH_PLACEHOLDER;
+			} else if (chars[i] == DELETE) {
+				chars[i] = DELETE_PLACEHOLDER;
 			}
 		}
 
@@ -34,14 +40,16 @@ public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 
 	@Override
 	public String decrypt(String message) {
-		char[] chars = message.toCharArray();
+		char[] chars = ensureUTF8(message).toCharArray();
 
 		for (int i = 0; i < chars.length; i++) {
-			chars[i] = (char) (chars[i] - this.shift);
-
-			if (chars[i] >= ' ' + 2048) {
-				chars[i] = (char) (chars[i] - 2048);
+			if (chars[i] == PARAGRAPH_PLACEHOLDER) {
+				chars[i] = PARAGRAPH;
+			} else if (chars[i] == DELETE_PLACEHOLDER) {
+				chars[i] = DELETE;
 			}
+
+			chars[i] = (char) (chars[i] - this.shift);
 		}
 
 		return new String(chars);
