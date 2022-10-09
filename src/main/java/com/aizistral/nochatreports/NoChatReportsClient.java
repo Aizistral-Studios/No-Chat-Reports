@@ -104,6 +104,8 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 							client.setScreen(new UnsafeServerScreen());
 						} else {
+							NCRConfig.getClient().updateSigningCheck(ServerSafetyState.getLastServerAddress());
+
 							if (ServerSafetyState.getReconnectCount() <= 0) {
 								ServerSafetyState.setAllowsUnsafeServer(true);
 								client.setScreen(new AwaitConnectionScreen(new JoinMultiplayerScreen(new TitleScreen())));

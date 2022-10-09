@@ -1,8 +1,11 @@
 package com.aizistral.nochatreports.config;
 
 import java.security.InvalidKeyException;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
@@ -12,6 +15,7 @@ import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;
 import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 
+import net.minecraft.Util;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.util.StringUtil;
 
@@ -24,7 +28,9 @@ public final class NCRConfigClient extends JSONConfig {
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
 			enableMod = true, skipRealmsWarning = false;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
-			postDisconnectAwaitSeconds = 10;
+			postDisconnectAwaitSeconds = 10, signingCheckDelaySeconds = 43200;
+
+	protected Map<String, Long> serverSigningChecks = new HashMap<>();
 
 	protected NCRConfigClient() {
 		super(FILE_NAME);
@@ -229,6 +235,21 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public void setSkipRealmsWarning(boolean skipRealmsWarning) {
 		this.skipRealmsWarning = skipRealmsWarning;
+	}
+
+	public boolean doSigningCheck(ServerAddress serverAddress) {
+		String server = serverAddress.getHost() + ":" + serverAddress.getPort();
+
+		if (!this.serverSigningChecks.containsKey(server))
+			return true;
+		else
+			return Instant.now().getEpochSecond() - this.serverSigningChecks.get(server) >= this.signingCheckDelaySeconds;
+	}
+
+	public void updateSigningCheck(ServerAddress serverAddress) {
+		String server = serverAddress.getHost() + ":" + serverAddress.getPort();
+		this.serverSigningChecks.put(server, Instant.now().getEpochSecond());
+		this.saveFile();
 	}
 
 }
