@@ -48,7 +48,7 @@
 	"nochatreports.connect.nokey_rejected": "Server rejected connection without chat signing key.",
 	"nochatreports.connect.await": "Awaiting reconnection: %1$s seconds...",
 	"gui.nochatreports.realms_warning.header": "Caution: Realms",
-	"gui.nochatreports.realms_warning.contents": "Realms servers are not private. Realm owners cannot disable chat reporting, and Mojang applies additional chat monitoring to identify potential \"online harms\" and escalate them to human review. If you are then found to violate Minecraft's Community Standards - even with consensus between chat participants - you will be banned, temporarily or permanently, from all multiplayer services. Use of encryption is highly advised.",
+	"gui.nochatreports.realms_warning.contents": "Realms servers are not private. Realm owners cannot disable chat reporting, and Mojang applies additional chat monitoring to identify potential \"online harms\" and escalate them to human review. If you are then found to violate Minecraft's Community Standards - even if chat participants did not get offended - you will be banned, temporarily or permanently, from all multiplayer services. Use of encryption is highly advised.",
 	"gui.nochatreports.realms_warning.check": "Don't show again",
 	"gui.nochatreports.realms_warning.learn_more": "Learn More",
 
