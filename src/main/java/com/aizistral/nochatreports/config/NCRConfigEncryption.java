@@ -120,7 +120,7 @@ public class NCRConfigEncryption extends JSONConfig {
 	}
 
 	public int getEncryptionStartIndex(String message) {
-		if (!message.startsWith("/"))
+		if (!message.startsWith("/") && !message.startsWith("."))
 			return this.encryptPublic ? 0 : -1;
 		else {
 			for (String rule : this.encryptableCommands) {
@@ -180,7 +180,7 @@ public class NCRConfigEncryption extends JSONConfig {
 	 */
 
 	public Optional<Encryptor<?>> getEncryptor() {
-		if (!this.isEnabledAndValid())
+		if (!this.isValid())
 			return Optional.empty();
 
 		try {
