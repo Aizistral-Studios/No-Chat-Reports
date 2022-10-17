@@ -54,14 +54,16 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Inject(method = "normalizeChatMessage", at = @At("RETURN"), cancellable = true)
 	public void onBeforeMessage(String original, CallbackInfoReturnable<String> info) {
-		String message = info.getReturnValue();
-		NCRConfig.getEncryption().setLastMessage(message);
+		final String[] message = {info.getReturnValue()};
+		NCRConfig.getEncryption().setLastMessage(message[0]);
 
-		if (!message.isEmpty() && NCRConfig.getEncryption().shouldEncrypt(message)) {
+		if (!message[0].isEmpty() && NCRConfig.getEncryption().shouldEncrypt(message[0])) {
 			NCRConfig.getEncryption().getEncryptor().ifPresent(e -> {
-				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message);
-				String noencrypt = message.substring(0, index);
-				String encrypt = message.substring(index, message.length());
+				//replace & color codes with § when it has letter or number after it
+				message[0] = message[0].replace("&n", "\n").replaceAll("&(?=[0-9a-fk-or])", "§");
+				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message[0]);
+				String noencrypt = message[0].substring(0, index);
+				String encrypt = message[0].substring(index, message[0].length());
 
 				if (encrypt.length() > 0) {
 					info.setReturnValue(noencrypt + e.encrypt("#%" + encrypt));
