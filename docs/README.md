@@ -1,4 +1,9 @@
-# No Chat Reports
+# No Chat Reports with modifications
+
+## Modifications:
+- Added that the chat always gets encrypted
+- Added & color codes
+- Added "." command will be ignored when encrypting
 
 **Current Version:** 1.19.2-v1.13.9
 
