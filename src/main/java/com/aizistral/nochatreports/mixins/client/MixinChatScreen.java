@@ -240,6 +240,8 @@ public abstract class MixinChatScreen extends Screen {
 		colors.add("&l");
 		colors.add("&m");
 		colors.add("&n");
+		colors.add("&o");
+		colors.add("&r");
 		specialChars.add("\\n");
 		specialChars.add("\\r");
 		for (String color: colors) {
