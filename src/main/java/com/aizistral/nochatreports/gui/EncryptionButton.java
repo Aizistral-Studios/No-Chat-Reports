@@ -36,7 +36,7 @@ public class EncryptionButton extends ImageButton {
 
 	public void openEncryptionConfig() {
 		if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
-				&& !NCRConfig.getEncryption().isEnabledAndValid()) {
+				&& !NCRConfig.getEncryption().isValid()) {
 			Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this.parent));
 		} else {
 			Minecraft.getInstance().setScreen(new EncryptionConfigScreen(this.parent));
