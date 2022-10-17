@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,17 +54,19 @@ public abstract class MixinChatScreen extends Screen {
 	}
 
 	@Inject(method = "normalizeChatMessage", at = @At("RETURN"), cancellable = true)
-	public void onBeforeMessage(String original, CallbackInfoReturnable<String> info) {
-		final String[] message = {info.getReturnValue()};
+	public void onBeforeMessage(String original, CallbackInfoReturnable < String > info) {
+		final String[] message = {
+				info.getReturnValue()
+		};
 		NCRConfig.getEncryption().setLastMessage(message[0]);
 
 		if (!message[0].isEmpty() && NCRConfig.getEncryption().shouldEncrypt(message[0])) {
 			NCRConfig.getEncryption().getEncryptor().ifPresent(e -> {
 				//replace & color codes with § when it has letter or number after it
-				message[0] = message[0].replace("&n", "\n").replaceAll("&(?=[0-9a-fk-or])", "§");
+				message[0] = colorCodes(message[0]);
 				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message[0]);
 				String noencrypt = message[0].substring(0, index);
-				String encrypt = message[0].substring(index, message[0].length());
+				String encrypt = message[0].substring(index);
 
 				if (encrypt.length() > 0) {
 					info.setReturnValue(noencrypt + e.encrypt("#%" + encrypt));
@@ -97,29 +100,29 @@ public abstract class MixinChatScreen extends Screen {
 
 		var button = new EncryptionButton(buttonX, this.height - 37, 20, 20, xStart,
 				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
-					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
-							&& !NCRConfig.getEncryption().isEnabled()) {
-						Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
-					} else if (NCRConfig.getEncryption().isValid()) {
-						NCRConfig.getEncryption().toggleEncryption();
-						((EncryptionButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
-					} else {
-						((EncryptionButton)btn).openEncryptionConfig();
-					}
-				}, (btn, poseStack, i, j) -> {
-					if (NCRConfig.getEncryption().isValid()) {
-						this.renderTooltip(poseStack, this.minecraft.font.split(
-								Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
-										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
-					} else {
-						this.renderTooltip(poseStack, this.minecraft.font.split(
-								Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
-										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
+			if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled() &&
+					!NCRConfig.getEncryption().isEnabled()) {
+				Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
+			} else if (NCRConfig.getEncryption().isValid()) {
+				NCRConfig.getEncryption().toggleEncryption();
+				((EncryptionButton) btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
+			} else {
+				((EncryptionButton) btn).openEncryptionConfig();
+			}
+		}, (btn, poseStack, i, j) -> {
+			if (NCRConfig.getEncryption().isValid()) {
+				this.renderTooltip(poseStack, this.minecraft.font.split(
+						Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
+								.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
+										.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
+			} else {
+				this.renderTooltip(poseStack, this.minecraft.font.split(
+						Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
+								.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
+										.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
 
-					}
-				}, Component.empty(), this);
+			}
+		}, Component.empty(), this);
 		button.active = true;
 		button.visible = true;
 
@@ -128,18 +131,18 @@ public abstract class MixinChatScreen extends Screen {
 
 	private int getXOffset(ServerSafetyLevel level) {
 		return switch (level) {
-		case SECURE -> 21;
-		case UNINTRUSIVE, UNKNOWN -> 42;
-		case INSECURE -> 0;
-		case REALMS -> 63;
+			case SECURE -> 21;
+			case UNINTRUSIVE, UNKNOWN -> 42;
+			case INSECURE -> 0;
+			case REALMS -> 63;
 		};
 	}
 
-	protected void renderTooltipNoGap(PoseStack poseStack, List<? extends FormattedCharSequence> list, int i, int j) {
+	protected void renderTooltipNoGap(PoseStack poseStack, List < ? extends FormattedCharSequence > list, int i, int j) {
 		this.renderTooltipInternalNoGap(poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), i, j);
 	}
 
-	protected void renderTooltipInternalNoGap(PoseStack poseStack, List<ClientTooltipComponent> list, int i, int j) {
+	protected void renderTooltipInternalNoGap(PoseStack poseStack, List < ClientTooltipComponent > list, int i, int j) {
 		ClientTooltipComponent clientTooltipComponent2;
 		int v;
 		int m;
@@ -147,7 +150,7 @@ public abstract class MixinChatScreen extends Screen {
 			return;
 		int k = 0;
 		int l = list.size() == 1 ? -2 : -2;
-		for (ClientTooltipComponent clientTooltipComponent : list) {
+		for (ClientTooltipComponent clientTooltipComponent: list) {
 			m = clientTooltipComponent.getWidth(this.font);
 			if (m > k) {
 				k = m;
@@ -201,7 +204,7 @@ public abstract class MixinChatScreen extends Screen {
 		for (v = 0; v < list.size(); ++v) {
 			clientTooltipComponent2 = list.get(v);
 			clientTooltipComponent2.renderText(this.font, n, u, matrix4f, bufferSource);
-			u += clientTooltipComponent2.getHeight() /*+ (v == 0 ? 2 : 0)*/;
+			u += clientTooltipComponent2.getHeight() /*+ (v == 0 ? 2 : 0)*/ ;
 		}
 		bufferSource.endBatch();
 		poseStack.popPose();
@@ -212,6 +215,50 @@ public abstract class MixinChatScreen extends Screen {
 			u += clientTooltipComponent2.getHeight() + (v == 0 ? 2 : 0);
 		}
 		this.itemRenderer.blitOffset = f;
+	}
+
+	private String colorCodes(String message) {
+		List < String > colors = new ArrayList < > ();
+		List < String > specialChars = new ArrayList < > ();
+		colors.add("&0");
+		colors.add("&1");
+		colors.add("&2");
+		colors.add("&3");
+		colors.add("&4");
+		colors.add("&5");
+		colors.add("&6");
+		colors.add("&7");
+		colors.add("&8");
+		colors.add("&9");
+		colors.add("&a");
+		colors.add("&b");
+		colors.add("&c");
+		colors.add("&d");
+		colors.add("&e");
+		colors.add("&f");
+		colors.add("&k");
+		colors.add("&l");
+		colors.add("&m");
+		colors.add("&n");
+		specialChars.add("\\n");
+		specialChars.add("\\r");
+		for (String color: colors) {
+			message = message.replace(color, color.replace("&", "\u00a7"));
+		}
+		for (String specialChar: specialChars) {
+			//replace & with backslash
+			message = message.replace(specialChar, specialChars(specialChar));
+		}
+
+		return message;
+	}
+
+	private String specialChars(String character) {
+		return switch (character) {
+			case "\\n" -> "\n";
+			case "\\r" -> "\r";
+			default -> character;
+		};
 	}
 
 }
