@@ -198,6 +198,17 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().signingCheckDelaySeconds = newValue)
 					.build());
 
+			// Warning for showEncryptionButton
+			technical.addEntry(entryBuilder.startTextDescription(Component.translatable("gui.NoChatReports.showEncryptionButtonWarning"))
+					.build());
+
+			// Set an option for showEncryptionButton
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionButton"), NCRConfig.getEncryption().showEncryptionButton)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.showEncryptionButton.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionButton = newValue)
+					.build());
+
 			// Instructions for adding servers
 			whitelistedServers.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.whitelistedServers.instructions"))
 					.build());

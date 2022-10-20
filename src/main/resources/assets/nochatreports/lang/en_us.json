@@ -51,6 +51,7 @@
 	"gui.nochatreports.realms_warning.contents": "Please be aware that from standpoint of both privacy and security, Realms servers are inherently unsafe to play on. Not only there is no way around chat reports there, but Mojang employ automated chat monitoring to identify potential \"online harms\" and escalate them to human review. Even as realm owner there is nothing you can do to prevent this, and rules are known to be enforced indiscriminately, regardless of consensus between chat participants. Use of encryption is highly advised.",
 	"gui.nochatreports.realms_warning.check": "Don't show again",
 	"gui.nochatreports.realms_warning.learn_more": "Learn More",
+	"gui.NoChatReports.showEncryptionButtonWarning": "§cBelow does not disable encryption, it only hides the button!",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 
@@ -100,6 +101,8 @@
 	"option.NoChatReports.signingCheckDelaySeconds.tooltip": "Delay for checking whether whitelisted servers still enforce chat signing, in seconds. Setting this to 0 will cause check to be performed on every login attempt, similar to non-whitelisted servers.",
 	"option.NoChatReports.serverSigningChecks": "Server signing checks",
 	"option.NoChatReports.serverSigningChecks.tooltip": "Map of whitelisted servers to last signing enforcement check times, in epoch seconds. This typically does not have to be edited manually.",
+	"option.NoChatReports.showEncryptionButton": "Show encryption button",
+	"option.NoChatReports.showEncryptionButton.tooltip": "Setting this to false will simply prevent encryption button from being displayed in the chat screen. Be aware that encryption itself will not be automatically disabled along with the button.",
 
 	"configuration.NoChatReports.category.whitelistedServers": "Whitelisted Servers",
 
