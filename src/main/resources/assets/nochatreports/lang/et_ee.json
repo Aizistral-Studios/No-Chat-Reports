@@ -47,7 +47,7 @@
 	"nochatreports.connect.nokey_rejected": "Server lükkas vestluse signeerimise võtmeta ühenduse tagasi.",
 	"nochatreports.connect.await": "Taasühendamise ootamine: %1$s sekundit...",
 	"gui.nochatreports.realms_warning.header": "Hoiatus: Realms",
-	"gui.nochatreports.realms_warning.contents": "Realms-serverid ei ole privaatsed. Realmide omanikud ei saa vestlusest teatamist keelata ning Mojang rakendab täiendavat vestlusseiret, et tuvastada võimalikud \"võrgukäitumise rikkumised\" ning saata need edasi inimkontrolli. Kui leitakse, et sa rikud Minecrafti Kogukonnastandardeid - isegi kui vestluses osalejad ei solvunud - siis blokeeritakse sind ajutiselt või jäädavalt kõikidest mitmikmängijateenustest. Vestluse krüpteerimine on tungivalt soovitatav.",
+	"gui.nochatreports.realms_warning.contents": "Realms-serverid ei ole privaatsed. Realmide omanikud ei saa vestlusest teatamist keelata ning Mojang rakendab täiendavat vestlusseiret, et tuvastada võimalikud \"võrgukäitumise rikkumised\" ning saata need edasi inimkontrolli. Kui leitakse, et sa rikud Minecrafti Kogukonnastandardeid - isegi kui vestluses osalejad ei solvunud - siis blokeeritakse sind ajutiselt või jäädavalt kõikidest mitmikmänguteenustest. Vestluse krüpteerimine on tungivalt soovitatav.",
 	"gui.nochatreports.realms_warning.check": "Ära kuva uuesti",
 	"gui.nochatreports.realms_warning.learn_more": "Lisateave",
 
