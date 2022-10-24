@@ -57,7 +57,7 @@ public abstract class MixinChatScreen extends Screen {
 		String message = info.getReturnValue();
 		NCRConfig.getEncryption().setLastMessage(message);
 
-		if (!message.isEmpty() && NCRConfig.getEncryption().shouldEncrypt(message)) {
+		if (!message.isEmpty() && !Screen.hasControlDown() && NCRConfig.getEncryption().shouldEncrypt(message)) {
 			NCRConfig.getEncryption().getEncryptor().ifPresent(e -> {
 				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message);
 				String noencrypt = message.substring(0, index);
