@@ -52,6 +52,7 @@
 	"gui.nochatreports.realms_warning.contents": "Realms servers are not private. Realm owners cannot disable chat reporting, and Mojang applies additional chat monitoring to identify potential \"online harms\" and escalate them to human review. If you are then found to violate Minecraft's Community Standards - even if chat participants did not get offended - you will be banned, temporarily or permanently, from all multiplayer services. Use of encryption is highly advised.",
 	"gui.nochatreports.realms_warning.check": "Don't show again",
 	"gui.nochatreports.realms_warning.learn_more": "Learn More",
+	"gui.NoChatReports.showEncryptionButtonWarning": "§cBelow does not disable encryption, it only hides the button!",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 
@@ -93,6 +94,16 @@
 	"option.NoChatReports.showNCRButton.tooltip": "Adds a button that toggles most of the mod's client-sided functionality to multiplayer menu.",
 	"option.NoChatReports.enableMod": "Enable mod",
 	"option.NoChatReports.enableMod.tooltip": "Responsible for enabling most of the mod's client-sided functionality, see option above.",
+	"option.NoChatReports.reconnectAwaitSeconds": "Reconnect await seconds",
+	"option.NoChatReports.reconnectAwaitSeconds.tooltip": "Number of seconds which client should wait before automatic reconnect once server rejects connection without chat signing key, assuming user agreed to enter unsafe server.",
+	"option.NoChatReports.postDisconnectAwaitSeconds": "Post disconnect await seconds",
+	"option.NoChatReports.postDisconnectAwaitSeconds.tooltip": "Similar to §oreconnectAwaitSeconds§r, but countdown starts as soon as player disconnects from the server normally. If this delay is greater than §oreconnectAwaitSeconds§r when they try to re-join the server - then it will apply instead.",
+	"option.NoChatReports.signingCheckDelaySeconds": "Signing check delay seconds",
+	"option.NoChatReports.signingCheckDelaySeconds.tooltip": "Delay for checking whether whitelisted servers still enforce chat signing, in seconds. Setting this to 0 will cause check to be performed on every login attempt, similar to non-whitelisted servers.",
+	"option.NoChatReports.serverSigningChecks": "Server signing checks",
+	"option.NoChatReports.serverSigningChecks.tooltip": "Map of whitelisted servers to last signing enforcement check times, in epoch seconds. This typically does not have to be edited manually.",
+	"option.NoChatReports.showEncryptionButton": "Show encryption button",
+	"option.NoChatReports.showEncryptionButton.tooltip": "Setting this to false will simply prevent encryption button from being displayed in the chat screen. Be aware that encryption itself will not be automatically disabled along with the button.",
 
 	"configuration.NoChatReports.category.whitelistedServers": "Whitelisted Servers",
 

@@ -182,6 +182,38 @@ public final class ModMenuIntegration implements ModMenuApi {
 					})
 					.build());
 
+			// Set an option for reconnectAwaitSeconds
+			technical.addEntry(entryBuilder.startIntField(Component.translatable("option.NoChatReports.reconnectAwaitSeconds"), NCRConfig.getClient().reconnectAwaitSeconds)
+					.setDefaultValue(4)
+					.setTooltip(this.makeTooltip("option.NoChatReports.reconnectAwaitSeconds.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().reconnectAwaitSeconds = newValue)
+					.build());
+
+			// Set an option for postDisconnectAwaitSeconds
+			technical.addEntry(entryBuilder.startIntField(Component.translatable("option.NoChatReports.postDisconnectAwaitSeconds"), NCRConfig.getClient().postDisconnectAwaitSeconds)
+					.setDefaultValue(10)
+					.setTooltip(this.makeTooltip("option.NoChatReports.postDisconnectAwaitSeconds.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().postDisconnectAwaitSeconds = newValue)
+					.build());
+
+			// Set an option for signingCheckDelaySeconds
+			technical.addEntry(entryBuilder.startIntField(Component.translatable("option.NoChatReports.signingCheckDelaySeconds"), NCRConfig.getClient().signingCheckDelaySeconds)
+					.setDefaultValue(43200)
+					.setTooltip(this.makeTooltip("option.NoChatReports.signingCheckDelaySeconds.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().signingCheckDelaySeconds = newValue)
+					.build());
+
+			// Warning for showEncryptionButton
+			technical.addEntry(entryBuilder.startTextDescription(Component.translatable("gui.NoChatReports.showEncryptionButtonWarning"))
+					.build());
+
+			// Set an option for showEncryptionButton
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionButton"), NCRConfig.getEncryption().showEncryptionButton)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.showEncryptionButton.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionButton = newValue)
+					.build());
+
 			// Instructions for adding servers
 			whitelistedServers.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.whitelistedServers.instructions"))
 					.build());
