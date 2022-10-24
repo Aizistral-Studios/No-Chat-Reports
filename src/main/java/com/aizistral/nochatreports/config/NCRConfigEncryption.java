@@ -39,7 +39,7 @@ public class NCRConfigEncryption extends JSONConfig {
 	@Override
 	protected void uponLoad() {
 		this.algorithm = Encryption.getRegistered().stream().filter(e -> e.getName().equals(this.algorithmName))
-				.findFirst().orElseThrow(() -> new RuntimeException("Invalid encryption algorithm specified in " + FILE_NAME + ": " + this.algorithmName));
+				.findFirst().orElse(Encryption.AES_CFB8);
 		this.validate();
 	}
 
