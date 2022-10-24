@@ -18,6 +18,7 @@
 	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nKeela või luba enamus modi kliendipoolsest funktsionaalsusest. See võib olla vajalik teatud Paper/Velocity serveritega ühendumiseks, kuna need on teadaolevalt NCRiga probleeme põhjustanud.\nTeatud võrguga mitteseonduvad asjad, nagu serveri turvataseme kuvamine ning vanilli \"Vestlussõnumeid ei saa kinnitada\" hüpiku eemaldus töötavad siiski; neid saab seadistustes individuaalselt lülitada.",
 	"gui.nochatreports.ncr_state_on": "§a§llubatud§r",
 	"gui.nochatreports.ncr_state_off": "§c§lkeelatud§r",
+	"tag.nochatreports.encrypted": "Krüpteeritud algoritmiga: %1$s",
 	"tag.nochatreports.encrypted_original": "Mitte-dekrüpteeritud: %1$s",
 	"gui.nochatreports.encryption_tooltip": "§lKrüpteering:§r %1$s\nSeadistamiseks paremklõpsa.\n\nKrüpteeringu lubamisel saad sa selle rakendamist ajutiselt vältida, hoides sõnumi saatmise ajal klahvi §n§lCtrl§r all.",
 	"gui.nochatreports.encryption_tooltip_invalid": "§lKrüpteering:§r %1$s\n§cSobimatu seadistus. Seadistamiseks klõpsa.",
