@@ -3,6 +3,8 @@ package com.aizistral.nochatreports.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aizistral.nochatreports.core.ServerSafetyLevel;
+import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.FontHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -174,7 +176,10 @@ public final class ModMenuIntegration implements ModMenuApi {
 			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getClient().enableMod)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.enableMod.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().enableMod = newValue)
+					.setSaveConsumer(newValue -> {
+						NCRConfig.getClient().enableMod = newValue;
+						ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN);
+					})
 					.build());
 
 			// Instructions for adding servers

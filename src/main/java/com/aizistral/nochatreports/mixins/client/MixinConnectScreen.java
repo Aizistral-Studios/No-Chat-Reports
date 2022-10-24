@@ -33,7 +33,7 @@ public class MixinConnectScreen {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
-		ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN); // just to be 100% sure
+		ServerSafetyState.updateCurrent(ServerSafetyLevel.UNDEFINED); // just to be 100% sure
 		ServerSafetyState.setLastConnectedServer(serverAddress, serverData);
 
 		if (NCRConfig.getServerWhitelist().isWhitelisted(serverAddress)) {

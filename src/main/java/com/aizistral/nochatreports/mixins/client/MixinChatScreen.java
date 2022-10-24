@@ -127,9 +127,11 @@ public abstract class MixinChatScreen extends Screen {
 	private int getXOffset(ServerSafetyLevel level) {
 		return switch (level) {
 		case SECURE -> 21;
-		case UNINTRUSIVE, UNKNOWN -> 42;
+		case UNINTRUSIVE -> 42;
 		case INSECURE -> 0;
 		case REALMS -> 63;
+		case UNKNOWN -> 84;
+		case UNDEFINED -> 105;
 		};
 	}
 

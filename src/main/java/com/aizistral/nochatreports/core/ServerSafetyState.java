@@ -21,7 +21,7 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
 @Environment(EnvType.CLIENT)
 public final class ServerSafetyState {
-	private static ServerSafetyLevel current = ServerSafetyLevel.UNKNOWN;
+	private static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
 	private static ServerAddress lastServerAddress = null;
 	private static ServerData lastServerData = null;
 	private static AtomicBoolean allowUnsafeServer = new AtomicBoolean(false),
@@ -102,7 +102,7 @@ public final class ServerSafetyState {
 	}
 
 	public static void reset() {
-		current = ServerSafetyLevel.UNKNOWN;
+		current = ServerSafetyLevel.UNDEFINED;
 		allowUnsafeServer.set(false);
 		sessionRequestedKey.set(false);
 		isOnServer.set(false);
