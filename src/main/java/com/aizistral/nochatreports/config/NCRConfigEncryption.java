@@ -18,7 +18,7 @@ import net.minecraft.util.StringUtil;
 public class NCRConfigEncryption extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Encryption.json";
 	protected boolean skipWarning = false, enableEncryption = false, encryptPublic = true,
-			showEncryptionButton = true;
+			showEncryptionButton = true, showEncryptionIndicators = true;
 	protected String encryptionKey = Encryption.AES_CFB8.getDefaultKey(), encryptionPassphrase = "",
 			algorithmName = Encryption.AES_CFB8.getName();
 	protected List<String> encryptableCommands = List.of("msg:1", "w:1", "whisper:1", "tell:1", "r:0", "dm:1",
@@ -101,6 +101,10 @@ public class NCRConfigEncryption extends JSONConfig {
 
 	public boolean shouldEncryptPublic() {
 		return this.encryptPublic;
+	}
+
+	public boolean showEncryptionIndicators() {
+		return this.showEncryptionIndicators;
 	}
 
 	public boolean isEnabledAndValid() {
