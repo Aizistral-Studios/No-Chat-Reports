@@ -36,9 +36,9 @@
 	"gui.nochatreports.encryption_config.algorithm": "Algorytm: %1$s",
 	"gui.nochatreports.encryption_config.default_key": "<domyślny: %1$s>",
 	"gui.nochatreports.encryption_config.encrypt_public": "Szyfruj wiadomości publiczne",
-	"algorithm.nochatreports.aes_cfb8_base64": "§lAES/CFB8+Base64§r\nStandardowy algorytm szyfrowania symetrycznego. Używa 128-bitowych kluczy, dane wyjściowe są zakodowane w Base64, aby umożliwić przesyłanie za pośrednictwem czatu Minecrafta. Wadą - wiadomości zyskają około 30% długości, a serwer może je skrócić, jeśli przekroczą limit rozmiaru.",
-	"algorithm.nochatreports.aes_gcm_base64": "§lAES/GCM+Base64§r\nWiększe bezpieczeństwo w zamian za znaczny wzrost rozmiaru wiadomości (12 bajtów na wektor inicjujący i 12 na znacznik uwierzytelniania, kodowanie Base64 na górze). Wybierz, jeśli cenisz bezpieczeństwo ponad wszystko inne.",
-	"algorithm.nochatreports.aes_ecb_base64": "§lAES/ECB+Base64§r\nZnacznie mniej bezpieczny niż tryb CFB, ale oszczędza kilka bajtów, ponieważ nie wymaga wektora inicjalizacji. Wciąż lepsze od Cezara.",
+	"algorithm.nochatreports.aes_cfb8_base64": "§lAES/CFB8+Base64R§r\nStandardowy algorytm szyfrowania symetrycznego. Używa 128-bitowych kluczy, dane wyjściowe są zakodowane w Base64, aby umożliwić przesyłanie za pośrednictwem czatu Minecrafta. Wadą - wiadomości zyskają około 30% długości, a serwer może je skrócić, jeśli przekroczą limit rozmiaru.",
+	"algorithm.nochatreports.aes_gcm_base64": "§lAES/GCM+Base64R§r\nWiększe bezpieczeństwo w zamian za znaczny wzrost rozmiaru wiadomości (12 bajtów na wektor inicjujący i 12 na znacznik uwierzytelniania, kodowanie Base64 na górze). Wybierz, jeśli cenisz bezpieczeństwo ponad wszystko inne.",
+	"algorithm.nochatreports.aes_ecb_base64": "§lAES/ECB+Base64R§r\nZnacznie mniej bezpieczny niż tryb CFB, ale oszczędza kilka bajtów, ponieważ nie wymaga wektora inicjalizacji. Wciąż lepsze od Cezara.",
 	"algorithm.nochatreports.caesar": "§lCezar§r\nSzyfr dla memu. Dzięki temu masz zasadniczo nadzieję, że ludzie zrezygnują, nawet nie próbując odszyfrować twoich wiadomości. Może to być prawdą w wielu przypadkach, więc opłacalność jego użycia zależy od modelu zagrożenia.\nKlucz powinien być liczbą całkowitą od 1 do 1024. Przesunięcie odbywa się za pomocą kodu znakowego, a nie alfabetycznego, aby zapewnić zgodność z dowolnym językiem.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",

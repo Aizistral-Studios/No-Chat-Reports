@@ -36,9 +36,9 @@
 	"gui.nochatreports.encryption_config.algorithm": "알고리즘: %1$s",
 	"gui.nochatreports.encryption_config.default_key": "<기본: %1$s>",
 	"gui.nochatreports.encryption_config.encrypt_public": "공개 메시지 암호화",
-	"algorithm.nochatreports.aes_cfb8_base64": "§lAES/CFB8+Base64§r\n표준 대칭 암호화 알고리즘. 128비트 키를 사용하며, 출력은 Minecraft의 대화로 전송될 수 있도록 Base64로 인코딩됩니다. 메시지가 약 30% 길어지고 길이 제한을 초과하면 서버가 메시지를 자를 수 있습니다.",
-	"algorithm.nochatreports.aes_gcm_base64": "§lAES/GCM+Base64§r\n더 안전하지만 메시지가 더 길어집니다 (초기화 벡터에 12바이트, 인증 태그에 12바이트, Base64 인코딩). 보안을 무엇보다 중요하게 여긴다면 사용하십시오.",
-	"algorithm.nochatreports.aes_ecb_base64": "§lAES/ECB+Base64§r\nCFB 모드보다 훨씬 덜 안전하지만 초기화 벡터가 필요하지 않아 몇 바이트를 절약할 수 있습니다. 여전히 카이사르 암호보다 낫습니다.",
+	"algorithm.nochatreports.aes_cfb8_base64": "§lAES/CFB8+Base64R§r\n표준 대칭 암호화 알고리즘. 128비트 키를 사용하며, 출력은 Minecraft의 대화로 전송될 수 있도록 Base64로 인코딩됩니다. 메시지가 약 30% 길어지고 길이 제한을 초과하면 서버가 메시지를 자를 수 있습니다.",
+	"algorithm.nochatreports.aes_gcm_base64": "§lAES/GCM+Base64R§r\n더 안전하지만 메시지가 더 길어집니다 (초기화 벡터에 12바이트, 인증 태그에 12바이트, Base64 인코딩). 보안을 무엇보다 중요하게 여긴다면 사용하십시오.",
+	"algorithm.nochatreports.aes_ecb_base64": "§lAES/ECB+Base64R§r\nCFB 모드보다 훨씬 덜 안전하지만 초기화 벡터가 필요하지 않아 몇 바이트를 절약할 수 있습니다. 여전히 카이사르 암호보다 낫습니다.",
 	"algorithm.nochatreports.caesar": "§l카이사르 암호§r\n밈 암호. 사람들이 메시지를 해독하려 시도하지도 않고 포기하길 바랍니다. 이는 실제로 많은 상황에서 사실일 수 있으므로 사용할 수 있을지는 당신의 위협 모델에 따라 다릅니다.\n키는 1과 1024 사이의 정수여야 하며 시프트는 모든 언어와의 호환성을 보장하기 위해 알파벳이 아닌 문자 코드를 기준으로 합니다.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
