@@ -1,16 +1,21 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import java.util.Optional;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Group;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.mojang.authlib.yggdrasil.response.KeyPairResponse;
+
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;
 import net.minecraft.util.Signer;
 import net.minecraft.world.entity.player.ProfilePublicKey;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Optional;
 
 @Mixin(ProfileKeyPairManager.class)
 public class MixinProfileKeyPairManager {
@@ -23,6 +28,9 @@ public class MixinProfileKeyPairManager {
 
 	@Inject(method = "profilePublicKey", at = @At("HEAD"), cancellable = true)
 	private void onProfilePublicKey(CallbackInfoReturnable<Optional<ProfilePublicKey>> info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (!ServerSafetyState.allowsUnsafeServer()) {
 			info.setReturnValue(Optional.empty());
 		}
@@ -34,10 +42,31 @@ public class MixinProfileKeyPairManager {
 	 * @author Aizistral
 	 */
 
+	@Group(min = 1, max = 2)
 	@Inject(method = "parsePublicKey", at = @At("HEAD"), cancellable = true)
-	private static void onProfilePublicKeyData(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
+	private static void onParsePublicKey(KeyPairResponse response, CallbackInfoReturnable<ProfilePublicKey.Data> info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (!ServerSafetyState.allowsUnsafeServer()) {
 			info.setReturnValue(null);
+		}
+	}
+
+	/**
+	 * @reason Accomplishes the same thing as {@link #onParsePublicKey(KeyPairResponse, CallbackInfoReturnable)},
+	 * but only in 1.19.1.
+	 * @author Aizistral
+	 */
+
+	@Group(min = 1, max = 2)
+	@Inject(method = { "profilePublicKeyData", "method_43784" }, at = @At("HEAD"), cancellable = true, remap = false)
+	private void onProfilePublicKeyData(CallbackInfoReturnable<Optional<ProfilePublicKey.Data>> info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
+		if (!ServerSafetyState.allowsUnsafeServer()) {
+			info.setReturnValue(Optional.empty());
 		}
 	}
 
@@ -49,6 +78,9 @@ public class MixinProfileKeyPairManager {
 
 	@Inject(method = "signer", at = @At("HEAD"), cancellable = true)
 	private void onSigner(CallbackInfoReturnable<Optional<Signer>> info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (!ServerSafetyState.allowsUnsafeServer()) {
 			info.setReturnValue(null);
 		}

@@ -32,3 +32,4 @@ deps/Soulbound*
 multiuser_args.txt
 old_enigmatic_desc.txt
 **/TestEventHandler*
+/.apt_generated_tests/

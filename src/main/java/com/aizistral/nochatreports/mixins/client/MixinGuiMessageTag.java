@@ -5,9 +5,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.GuiMessageTag;
+import net.minecraft.client.GuiMessageTag.Icon;
+import net.minecraft.network.chat.Component;
 
 @Mixin(GuiMessageTag.class)
 public class MixinGuiMessageTag {
@@ -21,7 +24,7 @@ public class MixinGuiMessageTag {
 
 	@Inject(method = "system", at = @At("HEAD"), cancellable = true)
 	private static void onSystem(CallbackInfoReturnable<GuiMessageTag> info) {
-		if (NoReportsConfig.hideGrayChatIndicators()) {
+		if (NCRConfig.getClient().hideGrayChatIndicators()) {
 			info.setReturnValue(null);
 		}
 	}

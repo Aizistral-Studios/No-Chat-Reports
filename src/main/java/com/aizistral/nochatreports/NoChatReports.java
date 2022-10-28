@@ -1,11 +1,12 @@
 package com.aizistral.nochatreports;
 
+import java.nio.charset.Charset;
 import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.minecraft.network.protocol.login.ServerboundHelloPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.event.EventNetworkChannel;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 @Mod(NoChatReports.MODID)
 public class NoChatReports {
@@ -37,6 +39,9 @@ public class NoChatReports {
 	private static boolean detectedOnClient = false, detectedOnServer = false;
 
 	public NoChatReports() {
+		LOGGER.info("KONNICHIWA ZA WARUDO!");
+		LOGGER.info("Default JVM text encoding is: " + Charset.defaultCharset().displayName());
+
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
@@ -44,8 +49,7 @@ public class NoChatReports {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onLoadComplete);
 
 		MinecraftForge.EVENT_BUS.register(this);
-
-		NoReportsConfig.loadConfig();
+		NCRConfig.load();
 	}
 
 	private void onLoadComplete(FMLLoadCompleteEvent event) {
@@ -56,12 +60,18 @@ public class NoChatReports {
 		channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "main"))
 				.networkProtocolVersion(() -> PTC_VERSION)
 				.clientAcceptedVersions(version -> {
+					if (!NCRConfig.getClient().enableMod())
+						return true;
+
 					detectedOnServer = !isAbsentOrVanilla(version);
-					return NoReportsConfig.demandsOnServer() ? PTC_VERSION.equals(version) : true;
+					return NCRConfig.getClient().demandOnServer() ? PTC_VERSION.equals(version) : true;
 				})
 				.serverAcceptedVersions(version -> {
+					if (ServerLifecycleHooks.getCurrentServer().isSingleplayer())
+						return true;
+
 					detectedOnClient = !isAbsentOrVanilla(version);
-					return NoReportsConfig.demandsOnClient() ? PTC_VERSION.equals(version) : true;
+					return NCRConfig.getCommon().demandOnClient() ? PTC_VERSION.equals(version) : true;
 				})
 				.simpleChannel();
 	}

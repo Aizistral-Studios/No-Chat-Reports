@@ -1,16 +1,19 @@
 
 package com.aizistral.nochatreports.mixins.client;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Codec;
-import net.minecraft.client.OptionInstance;
-import net.minecraft.client.Options;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.aizistral.nochatreports.config.NCRConfig;
+import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Codec;
+
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Options;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 
 @Mixin(Options.class)
 public class MixinOptions {
@@ -23,6 +26,9 @@ public class MixinOptions {
 
 	@Inject(method = "onlyShowSecureChat", at = @At("RETURN"), cancellable = true)
 	private void onlyShowSecureChat(CallbackInfoReturnable<OptionInstance<Boolean>> cir) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (this.alternativeOption == null) {
 			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
 					OptionInstance.cachedConstantTooltip(Component.translatable("gui.nochatreport.secureChat")),

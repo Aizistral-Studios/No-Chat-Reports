@@ -1,8 +1,7 @@
 package com.aizistral.nochatreports.core;
 
-import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.config.NCRConfig;
 
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,15 +38,29 @@ public enum ServerSafetyLevel {
 	INSECURE,
 
 	/**
+	 * For Realms specifically, as these are a whole new level of unsafe.
+	 */
+
+	REALMS,
+
+	/**
+	 * Reserved for when mod is toggled mid-session and cannot evaluate safety status.
+	 */
+
+	UNKNOWN,
+
+	/**
 	 * Transient status for when evaluation of safety level is not yet complete for current server.
 	 */
 
-	UNKNOWN;
+	UNDEFINED;
 
 	@OnlyIn(Dist.CLIENT)
 	public Component getTooltip() {
-		if(NoReportsConfig.whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
+		if (NCRConfig.getClient().whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
 			return Component.translatable("gui.nochatreports.status_insecure_whitelist_all_servers");
-		return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
+		else
+			return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
 	}
+
 }

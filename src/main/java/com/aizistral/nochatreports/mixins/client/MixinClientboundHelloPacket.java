@@ -4,8 +4,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
@@ -24,6 +24,9 @@ public class MixinClientboundHelloPacket {
 
 	@Inject(method = "handle", at = @At("HEAD"))
 	private void onHandle(ClientLoginPacketListener listener, CallbackInfo info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		ServerSafetyState.setSessionRequestedKey(true);
 	}
 

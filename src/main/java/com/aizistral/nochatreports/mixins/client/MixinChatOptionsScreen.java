@@ -1,6 +1,13 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Mixin;
+
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
@@ -10,10 +17,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.SimpleOptionsSubScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
-import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Mixin;
-
-import java.util.List;
 
 @Mixin(ChatOptionsScreen.class)
 public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
@@ -41,6 +44,10 @@ public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
 	@Override
 	protected void init() {
 		super.init();
+
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		this.secureChatTooltip = Minecraft.getInstance().font.split(Component.translatable("gui.nochatreport.secureChat"), 200);
 		this.onlyShowSecureChat = this.list.findOption(Minecraft.getInstance().options.onlyShowSecureChat());
 
@@ -58,6 +65,10 @@ public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
 	@Override
 	public void render(@NotNull PoseStack poseStack, int x, int y, float f) {
 		super.render(poseStack, x, y, f);
+
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (this.onlyShowSecureChat != null && this.onlyShowSecureChat.visible && x >= (double) this.onlyShowSecureChat.x && y >= (double) this.onlyShowSecureChat.y && x < (double) (this.onlyShowSecureChat.x + this.onlyShowSecureChat.getWidth()) && y < (double) (this.onlyShowSecureChat.y + this.onlyShowSecureChat.getHeight())) {
 			this.renderTooltip(poseStack, this.secureChatTooltip, x, y);
 		}

@@ -8,12 +8,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.core.EncryptionUtil;
 
+import net.minecraft.client.GuiMessageTag;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
@@ -49,21 +52,27 @@ public class MixinChatListener {
 				return;
 			}
 
-			if (evaluate == ChatTrustLevel.NOT_SECURE && NoReportsConfig.hideRedChatIndicators()) {
+			if (evaluate == ChatTrustLevel.NOT_SECURE && NCRConfig.getClient().hideRedChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			} else if ((evaluate == ChatTrustLevel.FILTERED || evaluate == ChatTrustLevel.MODIFIED)
-					&& NoReportsConfig.hideYellowChatIndicators()) {
+					&& NCRConfig.getClient().hideYellowChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			}
 		}
 
 		// Debug never dies
-		if (NoReportsConfig.isDebugLogEnabled()) {
+		if (NCRConfig.getCommon().enableDebugLog()) {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
 					Component.Serializer.toStableJson(playerChatMessage.serverContent()),
 					playerChatMessage.signer().profileId(),
 					Base64.getEncoder().encodeToString(playerChatMessage.headerSignature().bytes()));
 		}
+	}
+
+	@ModifyVariable(method = "narrateChatMessage(Lnet/minecraft/network/chat/ChatType$Bound;"
+			+ "Lnet/minecraft/network/chat/Component;)V", at = @At("HEAD"), argsOnly = true)
+	private Component decryptNarratedMessage(Component msg) {
+		return EncryptionUtil.tryDecrypt(msg).orElse(msg);
 	}
 
 }

@@ -1,19 +1,16 @@
 package com.aizistral.nochatreports.gui;
 
-import javax.print.attribute.standard.MediaSize.NA;
-
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.NoChatReportsClient;
-import com.aizistral.nochatreports.core.NoReportsConfig;
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.multiplayer.WarningScreen;
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -32,7 +29,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 
 @OnlyIn(Dist.CLIENT)
-public class UnsafeServerScreen extends WarningScreen {
+public final class UnsafeServerScreen extends WarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.unsafe_server.header").withStyle(ChatFormatting.BOLD);
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.unsafe_server.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.unsafe_server.check");
@@ -48,16 +45,21 @@ public class UnsafeServerScreen extends WarningScreen {
 	@Override
 	protected void initButtons(int i) {
 		this.addRenderableWidget(new Button(this.width / 2 - 155, 100 + i, 150, 20, CommonComponents.GUI_PROCEED, button -> {
-			ServerAddress address = ServerSafetyState.getLastConnectedServer();
+			ServerAddress address = ServerSafetyState.getLastServerAddress();
 
 			if (address != null) {
 				if (this.stopShowing.selected()) {
-					NoReportsConfig.getWhitelistedServers().add(address.getHost() + ":" + address.getPort());
-					NoReportsConfig.saveConfig();
+					NCRConfig.getServerWhitelist().getList().add(address.getHost() + ":" + address.getPort());
+					NCRConfig.getServerWhitelist().saveFile();
+				}
+
+				if (NCRConfig.getCommon().enableDebugLog()) {
+					NoChatReports.LOGGER.info("Proceeding with unsafe connection to {}, added to whitelist: {}",
+							address.getHost() + ":" + address.getPort(), this.stopShowing.selected());
 				}
 
 				ServerSafetyState.setAllowsUnsafeServer(true);
-				NoChatReportsClient.reconnectLastServer();
+				this.minecraft.setScreen(new AwaitConnectionScreen(this.joinMultiplayer));
 			}
 		}));
 		this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, 100 + i, 150, 20, CommonComponents.GUI_BACK, button -> {
