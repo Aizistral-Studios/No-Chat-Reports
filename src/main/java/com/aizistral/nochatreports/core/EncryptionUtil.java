@@ -23,24 +23,8 @@ public class EncryptionUtil {
 		Encryptor<?> encryption = optional.get();
 		Component copy = recreate(component);
 		ComponentContents contents = copy.getContents();
-		boolean decryptedSomething = false;
 
-		if (contents instanceof TranslatableContents translatable) {
-			for (Object arg : translatable.args) {
-				if (arg instanceof MutableComponent mutable
-						&& mutable.getContents() instanceof LiteralContents literal) {
-					var decrypted = tryDecrypt(literal.text(), encryption);
-					if (decrypted.isPresent()) {
-						mutable.contents = new LiteralContents(decrypted.get());
-						decryptedSomething = true;
-					}
-				}
-			}
-		} else {
-			decryptedSomething = tryDecrypt(copy, encryption);
-		}
-
-		return Optional.ofNullable(decryptedSomething ? copy : null);
+		return Optional.ofNullable(tryDecrypt(copy, encryption) ? copy : null);
 	}
 
 	public static boolean tryDecrypt(Component component, Encryptor<?> encryptor) {
@@ -57,6 +41,14 @@ public class EncryptionUtil {
 			if (decrypted.isPresent()) {
 				((MutableComponent)component).contents = new LiteralContents(decrypted.get());
 				return true;
+			}
+		} else if (component.getContents() instanceof TranslatableContents translatable) {
+			for (Object arg : translatable.args) {
+				if (arg instanceof MutableComponent mutable) {
+					if (tryDecrypt(mutable, encryptor)) {
+						decryptedSiblings = true;
+					}
+				}
 			}
 		}
 
