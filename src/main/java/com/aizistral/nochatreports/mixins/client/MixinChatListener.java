@@ -42,20 +42,14 @@ public class MixinChatListener {
 	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage, Component component, PlayerInfo playerInfo,
 			Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
 
-		if (this.isSenderLocalPlayer(playerChatMessage.signer().profileId())) {
+		if (this.isSenderLocalPlayer(playerChatMessage.link().sender())) {
 			info.setReturnValue(ChatTrustLevel.SECURE);
 		} else {
-			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, playerInfo, instant);
-
-			if (evaluate == ChatTrustLevel.BROKEN_CHAIN) {
-				info.setReturnValue(evaluate);
-				return;
-			}
+			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, instant);
 
 			if (evaluate == ChatTrustLevel.NOT_SECURE && NCRConfig.getClient().hideRedChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
-			} else if ((evaluate == ChatTrustLevel.FILTERED || evaluate == ChatTrustLevel.MODIFIED)
-					&& NCRConfig.getClient().hideYellowChatIndicators()) {
+			} else if (evaluate == ChatTrustLevel.MODIFIED && NCRConfig.getClient().hideYellowChatIndicators()) {
 				info.setReturnValue(ChatTrustLevel.SECURE);
 			}
 		}
@@ -63,9 +57,9 @@ public class MixinChatListener {
 		// Debug never dies
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
-					Component.Serializer.toStableJson(playerChatMessage.serverContent()),
-					playerChatMessage.signer().profileId(),
-					Base64.getEncoder().encodeToString(playerChatMessage.headerSignature().bytes()));
+					Component.Serializer.toStableJson(playerChatMessage.unsignedContent()),
+					playerChatMessage.link().sender(),
+					Base64.getEncoder().encodeToString(playerChatMessage.signature().bytes()));
 		}
 	}
 

@@ -1,6 +1,8 @@
 package com.aizistral.nochatreports.gui;
 
+import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
@@ -53,8 +55,10 @@ public abstract class ExtendedWarningScreen extends Screen {
 		int offset = 28;
 		int buttonY = this.hugeGUI() ? 55 : 100;
 
-		this.addRenderableWidget(new Button(this.width / 2 - 260 + offset, buttonY + i, 150, 20, CommonComponents.GUI_PROCEED, this::onProceed));
-		this.addRenderableWidget(new Button(this.width / 2 - 100 + offset, buttonY + i, 150, 20, Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_PROCEED, this::onProceed)
+				.pos(this.width / 2 - 260 + offset, buttonY + i).size(150, 20).build());
+
+		this.addRenderableWidget(Button.builder(Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
 			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
 				if (agree) {
 					Util.getPlatform().openUri(this.WIKI_LINK);
@@ -62,8 +66,11 @@ public abstract class ExtendedWarningScreen extends Screen {
 
 				Minecraft.getInstance().setScreen(this);
 			}, this.WIKI_LINK, true));
-		}));
-		this.addRenderableWidget(new Button(this.width / 2 + 60 + offset, buttonY + i, 150, 20, CommonComponents.GUI_BACK, this::onBack));
+		}).pos(this.width / 2 - 100 + offset, buttonY + i).size(150, 20).build());
+
+
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, this::onBack)
+				.pos(this.width / 2 + 60 + offset, buttonY + i).size(150, 20).build());
 	}
 
 	protected abstract void onProceed(Button button);

@@ -69,7 +69,7 @@ public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
-		if (this.onlyShowSecureChat != null && this.onlyShowSecureChat.visible && x >= (double) this.onlyShowSecureChat.x && y >= (double) this.onlyShowSecureChat.y && x < (double) (this.onlyShowSecureChat.x + this.onlyShowSecureChat.getWidth()) && y < (double) (this.onlyShowSecureChat.y + this.onlyShowSecureChat.getHeight())) {
+		if (this.onlyShowSecureChat != null && this.onlyShowSecureChat.visible && x >= (double) this.onlyShowSecureChat.getX() && y >= (double) this.onlyShowSecureChat.getY() && x < (double) (this.onlyShowSecureChat.getX() + this.onlyShowSecureChat.getWidth()) && y < (double) (this.onlyShowSecureChat.getY() + this.onlyShowSecureChat.getHeight())) {
 			this.renderTooltip(poseStack, this.secureChatTooltip, x, y);
 		}
 	}

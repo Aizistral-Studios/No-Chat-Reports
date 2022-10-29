@@ -8,7 +8,10 @@ import com.aizistral.nochatreports.core.ServerSafetyState;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
@@ -44,7 +47,8 @@ public final class UnsafeServerScreen extends WarningScreen {
 
 	@Override
 	protected void initButtons(int i) {
-		this.addRenderableWidget(new Button(this.width / 2 - 155, 100 + i, 150, 20, CommonComponents.GUI_PROCEED, button -> {
+
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_PROCEED, button -> {
 			ServerAddress address = ServerSafetyState.getLastServerAddress();
 
 			if (address != null) {
@@ -61,10 +65,11 @@ public final class UnsafeServerScreen extends WarningScreen {
 				ServerSafetyState.setAllowsUnsafeServer(true);
 				this.minecraft.setScreen(new AwaitConnectionScreen(this.joinMultiplayer));
 			}
-		}));
-		this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, 100 + i, 150, 20, CommonComponents.GUI_BACK, button -> {
+		}).pos(this.width / 2 - 155, 100 + i).size(150, 20).build());
+
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, button -> {
 			this.minecraft.setScreen(this.joinMultiplayer);
-		}));
+		}).pos(this.width / 2 - 155 + 160, 100 + i).size(150, 20).build());
 	}
 
 }

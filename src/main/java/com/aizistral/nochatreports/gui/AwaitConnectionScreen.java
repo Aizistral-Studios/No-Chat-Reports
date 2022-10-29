@@ -32,7 +32,7 @@ public class AwaitConnectionScreen extends Screen {
 		this.clearWidgets();
 		this.millisAwaiting = Util.getMillis();
 
-		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 4 + 120 + 12, 200, 20, CommonComponents.GUI_CANCEL, button -> {
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, button -> {
 			if (NCRConfig.getCommon().enableDebugLog()) {
 				NoChatReports.LOGGER.info("Aborted reconnect await!");
 			}
@@ -40,7 +40,7 @@ public class AwaitConnectionScreen extends Screen {
 			this.aborted = true;
 			this.minecraft.setScreen(this.parent);
 			ServerSafetyState.reset();
-		}));
+		}).pos(this.width / 2 - 100, this.height / 4 + 120 + 12).size(200, 20).build());
 	}
 
 	@Override
