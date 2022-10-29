@@ -119,7 +119,7 @@ public abstract class Encryptor<T extends Encryption> {
 		map.put('C', '#');
 		map.put('D', '$');
 		map.put('E', '%');
-		map.put('F', '&');
+		map.put('F', '¼');
 		map.put('G', '\'');
 		map.put('H', '(');
 		map.put('I', ')');
