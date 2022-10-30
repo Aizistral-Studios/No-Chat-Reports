@@ -3,6 +3,8 @@ package com.aizistral.nochatreports.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aizistral.nochatreports.core.ServerSafetyLevel;
+import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.FontHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -174,7 +176,42 @@ public final class ModMenuIntegration implements ModMenuApi {
 			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getClient().enableMod)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.enableMod.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().enableMod = newValue)
+					.setSaveConsumer(newValue -> {
+						NCRConfig.getClient().enableMod = newValue;
+						ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN);
+					})
+					.build());
+
+			// Set an option for reconnectAwaitSeconds
+			technical.addEntry(entryBuilder.startIntField(Component.translatable("option.NoChatReports.reconnectAwaitSeconds"), NCRConfig.getClient().reconnectAwaitSeconds)
+					.setDefaultValue(4)
+					.setTooltip(this.makeTooltip("option.NoChatReports.reconnectAwaitSeconds.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().reconnectAwaitSeconds = newValue)
+					.build());
+
+			// Set an option for postDisconnectAwaitSeconds
+			technical.addEntry(entryBuilder.startIntField(Component.translatable("option.NoChatReports.postDisconnectAwaitSeconds"), NCRConfig.getClient().postDisconnectAwaitSeconds)
+					.setDefaultValue(10)
+					.setTooltip(this.makeTooltip("option.NoChatReports.postDisconnectAwaitSeconds.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().postDisconnectAwaitSeconds = newValue)
+					.build());
+
+			// Set an option for signingCheckDelaySeconds
+			technical.addEntry(entryBuilder.startIntField(Component.translatable("option.NoChatReports.signingCheckDelaySeconds"), NCRConfig.getClient().signingCheckDelaySeconds)
+					.setDefaultValue(43200)
+					.setTooltip(this.makeTooltip("option.NoChatReports.signingCheckDelaySeconds.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().signingCheckDelaySeconds = newValue)
+					.build());
+
+			// Warning for showEncryptionButton
+			technical.addEntry(entryBuilder.startTextDescription(Component.translatable("gui.NoChatReports.showEncryptionButtonWarning"))
+					.build());
+
+			// Set an option for showEncryptionButton
+			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionButton"), NCRConfig.getEncryption().showEncryptionButton)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.showEncryptionButton.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionButton = newValue)
 					.build());
 
 			// Instructions for adding servers

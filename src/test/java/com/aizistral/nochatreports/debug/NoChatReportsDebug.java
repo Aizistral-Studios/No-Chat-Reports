@@ -22,7 +22,7 @@ public final class NoChatReportsDebug implements ModInitializer {
 		server.execute(() -> {
 			UnrealPlayer player = new UnrealPlayer(UUID.fromString("069a79f4-44e9-4726-a5be-fca90e38aaf5"), "Notch");
 			player.join(server, handler);
-			Component component = Component.Serializer.fromJson("{\"extra\":[{\"text\":\"<\"},{\"color\":\"red\",\"text\":\"Karen\"},{\"text\":\"> Hey! G/AFdTa5SR37oes6mBNagdo=\"}],\"text\":\"\"}");
+			Component component = Component.Serializer.fromJson("{\"translate\":\"%s\",\"with\":[{\"extra\":[{\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/tell Aizistral \"},\"hoverEvent\":{\"action\":\"show_entity\",\"contents\":{\"id\":\"bfa45411-874a-4ee0-b3bd-00c716059d95\",\"name\":{\"text\":\"Aizistral\"},\"type\":\"minecraft:player\"}},\"insertion\":\"Aizistral\",\"text\":\"Aizistral\"},{\"text\":\"> \"},{\"text\":\"['(9^~©²~.2>5¶(4,+:.9!¿¿\"}],\"text\":\"<\"},{\"text\":\"['(9^~©²~.2>5¶(4,+:.9!¿¿\"}]}");
 			player.sendSystem(server, handler, component);
 
 			//player.sendMessage(server, handler, "This message is so real and legit", null);

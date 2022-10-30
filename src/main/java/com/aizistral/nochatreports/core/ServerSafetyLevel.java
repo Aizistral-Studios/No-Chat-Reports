@@ -44,10 +44,16 @@ public enum ServerSafetyLevel {
 	REALMS,
 
 	/**
+	 * Reserved for when mod is toggled mid-session and cannot evaluate safety status.
+	 */
+
+	UNKNOWN,
+
+	/**
 	 * Transient status for when evaluation of safety level is not yet complete for current server.
 	 */
 
-	UNKNOWN;
+	UNDEFINED;
 
 	@Environment(EnvType.CLIENT)
 	public Component getTooltip() {

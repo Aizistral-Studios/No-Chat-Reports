@@ -47,18 +47,17 @@ public class MixinChatComponent {
 					+ "wrapComponents(Lnet/minecraft/network/chat/FormattedText;ILnet/minecraft/client/gui/Font;"
 					+ ")Ljava/util/List;", ordinal = 0, shift = Shift.AFTER), argsOnly = true)
 	private synchronized GuiMessageTag modifyGUITag(GuiMessageTag tag) {
-		if (this.lastMessageEncrypted) {
-			this.lastMessageEncrypted = false;
-			Component tooltip = Component.empty().append(Component.translatable("tag.nochatreports.encrypted",
-					Component.literal(NCRConfig.getEncryption().getAlgorithm().getName())
-					.withStyle(ChatFormatting.BOLD))).append(CommonComponents.NEW_LINE).append(
-							Component.translatable("tag.nochatreports.encrypted_original",
-									this.lastMessageOriginal));
-
-			//System.out.println("Last message original: " + last);
-			return new GuiMessageTag(0x8B3EC7, ENCRYPTED_ICON, tooltip, "Encrypted");
-		} else
+		if (!NCRConfig.getEncryption().showEncryptionIndicators() || !this.lastMessageEncrypted)
 			return tag;
+
+		this.lastMessageEncrypted = false;
+		Component tooltip = Component.empty().append(Component.translatable("tag.nochatreports.encrypted",
+				Component.literal(NCRConfig.getEncryption().getAlgorithm().getName())
+				.withStyle(ChatFormatting.BOLD))).append(CommonComponents.NEW_LINE).append(
+						Component.translatable("tag.nochatreports.encrypted_original",
+								this.lastMessageOriginal));
+
+		return new GuiMessageTag(0x8B3EC7, ENCRYPTED_ICON, tooltip, "Encrypted");
 	}
 
 	@ModifyArg(index = 0, method = "addMessage(Lnet/minecraft/network/chat/Component;"

@@ -40,7 +40,7 @@ import net.minecraft.util.FormattedCharSequence;
 public abstract class MixinJoinMultiplayerScreen extends Screen {
 	private static final ResourceLocation RELOAD_TEXTURE = new ResourceLocation("nochatreports", "textures/gui/config_reload_button.png"),
 			TOGGLE_TEXTURE = new ResourceLocation("nochatreports", "textures/gui/ncr_toggle_button.png");
-	private static final Component RELOAD_TOOLTIP = Component.translatable("gui.nochatrepords.reload_config_tooltip");
+	private static final Component RELOAD_TOOLTIP = Component.translatable("gui.nochatreports.reload_config_tooltip");
 
 	protected MixinJoinMultiplayerScreen() {
 		super(null);
@@ -53,7 +53,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 			var button = new ImageButton(this.width/2 + 158, this.height - 52, 20, 20, 0, 0, 20,
 					RELOAD_TEXTURE, 64, 64, btn -> NCRConfig.load(), (btn, poseStack, i, j) ->
 					this.renderTooltipNoGap(poseStack, this.minecraft.font.split(RELOAD_TOOLTIP, 250), i, j),
-					Component.translatable("gui.nochatrepords.reload_config"));
+					Component.translatable("gui.nochatreports.reload_config"));
 			button.active = true;
 			button.visible = true;
 			this.addRenderableWidget(button);

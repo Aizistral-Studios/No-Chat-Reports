@@ -24,6 +24,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import net.minecraft.SharedConstants;
 import net.minecraft.util.Tuple;
 
 public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T> {
@@ -77,10 +78,10 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 				this.encryptor.init(ENCRYPT_MODE, this.key, tuple.getA());
 				byte[] encrypted = this.encryptor.doFinal(toBytes(message));
 
-				return encodeBase64(ByteBuffer.allocate(encrypted.length + tuple.getB().length).put(tuple.getB())
+				return encodeBase64R(ByteBuffer.allocate(encrypted.length + tuple.getB().length).put(tuple.getB())
 						.put(encrypted).array());
 			} else
-				return encodeBase64(this.encryptor.doFinal(toBytes(message)));
+				return encodeBase64R(this.encryptor.doFinal(toBytes(message)));
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {
 			throw new RuntimeException(ex);
 		}
@@ -90,12 +91,12 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 	public String decrypt(String message) {
 		try {
 			if (this.useIV) {
-				var tuple = this.splitIV(decodeBase64Bytes(message));
+				var tuple = this.splitIV(decodeBase64RBytes(message));
 
 				this.decryptor.init(DECRYPT_MODE, this.key, tuple.getA());
 				return fromBytes(this.decryptor.doFinal(tuple.getB()));
 			} else
-				return fromBytes(this.decryptor.doFinal(decodeBase64Bytes(message)));
+				return fromBytes(this.decryptor.doFinal(decodeBase64RBytes(message)));
 		} catch (AEADBadTagException ex) {
 			return "???";
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {

@@ -96,7 +96,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 						|| (disconnectReason.getContents() instanceof TranslatableContents translatable &&
 								KEY_DISCONNECT_REASONS.contains(translatable.getKey()))) {
 					if (ServerSafetyState.getLastServerAddress() != null) {
-						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress()) && !NCRConfig.getClient().whitelistAllServers()) {
+						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress())) {
 							if (NCRConfig.getCommon().enableDebugLog()) {
 								NoChatReports.LOGGER.info("Server {} evaluated as unsafe and is not whitelisted, displaying warning screen.",
 										ServerSafetyState.getLastServerAddress().getHost() + ":" + ServerSafetyState.getLastServerAddress().getPort());
