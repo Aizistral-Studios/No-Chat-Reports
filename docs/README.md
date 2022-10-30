@@ -3,7 +3,7 @@
 ## Modifications:
 - Added that the chat always gets encrypted
 - Added & color codes
-- Added "." command will be ignored when encrypting
+- Add own prefix for commands in config, they will be ignored for the encryption
 
 **Current Version:** 1.19.2-v1.13.11
 
