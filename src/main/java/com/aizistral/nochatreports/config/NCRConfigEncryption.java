@@ -26,6 +26,7 @@ public class NCRConfigEncryption extends JSONConfig {
 	private transient Encryption algorithm;
 	private transient boolean isValid = false;
 	private transient String lastMessage = "???";
+	protected List<String> commandPrefixes = List.of("/", ".");
 
 	protected NCRConfigEncryption() {
 		super(FILE_NAME);
@@ -124,7 +125,7 @@ public class NCRConfigEncryption extends JSONConfig {
 	}
 
 	public int getEncryptionStartIndex(String message) {
-		if (!message.startsWith("/") && !message.startsWith("."))
+		if (commandPrefixes.stream().noneMatch(message::startsWith))
 			return this.encryptPublic ? 0 : -1;
 		else {
 			for (String rule : this.encryptableCommands) {
