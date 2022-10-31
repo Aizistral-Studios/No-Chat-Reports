@@ -39,10 +39,8 @@ public class MixinChatListener {
 	 */
 
 	@Inject(method = "evaluateTrustLevel", at = @At("HEAD"), cancellable = true)
-	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage, Component component, PlayerInfo playerInfo,
-			Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
-
-		if (this.isSenderLocalPlayer(playerChatMessage.link().sender())) {
+	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage, Component component, Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
+		if (this.isSenderLocalPlayer(playerChatMessage.sender())) {
 			info.setReturnValue(ChatTrustLevel.SECURE);
 		} else {
 			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, instant);
@@ -59,7 +57,7 @@ public class MixinChatListener {
 			NoChatReports.LOGGER.info("Received message: {}, from: {}, signature: {}",
 					Component.Serializer.toStableJson(playerChatMessage.unsignedContent()),
 					playerChatMessage.link().sender(),
-					Base64.getEncoder().encodeToString(playerChatMessage.signature().bytes()));
+					Base64.getEncoder().encodeToString(playerChatMessage.signature() != null ? playerChatMessage.signature().bytes() : new byte[0]));
 		}
 	}
 
