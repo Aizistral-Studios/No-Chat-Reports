@@ -96,24 +96,24 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.build());
 
 			// Set an option for hideRedChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NCRConfig.getClient().hideRedChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NCRConfig.getClient().hideInsecureMessageIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideRedChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().hideRedChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideInsecureMessageIndicators = newValue)
 					.build());
 
 			// Set an option for hideYellowChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NCRConfig.getClient().hideYellowChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NCRConfig.getClient().hideModifiedMessageIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideYellowChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().hideYellowChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideModifiedMessageIndicators = newValue)
 					.build());
 
 			// Set an option for hideGrayChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NCRConfig.getClient().hideGrayChatIndicators)
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NCRConfig.getClient().hideSystemMessageIndicators)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.hideGrayChatIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().hideGrayChatIndicators = newValue)
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideSystemMessageIndicators = newValue)
 					.build());
 
 			// Set an option for hideWarningToast

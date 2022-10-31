@@ -29,7 +29,7 @@ public class MixinAbuseReportSenderServices {
 
 	@Overwrite
 	public CompletableFuture<Unit> send(UUID uuid, AbuseReport abuseReport) {
-		AbuseReportRequest abuseReportRequest = new AbuseReportRequest(uuid,
+		AbuseReportRequest abuseReportRequest = new AbuseReportRequest(1, uuid,
 				abuseReport, this.environment.clientInfo(), this.environment.thirdPartyServerInfo(),
 				this.environment.realmInfo());
 		ReportWriter.saveReport(abuseReportRequest);

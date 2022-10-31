@@ -23,7 +23,7 @@ public class MixinConnectScreen {
 
 	/**
 	 * @reason Intercept initiation of any new server connection. This way we can keep track of which
-	 * server client currently tries to connect to
+	 * server client currently tries to connect to.
 	 * @author Aizistral
 	 */
 
@@ -34,18 +34,10 @@ public class MixinConnectScreen {
 			return;
 
 		ServerSafetyState.updateCurrent(ServerSafetyLevel.UNDEFINED); // just to be 100% sure
-		ServerSafetyState.setLastConnectedServer(serverAddress, serverData);
-
-		if (NCRConfig.getServerWhitelist().isWhitelisted(serverAddress)) {
-			if (!NCRConfig.getClient().doSigningCheck(serverAddress)) {
-				ServerSafetyState.setAllowsUnsafeServer(true);
-			}
-		}
 
 		if (NCRConfig.getCommon().enableDebugLog()) {
-			NoChatReports.LOGGER.info("Connecting to: {}, will expose public key: {}",
-					serverAddress.getHost() + ":" + serverAddress.getPort(),
-					ServerSafetyState.allowsUnsafeServer());
+			NoChatReports.LOGGER.info("Connecting to: {}",
+					serverAddress.getHost() + ":" + serverAddress.getPort());
 			NoChatReports.LOGGER.info("Server Data IP: {}", serverData != null ? serverData.ip : "null");
 		}
 	}

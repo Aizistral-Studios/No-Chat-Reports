@@ -7,23 +7,18 @@
   "mixins": [
 	"common.MixinServerStatus",
 	"common.MixinServerStatusSerializer",
-	"server.MixinPlayer",
 	"server.MixinServerboundChatPacket",
 	"server.MixinServerGamePacketListenerImpl",
 	"server.MixinPlayerList"
   ],
   "client": [
-	"client.MixinLocalPlayer",
 	"client.MixinOptions",
 	"client.MixinChatListener",
     "client.MixinChatOptionsScreen",
-	"client.MixinProfileKeyPairManager",
 	"client.MixinClientTelemetryManager",
 	"client.MixinPlayerEntry",
 	"client.MixinChatScreen",
-	"client.AccessorDisconnectedScreen",
 	"client.MixinConnectScreen",
-	"client.MixinClientboundHelloPacket",
 	"client.MixinJoinMultiplayerScreen",
 	"client.MixinGuiMessageTag",
 	"client.MixinToastComponent",

@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.network.chat.ChatMessageContent;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FilterMask;
@@ -16,11 +15,8 @@ import net.minecraft.network.chat.LastSeenMessages;
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.network.chat.SignedMessageBody;
-import net.minecraft.network.chat.SignedMessageHeader;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
-import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
-import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket.Action;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -45,43 +41,43 @@ public class UnrealPlayer {
 		this.name = name;
 	}
 
-	public void join(MinecraftServer server, ServerGamePacketListenerImpl connection) {
-		ClientboundPlayerInfoPacket packet = new ClientboundPlayerInfoPacket(Action.ADD_PLAYER,
-				this.getPlayer(server));
-		connection.send(packet);
-	}
-
-	public void leave(MinecraftServer server, ServerGamePacketListenerImpl connection) {
-		ClientboundPlayerInfoPacket packet = new ClientboundPlayerInfoPacket(Action.REMOVE_PLAYER,
-				this.getPlayer(server));
-		connection.send(packet);
-	}
-
-	public ServerPlayer getPlayer(MinecraftServer server) {
-		return new ServerPlayer(server, server.overworld(), new GameProfile(this.id, this.name), null);
-	}
-
-	public void sendSystem(MinecraftServer server, ServerGamePacketListenerImpl connection, Component message) {
-		ServerPlayer player = this.getPlayer(server);
-		ClientboundSystemChatPacket packet = new ClientboundSystemChatPacket(message, false);
-		connection.send(packet);
-	}
-
-	public void sendMessage(MinecraftServer server, ServerGamePacketListenerImpl connection, String message, @Nullable String unsigned) {
-		ServerPlayer player = this.getPlayer(server);
-		ClientboundPlayerChatPacket packet = new ClientboundPlayerChatPacket(new PlayerChatMessage(
-				new SignedMessageHeader(MessageSignature.EMPTY, this.id), MessageSignature.EMPTY,
-				new SignedMessageBody(new ChatMessageContent(message, Component.literal(message)), Instant.now(), 0,
-						LastSeenMessages.EMPTY), unsigned != null ? Optional.of(Component.literal(unsigned))
-								: Optional.empty(), FilterMask.PASS_THROUGH),
-				ChatType.bind(ChatType.CHAT, player).toNetwork(server.registryAccess()));
-
-
-		//				new ClientboundPlayerChatPacket(Component.literal(message),
-		//				unsigned != null ? Optional.of(Component.literal(unsigned)) : Optional.empty(), 0,
-		//						new ChatSender(this.id, Component.literal(this.name)), Instant.now(),
-		//						Crypt.SaltSignaturePair.EMPTY);
-		connection.send(packet);
-	}
+	//	public void join(MinecraftServer server, ServerGamePacketListenerImpl connection) {
+	//		ClientboundPlayerInfoPacket packet = new ClientboundPlayerInfoPacket(Action.ADD_PLAYER,
+	//				this.getPlayer(server));
+	//		connection.send(packet);
+	//	}
+	//
+	//	public void leave(MinecraftServer server, ServerGamePacketListenerImpl connection) {
+	//		ClientboundPlayerInfoPacket packet = new ClientboundPlayerInfoPacket(Action.REMOVE_PLAYER,
+	//				this.getPlayer(server));
+	//		connection.send(packet);
+	//	}
+	//
+	//	public ServerPlayer getPlayer(MinecraftServer server) {
+	//		return new ServerPlayer(server, server.overworld(), new GameProfile(this.id, this.name), null);
+	//	}
+	//
+	//	public void sendSystem(MinecraftServer server, ServerGamePacketListenerImpl connection, Component message) {
+	//		ServerPlayer player = this.getPlayer(server);
+	//		ClientboundSystemChatPacket packet = new ClientboundSystemChatPacket(message, false);
+	//		connection.send(packet);
+	//	}
+	//
+	//	public void sendMessage(MinecraftServer server, ServerGamePacketListenerImpl connection, String message, @Nullable String unsigned) {
+	//		ServerPlayer player = this.getPlayer(server);
+	//		ClientboundPlayerChatPacket packet = new ClientboundPlayerChatPacket(new PlayerChatMessage(
+	//				new SignedMessageHeader(MessageSignature.EMPTY, this.id), MessageSignature.EMPTY,
+	//				new SignedMessageBody(new ChatMessageContent(message, Component.literal(message)), Instant.now(), 0,
+	//						LastSeenMessages.EMPTY), unsigned != null ? Optional.of(Component.literal(unsigned))
+	//								: Optional.empty(), FilterMask.PASS_THROUGH),
+	//				ChatType.bind(ChatType.CHAT, player).toNetwork(server.registryAccess()));
+	//
+	//
+	//		//				new ClientboundPlayerChatPacket(Component.literal(message),
+	//		//				unsigned != null ? Optional.of(Component.literal(unsigned)) : Optional.empty(), 0,
+	//		//						new ChatSender(this.id, Component.literal(this.name)), Instant.now(),
+	//		//						Crypt.SaltSignaturePair.EMPTY);
+	//		connection.send(packet);
+	//	}
 
 }

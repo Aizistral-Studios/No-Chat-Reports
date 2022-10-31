@@ -7,10 +7,8 @@ import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.gui.AwaitConnectionScreen;
 import com.aizistral.nochatreports.gui.RealmsWarningScreen;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
-import com.aizistral.nochatreports.mixins.client.AccessorDisconnectedScreen;
 import com.aizistral.nochatreports.network.ClientChannelHandler;
 import com.google.common.collect.ImmutableList;
 import com.mojang.realmsclient.RealmsMainScreen;
@@ -73,55 +71,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
-		if (screen instanceof AccessorDisconnectedScreen dsc) {
-			if (screenOverride || ServerSafetyState.isOnServer() || screen.getTitle() == CONNECT_FAILED_NCR)
-				return;
-
-			screenOverride = true;
-			var disconnectReason = dsc.getReason();
-
-			if (disconnectReason != null) {
-				if (NCRConfig.getCommon().enableDebugLog()) {
-					NoChatReports.LOGGER.info("Disconnected with reason {}, reconnect count: {}",
-							Component.Serializer.toStableJson(disconnectReason), ServerSafetyState.getReconnectCount());
-				}
-
-				if (ServerSafetyState.allowsUnsafeServer()) {
-					screen = new DisconnectedScreen(new JoinMultiplayerScreen(new TitleScreen()),
-							CONNECT_FAILED_NCR, dsc.getReason());
-					client.setScreen(screen);
-					screenOverride = false;
-					return;
-				} else if (STRING_DISCONNECT_REASONS.contains(disconnectReason.getString())
-						|| (disconnectReason.getContents() instanceof TranslatableContents translatable &&
-								KEY_DISCONNECT_REASONS.contains(translatable.getKey()))) {
-					if (ServerSafetyState.getLastServerAddress() != null) {
-						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress())) {
-							if (NCRConfig.getCommon().enableDebugLog()) {
-								NoChatReports.LOGGER.info("Server {} evaluated as unsafe and is not whitelisted, displaying warning screen.",
-										ServerSafetyState.getLastServerAddress().getHost() + ":" + ServerSafetyState.getLastServerAddress().getPort());
-							}
-
-							client.setScreen(new UnsafeServerScreen());
-						} else {
-							NCRConfig.getClient().updateSigningCheck(ServerSafetyState.getLastServerAddress());
-
-							if (ServerSafetyState.getReconnectCount() <= 0) {
-								ServerSafetyState.setAllowsUnsafeServer(true);
-								client.setScreen(new AwaitConnectionScreen(new JoinMultiplayerScreen(new TitleScreen())));
-								screenOverride = false;
-								return;
-							} else {
-								ServerSafetyState.setReconnectCount(0);
-								screenOverride = false;
-								return;
-							}
-						}
-					}
-				}
-			}
-			screenOverride = false;
-		} else if (screen instanceof JoinMultiplayerScreen) {
+		if (screen instanceof JoinMultiplayerScreen) {
 			if (NCRConfig.getCommon().enableDebugLog()) {
 				NoChatReports.LOGGER.info("Initialized JoinMultiplayerScreen screen, resetting safety state!");
 			}
@@ -139,7 +89,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 		}
 
 		ServerSafetyState.reset();
-		ServerSafetyState.setDisconnectMillis(Util.getMillis());
 	}
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {
@@ -147,9 +96,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			return;
 
 		client.execute(() -> {
-			ServerSafetyState.setReconnectCount(0);
-			ServerSafetyState.setOnServer(true);
-
 			if (!client.isLocalServer()) {
 				boolean canSend = ClientPlayNetworking.canSend(NoChatReports.CHANNEL);
 
@@ -157,10 +103,8 @@ public final class NoChatReportsClient implements ClientModInitializer {
 					// NO-OP
 				} else if (canSend) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
-				} else if (ServerSafetyState.forceSignedMessages()) {
-					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 				} else {
-					if (ServerSafetyState.getLastServerData() instanceof ServerDataExtension ext
+					if (client.getCurrentServer() instanceof ServerDataExtension ext
 							&& ext.preventsChatReports()) {
 						ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 					} else {
@@ -177,12 +121,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});
-	}
-
-	public static void reconnectLastServer() {
-		ServerSafetyState.setReconnectCount(ServerSafetyState.getReconnectCount() + 1);
-		ConnectScreen.startConnecting(new JoinMultiplayerScreen(new TitleScreen()), Minecraft.getInstance(),
-				ServerSafetyState.getLastServerAddress(), ServerSafetyState.getLastServerData());
 	}
 
 }

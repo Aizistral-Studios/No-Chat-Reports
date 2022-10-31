@@ -24,7 +24,7 @@ public class MixinGuiMessageTag {
 
 	@Inject(method = "system", at = @At("HEAD"), cancellable = true)
 	private static void onSystem(CallbackInfoReturnable<GuiMessageTag> info) {
-		if (NCRConfig.getClient().hideGrayChatIndicators()) {
+		if (NCRConfig.getClient().hideSystemMessageIndicators()) {
 			info.setReturnValue(null);
 		}
 	}

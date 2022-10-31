@@ -26,9 +26,7 @@ public class MixinRealmsConnect {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
-		ServerSafetyState.setLastConnectedServer(serverAddress, null);
 		ServerSafetyState.updateCurrent(ServerSafetyLevel.REALMS);
-		ServerSafetyState.setAllowsUnsafeServer(true);
 	}
 
 }

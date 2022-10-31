@@ -47,29 +47,28 @@ public final class UnsafeServerScreen extends WarningScreen {
 
 	@Override
 	protected void initButtons(int i) {
-
-		this.addRenderableWidget(Button.builder(CommonComponents.GUI_PROCEED, button -> {
-			ServerAddress address = ServerSafetyState.getLastServerAddress();
-
-			if (address != null) {
-				if (this.stopShowing.selected()) {
-					NCRConfig.getServerWhitelist().getList().add(address.getHost() + ":" + address.getPort());
-					NCRConfig.getServerWhitelist().saveFile();
-				}
-
-				if (NCRConfig.getCommon().enableDebugLog()) {
-					NoChatReports.LOGGER.info("Proceeding with unsafe connection to {}, added to whitelist: {}",
-							address.getHost() + ":" + address.getPort(), this.stopShowing.selected());
-				}
-
-				ServerSafetyState.setAllowsUnsafeServer(true);
-				this.minecraft.setScreen(new AwaitConnectionScreen(this.joinMultiplayer));
-			}
-		}).pos(this.width / 2 - 155, 100 + i).size(150, 20).build());
-
-		this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, button -> {
-			this.minecraft.setScreen(this.joinMultiplayer);
-		}).pos(this.width / 2 - 155 + 160, 100 + i).size(150, 20).build());
+		//		this.addRenderableWidget(Button.builder(CommonComponents.GUI_PROCEED, button -> {
+		//			ServerAddress address = ServerSafetyState.getLastServerAddress();
+		//
+		//			if (address != null) {
+		//				if (this.stopShowing.selected()) {
+		//					NCRConfig.getServerWhitelist().getList().add(address.getHost() + ":" + address.getPort());
+		//					NCRConfig.getServerWhitelist().saveFile();
+		//				}
+		//
+		//				if (NCRConfig.getCommon().enableDebugLog()) {
+		//					NoChatReports.LOGGER.info("Proceeding with unsafe connection to {}, added to whitelist: {}",
+		//							address.getHost() + ":" + address.getPort(), this.stopShowing.selected());
+		//				}
+		//
+		//				ServerSafetyState.setAllowsUnsafeServer(true);
+		//				this.minecraft.setScreen(new AwaitConnectionScreen(this.joinMultiplayer));
+		//			}
+		//		}).pos(this.width / 2 - 155, 100 + i).size(150, 20).build());
+		//
+		//		this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, button -> {
+		//			this.minecraft.setScreen(this.joinMultiplayer);
+		//		}).pos(this.width / 2 - 155 + 160, 100 + i).size(150, 20).build());
 	}
 
 }

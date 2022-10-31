@@ -20,7 +20,7 @@ public class MixinServerboundChatPacket {
 
 	@Inject(method = "signature", at = @At("RETURN"), cancellable = true)
 	private void onGetSignature(CallbackInfoReturnable<MessageSignature> info) {
-		info.setReturnValue(MessageSignature.EMPTY);
+		info.setReturnValue(null);
 	}
 
 }

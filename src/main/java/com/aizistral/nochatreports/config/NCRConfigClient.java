@@ -22,8 +22,8 @@ import net.minecraft.util.StringUtil;
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
-	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
-			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
+	protected boolean demandOnServer = false, showServerSafety = true, hideInsecureMessageIndicators = true,
+			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
 			enableMod = true, skipRealmsWarning = false;
@@ -78,8 +78,8 @@ public final class NCRConfigClient extends JSONConfig {
 	 * @see MixinChatListener#onEvaluateTrustLevel
 	 */
 
-	public boolean hideRedChatIndicators() {
-		return this.hideRedChatIndicators;
+	public boolean hideInsecureMessageIndicators() {
+		return this.hideInsecureMessageIndicators;
 	}
 
 	/**
@@ -90,8 +90,8 @@ public final class NCRConfigClient extends JSONConfig {
 	 * @see MixinChatListener#onEvaluateTrustLevel
 	 */
 
-	public boolean hideYellowChatIndicators() {
-		return this.hideYellowChatIndicators;
+	public boolean hideModifiedMessageIndicators() {
+		return this.hideModifiedMessageIndicators;
 	}
 
 	/**
@@ -102,8 +102,8 @@ public final class NCRConfigClient extends JSONConfig {
 	 * @see com.aizistral.nochatreports.mixins.client.MixinGuiMessageTag#onSystem
 	 */
 
-	public boolean hideGrayChatIndicators() {
-		return this.hideGrayChatIndicators;
+	public boolean hideSystemMessageIndicators() {
+		return this.hideSystemMessageIndicators;
 	}
 
 	/**
@@ -235,21 +235,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public void setSkipRealmsWarning(boolean skipRealmsWarning) {
 		this.skipRealmsWarning = skipRealmsWarning;
-	}
-
-	public boolean doSigningCheck(ServerAddress serverAddress) {
-		String server = serverAddress.getHost() + ":" + serverAddress.getPort();
-
-		if (!this.serverSigningChecks.containsKey(server))
-			return true;
-		else
-			return Instant.now().getEpochSecond() - this.serverSigningChecks.get(server) >= this.signingCheckDelaySeconds;
-	}
-
-	public void updateSigningCheck(ServerAddress serverAddress) {
-		String server = serverAddress.getHost() + ":" + serverAddress.getPort();
-		this.serverSigningChecks.put(server, Instant.now().getEpochSecond());
-		this.saveFile();
 	}
 
 }

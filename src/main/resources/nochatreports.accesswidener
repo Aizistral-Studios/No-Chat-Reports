@@ -11,3 +11,6 @@ mutable field net/minecraft/network/chat/contents/TranslatableContents args [Lja
 accessible field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;
 mutable field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;
 accessible field net/minecraft/client/gui/screens/multiplayer/WarningScreen message Lnet/minecraft/client/gui/components/MultiLineLabel;
+accessible field net/minecraft/client/multiplayer/ClientPacketListener signedMessageEncoder Lnet/minecraft/network/chat/SignedMessageChain$Encoder;
+accessible field net/minecraft/client/multiplayer/ClientPacketListener chatSession Lnet/minecraft/network/chat/LocalChatSession;
+accessible method net/minecraft/client/multiplayer/ClientPacketListener setChatSession (Lnet/minecraft/network/chat/LocalChatSession;)V
