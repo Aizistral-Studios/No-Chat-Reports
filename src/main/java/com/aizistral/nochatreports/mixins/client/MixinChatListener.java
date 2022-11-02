@@ -46,7 +46,7 @@ public class MixinChatListener {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 				}
 
-				if (UnsafeServerScreen.hideThisSession())
+				if (UnsafeServerScreen.hideThisSession() || ServerSafetyState.allowChatSigning())
 					return;
 
 				Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen

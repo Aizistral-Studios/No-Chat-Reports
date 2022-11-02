@@ -51,6 +51,18 @@ public final class NoChatReportsClient implements ClientModInitializer {
 		}
 
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
+		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
+	}
+
+	private void onDisconnect(ClientPacketListener handler, Minecraft client) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
+		if (NCRConfig.getCommon().enableDebugLog()) {
+			NoChatReports.LOGGER.info("Disconnected from server, resetting safety state!");
+		}
+
+		ServerSafetyState.reset();
 	}
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {

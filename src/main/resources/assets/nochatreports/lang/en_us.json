@@ -12,6 +12,7 @@
 	"gui.nochatreports.status_signing_allowed_realms": "Chat signing is always enabled on Realms, since it is always required and disabling it would yield no benefit anyways.",
 	"gui.nochatreports.status_signing_allowed_whitelisted": "Message signing is enabled for this session. If you want to disable it - remove this server from whitelist and re-join. Keep in mind that there is no way to detect whether server allows to send unsigned messages without trying to send one, so you'll have to disable it to check whether current server configuration allows unsigned messages.",
 	"gui.nochatreports.status_signing_allowed": "Message signing is enabled for this session. Re-join the server to disable it.",
+	"gui.nochatreports.status_signing_denied_secure": "Message signing is disabled since this server is secure.",
 	"gui.nochatreports.status_signing_denied": "Message signing is disabled for this session. You can whitelist this server to always enable chat signing automatically on it.",
 	"gui.nochatreports.status_whitelist_mode": "§lWhitelisted Server: %1$s",
 	"gui.nochatreports.status_whitelist_all": "§a§lYes (All Servers)",

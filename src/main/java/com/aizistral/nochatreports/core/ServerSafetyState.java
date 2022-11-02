@@ -26,8 +26,8 @@ import net.minecraft.network.chat.SignedMessageChain.Encoder;
 
 @Environment(EnvType.CLIENT)
 public final class ServerSafetyState {
-	private static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
-	private static ServerAddress lastServer = null;
+	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
+	private volatile static ServerAddress lastServer = null;
 	private static AtomicBoolean allowChatSigning = new AtomicBoolean(false);
 
 	public static void updateCurrent(ServerSafetyLevel level) {

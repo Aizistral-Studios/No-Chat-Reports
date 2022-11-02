@@ -108,6 +108,8 @@ public abstract class MixinChatScreen extends Screen {
 
 						if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
 							signing = "gui.nochatreports.status_signing_allowed_realms";
+						} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
+							signing = "gui.nochatreports.status_signing_denied_secure";
 						} else if (NCRConfig.getServerWhitelist().isWhitelisted(address)) {
 							signing = "gui.nochatreports.status_signing_allowed_whitelisted";
 						} else if (ServerSafetyState.allowChatSigning()) {
