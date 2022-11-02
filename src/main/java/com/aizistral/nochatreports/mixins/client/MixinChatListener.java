@@ -10,18 +10,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.EncryptionUtil;
+import com.aizistral.nochatreports.core.ServerSafetyLevel;
+import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 
 import net.minecraft.client.GuiMessageTag;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.network.chat.contents.TranslatableContents;
 
 @Mixin(ChatListener.class)
 public class MixinChatListener {
@@ -29,6 +36,23 @@ public class MixinChatListener {
 	@Shadow
 	private boolean isSenderLocalPlayer(UUID uuid) {
 		throw new IllegalStateException("@Shadow transformation failed. Should never happen.");
+	}
+
+	@Inject(method = "handleSystemMessage", at = @At("HEAD"))
+	private void onHandleSystemMessage(Component message, boolean overlay, CallbackInfo info) {
+		if (message.getContents() instanceof TranslatableContents translatable) {
+			if (translatable.getKey().equals("chat.disabled.missingProfileKey")) {
+				if (!ServerSafetyState.isOnRealms()) {
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
+				}
+
+				if (UnsafeServerScreen.hideThisSession())
+					return;
+
+				Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
+						instanceof ChatScreen chat ? chat : new ChatScreen("")));
+			}
+		}
 	}
 
 	/**

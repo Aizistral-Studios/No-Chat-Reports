@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 
 import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,6 +27,7 @@ import net.minecraft.network.chat.SignedMessageChain.Encoder;
 @Environment(EnvType.CLIENT)
 public final class ServerSafetyState {
 	private static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
+	private static ServerAddress lastServer = null;
 	private static AtomicBoolean allowChatSigning = new AtomicBoolean(false);
 
 	public static void updateCurrent(ServerSafetyLevel level) {
@@ -45,22 +47,43 @@ public final class ServerSafetyState {
 			if (Minecraft.getInstance().player != null) {
 				var connection = Minecraft.getInstance().player.connection;
 
-				if (allow) {
+				if (allow && connection.chatSession == null) {
 					Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
 					.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair ->
 					connection.setChatSession(LocalChatSession.create(profileKeyPair))),
 							Minecraft.getInstance());
-				} else {
-					connection.chatSession = null;
-					connection.signedMessageEncoder = Encoder.UNSIGNED;
 				}
 			}
 		}
 	}
 
+	public static void toggleChatSigning() {
+		setAllowChatSigning(!allowChatSigning.get());
+	}
+
+	public static boolean isOnRealms() {
+		return current == ServerSafetyLevel.REALMS;
+	}
+
+	public static boolean isDetermined() {
+		return current != ServerSafetyLevel.UNINTRUSIVE && current != ServerSafetyLevel.UNDEFINED
+				&& current != ServerSafetyLevel.UNKNOWN;
+	}
+
+	@Nullable
+	public static ServerAddress getLastServer() {
+		return lastServer;
+	}
+
+	public static void setLastServer(@Nullable ServerAddress address) {
+		lastServer = address;
+	}
+
 	public static void reset() {
+		lastServer = null;
 		current = ServerSafetyLevel.UNDEFINED;
 		allowChatSigning.set(false);
+		UnsafeServerScreen.setHideThisSession(false);
 	}
 
 }

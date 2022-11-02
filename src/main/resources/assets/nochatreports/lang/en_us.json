@@ -4,15 +4,19 @@
 	"gui.nochatreport.noReporting": "Chat reports are disabled on this server, courtesy of No Chat Reports.",
 	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
 	"gui.nochatreports.status_secure": "This server has No Chat Reports installed, or prevents your messages from being reportable in some other known way. You can chat safely.",
-	"gui.nochatreports.status_unintrusive": "This server allows you to send unsigned messages which cannot be reported to Mojang. Unless some kind of plugin is installed on server that prevents chat reports - vanilla clients will still send signed messages, display unsigned messages as \"Not Secure\" and not show them if \"Only Show Secure Chat\" is enabled in chat options.",
-	"gui.nochatreports.status_insecure": "This server demands all chat messages to be signed and you agreed to proceed with this arrangement. Everything you send in the chat is potentially incriminating evidence that can be used against you in the report. You can remove this server from §oWhitelisted Servers§r in the mod config to get warned again.",
+	"gui.nochatreports.status_unintrusive": "This server allows you to send unsigned messages which cannot be reported to Mojang. Unless some kind of plugin is installed on server that prevents chat reports - vanilla clients will still send signed messages, display unsigned messages as \"Unverified\" and not show them if \"Only Show Secure Chat\" is enabled in chat options.",
+	"gui.nochatreports.status_insecure": "This server currently demands all chat messages to be signed. All signed messages are a potentially incriminating evidence that can be used against you in the report.",
 	"gui.nochatreports.status_realms": "This is a Realms server. Not only there is no way to prevent chat reports here, but Mojang also employ automated chat monitoring to identify potential \"online harms\" and escalate them for human review, whether owner of the realm likes it or not. Your only hope is chat encryption.",
-	"gui.nochatreports.status_insecure_whitelist_all_servers": "This server demands all chat messages to be signed and you disabled the full-screen warning for it. Everything you send in the chat is potentially incriminating evidence that can be used against you in the report. You can disable §oWhitelist all servers§r in the mod config to get warned again.",
-	"gui.nochatreports.status_unknown": "No Chat Reports was toggled mid-session. Server safety status can only be evaluated on login. Please re-join the server to evaluate its safety status.",
+	"gui.nochatreports.status_unknown": "No Chat Reports is not sure about safety of this server yet. Try to send a message in chat in order to evaluate it.",
 	"gui.nochatreports.status_undefined": "No Chat Reports could not evaluate the safety of this server. This should never happen, please report it as a bug to the mod developer.",
-	"gui.nochatreports.unsafe_server.header": "Caution: Unsafe Server",
-	"gui.nochatreports.unsafe_server.contents": "This server requires all chat messages to be signed, which means they can be reported to Mojang, which may result in a ban from all multiplayer servers. This likely means that the server owner kept \"enforce-secure-profile\" enabled in the server.properties, which is the default since 1.19.1. You can choose to play anyway, but No Chat Reports will not be able to protect you.",
-	"gui.nochatreports.unsafe_server.check": "Do not show again for this server",
+	"gui.nochatreports.status_signing_allowed_realms": "Chat signing is always enabled on Realms, since it is always required and disabling it would yield no benefit anyways.",
+	"gui.nochatreports.status_signing_allowed_whitelisted": "Message signing is enabled for this session. If you want to disable it - remove this server from whitelist and re-join. Keep in mind that there is no way to detect whether server allows to send unsigned messages without trying to send one, so you'll have to disable it to check whether current server configuration allows unsigned messages.",
+	"gui.nochatreports.status_signing_allowed": "Message signing is enabled for this session. Re-join the server to disable it.",
+	"gui.nochatreports.status_signing_denied": "Message signing is disabled for this session. You can whitelist this server to always enable chat signing automatically on it.",
+	"gui.nochatreports.status_whitelist_mode": "§lWhitelisted Server: %1$s",
+	"gui.nochatreports.status_whitelist_all": "§a§lYes (All Servers)",
+	"gui.nochatreports.status_whitelist_yes": "§a§lYes",
+	"gui.nochatreports.status_whitelist_no": "§c§lNo",
 	"gui.nochatreports.reload_config_tooltip": "Reload No Chat Reports config. Use carefully.",
 	"gui.nochatreports.verified_server": "§a§lSafe Server§r\nWe could verify that this server has No Chat Reports installed, or prevents chat reports in some other known way. You can chat there safely.",
 	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nDisable or enable most of the mod's client-sided functionality. You may have to do this to join some Paper/Velocity servers, as they are known for causing issues with NCR.\nCertain networking-unrelated things, such as encryption, chat trust status tweaks and removal of vanilla's \"Chat messages can't be verified\" toast will still work; they can be disabled in config individually.",
@@ -52,12 +56,15 @@
 	"gui.nochatreports.realms_warning.contents": "Realms servers are not private. Realm owners cannot disable chat reporting, and Mojang applies additional chat monitoring to identify potential \"online harms\" and escalate them to human review. If you are then found to violate Minecraft's Community Standards - even if chat participants did not get offended - you will be banned, temporarily or permanently, from all multiplayer services. Use of encryption is highly advised.",
 	"gui.nochatreports.realms_warning.check": "Don't show again",
 	"gui.nochatreports.realms_warning.learn_more": "Learn More",
-	"gui.NoChatReports.showEncryptionButtonWarning": "§cBelow does not disable encryption, it only hides the button!",
+	"gui.nochatreports.signing_required.header": "Caution: Chat Signing Requested",
+	"gui.nochatreports.signing_required.contents": "This server requires all chat messages to be signed, which means they can be reported to Mojang, which may result in a ban from all multiplayer servers. This likely means that the server owner kept \"enforce-secure-profile\" enabled in the server.properties, which is the default since 1.19.1. Click \"Allow Signing\" to enable message signing for this session, or \"Whitelist Server\" to always enable signing on this server.",
+	"gui.nochatreports.signing_required.allow_signing": "Allow Signing",
+	"gui.nochatreports.signing_required.whitelist_server": "Whitelist Server",
+	"gui.nochatreports.signing_required.cancel": "Dismiss",
+	"gui.nochatreports.signing_required.check": "Don't show again during this session",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
-
 	"configuration.NoChatReports.category.visual": "Visual",
-
 	"option.NoChatReports.showServerSafety": "Show server safety",
 	"option.NoChatReports.showServerSafety.tooltip": "Allows the client to display server safety status in bottom-right corner of chat screen. The icon is hoverable for additional information.",
 	"option.NoChatReports.showServerSafety.moreInfo": "§bClick here to read more about server safety levels",
@@ -77,9 +84,7 @@
 	"option.NoChatReports.hideWarningToast.tooltip": "Removes a warning toast that is displayed when entering servers with disabled §oenforce-secure-profile§r.",
 	"option.NoChatReports.alwaysHideReportButton": "Always hide report button",
 	"option.NoChatReports.alwaysHideReportButton.tooltip": "Prevents the client from ever showing report button in Social Interactions screen. This is disabled by default, and mod simply makes button inactive on servers that have No Chat Reports installed, adding an explanation to the tooltip of the button.",
-
 	"configuration.NoChatReports.category.technical": "Technical",
-	
 	"option.NoChatReports.demandOnServer": "Demand on server",
 	"option.NoChatReports.demandOnServer.tooltip": "Prevents the client from joining servers that don't have No Chat Reports installed.",
 	"option.NoChatReports.enableDebugLog": "Enable debug log",
@@ -104,22 +109,19 @@
 	"option.NoChatReports.serverSigningChecks.tooltip": "Map of whitelisted servers to last signing enforcement check times, in epoch seconds. This typically does not have to be edited manually.",
 	"option.NoChatReports.showEncryptionButton": "Show encryption button",
 	"option.NoChatReports.showEncryptionButton.tooltip": "Setting this to false will simply prevent encryption button from being displayed in the chat screen. Be aware that encryption itself will not be automatically disabled along with the button.",
-
 	"configuration.NoChatReports.category.whitelistedServers": "Whitelisted Servers",
-
 	"option.NoChatReports.whitelistedServers": "Whitelisted Servers",
 	"option.NoChatReports.whitelistedServers.tooltip": "Contains servers for which \"Unsafe Server\" warning screen should never display. Servers are added to this list automatically when you check \"Do not show again for this server\" box in that screen.\nEach entry is a string that is formatted as §l<server-ip>:<port>§r.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Add server",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Remove selected server",
 	"option.NoChatReports.whitelistedServers.instructions": "Click the + to add a server. Click the - to remove the selected server.",
 	"option.NoChatReports.whitelistedServers.serverAddress": "Click here to edit server address",
-
 	"configuration.NoChatReports.category.lanOptions": "LAN Options",
-
 	"option.NoChatReports.demandOnClient": "Demand on client",
 	"option.NoChatReports.demandOnClient.tooltip": "Makes the server require all joining clients to have No Chat Reports installed.",
 	"option.NoChatReports.convertToGameMessage": "Convert to game message",
 	"option.NoChatReports.convertToGameMessage.tooltip": "Makes the server convert all player messages into system messages. System messages don't have any signatures attached and cannot be reported; on unmodified clients they will display with gray bar to the left.",
 	"option.NoChatReports.addQueryData": "Add query data",
-	"option.NoChatReports.addQueryData.tooltip": "Allows the server to send additional data to client when handling pings. This is used for displaying \"Safe Server\" icon, as well as some other technical purposes."
+	"option.NoChatReports.addQueryData.tooltip": "Allows the server to send additional data to client when handling pings. This is used for displaying \"Safe Server\" icon, as well as some other technical purposes.",
+	"gui.NoChatReports.showEncryptionButtonWarning": "§cBelow does not disable encryption, it only hides the button!"
 }

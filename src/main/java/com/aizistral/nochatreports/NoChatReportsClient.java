@@ -41,18 +41,6 @@ import net.minecraft.realms.RealmsScreen;
 
 @Environment(EnvType.CLIENT)
 public final class NoChatReportsClient implements ClientModInitializer {
-	private static final List<String> KEY_DISCONNECT_REASONS = ImmutableList.of(
-			"multiplayer.disconnect.missing_public_key",
-			"multiplayer.disconnect.invalid_public_key_signature",
-			"multiplayer.disconnect.invalid_public_key"
-			);
-	private static final List<String> STRING_DISCONNECT_REASONS = ImmutableList.of(
-			"A secure profile is required to join this server.",
-			"Secure profile expired.",
-			"Secure profile invalid."
-			);
-	private static final Component CONNECT_FAILED_NCR = Component.translatable("connect.failed");
-	private static boolean screenOverride = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -63,32 +51,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 		}
 
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
-		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
-		ScreenEvents.AFTER_INIT.register(this::onScreenInit);
-	}
-
-	private void onScreenInit(Minecraft client, Screen screen, int scaledWidth, int scaledHeight) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
-		if (screen instanceof JoinMultiplayerScreen) {
-			if (NCRConfig.getCommon().enableDebugLog()) {
-				NoChatReports.LOGGER.info("Initialized JoinMultiplayerScreen screen, resetting safety state!");
-			}
-
-			ServerSafetyState.reset();
-		}
-	}
-
-	private void onDisconnect(ClientPacketListener handler, Minecraft client) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
-		if (NCRConfig.getCommon().enableDebugLog()) {
-			NoChatReports.LOGGER.info("Disconnected from server, resetting safety state!");
-		}
-
-		ServerSafetyState.reset();
 	}
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {
@@ -99,22 +61,26 @@ public final class NoChatReportsClient implements ClientModInitializer {
 			if (!client.isLocalServer()) {
 				boolean canSend = ClientPlayNetworking.canSend(NoChatReports.CHANNEL);
 
-				if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
 				} else if (canSend) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
+				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
+						ext.preventsChatReports()) {
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
+				} else if (ServerSafetyState.getLastServer() != null &&
+						NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServer())) {
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
+					ServerSafetyState.setAllowChatSigning(true);
 				} else {
-					if (client.getCurrentServer() instanceof ServerDataExtension ext
-							&& ext.preventsChatReports()) {
-						ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
-					} else {
-						ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
-					}
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN);
 				}
+			} else {
+				ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 			}
 
 			if (NCRConfig.getCommon().enableDebugLog()) {
-				NoChatReports.LOGGER.info("Sucessfully connected to server, safety state: {}, reconnect count reset.", ServerSafetyState.getCurrent());
+				NoChatReports.LOGGER.info("Sucessfully connected to server, safety state: {}", ServerSafetyState.getCurrent());
 			}
 
 			if (NCRConfig.getClient().demandOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {

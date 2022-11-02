@@ -5,6 +5,7 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 /**
  * Represents the level of "safety" of the given server, in the eyes of the client.
@@ -56,7 +57,7 @@ public enum ServerSafetyLevel {
 	UNDEFINED;
 
 	@Environment(EnvType.CLIENT)
-	public Component getTooltip() {
+	public MutableComponent getTooltip() {
 		if (NCRConfig.getClient().whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
 			return Component.translatable("gui.nochatreports.status_insecure_whitelist_all_servers");
 		else

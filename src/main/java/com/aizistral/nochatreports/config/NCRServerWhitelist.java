@@ -42,8 +42,16 @@ public class NCRServerWhitelist extends JSONConfig {
 	 */
 
 	public boolean isWhitelisted(ServerAddress address) {
-		return NCRConfig.getClient().whitelistAllServers() ||
-				this.getList().contains(address.getHost() + ":" + address.getPort());
+		return NCRConfig.getClient().whitelistAllServers() || (address != null &&
+				this.getList().contains(address.getHost() + ":" + address.getPort()));
+	}
+
+	public boolean add(ServerAddress address) {
+		return this.getList().add(address.getHost() + ":" + address.getPort());
+	}
+
+	public boolean remove(ServerAddress address) {
+		return this.getList().remove(address.getHost() + ":" + address.getPort());
 	}
 
 }

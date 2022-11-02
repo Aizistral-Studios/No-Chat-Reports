@@ -17,22 +17,22 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 public abstract class ExtendedWarningScreen extends Screen {
-	private final Component TITLE;
-	private final Component CONTENT;
-	private final Component CHECK;
-	private final Component NARRATION;
-	private final String WIKI_LINK;
+	private final Component title;
+	private final Component content;
+	private final Component check;
+	private final Component narration;
+	private final String wiki_link;
 	protected final Screen previous;
 	protected MultiLineLabel message = MultiLineLabel.EMPTY;
 	protected Checkbox stopShowing = null;
 
 	public ExtendedWarningScreen(Component title, Component content, Component check, String wikiLink, Screen previous) {
 		super(title);
-		this.TITLE = title;
-		this.CONTENT = content;
-		this.CHECK = check;
-		this.WIKI_LINK = wikiLink;
-		this.NARRATION = this.TITLE.copy().append("\n").append(this.CONTENT);
+		this.title = title;
+		this.content = content;
+		this.check = check;
+		this.wiki_link = wikiLink;
+		this.narration = this.title.copy().append("\n").append(this.content);
 		this.previous = previous;
 	}
 
@@ -40,12 +40,12 @@ public abstract class ExtendedWarningScreen extends Screen {
 	protected void init() {
 		this.clearWidgets();
 		super.init();
-		this.message = MultiLineLabel.create(this.font, this.CONTENT, this.width - (this.hugeGUI() ? 65 : 100));
+		this.message = MultiLineLabel.create(this.font, this.content, this.width - (this.hugeGUI() ? 65 : 100));
 		int i = (this.message.getLineCount() + 1) * this.getLineHeight();
-		if (this.CHECK != null) {
+		if (this.check != null) {
 			int checkY = this.hugeGUI() ? 27 : 76;
-			int j = this.font.width(this.CHECK);
-			this.stopShowing = new Checkbox(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.CHECK, false);
+			int j = this.font.width(this.check);
+			this.stopShowing = new Checkbox(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.check, false);
 			this.addRenderableWidget(this.stopShowing);
 		}
 		this.initButtons(i);
@@ -61,11 +61,11 @@ public abstract class ExtendedWarningScreen extends Screen {
 		this.addRenderableWidget(Button.builder(Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
 			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
 				if (agree) {
-					Util.getPlatform().openUri(this.WIKI_LINK);
+					Util.getPlatform().openUri(this.wiki_link);
 				}
 
 				Minecraft.getInstance().setScreen(this);
-			}, this.WIKI_LINK, true));
+			}, this.wiki_link, true));
 		}).pos(this.width / 2 - 100 + offset, buttonY + i).size(150, 20).build());
 
 

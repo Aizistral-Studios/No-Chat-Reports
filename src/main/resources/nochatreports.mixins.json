@@ -28,7 +28,8 @@
 	"client.MixinOnlineServerEntry",
 	"client.MixinChatComponent",
 	"client.MixinGuiMessageTagIcon",
-	"client.MixinTitleScreen"
+	"client.MixinTitleScreen",
+	"client.MixinMinecraft"
   ],
   "server": [
 	"server.MixinDedicatedServer"
