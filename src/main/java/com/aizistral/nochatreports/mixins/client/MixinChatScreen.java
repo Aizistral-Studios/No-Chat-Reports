@@ -195,7 +195,7 @@ public abstract class MixinChatScreen extends Screen {
 		case UNINTRUSIVE -> 42;
 		case INSECURE -> 0;
 		case REALMS -> 63;
-		case UNKNOWN -> 84;
+		case UNKNOWN_JOIN, UNKNOWN_MID_SESSION -> 84;
 		case UNDEFINED -> 105;
 		};
 	}

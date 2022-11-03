@@ -85,7 +85,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 					ServerSafetyState.setAllowChatSigning(true);
 				} else {
-					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN);
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN_JOIN);
 				}
 			} else {
 				ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);

@@ -45,10 +45,16 @@ public enum ServerSafetyLevel {
 	REALMS,
 
 	/**
+	 * Reserved for when client has joined a server and NCR does not know the safety status yet.
+	 */
+
+	UNKNOWN_JOIN,
+
+	/**
 	 * Reserved for when mod is toggled mid-session and cannot evaluate safety status.
 	 */
 
-	UNKNOWN,
+	UNKNOWN_MID_SESSION,
 
 	/**
 	 * Transient status for when evaluation of safety level is not yet complete for current server.
