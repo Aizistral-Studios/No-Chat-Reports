@@ -19,7 +19,7 @@ body:
     id: mc-version
     attributes:
       label: Minecraft Version
-      placeholder: eg. 1.19.1
+      placeholder: eg. 1.19.2
     validations:
       required: true
   - type: input
@@ -28,15 +28,14 @@ body:
       label: Modloader Version
       description: |
         List the version of the modloader you are using.
-        If on Fabric, post the versions of both Fabric Loader and Fabric API.
-      placeholder: "eg. Forge: 36.2.9 / Fabric: Loader 0.10.6 + API 0.42.1"
+      placeholder: "eg. Forge: 36.2.9 / Fabric Loader 0.10.6"
     validations:
       required: true
   - type: input
     id: mod-version
     attributes:
       label: No Chat Reports Version
-      placeholder: eg. 1.19.1-v1.8.2
+      placeholder: eg. 1.19.2-v1.13.11
     validations:
       required: true
   - type: input
@@ -49,7 +48,7 @@ body:
     attributes:
       label: "The latest.log File"
       description: |
-        Please use a paste site such as [gist](https://gist.github.com/)/[pastebin](https://pastebin.com/)/etc. Leave empty if log is not relevant.
+        Please use a paste site such as [mclogs](https://mclo.gs)/[gist](https://gist.github.com/)/[pastebin](https://pastebin.com/)/etc. Leave empty if log is not relevant.
   - type: textarea
     attributes:
       label: Bug Description
