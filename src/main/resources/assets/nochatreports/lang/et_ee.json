@@ -3,16 +3,21 @@
 	"gui.nochatreport.secureChat": "See funktsioon ei saa töötada modiga No Chat Reports, kuna kinnitatavad signatuurid puuduvad.",
 	"gui.nochatreport.noReporting": "Selles serveris on mängijast teatamine keelatud modi No Chat Reports olemasolu tõttu.",
 	"disconnect.nochatreports.client": "Sellest serverist puudub mod No Chat Reports ning sinu seadistused nõuavad selle olemasolu serveris.",
-	"gui.nochatreports.OLD_status_secure": "Sellele serverile on paigaldatud mod No Chat Reports või see piirab sinu sõnumitest teatamist mõnel muul teadaoleval viisil. Sa saad turvaliselt vestelda.",
-	"gui.nochatreports.OLD_status_unintrusive": "See server võimaldab saata signeerimata sõnumeid, mida ei saa Mojangile teatada. Kui serveris pole mõnda vestlusest teatamise piiramise pluginat, saadavad vanillikliendid siiski signeeritud sõnumeid, kuvavad signeerimata sõnumeid \"ebaturvalistena\" ning ei kuva neid üldse, kui vestlusseadetes on lubatud \"Vaid turvaline vestlus\".",
-	"gui.nochatreports.OLD_status_insecure": "See server nõuab kõikide mängijasõnumite signeerimist ning sa nõustusid selle korraldusega. Kõik, mida vestlusesse saadad on potentsiaalselt süüdistav asitõend, mida saab raportis sinu vastu kasutada. Uuesti hoiatuse saamiseks võid selle modi seadistustes §olubamisloendis serverite§r nimekirjast eemaldada.",
-	"gui.nochatreports.OLD_status_realms": "See on Realmsi server. Lisaks sellele, et siin ei saa vestlusest teatamist keelata, kasutab Mojang ka automaatset vestlusseiret, et tuvastada potentsiaalsed \"võrgukäitumise rikkumised\" ning saata need edasi inimkontrolli, olenemata sellest, kas see meeldib realmi omanikule või mitte. Sinu ainus lootus on vestluse krüpteerimine.",
-	"gui.nochatreports.OLD_status_insecure_whitelist_all_servers": "See server nõuab kõikide mängijasõnumite signeerimist ning sa keelasid seda tähistava täisekraanis hoiatuse. Kõik, mida vestlusesse saadad on potentsiaalselt süüdistav asitõend, mida saab raportis sinu vastu kasutada. Uuesti hoiatuse saamiseks võid modi seadistustes keelata valiku §okõik serverid lubamisloendisse§r.",
-	"gui.nochatreports.OLD_status_unknown": "No Chat Reports funktsionaalsus lülitati sisse seansi ajal. Serveri turvalisuse olekut saab hinnata vaid sisselogimise hetkel. Palun liitu serveriga uuesti, et selle turvalisuse olekut hinnata.",
-	"gui.nochatreports.OLD_status_undefined": "No Chat Reports ei suutnud selle serveri turvalisust hinnata. Seda ei tohiks kunagi juhtuda, palun teata sellest veast modi arendajale.",
-	"gui.nochatreports.unsafe_server.header": "Hoiatus: ebaturvaline server",
-	"gui.nochatreports.unsafe_server.contents": "See server nõuab kõikide vestlussõnumite signeerimist, seega neid saab Mojangile raporteerida ning tagajärjeks võib olla blokeering kõigist mitmikmängu serveritest. See tõenäoliselt tähendab, et serveri omanik jättis failis server.properties valiku \"enforce-secure-profile\" lubatuks, mis on ka vaikeväärtus alates versioonist 1.19.1. Sa võid siiski seal mängida, kuid No Chat Reports ei saa sind kaitsta.",
-	"gui.nochatreports.unsafe_server.check": "Ära kuva selle serveri puhul uuesti",
+	"gui.nochatreports.status_secure": "Sellele serverile on paigaldatud mod No Chat Reports või see piirab sinu sõnumitest teatamist mõnel muul teadaoleval viisil. Sa saad turvaliselt vestelda.",
+	"gui.nochatreports.status_unintrusive": "See server võimaldab saata signeerimata sõnumeid, mida ei saa Mojangile teatada. Kui serveris pole mõnda vestlusest teatamise piiramise pluginat, saadavad vanillikliendid siiski signeeritud sõnumeid, kuvavad signeerimata sõnumeid \"kinnitamata sõnumitena\" ning ei kuva neid üldse, kui vestlusseadetes on lubatud \"Vaid turvaline vestlus\".",
+	"gui.nochatreports.status_insecure": "See server nõuab hetkel kõikide mängijasõnumite signeerimist. Kõik signeeritud sõnumid on potentsiaalselt süüdistav asitõend, mida saab raportis sinu vastu kasutada. Uuesti hoiatuse saamiseks võid selle modi seadistustes §olubamisloendis serverite§r nimekirjast eemaldada.",
+	"gui.nochatreports.status_realms": "See on Realmsi server. Lisaks sellele, et siin ei saa vestlusest teatamist keelata, kasutab Mojang ka automaatset vestlusseiret, et tuvastada potentsiaalsed \"võrgukäitumise rikkumised\" ning saata need edasi inimkontrolli, olenemata sellest, kas see meeldib realmi omanikule või mitte. Sinu ainus lootus on vestluse krüpteerimine.",
+	"gui.nochatreports.status_unknown": "No Chat Reports ei ole veel selle serveri turvalisuses kindel. Proovi selle tuvastamiseks vestlusesse üks sõnum saata.",
+	"gui.nochatreports.status_undefined": "No Chat Reports ei suutnud selle serveri turvalisust hinnata. Seda ei tohiks kunagi juhtuda, palun teata sellest veast modi arendajale.",
+	"gui.nochatreports.status_signing_allowed_realms": "Vestluse signeerimine on Realmsis alati lubatud, kuna see on alati nõutud ning selle keelamine ei annaks nagunii eelist.",
+	"gui.nochatreports.status_signing_allowed_whitelisted": "Sõnumite signeerimine on selle seansi jaoks lubatud. Kui soovid selle välja lülitada - eemalda see server lubamisloendist ja liitu serveriga uuesti. Pea meeles, et ei ole võimalik tuvastada, kas server lubab saata signeerimata sõnumeid, ilma et mõnda sõnumit ise prooviksid saata, seega pead selle keelama, et kontrollida, kas praegune serveri seadistus signeerimata sõnumeid lubab.",
+	"gui.nochatreports.status_signing_allowed": "Sõnumite signeerimine on selle seansi jaoks lubatud. Taasliitu serveriga, et see keelata.",
+	"gui.nochatreports.status_signing_denied_secure": "Sõnumite signeerimine on keelatud, kuna see server on turvaline.",
+	"gui.nochatreports.status_signing_denied": "Sõnumite signeerimine on selle seansi jaoks keelatud. Sa võid selle serveri lubamisloendisse lisada, et lubada selles alati vestluse signeerimine.",
+	"gui.nochatreports.status_whitelist_mode": "§lLubamisloendis server: %1$s",
+	"gui.nochatreports.status_whitelist_all": "§a§ljah (kõik serverid)",
+	"gui.nochatreports.status_whitelist_yes": "§a§ljah",
+	"gui.nochatreports.status_whitelist_no": "§c§lei",
 	"gui.nochatreports.reload_config_tooltip": "Laadi No Chat Reports seadistus uuesti. Kasuta ettevaatlikult.",
 	"gui.nochatreports.verified_server": "§a§lTurvaline server§r\nKinnitasime, et serverile on paigaldatud mod No Chat Reports või see piirab sõnumitest teatamist mõnel muul teadaoleval viisil.  Sa saad turvaliselt vestelda.",
 	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports:§r %1$s\nKeela või luba enamus modi kliendipoolsest funktsionaalsusest. See võib olla vajalik teatud Paper/Velocity serveritega ühendumiseks, kuna need on teadaolevalt NCRiga probleeme põhjustanud.\nTeatud võrguga mitteseonduvad asjad, nagu serveri turvataseme kuvamine ning vanilli \"Vestlussõnumeid ei saa kinnitada\" hüpiku eemaldus töötavad siiski; neid saab seadistustes individuaalselt lülitada.",
@@ -52,12 +57,15 @@
 	"gui.nochatreports.realms_warning.contents": "Realms-serverid ei ole privaatsed. Realmide omanikud ei saa vestlusest teatamist keelata ning Mojang rakendab täiendavat vestlusseiret, et tuvastada võimalikud \"võrgukäitumise rikkumised\" ning saata need edasi inimkontrolli. Kui leitakse, et sa rikud Minecrafti Kogukonnastandardeid - isegi kui vestluses osalejad ei solvunud, blokeeritakse sind, ajutiselt või jäädavalt kõikidest mitmikmänguteenustest. Vestluse krüpteerimine on tungivalt soovitatav.",
 	"gui.nochatreports.realms_warning.check": "Ära kuva uuesti",
 	"gui.nochatreports.realms_warning.learn_more": "Lisateave",
-	"gui.NoChatReports.showEncryptionButtonWarning": "§cAllolev ei keela krüpteerimist, see vaid peidab nupu!",
-
+	"gui.nochatreports.signing_required.header": "Hoiatus: taodeldi vestluse signeerimist",
+	"gui.nochatreports.signing_required.contents": "See server nõuab kõikide vestlussõnumite signeerimist, seega neid saab Mojangile raporteerida ning tagajärjeks võib olla blokeering kõigist mitmikmängu serveritest. See tõenäoliselt tähendab, et serveri omanik jättis failis server.properties valiku \"enforce-secure-profile\" lubatuks, mis on ka vaikeväärtus alates versioonist 1.19.1. Sa võid siiski seal mängida, kuid No Chat Reports ei saa sind kaitsta.",
+	"gui.nochatreports.signing_required.allow_signing": "Luba signeerimine",
+	"gui.nochatreports.signing_required.whitelist_server": "Server lubamisloendisse",
+	"gui.nochatreports.signing_required.cancel": "Loobu",
+	"gui.nochatreports.signing_required.check": "Ära kuva selle seansi puhul uuesti",
+	
 	"configuration.NoChatReports.config": "No Chat Reports",
-
 	"configuration.NoChatReports.category.visual": "Visuaalne",
-
 	"option.NoChatReports.showServerSafety": "Kuva serveri turvatase",
 	"option.NoChatReports.showServerSafety.tooltip": "Lubab mängul kuvada serveri turvataset vestluskuva paremal all nurgas. Kursoriga ikooni juurde liikudes kuvatakse täpsem kirjeldus.",
 	"option.NoChatReports.showServerSafety.moreInfo": "§bKlõpsa siia, et lugeda serveri turvatasemete kohta",
@@ -77,9 +85,7 @@
 	"option.NoChatReports.hideWarningToast.tooltip": "Peidab hoiatushüpiku, mida kuvatakse serverites, kus on valik §oenforce-secure-profile§r keelatud.",
 	"option.NoChatReports.alwaysHideReportButton": "Peida teatamisnupp alati",
 	"option.NoChatReports.alwaysHideReportButton.tooltip": "Keelab mängul suhtlustegevuste kuval teatamisnupu kuvamise täielikult. See on vaikimisi keelatud, selle asemel muudab mod No Chat Reports'iga serverites teatamisnupu halliks, lisades nupule kirjeldava vihjeteksti.",
-
 	"configuration.NoChatReports.category.technical": "Tehniline",
-
 	"option.NoChatReports.demandOnServer": "Nõua serveris",
 	"option.NoChatReports.demandOnServer.tooltip": "Keelab mängul liitumast serveritesse, kus pole mod No Chat Reports paigaldatud.",
 	"option.NoChatReports.enableDebugLog": "Luba silumislogi",
@@ -104,22 +110,19 @@
 	"option.NoChatReports.serverSigningChecks.tooltip": "Lubamisloendisse kantud serverite vastendus viimaste allkirjajõustamise kontrollimise aegade kohta, epohhisekundites. Seda ei pea tavaliselt käsitsi muutma.",
 	"option.NoChatReports.showEncryptionButton": "Kuva krüpteerimisnupp",
 	"option.NoChatReports.showEncryptionButton.tooltip": "Selle keelamisel peidetakse vaid vestluskuvalt vaid krüpteerimisnupp. Pane tähele, et krüpteerimist ennast ei keelata automaatselt koos nupuga.",
-
 	"configuration.NoChatReports.category.whitelistedServers": "Lubamisloendis serverid",
-
 	"option.NoChatReports.whitelistedServers": "Lubamisloendis serverid",
 	"option.NoChatReports.whitelistedServers.tooltip": "Sisaldab servereid, mille puhul \"ebaturvaline server\" hoiatuskuva ei kuvata. Serverid lisatakse siia loendisse automaatselt, kui märgid sellel kuval valiku \"Ära kuva selle serveri puhul uuesti\".\nIga kirje on §l<serveri-ip>:<port>§r vormistusega string.",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "Lisa server",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "Eemalda server",
 	"option.NoChatReports.whitelistedServers.instructions": "Serveri lisamiseks vajuta + nuppu. Valitud serveri eemaldamiseks vajuta - nuppu.",
 	"option.NoChatReports.whitelistedServers.serverAddress": "Klõpsa siia serveri aadressi muutmiseks",
-
 	"configuration.NoChatReports.category.lanOptions": "LAN-valikud",
-
 	"option.NoChatReports.demandOnClient": "Nõua kliendilt",
 	"option.NoChatReports.demandOnClient.tooltip": "Sunnib serverit kõigilt liituvatelt klientidelt nõudma No Chat Reports modi.",
 	"option.NoChatReports.convertToGameMessage": "Konverteeri mängusõnumiks",
 	"option.NoChatReports.convertToGameMessage.tooltip": "Sunnib serverit konverteerima kõik mängijasõnumid süsteemisõnumiteks. Süsteemisõnumitel pole signatuure ning neid ei saa teatada; vanilliklientidel kuvavad need vasakus servas halli riba.",
 	"option.NoChatReports.addQueryData": "Lisa päringuandmeid",
-	"option.NoChatReports.addQueryData.tooltip": "Lubab serveril saata pingide käsitlemisel kliendile täiendavaid andmeid. Seda kasutatakse \"turvalise serveri\" ikooni kuvamiseks, kui ka teisteks tehnilisteks eesmärkideks."
+	"option.NoChatReports.addQueryData.tooltip": "Lubab serveril saata pingide käsitlemisel kliendile täiendavaid andmeid. Seda kasutatakse \"turvalise serveri\" ikooni kuvamiseks, kui ka teisteks tehnilisteks eesmärkideks.",
+	"gui.NoChatReports.showEncryptionButtonWarning": "§cAllolev ei keela krüpteerimist, see vaid peidab nupu!"
 }
