@@ -10,7 +10,7 @@
 	"gui.nochatreports.status_unknown": "No Chat Reports ei ole veel selle serveri turvalisuses kindel. Proovi selle tuvastamiseks vestlusesse üks sõnum saata.",
 	"gui.nochatreports.status_undefined": "No Chat Reports ei suutnud selle serveri turvalisust hinnata. Seda ei tohiks kunagi juhtuda, palun teata sellest veast modi arendajale.",
 	"gui.nochatreports.status_signing_allowed_realms": "Vestluse signeerimine on Realmsis alati lubatud, kuna see on alati nõutud ning selle keelamine ei annaks nagunii eelist.",
-	"gui.nochatreports.status_signing_allowed_whitelisted": "Sõnumite signeerimine on selle seansi jaoks lubatud. Kui soovid selle välja lülitada - eemalda see server lubamisloendist ja liitu serveriga uuesti. Pea meeles, et ei ole võimalik tuvastada, kas server lubab saata signeerimata sõnumeid, ilma et mõnda sõnumit ise prooviksid saata, seega pead selle keelama, et kontrollida, kas praegune serveri seadistus signeerimata sõnumeid lubab.",
+	"gui.nochatreports.status_signing_allowed_whitelisted": "Sõnumite signeerimine on selle seansi jaoks lubatud. Sa võid proovida seda keelata, eemaldades serveri lubamisloendist, taasliitudes ning saates vestlussõnumi. Pärast seda saab No Chat Reports kontrollida, kas signeerimine on nõutud või mitte.",
 	"gui.nochatreports.status_signing_allowed": "Sõnumite signeerimine on selle seansi jaoks lubatud. Taasliitu serveriga, et see keelata.",
 	"gui.nochatreports.status_signing_denied_secure": "Sõnumite signeerimine on keelatud, kuna see server on turvaline.",
 	"gui.nochatreports.status_signing_denied": "Sõnumite signeerimine on selle seansi jaoks keelatud. Sa võid selle serveri lubamisloendisse lisada, et lubada selles alati vestluse signeerimine.",
