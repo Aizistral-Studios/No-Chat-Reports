@@ -27,6 +27,7 @@ body:
     attributes:
       label: Modloader Version
       description: |
+        List the version of the modloader you are using.
         If on Fabric, post the versions of both Fabric Loader and Fabric API.
       placeholder: "eg. Forge: 43.1.1 / Fabric: Loader 0.14.10 + API 0.64.0"
     validations:
