@@ -27,10 +27,8 @@ public final class NCRConfigClient extends JSONConfig {
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
 			enableMod = true, skipRealmsWarning = false;
-	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
-			postDisconnectAwaitSeconds = 10, signingCheckDelaySeconds = 43200;
+	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 
-	protected Map<String, Long> serverSigningChecks = new HashMap<>();
 
 	protected NCRConfigClient() {
 		super(FILE_NAME);
@@ -205,24 +203,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean enableMod() {
 		return this.enableMod;
-	}
-
-	/**
-	 * @return How many seconds No Chat Reports should wait before attemting automatic reconnects.
-	 * @see <a href="https://github.com/Aizistral-Studios/No-Chat-Reports/issues/190">Issue #190</a>
-	 */
-
-	public int getReconnectAwaitSeconds() {
-		return this.reconnectAwaitSeconds;
-	}
-
-	/**
-	 * @return Same as <code>reconnectAwaitSeconds</code>, but countdown starts when user disconnects
-	 * from server. If this delay is greater than <code>reconnectAwaitSeconds</code> then it will apply.
-	 */
-
-	public int getPostDisconnectAwaitSeconds() {
-		return this.postDisconnectAwaitSeconds;
 	}
 
 	/**
