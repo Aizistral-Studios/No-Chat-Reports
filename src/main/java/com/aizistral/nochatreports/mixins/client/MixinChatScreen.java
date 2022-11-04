@@ -60,10 +60,6 @@ public abstract class MixinChatScreen extends Screen {
 		String message = info.getReturnValue();
 		NCRConfig.getEncryption().setLastMessage(message);
 
-		if (!ServerSafetyState.allowChatSigning() && !ServerSafetyState.isDetermined()) {
-			ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE); // asume unintrusive until further notice
-		}
-
 		if (!message.isEmpty() && !Screen.hasControlDown() && NCRConfig.getEncryption().shouldEncrypt(message)) {
 			NCRConfig.getEncryption().getEncryptor().ifPresent(e -> {
 				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message);
