@@ -99,7 +99,7 @@
 	"option.NoChatReports.showNCRButton": "Show NCR button",
 	"option.NoChatReports.showNCRButton.tooltip": "Adds a button that toggles most of the mod's client-sided functionality to multiplayer menu.",
 	"option.NoChatReports.enableMod": "Enable mod",
-	"option.NoChatReports.enableMod.tooltip": "Responsible for enabling most of the mod's client-sided functionality, see option above.",
+	"option.NoChatReports.enableMod.tooltip": "Responsible for enabling most of the mod's client-sided functionality. Will require re-joining the server to take effect if toggled mid-session.",
 	"option.NoChatReports.reconnectAwaitSeconds": "Reconnect await seconds",
 	"option.NoChatReports.reconnectAwaitSeconds.tooltip": "Number of seconds which client should wait before automatic reconnect once server rejects connection without chat signing key, assuming user agreed to enter unsafe server.",
 	"option.NoChatReports.postDisconnectAwaitSeconds": "Post disconnect await seconds",
