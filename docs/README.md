@@ -1,6 +1,6 @@
 # No Chat Reports
 
-**Current Version:** 22w44a-v1.14.2
+**Current Version:** 22w44a-v1.14.3
 
 **Minecraft Version:** 22w44a
 
