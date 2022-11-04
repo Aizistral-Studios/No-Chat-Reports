@@ -80,6 +80,9 @@ public abstract class MixinChatScreen extends Screen {
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
 			this.safetyStatusButton = new ImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(),
 					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {
+						if (NCRConfig.getClient().whitelistAllServers())
+							return;
+
 						var address = ServerSafetyState.getLastServer();
 						if (address != null) {
 							var whitelist = NCRConfig.getServerWhitelist();
