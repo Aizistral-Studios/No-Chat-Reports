@@ -28,7 +28,7 @@ body:
       label: Modloader Version
       description: |
         List the version of the modloader you are using.
-        If on Fabric, post the versions of both Fabric Loader and Fabric API.
+        If on Fabric - also specify version of Fabric API. If you don't have it installed separately - specify "Bundled Fabric API".
       placeholder: "eg. Forge: 43.1.1 / Fabric: Loader 0.14.10 + API 0.64.0"
     validations:
       required: true
