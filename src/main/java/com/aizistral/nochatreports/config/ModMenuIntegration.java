@@ -94,24 +94,24 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().verifiedIconOffsetY = newValue)
 					.build());
 
-			// Set an option for hideRedChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideRedChatIndicators"), NCRConfig.getClient().hideInsecureMessageIndicators)
+			// Set an option for hideInsecureMessageIndicators
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideInsecureMessageIndicators"), NCRConfig.getClient().hideInsecureMessageIndicators)
 					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.hideRedChatIndicators.tooltip"))
+					.setTooltip(this.makeTooltip("option.NoChatReports.hideInsecureMessageIndicators.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().hideInsecureMessageIndicators = newValue)
 					.build());
 
-			// Set an option for hideYellowChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideYellowChatIndicators"), NCRConfig.getClient().hideModifiedMessageIndicators)
+			// Set an option for hideModifiedMessageIndicators
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideModifiedMessageIndicators"), NCRConfig.getClient().hideModifiedMessageIndicators)
 					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.hideYellowChatIndicators.tooltip"))
+					.setTooltip(this.makeTooltip("option.NoChatReports.hideModifiedMessageIndicators.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().hideModifiedMessageIndicators = newValue)
 					.build());
 
-			// Set an option for hideGrayChatIndicators
-			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideGrayChatIndicators"), NCRConfig.getClient().hideSystemMessageIndicators)
+			// Set an option for hideSystemMessageIndicators
+			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideSystemMessageIndicators"), NCRConfig.getClient().hideSystemMessageIndicators)
 					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.hideGrayChatIndicators.tooltip"))
+					.setTooltip(this.makeTooltip("option.NoChatReports.hideSystemMessageIndicators.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().hideSystemMessageIndicators = newValue)
 					.build());
 
