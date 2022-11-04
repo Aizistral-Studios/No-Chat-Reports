@@ -32,6 +32,7 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.protocol.game.ServerboundChatPacket;
 import net.minecraft.realms.RealmsScreen;
 
 /**

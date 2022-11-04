@@ -122,7 +122,7 @@ modrinth {
     projectId = "no-chat-reports"
     versionNumber = "Fabric-" + project.mod_version
 	versionName = "No Chat Reports Fabric-" + project.mod_version
-    versionType = "release"
+    versionType = "beta"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = remapJar
     gameVersions = ["22w44a"]
