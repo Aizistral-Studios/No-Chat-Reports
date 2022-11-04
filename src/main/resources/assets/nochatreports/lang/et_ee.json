@@ -63,6 +63,7 @@
 	"gui.nochatreports.signing_required.whitelist_server": "Server lubamisloendisse",
 	"gui.nochatreports.signing_required.cancel": "Loobu",
 	"gui.nochatreports.signing_required.check": "Ära kuva selle seansi puhul uuesti",
+	"chat.nochatreports.disabled.signingRequested": "Server keeldus signeerimata sõnumi edastamisest. Vestluse signeerimist saad käimasoleva seansi jaoks lubada hüpikaknas või lisades serveri lubamisloendisse. Signeerimata saad sa siiski enamus käsklusi kasutada.",
 	
 	"configuration.NoChatReports.config": "No Chat Reports",
 	"configuration.NoChatReports.category.visual": "Visuaalne",
@@ -99,7 +100,7 @@
 	"option.NoChatReports.showNCRButton": "Kuva NCRi nupp",
 	"option.NoChatReports.showNCRButton.tooltip": "Lisab mitmikmängumenüüsse nupu, mis lülitab enamikku modi kliendipoolsest funktsionaalsusest.",
 	"option.NoChatReports.enableMod": "Mod lubatud",
-	"option.NoChatReports.enableMod.tooltip": "Vastutab enamiku modi kliendipoolse funktsionaalsuse eest, vaata ülalolevat valikut.",
+	"option.NoChatReports.enableMod.tooltip": "Vastutab enamiku modi kliendipoolse funktsionaalsuse eest. Seansi ajal ümber lülitades on muudatuste rakendamiseks vajalik serveriga taasliitumine.",
 	"option.NoChatReports.reconnectAwaitSeconds": "Taasühendamise ooteaeg sekundites",
 	"option.NoChatReports.reconnectAwaitSeconds.tooltip": "Sekundite arv, mida klient peaks ootama enne automaatset taasühendumist, kui server lükkab ühenduse tagasi ilma vestluse allkirjastamise võtmeta, eeldades, et kasutaja on nõustunud sisenema ebaturvalisse serverisse.",
 	"option.NoChatReports.postDisconnectAwaitSeconds": "Pärast-lahtiühendamist ooteaeg",
