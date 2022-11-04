@@ -81,7 +81,7 @@
 	"option.NoChatReports.hideModifiedMessageIndicators": "Peida muudetud sõnumite indikaatorid",
 	"option.NoChatReports.hideModifiedMessageIndicators.tooltip": "Keelab mängul kuvada muudetud sõnumite indikaatoreid vasakpoolse halli riba ning hõljumisel parempoolse §7§l(§r§e?§e§l)§r ikoonina vestlussõnumi kõrval.",
 	"option.NoChatReports.hideSystemMessageIndicators": "Peida süsteemisõnumite indikaatorid",
-	"option.NoChatReports.hideSystemMessageIndicators.tooltip": "Keelab mängul kuvada süsteemisõnumite indikaatoreid vasakpoolse halli ribana.",
+	"option.NoChatReports.hideSystemMessageIndicators.tooltip": "Keelab mängul kuvada süsteemisõnumite indikaatoreid vasakpoolse halli ribana vestlussõnumi kõrval.",
 	"option.NoChatReports.hideWarningToast": "Peida hoiatushüpik",
 	"option.NoChatReports.hideWarningToast.tooltip": "Peidab hoiatushüpiku, mida kuvatakse serverites, kus on valik §oenforce-secure-profile§r keelatud.",
 	"option.NoChatReports.alwaysHideReportButton": "Peida teatamisnupp alati",
