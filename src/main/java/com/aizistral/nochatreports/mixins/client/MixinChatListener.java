@@ -27,6 +27,7 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.network.chat.contents.TranslatableContents;
 
@@ -38,10 +39,12 @@ public class MixinChatListener {
 		throw new IllegalStateException("@Shadow transformation failed. Should never happen.");
 	}
 
-	@Inject(method = "handleSystemMessage", at = @At("HEAD"))
+	@Inject(method = "handleSystemMessage", at = @At("HEAD"), cancellable = true)
 	private void onHandleSystemMessage(Component message, boolean overlay, CallbackInfo info) {
-		if (message.getContents() instanceof TranslatableContents translatable) {
+		if (message instanceof MutableComponent mutable && message.getContents() instanceof TranslatableContents translatable) {
 			if (translatable.getKey().equals("chat.disabled.missingProfileKey")) {
+				mutable.contents = new TranslatableContents("chat.nochatreports.disabled.signingRequested");
+
 				if (!ServerSafetyState.isOnRealms()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 				}
@@ -51,6 +54,10 @@ public class MixinChatListener {
 
 				Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
 						instanceof ChatScreen chat ? chat : new ChatScreen("")));
+
+				if (NCRConfig.getClient().hideSigningRequestMessage()) {
+					info.cancel();
+				}
 			}
 		}
 	}

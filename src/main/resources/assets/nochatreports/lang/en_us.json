@@ -63,6 +63,7 @@
 	"gui.nochatreports.signing_required.whitelist_server": "Whitelist Server",
 	"gui.nochatreports.signing_required.cancel": "Dismiss",
 	"gui.nochatreports.signing_required.check": "Don't show again during this session",
+	"chat.nochatreports.disabled.signingRequested": "Server refused to deliver unsigned message. You can enable chat signing by allowing it for one session in a pop-up screen or whitelisting the server. Without signing you can still use most commands.",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 	"configuration.NoChatReports.category.visual": "Visual",

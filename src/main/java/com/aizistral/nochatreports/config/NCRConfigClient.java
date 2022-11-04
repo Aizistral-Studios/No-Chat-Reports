@@ -26,7 +26,7 @@ public final class NCRConfigClient extends JSONConfig {
 			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
-			enableMod = true, skipRealmsWarning = false;
+			enableMod = true, skipRealmsWarning = false, hideSigningRequestMessage = false;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 
 
@@ -215,6 +215,10 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public void setSkipRealmsWarning(boolean skipRealmsWarning) {
 		this.skipRealmsWarning = skipRealmsWarning;
+	}
+
+	public boolean hideSigningRequestMessage() {
+		return this.hideSigningRequestMessage;
 	}
 
 }
