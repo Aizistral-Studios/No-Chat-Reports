@@ -9,7 +9,8 @@
 	"common.MixinServerStatusSerializer",
 	"server.MixinServerboundChatPacket",
 	"server.MixinServerGamePacketListenerImpl",
-	"server.MixinPlayerList"
+	"server.MixinPlayerList",
+	"server.MixinServerboundChatSessionUpdatePacket"
   ],
   "client": [
 	"client.MixinOptions",
