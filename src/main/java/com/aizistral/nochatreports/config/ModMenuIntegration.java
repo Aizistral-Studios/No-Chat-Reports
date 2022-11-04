@@ -175,8 +175,10 @@ public final class ModMenuIntegration implements ModMenuApi {
 			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getClient().enableMod)
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.enableMod.tooltip"))
-					.setSaveConsumer(newValue -> ServerSafetyState.scheduleResetAction(() ->
-					NCRConfig.getClient().enableMod = newValue))
+					.setSaveConsumer(newValue -> ServerSafetyState.scheduleResetAction(() -> {
+						NCRConfig.getClient().enableMod = newValue;
+						NCRConfig.getClient().saveFile();
+					}))
 					.build());
 
 			// Warning for showEncryptionButton
