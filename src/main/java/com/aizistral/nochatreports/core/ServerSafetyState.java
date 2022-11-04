@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,9 +28,10 @@ import net.minecraft.network.chat.SignedMessageChain.Encoder;
 
 @Environment(EnvType.CLIENT)
 public final class ServerSafetyState {
+	private static final List<Runnable> resetActions = new ArrayList<>();
+	private static final AtomicBoolean allowChatSigning = new AtomicBoolean(false);
 	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
 	private volatile static ServerAddress lastServer = null;
-	private static AtomicBoolean allowChatSigning = new AtomicBoolean(false);
 
 	public static void updateCurrent(ServerSafetyLevel level) {
 		current = level;
@@ -79,11 +82,18 @@ public final class ServerSafetyState {
 		lastServer = address;
 	}
 
+	public static void scheduleResetAction(Runnable action) {
+		resetActions.add(action);
+	}
+
 	public static void reset() {
 		lastServer = null;
 		current = ServerSafetyLevel.UNDEFINED;
 		allowChatSigning.set(false);
 		UnsafeServerScreen.setHideThisSession(false);
+
+		resetActions.forEach(Runnable::run);
+		resetActions.clear();
 	}
 
 }
