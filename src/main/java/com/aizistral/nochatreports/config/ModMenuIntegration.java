@@ -164,7 +164,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().whitelistAllServers = newValue)
 					.build());
 
-			// Set an option for whitelistAllServers
+			// Set an option for skipSigningWarning
 			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.skipSigningWarning"), NCRConfig.getClient().skipSigningWarning)
 					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.skipSigningWarning.tooltip"))
