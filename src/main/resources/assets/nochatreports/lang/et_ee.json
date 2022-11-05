@@ -97,6 +97,8 @@
 	"option.NoChatReports.showReloadButton.tooltip": "Lisab mitmikmängu serverite loendisse seadistuste taaslaadimise nupu.",
 	"option.NoChatReports.whitelistAllServers": "Kõik serverid lubamisloendisse",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Sunnib modi käituma nii, nagu kõik serverid oleksid lisatud §olubamisloendis serverite§r loendisse.",
+	"option.NoChatReports.skipSigningWarning": "Signeeri nõude korral automaatselt",
+	"option.NoChatReports.skipSigningWarning.tooltip": "Jätab vahele hoiatuskuva \"taodeldi vestluse signeerimist\", signeerides vestluse automaatselt, kui server seda nõuab.",
 	"option.NoChatReports.showNCRButton": "Kuva NCRi nupp",
 	"option.NoChatReports.showNCRButton.tooltip": "Lisab mitmikmängumenüüsse nupu, mis lülitab enamikku modi kliendipoolsest funktsionaalsusest.",
 	"option.NoChatReports.enableMod": "Mod lubatud",
