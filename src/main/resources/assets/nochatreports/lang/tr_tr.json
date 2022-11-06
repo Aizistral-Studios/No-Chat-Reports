@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "Bu seçenek doğrulanacak imza olmadığından No Chat Reports ile çalışamaz.",
-	"gui.nochatreport.noReporting": "No Chat Reports sayesinde bu sunucuda sohbet bildirileri devre dışı bırakıldı.",
+	"gui.nochatreports.secure_chat": "Bu seçenek doğrulanacak imza olmadığından No Chat Reports ile çalışamaz.",
+	"gui.nochatreports.no_reporting": "No Chat Reports sayesinde bu sunucuda sohbet bildirileri devre dışı bırakıldı.",
 	"disconnect.nochatreports.client": "Bu sunucuda No Chat Reports yok ve siz kendisini bu sunucuda gerektirecek şekilde ayarladınız.",
 	"gui.nochatreports.OLD_status_secure": "Bu sunucuda No Chat Reports yüklü ya da mesajlarınızın bilinen başka bir şekilde bildirilebilmesini engelliyor. Güvenli bir şekilde sohbet edebilirsiniz.",
 	"gui.nochatreports.OLD_status_unintrusive": "Bu sunucu sohbet bildirilerini engellemez, ancak Mojang'a bildirilemeyen imzasız mesajlar göndermenize izin verir. Vanilya istemcileri imzalı mesajlar göndermeye devam edecek, imzasız mesajları \"Güvenli Değil\" olarak gösterecek ve sohbet seçeneklerinde \"Sadece Güvenli Sohbeti Göster\" etkinleştirilmişse bunları göstermeyecektir.",

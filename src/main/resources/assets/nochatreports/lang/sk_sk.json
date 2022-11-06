@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "Táto možnosť nemôže fungovať s No Chat Reports keďže nie sú podpisy na overenie.",
-	"gui.nochatreport.noReporting": "Nahlasovanie chatu je zakázané na tomto serveru vďaka No Chat Reports.",
+	"gui.nochatreports.secure_chat": "Táto možnosť nemôže fungovať s No Chat Reports keďže nie sú podpisy na overenie.",
+	"gui.nochatreports.no_reporting": "Nahlasovanie chatu je zakázané na tomto serveru vďaka No Chat Reports.",
 	"disconnect.nochatreports.client": "Tento server nemá No Chat Reports a nepovolil si pripájanie na takéto servery.",
 	"gui.nochatreports.OLD_status_secure": "Tento server má No Chat Reports nainštalované alebo zakazuje nahlasovanie chatu iným známym spôsobom. Môžeš chatovať bezpečne.",
 	"gui.nochatreports.OLD_status_unintrusive": "Tento server nezakazuje nahlasovanie správ ale povoľuje odosielanie správ bez podpisu, ktoré nemôžu byť použité ako dôkaz pre Mojang. Vanilla klienti stále budú odosielať podpisy a riskujú zákaz. Budú tiež vidieť varovania nepodpísaných správ alebo ich nebudú vidieť vôbec ak majú zapnuté \"Len zabezpečený chat\".",

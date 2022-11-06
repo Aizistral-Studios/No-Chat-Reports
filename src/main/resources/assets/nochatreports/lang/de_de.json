@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "Diese Option kann nicht mit No Chat Reports verwendet werden, da keine Signaturen zum Verifizieren vorhanden sind.",
-	"gui.nochatreport.noReporting": "Nachrichten melden ist auf diesem Server dank No Chat Reports deaktiviert.",
+	"gui.nochatreports.secure_chat": "Diese Option kann nicht mit No Chat Reports verwendet werden, da keine Signaturen zum Verifizieren vorhanden sind.",
+	"gui.nochatreports.no_reporting": "Nachrichten melden ist auf diesem Server dank No Chat Reports deaktiviert.",
 	"disconnect.nochatreports.client": "Dieser Server hat No Chat Reports nicht installiert, aber du hast eingestellt, dass es auf Servern notwendig ist.",
 	"gui.nochatreports.OLD_status_secure": "Dieser Server hat No Chat Reports installiert oder verhindert das Melden von Nachrichten auf eine andere bekannte Weise. Niemand sieht einen roten Balken, ein (!) Symbol oder kann Nachrichten mit \"Nur sicheren Chat anzeigen\" verstecken. Du kannst sicher chatten.",
 	"gui.nochatreports.OLD_status_unintrusive": "Dieser Server erlaubt dir, unsignierte Nachrichten zu schicken, welche nicht an Mojang gemeldet werden können. Vanilla-Clients sehen jedoch einen roten Balken links sowie ein (!) Symbol rechts von deinen Nachrichten und Spieler, die die Option \"Nur sicheren Chat anzeigen\" aktivieren, sehen deine Nachrichten überhaupt nicht.",

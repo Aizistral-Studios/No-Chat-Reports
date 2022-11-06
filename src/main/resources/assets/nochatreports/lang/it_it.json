@@ -1,7 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "Rimuove le firme digitali dai messaggi che invii, rendendo impossibile tracciarli e associarli al tuo account Mojang/Microsoft e impedendone dunque la segnalazione.",
-	"gui.nochatreport.secureChat": "Questa opzione non può funzionare con No Chat Reports, dal momento che non ci sono firme da verificare.",
-	"gui.nochatreport.noReporting": "Le segnalazioni della chat sono state disabilitate su questo server grazie a No Chat Reports.",
+	"gui.nochatreports.secure_chat": "Questa opzione non può funzionare con No Chat Reports, dal momento che non ci sono firme da verificare.",
+	"gui.nochatreports.no_reporting": "Le segnalazioni della chat sono state disabilitate su questo server grazie a No Chat Reports.",
 	"disconnect.nochatreports.client": "Questo server non ha No Chat Reports e tu hai configurato No Chat Reports in modo che richieda di essere installato anche sul server.",
 	"gui.nochatreports.OLD_status_secure": "Questo server ha installato No Chat Reports o impedisce ai tuoi messaggi di essere segnalati con qualche altro metodo noto. Puoi messaggiare in sicurezza.",
 	"gui.nochatreports.OLD_status_unintrusive": "Questo server ti permette di inviare messaggi non firmati che non possono essere segnalati a Mojang. A meno che non sia stato installato qualche plug-in che impedisca la segnalazione della chat, i client vanilla invieranno comumque messaggi firmati, mostreranno i messaggi non firmati come \"Non sicuri\" e li nasconderanno se l'opzione \"Mostra solo chat sicura\" è attiva nelle opzioni della chat.",

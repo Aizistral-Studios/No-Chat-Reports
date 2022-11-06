@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "此選項無法與 No Chat Reports 一起使用，因為沒有可用於驗證的簽名。",
-	"gui.nochatreport.noReporting": "聊天舉報在此伺服器上被禁用，由 No Chat Reports 提供。",
+	"gui.nochatreports.secure_chat": "此選項無法與 No Chat Reports 一起使用，因為沒有可用於驗證的簽名。",
+	"gui.nochatreports.no_reporting": "聊天舉報在此伺服器上被禁用，由 No Chat Reports 提供。",
 	"disconnect.nochatreports.client": "此伺服器沒有安裝 No Chat Reports，但你已將其配置為要求在伺服器上安裝。",
 	"gui.nochatreports.OLD_status_secure": "此伺服器安裝了 No Chat Reports 或其他已知的方法避免消息被舉報。這也會避免「僅顯示已受保護的聊天內容」阻擋你的消息。你可以安全地聊天。",
 	"gui.nochatreports.OLD_status_unintrusive": "此伺服器不能防止聊天舉報，但允許發送未簽名的消息。這意味著你發的消息不能被舉報給 Mojang，但其他人還可以用「僅顯示已受保護的聊天內容」阻擋你的消息",

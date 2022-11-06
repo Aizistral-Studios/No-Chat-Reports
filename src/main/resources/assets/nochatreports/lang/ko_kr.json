@@ -1,7 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "플레이어 메시지에서 암호화 서명을 제거하여 추적 및 Mojang/Microsoft 계정과 연관짓기, 대화 신고 기능 사용을 불가능하게 만듭니다.",
-	"gui.nochatreport.secureChat": "확인할 서명이 없기 때문에 이 설정은 No Chat Reports와 작동하지 않습니다.",
-	"gui.nochatreport.noReporting": "이 서버는 No Chat Reports에 의해 신고가 비활성화되어있습니다.",
+	"gui.nochatreports.secure_chat": "확인할 서명이 없기 때문에 이 설정은 No Chat Reports와 작동하지 않습니다.",
+	"gui.nochatreports.no_reporting": "이 서버는 No Chat Reports에 의해 신고가 비활성화되어있습니다.",
 	"disconnect.nochatreports.client": "이 서버는 No Chat Reports가 없으며 서버에 필요하도록 설정되어 있습니다.",
 	"gui.nochatreports.OLD_status_secure": "이 서버는 No Chat Reports가 설치되어 있거나 다른 알려진 방식으로 대화 메시지를 신고하는 것을 방지합니다. 아무도 빨간색 표시자나 (!) 기호를 보지 않으며 \"보안 대화만 표시\"는 메시지를 숨기지 않습니다. 안전하게 대화할 수 있습니다",
 	"gui.nochatreports.OLD_status_unintrusive": "이 서버는 Mojang에 신고될 수 없는 서명하지 않은 대화 메시지를 보내는 것을 허용합니다. 그러나 바닐라 클라이언트는 메시지 왼쪽에 빨간색 표시자가 표시되고 오른쪽에 (!) 기호가 표시되며 \"보안 대화만 표시\"가 켜진 경우 당신의 메시지를 볼 수 없습니다",

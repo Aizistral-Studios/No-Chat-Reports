@@ -1,8 +1,8 @@
 {
 	"modmenu.summaryTranslation.nochatreports": "Чат, (по возможности) свободный от жалоб.",
 	"modmenu.descriptionTranslation.nochatreports": "Удаляет криптографические подписи у сообщений игроков, из-за чего их отслеживание и сопоставление с вашим аккаунтом Mojang/Microsoft становится невозможным, ровно как и использование функции жалобы.",
-	"gui.nochatreport.secureChat": "Этот параметр не работает с No Chat Reports ввиду отсутствия криптографических подписей.",
-	"gui.nochatreport.noReporting": "No Chat Reports защищает этот сервер от отправки жалоб.",
+	"gui.nochatreports.secure_chat": "Этот параметр не работает с No Chat Reports ввиду отсутствия криптографических подписей.",
+	"gui.nochatreports.no_reporting": "No Chat Reports защищает этот сервер от отправки жалоб.",
 	"disconnect.nochatreports.client": "Ваши текущие настройки требуют наличия No Chat Reports на сервере, однако здесь этот мод отсутствует.",
 	"gui.nochatreports.OLD_status_secure": "Сервер либо содержит No Chat Reports, либо предотвращает возможность отправки жалоб иным известным способом. Вы можете общаться безопасно.",
 	"gui.nochatreports.OLD_status_unintrusive": "Сервер не отключает жалобы, но позволяет вам отправлять неподписанные сообщения, которые не могут быть получены Mojang. Другие игроки без No Chat Reports всё ещё будут отправлять сообщения с подписями, помечать неподписанные как \"Небезопасные\" и блокировать их, если \"Защищённый чат\" включён.",

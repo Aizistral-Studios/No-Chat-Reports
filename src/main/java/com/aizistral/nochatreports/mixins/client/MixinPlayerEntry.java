@@ -29,7 +29,7 @@ import net.minecraft.util.FormattedCharSequence;
 
 @Mixin(PlayerEntry.class)
 public class MixinPlayerEntry {
-	private static final Component NCR_BUTTON_TOOLTIP = Component.translatable("gui.nochatreport.noReporting");
+	private static final Component NCR_BUTTON_TOOLTIP = Component.translatable("gui.nochatreports.no_reporting");
 	@Shadow @Final private static ResourceLocation REPORT_BUTTON_LOCATION;
 	@Shadow private Button reportButton;
 	@Shadow float tooltipHoverTime;
