@@ -97,6 +97,8 @@
 	"option.NoChatReports.showReloadButton.tooltip": "Adds a button for config reloading to multiplayer menu.",
 	"option.NoChatReports.whitelistAllServers": "Whitelist all servers",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Makes the mod behave as if all servers were added to §oWhitelisted Servers§r list.",
+	"option.NoChatReports.skipSigningWarning": "Sign automatically when requested",
+	"option.NoChatReports.skipSigningWarning.tooltip": "Skips the \"Chat Signing Requested\" warning and signs the chat automatically when the server requires it.",
 	"option.NoChatReports.showNCRButton": "Show NCR button",
 	"option.NoChatReports.showNCRButton.tooltip": "Adds a button that toggles most of the mod's client-sided functionality to multiplayer menu.",
 	"option.NoChatReports.enableMod": "Enable mod",
