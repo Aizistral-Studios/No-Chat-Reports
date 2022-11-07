@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 
 import net.minecraft.client.Minecraft;
@@ -15,6 +16,9 @@ public class MixinMinecraft {
 
 	@Inject(method = "getProfileKeyPairManager", at = @At("HEAD"), cancellable = true)
 	private void onGetProfileKeyPairManager(CallbackInfoReturnable<ProfileKeyPairManager> info) {
+		if (!NCRConfig.getClient().enableMod())
+			return;
+
 		if (!ServerSafetyState.allowChatSigning()) {
 			info.setReturnValue(ProfileKeyPairManager.EMPTY_KEY_MANAGER);
 		}
