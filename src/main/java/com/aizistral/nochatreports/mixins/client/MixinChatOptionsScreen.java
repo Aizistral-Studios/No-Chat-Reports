@@ -48,7 +48,7 @@ public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
-		this.secureChatTooltip = Minecraft.getInstance().font.split(Component.translatable("gui.nochatreport.secureChat"), 200);
+		this.secureChatTooltip = Minecraft.getInstance().font.split(Component.translatable("gui.nochatreports.secure_chat"), 200);
 		this.onlyShowSecureChat = this.list.findOption(Minecraft.getInstance().options.onlyShowSecureChat());
 
 		if (this.onlyShowSecureChat != null) {

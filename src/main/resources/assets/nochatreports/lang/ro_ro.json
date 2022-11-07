@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "Această opțiune nu poate funcționa cu No Chat Reports, deoarece nu există semnături de verificat.",
-	"gui.nochatreport.noReporting": "Rapoartele de chat sunt dezactivate pe acest server, folosind No Chat Reports.",
+	"gui.nochatreports.secure_chat": "Această opțiune nu poate funcționa cu No Chat Reports, deoarece nu există semnături de verificat.",
+	"gui.nochatreports.no_reporting": "Rapoartele de chat sunt dezactivate pe acest server, folosind No Chat Reports.",
 	"disconnect.nochatreports.client": "Acest server nu are No Chat Reports, iar tu îl ai configurat să fie necesar pe server.",
 	"gui.nochatreports.OLD_status_secure": "Acest server are No Chat Reports instalat sau previne mesajele tuturor de la a fi raportate în alt mod. Nimeni nu va vedea o bară roșie, simbol (!) sau să poată ascunde mesajele cu „Only Show Secure Chat”. Poți să trimiți mesaje în siguranță.",
 	"gui.nochatreports.OLD_status_unintrusive": "Acest server îți permite să trimiți mesaje nesemnate, care nu pot fi raportate la Micro$oft. Cu toate acestea, pentru clienți vanilla mesajele vor avea o bară roșie în stânga, un simbol (!) în dreapta și orcine activează „Only Show Secure Chat” nu-ți va vedea mesajele deloc.",

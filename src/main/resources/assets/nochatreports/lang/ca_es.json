@@ -1,6 +1,6 @@
 {
-  "gui.nochatreport.secureChat": "Aquesta opció no pot funcionar amb No Chat Reports, ja que no n'hi ha signatures per a verificar.",
-  "gui.nochatreport.noReporting": "Els reports del xat hi són deshabilitats en aquest servidor, cortesia de No Chat Reports.",
+  "gui.nochatreports.secure_chat": "Aquesta opció no pot funcionar amb No Chat Reports, ja que no n'hi ha signatures per a verificar.",
+  "gui.nochatreports.no_reporting": "Els reports del xat hi són deshabilitats en aquest servidor, cortesia de No Chat Reports.",
   "disconnect.nochatreports.client": "Aquest servidor no té No Chat Reports, i vostè el té configurat perquè sigui requerit al servidor.",
   "gui.nochatreports.OLD_status_secure": "Aquest servidor té No Chat Reports instal·lat, o preveu que els seus missatges siguin reportats d'altra forma coneguda. Pots xatejar amb seguretat.",
   "gui.nochatreports.OLD_status_unintrusive": "Aquest servidor no evita els reports de xat, però permet que enviïs missatges sense signatura. Tècnicament - encara poden ser reportats a Mojang, però generalment, no seran considerats evidencia vàlida, i és poc probable que es prengui alguna mesura sobre aquests.",

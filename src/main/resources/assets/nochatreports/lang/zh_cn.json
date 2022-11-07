@@ -1,7 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "从玩家的消息中删除加密签名，使其无法追踪并且无法与您的 Mojang 或 Microsoft 帐户关联，以及无法使用聊天举报功能。",
-	"gui.nochatreport.secureChat": "此选项不适用于 No Chat Reports，因为没有签名可以验证。",
-	"gui.nochatreport.noReporting": "聊天举报在此服务器上已被 No Chat Reports 禁用。",
+	"gui.nochatreports.secure_chat": "此选项不适用于 No Chat Reports，因为没有签名可以验证。",
+	"gui.nochatreports.no_reporting": "聊天举报在此服务器上已被 No Chat Reports 禁用。",
 	"disconnect.nochatreports.client": "此服务器未安装 No Chat Reports，但您已配置要求在服务器上安装。",
 	"gui.nochatreports.OLD_status_secure": "此服务器已安装 No Chat Reports，或以其他的已知方法阻止您的消息被举报，因此您可以安全的聊天。",
 	"gui.nochatreports.OLD_status_unintrusive": "此服务器不会阻止聊天举报，但允许您发送无法向 Mojang 举报的未签名消息。原版客户端仍将发送已签名的消息，将未签名的消息标记为“不安全”，并且如果启用了“仅显示安全的聊天”未签名的消息将不会被显示。",

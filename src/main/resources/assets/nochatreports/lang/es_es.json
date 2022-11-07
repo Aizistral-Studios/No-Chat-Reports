@@ -1,7 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "Elimina las firmas criptográficas de los mensajes de los jugadores, lo que imposibilita rastrearlos y asociarlos con tu cuenta de Mojang/Microsoft, así como usar la función de reportes de chat.",
-	"gui.nochatreport.secureChat": "Esta opción no puede funcionar con No Chat Reports, ya que no hay firmas para verificar.",
-	"gui.nochatreport.noReporting": "Los reportes de chat están deshabilitados en este servidor, cortesía de No Chat Reports.",
+	"gui.nochatreports.secure_chat": "Esta opción no puede funcionar con No Chat Reports, ya que no hay firmas para verificar.",
+	"gui.nochatreports.no_reporting": "Los reportes de chat están deshabilitados en este servidor, cortesía de No Chat Reports.",
 	"disconnect.nochatreports.client": "Este servidor no tiene No Chat Reports, y usted lo tiene configurado para que sea requerido en el servidor.",
 	"gui.nochatreports.OLD_status_secure": "Este servidor tiene No Chat Reports instalado, o previene que sus mensajes sean reportados de algún otro modo conocido. Puedes chatear con seguridad.",
 	"gui.nochatreports.OLD_status_unintrusive": "Este servidor no previene reportes de chat, pero permite que envíes mensajes sin firma. Clientes vanilla todavía enviaran mensajes firmados, mostrar mensajes sin firma como \"No Seguro\" y no mostrarlos si \"Mostrar Solo Chat Seguro\" está activado en las opciones de chat.",

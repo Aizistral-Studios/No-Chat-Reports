@@ -1,7 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "Eemaldab mängijasõnumitelt krüptograafilised signatuurid, mis muudab võimatuks nii nende jälgimise ja seostamise sinu Mojangi/Microsofti kontoga kui ka mängija vestlusest teatamise funktsiooni.",
-	"gui.nochatreport.secureChat": "See funktsioon ei saa töötada modiga No Chat Reports, kuna kinnitatavad signatuurid puuduvad.",
-	"gui.nochatreport.noReporting": "Selles serveris on mängijast teatamine keelatud modi No Chat Reports olemasolu tõttu.",
+	"gui.nochatreports.secure_chat": "See funktsioon ei saa töötada modiga No Chat Reports, kuna kinnitatavad signatuurid puuduvad.",
+	"gui.nochatreports.no_reporting": "Selles serveris on mängijast teatamine keelatud modi No Chat Reports olemasolu tõttu.",
 	"disconnect.nochatreports.client": "Sellest serverist puudub mod No Chat Reports ning sinu seadistused nõuavad selle olemasolu serveris.",
 	"gui.nochatreports.status_secure": "Sellele serverile on paigaldatud mod No Chat Reports või see piirab sinu sõnumitest teatamist mõnel muul teadaoleval viisil. Sa saad turvaliselt vestelda.",
 	"gui.nochatreports.status_unintrusive": "See server võimaldab saata signeerimata sõnumeid, mida ei saa Mojangile teatada. Kui serveris pole mõnda vestlusest teatamise piiramise pluginat, saadavad vanillikliendid siiski signeeritud sõnumeid, kuvavad signeerimata sõnumeid \"kinnitamata sõnumitena\" ning ei kuva neid üldse, kui vestlusseadetes on lubatud \"Vaid turvaline vestlus\".",

@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "Tämä asetus ei toimi No Chat Reportsin kanssa, koska viestien sähköiset allekirjoitukset on poistettu.",
-	"gui.nochatreport.noReporting": "Pelaajien ilmiantaminen on mahdotonta tällä palvelimella, kiitos No Chat Reportsin.",
+	"gui.nochatreports.secure_chat": "Tämä asetus ei toimi No Chat Reportsin kanssa, koska viestien sähköiset allekirjoitukset on poistettu.",
+	"gui.nochatreports.no_reporting": "Pelaajien ilmiantaminen on mahdotonta tällä palvelimella, kiitos No Chat Reportsin.",
 	"disconnect.nochatreports.client": "Tällä palvelimella ei ole No Chat Reportsia ja olet määritellyt sen pakolliseksi pelaamillesi palvelimille.",
 	"gui.nochatreports.OLD_status_secure": "Tällä palvelimella on No Chat Reports tai palvelin muuten estää lähettämiesi viestien ilmiannon. Voit keskustella turvallisesti.",
 	"gui.nochatreports.OLD_status_unintrusive": "Tämä palvelin ei estä viestien ilmiantoa, mutta antaa sinun lähettää sähköisesti allekirjoittamattomia viestejä, joita ei voi ilmiantaa Mojangille. Vanilla-asiakasohjelmat lähettävät silti allekirjoitettuja viestejä sekä näyttävät allekirjoittamattomat viestit \"ei-suojattuina\" eivätkä näytä niitä ollenkaan, jos \"Vain suojattu keskustelu\" on valittu keskusteluasetuksista.",

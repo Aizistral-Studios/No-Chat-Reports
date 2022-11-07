@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "Deze optie kan niet samenwerken met No Chat Reports, omdat er geen digitale handtekingen zijn om te verifiëren.",
-	"gui.nochatreport.noReporting": "Chat rapporten zijn uitgeschakeld op deze server, met dank aan No Chat Reports.",
+	"gui.nochatreports.secure_chat": "Deze optie kan niet samenwerken met No Chat Reports, omdat er geen digitale handtekingen zijn om te verifiëren.",
+	"gui.nochatreports.no_reporting": "Chat rapporten zijn uitgeschakeld op deze server, met dank aan No Chat Reports.",
 	"disconnect.nochatreports.client": "Deze server heeft geen ondersteuning voor No Chat Reports, en je hebt de mod geconfigureerd om zichzelf te vereisen op de server.",
 	"gui.nochatreports.OLD_status_secure": "Deze server heeft No Chat Reports geïnstalleerd, of voorkomt het rapporteren van berichten op een andere bekende manier. Je kan de chat veilig gebruiken.",
 	"gui.nochatreports.OLD_status_unintrusive": "Deze server voorkomt niet dat chatberichten gerapporteerd worden, maar staat het versturen van berichten zonder digitale handtekening toe. Technisch gezien kunnen ze gerapporteerd worden aan Mojang, maar worden over het algemeen niet beschouwd als geldig bewijs. Het is onwaarschijnlijk dat er actie ondernomen wordt op deze rapporten.",

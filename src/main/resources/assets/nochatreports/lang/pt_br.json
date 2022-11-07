@@ -1,7 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "STRIPS Assinaturas criptográficas de mensagens de jogador, tornando impossível rastreá-las e associá-las à sua conta Mojang/Microsoft, além de usar o recurso de relatório de bate-papo de jogador.",
-	"gui.nochatreport.secureChat": "Esta opção não pode funcionar sem relatórios de bate-papo, pois não há assinaturas a serem verificadas.",
-	"gui.nochatreport.noReporting": "Os relatórios de bate-papo estão desativados neste servidor, cortesia de relatórios sem bate-papo.",
+	"gui.nochatreports.secure_chat": "Esta opção não pode funcionar sem relatórios de bate-papo, pois não há assinaturas a serem verificadas.",
+	"gui.nochatreports.no_reporting": "Os relatórios de bate-papo estão desativados neste servidor, cortesia de relatórios sem bate-papo.",
 	"disconnect.nochatreports.client": "Este servidor não possui relatórios de bate-papo e você o configurou para exigir-se no servidor.",
 	"gui.nochatreports.status_secure": "Este servidor não possui relatórios de bate-papo instalados ou impede que suas mensagens sejam relatáveis de outra maneira conhecida.Você pode conversar com segurança.",
 	"gui.nochatreports.status_unintrusive": "Este servidor permite enviar mensagens não assinadas que não podem ser relatadas ao Mojang.A menos que algum tipo de plug-in seja instalado no servidor que impeça relatórios de bate-papo - os clientes de baunilha ainda enviarão mensagens assinadas, exibirá mensagens não assinadas como \"Não é seguro\" e não mostrar a eles se \"Só mostre chat seguro\" Está Ativado Nas OpÇões de bate-papo. ",

@@ -1,6 +1,6 @@
 {
-	"gui.nochatreport.secureChat": "Cette option ne fonctionne pas avec No Chat Reports, puisqu'il n'y a pas de signature à vérifier.",
-	"gui.nochatreport.noReporting": "Les signalements sont désactivés sur ce serveur grâce à No Chat Reports.",
+	"gui.nochatreports.secure_chat": "Cette option ne fonctionne pas avec No Chat Reports, puisqu'il n'y a pas de signature à vérifier.",
+	"gui.nochatreports.no_reporting": "Les signalements sont désactivés sur ce serveur grâce à No Chat Reports.",
 	"disconnect.nochatreports.client": "Ce serveur n'a pas No Chat Reports et vous avez configuré que vous le vouliez toujours.",
 	"gui.nochatreports.OLD_status_secure": "Ce serveur a No Chat Reports installé, ou empêche vos messages d'être signalés d'une autre manière. Vous pouvez discuter en toute sécurité.",
 	"gui.nochatreports.OLD_status_unintrusive": "Ce serveur n'empêche pas les signalements, mais vous permet d'envoyer des messages non signés. Techniquement, ils peuvent toujours être signalés à Mojang, mais ne sont généralement pas considérés comme des preuves valides. Il est peu probable que des mesures soient prises sur de tels signalements.",

@@ -1,7 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "Strips cryptographic signatures from player messages, making it impossible to track and associate them with your Mojang/Microsoft account, as well as use Player Chat Reporting feature.",
-	"gui.nochatreport.secureChat": "This option cannot work with No Chat Reports, since there are no signatures to verify.",
-	"gui.nochatreport.noReporting": "Chat reports are disabled on this server, courtesy of No Chat Reports.",
+	"gui.nochatreports.secure_chat": "This option cannot work with No Chat Reports, since there are no signatures to verify.",
+	"gui.nochatreports.no_reporting": "Chat reports are disabled on this server, courtesy of No Chat Reports.",
 	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
 	"gui.nochatreports.status_secure": "This server has No Chat Reports installed, or prevents your messages from being reportable in some other known way. You can chat safely.",
 	"gui.nochatreports.status_unintrusive": "This server allows you to send unsigned messages which cannot be reported to Mojang. Unless some kind of plugin is installed on server that prevents chat reports - vanilla clients will still send signed messages, display unsigned messages as \"Unverified\" and not show them if \"Only Show Secure Chat\" is enabled in chat options.",
