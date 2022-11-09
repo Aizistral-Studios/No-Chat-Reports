@@ -14,7 +14,7 @@ import net.minecraft.network.chat.MutableComponent;
 public class InvisibleButton extends Button {
 
 	public InvisibleButton() {
-		super(0, 0, 20, 20, Component.empty(), btn -> {}, (btn, stack, x, y) -> {}, Supplier::get);
+		super(0, 0, 20, 20, Component.empty(), btn -> {}, Supplier::get);
 	}
 
 	@Override

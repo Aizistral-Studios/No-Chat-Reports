@@ -14,6 +14,8 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.AdvancedImageButton;
+import com.aizistral.nochatreports.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.gui.EncryptionButton;
 import com.aizistral.nochatreports.gui.EncryptionConfigScreen;
 import com.aizistral.nochatreports.gui.EncryptionWarningScreen;
@@ -78,7 +80,7 @@ public abstract class MixinChatScreen extends Screen {
 		int buttonX = this.width - 23;
 
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
-			this.safetyStatusButton = new ImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(),
+			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(),
 					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {
 						if (NCRConfig.getClient().whitelistAllServers())
 							return;
@@ -100,38 +102,39 @@ public abstract class MixinChatScreen extends Screen {
 								whitelist.saveFile();
 							}
 						}
-					}, (btn, poseStack, i, j) -> {
-						MutableComponent tooltip = this.getSafetyLevel().getTooltip();
-						ServerAddress address = ServerSafetyState.getLastServer();
-						String signing = "gui.nochatreports.status_signing_denied";
+					}, Component.empty(), this);
+			this.safetyStatusButton.setTooltip(new AdvancedTooltip(() -> {
+				MutableComponent tooltip = this.getSafetyLevel().getTooltip();
+				ServerAddress address = ServerSafetyState.getLastServer();
+				String signing = "gui.nochatreports.status_signing_denied";
 
-						if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
-							signing = "gui.nochatreports.status_signing_allowed_realms";
-						} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
-							signing = "gui.nochatreports.status_signing_denied_secure";
-						} else if (NCRConfig.getServerWhitelist().isWhitelisted(address)) {
-							signing = "gui.nochatreports.status_signing_allowed_whitelisted";
-						} else if (ServerSafetyState.allowChatSigning()) {
-							signing = "gui.nochatreports.status_signing_allowed";
-						}
+				if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+					signing = "gui.nochatreports.status_signing_allowed_realms";
+				} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
+					signing = "gui.nochatreports.status_signing_denied_secure";
+				} else if (NCRConfig.getServerWhitelist().isWhitelisted(address)) {
+					signing = "gui.nochatreports.status_signing_allowed_whitelisted";
+				} else if (ServerSafetyState.allowChatSigning()) {
+					signing = "gui.nochatreports.status_signing_allowed";
+				}
 
-						tooltip.append("\n\n").append(Component.translatable(signing));
+				tooltip.append("\n\n").append(Component.translatable(signing));
 
-						if (address != null) {
-							String status = "gui.nochatreports.status_whitelist_no";
+				if (address != null) {
+					String status = "gui.nochatreports.status_whitelist_no";
 
-							if (NCRConfig.getClient().whitelistAllServers()) {
-								status = "gui.nochatreports.status_whitelist_all";
-							} else if (NCRConfig.getServerWhitelist().isWhitelisted(address)) {
-								status = "gui.nochatreports.status_whitelist_yes";
-							}
+					if (NCRConfig.getClient().whitelistAllServers()) {
+						status = "gui.nochatreports.status_whitelist_all";
+					} else if (NCRConfig.getServerWhitelist().isWhitelisted(address)) {
+						status = "gui.nochatreports.status_whitelist_yes";
+					}
 
-							tooltip.append("\n\n").append(Component.translatable(
-									"gui.nochatreports.status_whitelist_mode", Component.translatable(status)));
-						}
+					tooltip.append("\n\n").append(Component.translatable(
+							"gui.nochatreports.status_whitelist_mode", Component.translatable(status)));
+				}
 
-						this.renderTooltipNoGap(poseStack, this.minecraft.font.split(tooltip, 250), i, j);
-					}, Component.empty());
+				return tooltip;
+			}).setMaxWidth(250).setRenderWithoutGap(true));
 
 			this.addRenderableWidget(this.safetyStatusButton);
 			buttonX -= 25;
@@ -153,20 +156,17 @@ public abstract class MixinChatScreen extends Screen {
 					} else {
 						((EncryptionButton)btn).openEncryptionConfig();
 					}
-				}, (btn, poseStack, i, j) -> {
-					if (NCRConfig.getEncryption().isValid()) {
-						this.renderTooltip(poseStack, this.minecraft.font.split(
-								Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
-										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
-					} else {
-						this.renderTooltip(poseStack, this.minecraft.font.split(
-								Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
-										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
-
-					}
 				}, Component.empty(), this);
+		button.setTooltip(new AdvancedTooltip(() -> {
+			if (NCRConfig.getEncryption().isValid())
+				return Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
+						.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
+								.isEnabledAndValid() ? "on" : "off")));
+			else
+				return Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
+						.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
+								.isEnabledAndValid() ? "on" : "off")));
+		}).setMaxWidth(250));
 		button.active = true;
 		button.visible = true;
 
@@ -197,85 +197,6 @@ public abstract class MixinChatScreen extends Screen {
 		case UNKNOWN -> 84;
 		case UNDEFINED -> 105;
 		};
-	}
-
-	protected void renderTooltipNoGap(PoseStack poseStack, List<? extends FormattedCharSequence> list, int i, int j) {
-		this.renderTooltipInternalNoGap(poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), i, j);
-	}
-
-	protected void renderTooltipInternalNoGap(PoseStack poseStack, List<ClientTooltipComponent> list, int i, int j) {
-		ClientTooltipComponent clientTooltipComponent2;
-		int v;
-		int m;
-		if (list.isEmpty())
-			return;
-		int k = 0;
-		int l = list.size() == 1 ? -2 : -2;
-		for (ClientTooltipComponent clientTooltipComponent : list) {
-			m = clientTooltipComponent.getWidth(this.font);
-			if (m > k) {
-				k = m;
-			}
-			l += clientTooltipComponent.getHeight();
-		}
-		int n = i + 12;
-		int o = j - 12;
-		m = k;
-		int p = l;
-		if (n + k > this.width) {
-			n -= 28 + k;
-		}
-		if (o + p + 6 > this.height) {
-			o = this.height - p - 6;
-		}
-		if (j - p - 8 < 0) {
-			o = j + 8;
-		}
-		poseStack.pushPose();
-		int q = -267386864;
-		int r = 0x505000FF;
-		int s = 1344798847;
-		int t = 400;
-		float f = this.itemRenderer.blitOffset;
-		this.itemRenderer.blitOffset = 400.0f;
-		Tesselator tesselator = Tesselator.getInstance();
-		BufferBuilder bufferBuilder = tesselator.getBuilder();
-		RenderSystem.setShader(GameRenderer::getPositionColorShader);
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-		Matrix4f matrix4f = poseStack.last().pose();
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 4, n + m + 3, o - 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 3, n + m + 3, o + p + 4, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o + p + 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 4, o - 3, n - 3, o + p + 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n + m + 3, o - 3, n + m + 4, o + p + 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3 + 1, n - 3 + 1, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
-		Screen.fillGradient(matrix4f, bufferBuilder, n + m + 2, o - 3 + 1, n + m + 3, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o - 3 + 1, 400, 0x505000FF, 0x505000FF);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 2, n + m + 3, o + p + 3, 400, 1344798847, 1344798847);
-		RenderSystem.enableDepthTest();
-		RenderSystem.disableTexture();
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
-		BufferUploader.drawWithShader(bufferBuilder.end());
-		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
-		MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
-		poseStack.translate(0.0, 0.0, 400.0);
-		int u = o;
-		for (v = 0; v < list.size(); ++v) {
-			clientTooltipComponent2 = list.get(v);
-			clientTooltipComponent2.renderText(this.font, n, u, matrix4f, bufferSource);
-			u += clientTooltipComponent2.getHeight() /*+ (v == 0 ? 2 : 0)*/;
-		}
-		bufferSource.endBatch();
-		poseStack.popPose();
-		u = o;
-		for (v = 0; v < list.size(); ++v) {
-			clientTooltipComponent2 = list.get(v);
-			clientTooltipComponent2.renderImage(this.font, n, u, poseStack, this.itemRenderer, 400);
-			u += clientTooltipComponent2.getHeight() + (v == 0 ? 2 : 0);
-		}
-		this.itemRenderer.blitOffset = f;
 	}
 
 }

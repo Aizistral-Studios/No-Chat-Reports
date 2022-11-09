@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.AdvancedImageButton;
+import com.aizistral.nochatreports.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.network.ClientChannelHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -27,6 +29,7 @@ import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.locale.Language;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -50,17 +53,16 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
 		if (NCRConfig.getClient().showReloadButton()) {
-			var button = new ImageButton(this.width/2 + 158, this.height - 52, 20, 20, 0, 0, 20,
-					RELOAD_TEXTURE, 64, 64, btn -> NCRConfig.load(), (btn, poseStack, i, j) ->
-					this.renderTooltipNoGap(poseStack, this.minecraft.font.split(RELOAD_TOOLTIP, 250), i, j),
-					Component.translatable("gui.nochatreports.reload_config"));
+			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 52, 20, 20, 0, 0, 20,
+					RELOAD_TEXTURE, 64, 64, btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
+			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250).setRenderWithoutGap(true));
 			button.active = true;
 			button.visible = true;
 			this.addRenderableWidget(button);
 		}
 
 		if (NCRConfig.getClient().showNCRButton()) {
-			var button = new ImageButton(this.width/2 + 158, this.height - 28, 20, 20,
+			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 28, 20, 20,
 					NCRConfig.getClient().enableMod() ? 0 : 20, 0, 20, TOGGLE_TEXTURE, 64, 64,
 							btn -> {
 								NCRConfig.getClient().toggleMod();
@@ -75,97 +77,14 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 								}
 
 								ServerSafetyState.reset();
-							}, (btn, poseStack, i, j) -> this.renderTooltip(poseStack,
-									this.minecraft.font.split(
-											Component.translatable("gui.nochatreports.ncr_toggle_tooltip",
-													Language.getInstance()
-													.getOrDefault("gui.nochatreports.ncr_state_"
-															+ (NCRConfig.getClient().enableMod()
-																	? "on" : "off"))), 250), i, j),
-							Component.translatable("gui.nochatreports.ncr_toggle"));
+							}, Component.translatable("gui.nochatreports.ncr_toggle"), this);
+			button.setTooltip(new AdvancedTooltip(() -> Component.translatable("gui.nochatreports.ncr_toggle_tooltip",
+					Language.getInstance().getOrDefault("gui.nochatreports.ncr_state_" + (NCRConfig.getClient()
+							.enableMod() ? "on" : "off")))).setMaxWidth(250));
 			button.active = true;
 			button.visible = true;
 			this.addRenderableWidget(button);
 		}
-	}
-
-	protected void renderTooltipNoGap(PoseStack poseStack, List<? extends FormattedCharSequence> list, int i, int j) {
-		this.renderTooltipInternalNoGap(poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), i, j);
-	}
-
-	protected void renderTooltipInternalNoGap(PoseStack poseStack, List<ClientTooltipComponent> list, int i, int j) {
-		ClientTooltipComponent clientTooltipComponent2;
-		int v;
-		int m;
-		if (list.isEmpty())
-			return;
-		int k = 0;
-		int l = list.size() == 1 ? -2 : -2;
-		for (ClientTooltipComponent clientTooltipComponent : list) {
-			m = clientTooltipComponent.getWidth(this.font);
-			if (m > k) {
-				k = m;
-			}
-			l += clientTooltipComponent.getHeight();
-		}
-		int n = i + 12;
-		int o = j - 12;
-		m = k;
-		int p = l;
-		if (n + k > this.width) {
-			n -= 28 + k;
-		}
-		if (o + p + 6 > this.height) {
-			o = this.height - p - 6;
-		}
-		if (j - p - 8 < 0) {
-			o = j + 8;
-		}
-		poseStack.pushPose();
-		int q = -267386864;
-		int r = 0x505000FF;
-		int s = 1344798847;
-		int t = 400;
-		float f = this.itemRenderer.blitOffset;
-		this.itemRenderer.blitOffset = 400.0f;
-		Tesselator tesselator = Tesselator.getInstance();
-		BufferBuilder bufferBuilder = tesselator.getBuilder();
-		RenderSystem.setShader(GameRenderer::getPositionColorShader);
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-		Matrix4f matrix4f = poseStack.last().pose();
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 4, n + m + 3, o - 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 3, n + m + 3, o + p + 4, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o + p + 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 4, o - 3, n - 3, o + p + 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n + m + 3, o - 3, n + m + 4, o + p + 3, 400, -267386864, -267386864);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3 + 1, n - 3 + 1, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
-		Screen.fillGradient(matrix4f, bufferBuilder, n + m + 2, o - 3 + 1, n + m + 3, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o - 3 + 1, 400, 0x505000FF, 0x505000FF);
-		Screen.fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 2, n + m + 3, o + p + 3, 400, 1344798847, 1344798847);
-		RenderSystem.enableDepthTest();
-		RenderSystem.disableTexture();
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
-		BufferUploader.drawWithShader(bufferBuilder.end());
-		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
-		MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
-		poseStack.translate(0.0, 0.0, 400.0);
-		int u = o;
-		for (v = 0; v < list.size(); ++v) {
-			clientTooltipComponent2 = list.get(v);
-			clientTooltipComponent2.renderText(this.font, n, u, matrix4f, bufferSource);
-			u += clientTooltipComponent2.getHeight() /*+ (v == 0 ? 2 : 0)*/;
-		}
-		bufferSource.endBatch();
-		poseStack.popPose();
-		u = o;
-		for (v = 0; v < list.size(); ++v) {
-			clientTooltipComponent2 = list.get(v);
-			clientTooltipComponent2.renderImage(this.font, n, u, poseStack, this.itemRenderer, 400);
-			u += clientTooltipComponent2.getHeight() + (v == 0 ? 2 : 0);
-		}
-		this.itemRenderer.blitOffset = f;
 	}
 
 }
