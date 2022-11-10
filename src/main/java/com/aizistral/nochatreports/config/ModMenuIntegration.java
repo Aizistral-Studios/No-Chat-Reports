@@ -191,6 +191,34 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().disableTelemetry = newValue)
 					.build());
 
+			// Set an option for demandOnClient
+			lan.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnClient"), NCRConfig.getCommon().demandOnClient)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnClient.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClient = newValue)
+					.build());
+
+			// Set an option for demandOnClientMessage
+			lan.addEntry(entryBuilder.startStrField(Component.translatable("option.NoChatReports.demandOnClientMessage"), NCRConfig.getCommon().demandOnClientMessage)
+					.setDefaultValue(NCRConfig.getCommon().demandOnClientMessage)
+					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnClientMessage.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClientMessage = newValue)
+					.build());
+
+			// Set an option for convertToGameMessage
+			lan.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfig.getCommon().convertToGameMessage)
+					.setDefaultValue(false)
+					.setTooltip(this.makeTooltip("option.NoChatReports.convertToGameMessage.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().convertToGameMessage = newValue)
+					.build());
+
+			// Set an option for addQueryData
+			lan.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.addQueryData"), NCRConfig.getCommon().addQueryData)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.addQueryData.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().addQueryData = newValue)
+					.build());
+
 			// Set an option for skipSigningWarning
 			whitelist.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.skipSigningWarning"), NCRConfig.getClient().skipSigningWarning)
 					.setDefaultValue(false)
@@ -219,34 +247,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getServerWhitelist().whitelistedServers = newValue)
 					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), baseListEntry))
-					.build());
-
-			// Set an option for demandOnClient
-			lan.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnClient"), NCRConfig.getCommon().demandOnClient)
-					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnClient.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClient = newValue)
-					.build());
-
-			// Set an option for demandOnClientMessage
-			lan.addEntry(entryBuilder.startStrField(Component.translatable("option.NoChatReports.demandOnClientMessage"), NCRConfig.getCommon().demandOnClientMessage)
-					.setDefaultValue("You do not have No Chat Reports, and this server is configured to require it on client!")
-					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnClientMessage.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClientMessage = newValue)
-					.build());
-
-			// Set an option for convertToGameMessage
-			lan.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfig.getCommon().convertToGameMessage)
-					.setDefaultValue(false)
-					.setTooltip(this.makeTooltip("option.NoChatReports.convertToGameMessage.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getCommon().convertToGameMessage = newValue)
-					.build());
-
-			// Set an option for addQueryData
-			lan.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.addQueryData"), NCRConfig.getCommon().addQueryData)
-					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.addQueryData.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getCommon().addQueryData = newValue)
 					.build());
 
 			// Save config
