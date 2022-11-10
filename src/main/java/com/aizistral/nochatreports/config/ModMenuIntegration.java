@@ -45,8 +45,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
 		return screen -> {
 
-			// TODO Sort config options into client and common instead of visual and technical
-
 			// Get the previous screen
 			ConfigBuilder builder = ConfigBuilder.create()
 					.setParentScreen(Minecraft.getInstance().screen)
