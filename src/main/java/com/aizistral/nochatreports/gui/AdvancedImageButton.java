@@ -40,9 +40,10 @@ public class AdvancedImageButton extends ImageButton {
 	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float delta) {
 		super.renderButton(poseStack, mouseX, mouseY, delta);
 
-		if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender()) {
-			tooltip.doCustomRender(this.parent, poseStack, mouseX, mouseY);
-		}
+		if (this.isHovered)
+			if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender()) {
+				tooltip.doCustomRender(this.parent, poseStack, mouseX, mouseY);
+			}
 	}
 
 }
