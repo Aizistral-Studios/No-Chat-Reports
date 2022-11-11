@@ -101,6 +101,7 @@ public final class ServerSafetyState {
 
 		RESET_ACTIONS.forEach(Runnable::run);
 		RESET_ACTIONS.clear();
+		SIGNING_ACTIONS.clear();
 	}
 
 }
