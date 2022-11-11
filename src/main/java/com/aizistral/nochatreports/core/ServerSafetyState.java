@@ -1,25 +1,16 @@
 package com.aizistral.nochatreports.core;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.annotation.Nullable;
-
-import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NCRConfig;
+import blue.endless.jankson.annotation.Nullable;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.network.chat.LocalChatSession;
-import net.minecraft.network.chat.SignedMessageChain.Encoder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * All this global state is questionable, but we have to...

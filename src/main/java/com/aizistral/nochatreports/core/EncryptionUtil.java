@@ -1,17 +1,14 @@
 package com.aizistral.nochatreports.core;
 
-import java.util.Optional;
-
-import javax.annotation.Nullable;
-
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.encryption.Encryptor;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
+
+import java.util.Optional;
 
 public class EncryptionUtil {
 

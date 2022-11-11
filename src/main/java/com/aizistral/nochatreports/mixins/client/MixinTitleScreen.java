@@ -1,17 +1,14 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import com.aizistral.nochatreports.gui.RealmsWarningScreen;
+import com.mojang.realmsclient.RealmsMainScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.network.chat.CommonComponents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.aizistral.nochatreports.gui.RealmsWarningScreen;
-import com.mojang.realmsclient.RealmsMainScreen;
-
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 
 @Mixin(TitleScreen.class)
 public class MixinTitleScreen extends Screen {

@@ -1,8 +1,6 @@
 package com.aizistral.nochatreports.gui;
 
 import com.aizistral.nochatreports.config.NCRConfig;
-import com.aizistral.nochatreports.mixins.client.MixinChatScreen;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;

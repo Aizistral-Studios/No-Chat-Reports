@@ -1,7 +1,5 @@
 package com.aizistral.nochatreports.core;
 
-import com.aizistral.nochatreports.config.NCRConfig;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;

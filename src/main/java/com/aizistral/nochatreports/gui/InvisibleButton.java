@@ -1,14 +1,12 @@
 package com.aizistral.nochatreports.gui;
 
-import java.util.function.Supplier;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+
+import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
 public class InvisibleButton extends Button {

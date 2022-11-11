@@ -2,10 +2,6 @@ package com.aizistral.nochatreports.encryption;
 
 import java.security.InvalidKeyException;
 
-import com.aizistral.nochatreports.NoChatReports;
-
-import net.minecraft.SharedConstants;
-
 public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 	private static final char PARAGRAPH = '\u00a7', PARAGRAPH_PLACEHOLDER = '\uffef',
 			DELETE = '\u007f', DELETE_PLACEHOLDER = '\ufff0';
