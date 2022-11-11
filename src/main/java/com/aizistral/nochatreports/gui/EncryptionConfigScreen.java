@@ -90,8 +90,8 @@ public class EncryptionConfigScreen extends Screen {
 
 		var button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() - 15, this.keyField.getY() + 3, 12,
 				12, 0, 0, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
-		button.setTooltip(new AdvancedTooltip(() -> this.validationIcon.yTexStart == 0 ? VALIDATION_OK
-				: VALIDATION_FAILED).setMaxWidth(250));
+		button.setTooltip(new AdvancedTooltip(() -> this.validationIcon != null &&
+				this.validationIcon.yTexStart == 0 ? VALIDATION_OK : VALIDATION_FAILED).setMaxWidth(250));
 		button.active = false;
 		button.visible = true;
 
