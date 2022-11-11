@@ -63,10 +63,13 @@ public class AdvancedTooltip extends Tooltip {
 
 	@Override
 	public List<FormattedCharSequence> toCharSequence(Minecraft minecraft) {
-		if (this.cachedTooltip == null) {
-			this.cachedTooltip = splitTooltip(minecraft, this.getMessage(), this.maxWidth);
-		}
-		return this.cachedTooltip;
+		if (this.supplier == null) {
+			if (this.cachedTooltip == null) {
+				this.cachedTooltip = splitTooltip(minecraft, this.getMessage(), this.maxWidth);
+			}
+			return this.cachedTooltip;
+		} else
+			return splitTooltip(minecraft, this.getMessage(), this.maxWidth);
 	}
 
 	public boolean hasCustomRender() {
