@@ -66,6 +66,11 @@ public class MixinChatListener {
 					});
 
 					ServerSafetyState.setAllowChatSigning(true);
+
+					if (NCRConfig.getClient().hideSigningRequestMessage()) {
+						info.cancel();
+					}
+
 					return;
 				}
 
