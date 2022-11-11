@@ -9,15 +9,11 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-public class EncryptionButton extends ImageButton {
-	private final Screen parent;
+public class EncryptionButton extends AdvancedImageButton {
 
 	public EncryptionButton(int x, int y, int xSize, int ySize, int xTexStart, int yTexStart, int yStateDiff,
-			ResourceLocation texture, int textureWidth, int textureHeight, OnPress onPress, OnTooltip onTooltip,
-			Component name, Screen parent) {
-		super(x, y, xSize, ySize, xTexStart, yTexStart, yStateDiff, texture, textureWidth, textureHeight, onPress,
-				onTooltip, name);
-		this.parent = parent;
+			ResourceLocation texture, int textureWidth, int textureHeight, OnPress onPress, Component name, Screen parent) {
+		super(x, y, xSize, ySize, xTexStart, yTexStart, yStateDiff, texture, textureWidth, textureHeight, onPress, name, parent);
 	}
 
 	@Override

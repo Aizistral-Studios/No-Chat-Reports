@@ -15,12 +15,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.gui.InvisibleButton;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.social.PlayerEntry;
 import net.minecraft.client.gui.screens.social.SocialInteractionsScreen;
 import net.minecraft.network.chat.Component;
@@ -45,25 +47,15 @@ public class MixinPlayerEntry {
 	 */
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen socialInteractionsScreen, UUID uUID, String string, Supplier<ResourceLocation> supplier, boolean reportable, CallbackInfo info) {
+	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen screen, UUID uUID, String string, Supplier<ResourceLocation> supplier, boolean reportable, CallbackInfo info) {
 		if (NCRConfig.getClient().alwaysHideReportButton()) {
 			this.reportButton = new InvisibleButton();
 			this.reportButton.active = this.reportButton.visible = false;
 		} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE && this.reportButton != null) {
-			this.reportButton = new ImageButton(0, 0, 20, 20, 0, 0, 20, REPORT_BUTTON_LOCATION, 64, 64, button -> {}, new Button.OnTooltip() {
-				@Override
-				public void onTooltip(Button button, PoseStack poseStack, int i, int j) {
-					MixinPlayerEntry.this.tooltipHoverTime += minecraft.getDeltaFrameTime();
-					if (MixinPlayerEntry.this.tooltipHoverTime >= 10.0f) {
-						socialInteractionsScreen.setPostRenderRunnable(() -> postRenderTooltip(socialInteractionsScreen, poseStack, minecraft.font.split(NCR_BUTTON_TOOLTIP, 150), i, j));
-					}
-				}
-
-				@Override
-				public void narrateTooltip(Consumer<Component> consumer) {
-					consumer.accept(NCR_BUTTON_TOOLTIP);
-				}
-			}, Component.translatable("gui.socialInteractions.report"));
+			this.reportButton = new AdvancedImageButton(0, 0, 20, 20, 0, 0, 20, REPORT_BUTTON_LOCATION, 64, 64,
+					button -> {}, Component.translatable("gui.socialInteractions.report"), screen);
+			this.reportButton.setTooltip(Tooltip.create(NCR_BUTTON_TOOLTIP));
+			this.reportButton.setTooltipDelay(10);
 			this.reportButton.active = false;
 		}
 	}

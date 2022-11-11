@@ -14,3 +14,15 @@ accessible field net/minecraft/client/gui/screens/multiplayer/WarningScreen mess
 accessible field net/minecraft/client/multiplayer/ClientPacketListener signedMessageEncoder Lnet/minecraft/network/chat/SignedMessageChain$Encoder;
 accessible field net/minecraft/client/multiplayer/ClientPacketListener chatSession Lnet/minecraft/network/chat/LocalChatSession;
 accessible method net/minecraft/client/multiplayer/ClientPacketListener setChatSession (Lnet/minecraft/network/chat/LocalChatSession;)V
+accessible method net/minecraft/client/gui/components/Tooltip <init> (Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;)V
+accessible field net/minecraft/client/gui/components/Tooltip MAX_WIDTH I
+accessible field net/minecraft/client/gui/components/Tooltip message Lnet/minecraft/network/chat/Component;
+accessible field net/minecraft/client/gui/components/Tooltip narration Lnet/minecraft/network/chat/Component;
+accessible field net/minecraft/client/gui/components/Tooltip cachedTooltip Ljava/util/List;
+accessible field net/minecraft/client/gui/screens/Screen minecraft Lnet/minecraft/client/Minecraft;
+accessible field net/minecraft/client/gui/screens/Screen itemRenderer Lnet/minecraft/client/renderer/entity/ItemRenderer;
+accessible field net/minecraft/client/gui/screens/Screen font Lnet/minecraft/client/gui/Font;
+accessible field net/minecraft/client/gui/components/AbstractWidget tooltip Lnet/minecraft/client/gui/components/Tooltip;
+accessible field net/minecraft/client/gui/components/AbstractWidget tooltipMsDelay I
+accessible method net/minecraft/client/gui/components/AbstractWidget updateTooltip ()V
+extendable method net/minecraft/client/gui/components/AbstractWidget updateTooltip ()V

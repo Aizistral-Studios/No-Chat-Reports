@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.config;
+/* package com.aizistral.nochatreports.config;
 
 import java.util.List;
 
@@ -19,13 +19,13 @@ import net.minecraft.locale.Language;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
-
+*/
 /**
  * Implementation of ModMenu and ClothConfig support for the mod.
  *
  * @author MODKILLER1001
  */
-
+/*
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
 
@@ -243,3 +243,4 @@ public final class ModMenuIntegration implements ModMenuApi {
 	}
 
 }
+*/
