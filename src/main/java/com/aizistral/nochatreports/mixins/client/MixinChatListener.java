@@ -55,10 +55,11 @@ public class MixinChatListener {
 
 				if(NCRConfig.getClient().skipSigningWarning()){
 					ServerSafetyState.setAllowChatSigning(true);
-					var chatScr = Minecraft.getInstance().screen instanceof ChatScreen chat ? chat : new ChatScreen("");
-					chatScr.init(Minecraft.getInstance(),
-							Minecraft.getInstance().getWindow().getGuiScaledWidth(),
-							Minecraft.getInstance().getWindow().getGuiScaledHeight());
+					var instance = Minecraft.getInstance(); 
+					var chatScr = instance.screen instanceof ChatScreen chat ? chat : new ChatScreen("");
+					chatScr.init(instance,
+							instance.getWindow().getGuiScaledWidth(),
+							instance.getWindow().getGuiScaledHeight());
 					chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
 					return;
 				}
