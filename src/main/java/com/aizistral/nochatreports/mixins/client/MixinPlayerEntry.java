@@ -35,18 +35,13 @@ public class MixinPlayerEntry {
 	@Shadow @Final private static ResourceLocation REPORT_BUTTON_LOCATION;
 	@Shadow private Button reportButton;
 
-	@Shadow
-	static void postRenderTooltip(SocialInteractionsScreen socialInteractionsScreen, PoseStack poseStack, List<FormattedCharSequence> list, int i, int j) {
-		throw new IllegalStateException("@Shadow transformation failed. Should never happen.");
-	}
-
 	/**
 	 * @reason Disable (or hide if configured respectively) chat report button on client.
 	 * @author Aizistral
 	 */
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen screen, UUID uUID, String string, Supplier<ResourceLocation> supplier, boolean reportable, CallbackInfo info) {
+	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen screen, UUID uuid, String name, Supplier<ResourceLocation> skinGetter, boolean reportable, CallbackInfo info) {
 		if (NCRConfig.getClient().alwaysHideReportButton()) {
 			this.reportButton = new InvisibleButton();
 			this.reportButton.active = this.reportButton.visible = false;
