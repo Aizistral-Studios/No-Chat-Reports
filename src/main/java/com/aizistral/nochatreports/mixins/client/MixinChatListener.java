@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.UUID;
 
+import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -55,6 +56,9 @@ public class MixinChatListener {
 				if(NCRConfig.getClient().skipSigningWarning()){
 					ServerSafetyState.setAllowChatSigning(true);
 					var chatScr = Minecraft.getInstance().screen instanceof ChatScreen chat ? chat : new ChatScreen("");
+					chatScr.init(Minecraft.getInstance(),
+							Minecraft.getInstance().getWindow().getGuiScaledWidth(),
+							Minecraft.getInstance().getWindow().getGuiScaledHeight());
 					chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
 					return;
 				}
