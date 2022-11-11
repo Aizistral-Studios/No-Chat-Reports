@@ -22,9 +22,7 @@ import net.minecraft.util.StringUtil;
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
-	protected boolean
-			enableMod = true, showNCRButton = true, showReloadButton = true, verifiedIconEnabled = true,
-
+	protected boolean enableMod = true, showNCRButton = true, showReloadButton = true, verifiedIconEnabled = true,
 			showServerSafety = true, hideInsecureMessageIndicators = true, hideModifiedMessageIndicators = true,
 			hideSystemMessageIndicators = true, hideWarningToast = true, hideSigningRequestMessage = false,
 			alwaysHideReportButton = false, skipRealmsWarning = false, skipSigningWarning = false,
