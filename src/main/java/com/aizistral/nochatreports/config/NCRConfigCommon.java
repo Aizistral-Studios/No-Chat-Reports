@@ -1,10 +1,5 @@
 package com.aizistral.nochatreports.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.common.base.Preconditions;
-
 public final class NCRConfigCommon extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
 
