@@ -11,9 +11,9 @@ import net.minecraft.client.Minecraft;
 @Mixin(Minecraft.class)
 public class MixinMinecraft {
 	/**
-	 * Replaces real ban screen with a fake one.
+	 * Replaces real ban screen with a fake one for testing.
 	 * @return Fake ban screen
-	 * @reason Debugging
+	 * @reason Testing
 	 * @author Aizistral
 	 */
 	@Overwrite
