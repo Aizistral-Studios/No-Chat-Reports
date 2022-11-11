@@ -29,6 +29,7 @@ import net.minecraft.network.chat.SignedMessageChain.Encoder;
 @Environment(EnvType.CLIENT)
 public final class ServerSafetyState {
 	private static final List<Runnable> resetActions = new ArrayList<>();
+	private static final List<Runnable> signingActions = new ArrayList<>();
 	private static final AtomicBoolean allowChatSigning = new AtomicBoolean(false);
 	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
 	private volatile static ServerAddress lastServer = null;
@@ -52,9 +53,11 @@ public final class ServerSafetyState {
 
 				if (allow && connection.chatSession == null) {
 					Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
-					.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair ->
-					connection.setChatSession(LocalChatSession.create(profileKeyPair))),
-							Minecraft.getInstance());
+					.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
+						connection.setChatSession(LocalChatSession.create(profileKeyPair));
+						signingActions.forEach(Runnable::run);
+						signingActions.clear();
+					}), Minecraft.getInstance());
 				}
 			}
 		}
@@ -84,6 +87,10 @@ public final class ServerSafetyState {
 
 	public static void scheduleResetAction(Runnable action) {
 		resetActions.add(action);
+	}
+
+	public static void scheduleSigningAction(Runnable action) {
+		signingActions.add(action);
 	}
 
 	public static void reset() {
