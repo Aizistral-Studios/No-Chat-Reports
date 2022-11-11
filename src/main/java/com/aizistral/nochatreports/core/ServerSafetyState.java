@@ -28,9 +28,9 @@ import net.minecraft.network.chat.SignedMessageChain.Encoder;
 
 @Environment(EnvType.CLIENT)
 public final class ServerSafetyState {
-	private static final List<Runnable> resetActions = new ArrayList<>();
-	private static final List<Runnable> signingActions = new ArrayList<>();
-	private static final AtomicBoolean allowChatSigning = new AtomicBoolean(false);
+	private static final List<Runnable> RESET_ACTIONS = new ArrayList<>();
+	private static final List<Runnable> SIGNING_ACTIONS = new ArrayList<>();
+	private static final AtomicBoolean ALLOW_CHAT_SIGNING = new AtomicBoolean(false);
 	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
 	private volatile static ServerAddress lastServer = null;
 
@@ -43,11 +43,11 @@ public final class ServerSafetyState {
 	}
 
 	public static boolean allowChatSigning() {
-		return allowChatSigning.get();
+		return ALLOW_CHAT_SIGNING.get();
 	}
 
 	public static void setAllowChatSigning(boolean allow) {
-		if (allowChatSigning.compareAndSet(!allow, allow)) {
+		if (ALLOW_CHAT_SIGNING.compareAndSet(!allow, allow)) {
 			if (Minecraft.getInstance().player != null) {
 				var connection = Minecraft.getInstance().player.connection;
 
@@ -55,8 +55,8 @@ public final class ServerSafetyState {
 					Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
 					.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
 						connection.setChatSession(LocalChatSession.create(profileKeyPair));
-						signingActions.forEach(Runnable::run);
-						signingActions.clear();
+						SIGNING_ACTIONS.forEach(Runnable::run);
+						SIGNING_ACTIONS.clear();
 					}), Minecraft.getInstance());
 				}
 			}
@@ -64,7 +64,7 @@ public final class ServerSafetyState {
 	}
 
 	public static void toggleChatSigning() {
-		setAllowChatSigning(!allowChatSigning.get());
+		setAllowChatSigning(!ALLOW_CHAT_SIGNING.get());
 	}
 
 	public static boolean isOnRealms() {
@@ -86,21 +86,21 @@ public final class ServerSafetyState {
 	}
 
 	public static void scheduleResetAction(Runnable action) {
-		resetActions.add(action);
+		RESET_ACTIONS.add(action);
 	}
 
 	public static void scheduleSigningAction(Runnable action) {
-		signingActions.add(action);
+		SIGNING_ACTIONS.add(action);
 	}
 
 	public static void reset() {
 		lastServer = null;
 		current = ServerSafetyLevel.UNDEFINED;
-		allowChatSigning.set(false);
+		ALLOW_CHAT_SIGNING.set(false);
 		UnsafeServerScreen.setHideThisSession(false);
 
-		resetActions.forEach(Runnable::run);
-		resetActions.clear();
+		RESET_ACTIONS.forEach(Runnable::run);
+		RESET_ACTIONS.clear();
 	}
 
 }

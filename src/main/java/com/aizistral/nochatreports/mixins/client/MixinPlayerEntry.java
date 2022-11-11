@@ -34,7 +34,6 @@ public class MixinPlayerEntry {
 	private static final Component NCR_BUTTON_TOOLTIP = Component.translatable("gui.nochatreports.no_reporting");
 	@Shadow @Final private static ResourceLocation REPORT_BUTTON_LOCATION;
 	@Shadow private Button reportButton;
-	@Shadow float tooltipHoverTime;
 
 	@Shadow
 	static void postRenderTooltip(SocialInteractionsScreen socialInteractionsScreen, PoseStack poseStack, List<FormattedCharSequence> list, int i, int j) {
