@@ -45,7 +45,7 @@ archivesBaseName = "${mod_archives_name}"
 
 println("Specifying Java compatibility...")
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-//compileJava.options.encoding = "UTF-8"
+compileJava.options.encoding = "UTF-8"
 
 println("Java Installation Data:")
 println(" - Java Version: " + System.getProperty('java.version'))
