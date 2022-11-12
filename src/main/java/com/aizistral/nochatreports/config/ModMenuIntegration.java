@@ -113,6 +113,13 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionButton = newValue)
 					.build());
 
+			// Set an option for showEncryptionIndicators
+			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionIndicators"), NCRConfig.getEncryption().showEncryptionIndicators)
+					.setDefaultValue(true)
+					.setTooltip(this.makeTooltip("option.NoChatReports.showEncryptionIndicators.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionIndicators = newValue)
+					.build());
+
 			// Set an option for showServerSafety
 			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NCRConfig.getClient().showServerSafety)
 					.setDefaultValue(true)
