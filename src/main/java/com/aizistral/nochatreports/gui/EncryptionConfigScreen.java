@@ -249,7 +249,7 @@ public class EncryptionConfigScreen extends Screen {
 				this.keyField.setValue(encryption.getPassphraseKey(pass));
 			}
 		} else {
-			//this.keyField.setValue(this.keyField.getValue());
+			this.onKeyUpdate(this.keyField.getValue());
 		}
 		this.settingPassKey = false;
 	}
