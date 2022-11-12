@@ -79,7 +79,7 @@
 	"option.NoChatReports.hideInsecureMessageIndicators": "Hide unverified message indicators",
 	"option.NoChatReports.hideInsecureMessageIndicators.tooltip": "Prevents the client from displaying unverified message indicators, in the form of a gray bar to the left of the chat message.",
 	"option.NoChatReports.hideModifiedMessageIndicators": "Hide modified message indicators",
-	"option.NoChatReports.hideModifiedMessageIndicators.tooltip": "Prevents the client from displaying modified message indicators, in the form of a gray bar to the left and §7§l(§r§e?§e§l)§r on hover to the right of the chat message.",
+	"option.NoChatReports.hideModifiedMessageIndicators.tooltip": "Prevents the client from displaying modified message indicators, in the form of a gray bar to the left and §7§l(§r§7?§7§l)§r on hover to the right of the chat message.",
 	"option.NoChatReports.hideSystemMessageIndicators": "Hide system message indicators",
 	"option.NoChatReports.hideSystemMessageIndicators.tooltip": "Prevents the client from displaying system message indicators, in the form of a gray bar to the left of the chat message.",
 	"option.NoChatReports.hideWarningToast": "Hide warning toast",

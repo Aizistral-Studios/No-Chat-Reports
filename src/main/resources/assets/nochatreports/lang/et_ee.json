@@ -79,7 +79,7 @@
 	"option.NoChatReports.hideInsecureMessageIndicators": "Peida kinnitamata sõnumite indikaatorid",
 	"option.NoChatReports.hideInsecureMessageIndicators.tooltip": "Keelab mängul kuvada kinnitamata sõnumite indikaatoreid vasakpoolse halli ribana vestlussõnumi kõrval.",
 	"option.NoChatReports.hideModifiedMessageIndicators": "Peida muudetud sõnumite indikaatorid",
-	"option.NoChatReports.hideModifiedMessageIndicators.tooltip": "Keelab mängul kuvada muudetud sõnumite indikaatoreid vasakpoolse halli riba ning hõljumisel parempoolse §7§l(§r§e?§e§l)§r ikoonina vestlussõnumi kõrval.",
+	"option.NoChatReports.hideModifiedMessageIndicators.tooltip": "Keelab mängul kuvada muudetud sõnumite indikaatoreid vasakpoolse halli riba ning hõljumisel parempoolse §7§l(§r§7?§7§l)§r ikoonina vestlussõnumi kõrval.",
 	"option.NoChatReports.hideSystemMessageIndicators": "Peida süsteemisõnumite indikaatorid",
 	"option.NoChatReports.hideSystemMessageIndicators.tooltip": "Keelab mängul kuvada süsteemisõnumite indikaatoreid vasakpoolse halli ribana vestlussõnumi kõrval.",
 	"option.NoChatReports.hideWarningToast": "Peida hoiatushüpik",
