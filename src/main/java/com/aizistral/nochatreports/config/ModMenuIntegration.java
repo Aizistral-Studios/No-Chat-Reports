@@ -215,14 +215,14 @@ public final class ModMenuIntegration implements ModMenuApi {
 
 			// Set an option for demandOnClient
 			lanOptions.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.demandOnClient"), NCRConfig.getCommon().demandOnClient)
-					.setDefaultValue(true)
+					.setDefaultValue(false)
 					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnClient.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClient = newValue)
 					.build());
 
 			// Set an option for convertToGameMessage
 			lanOptions.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.convertToGameMessage"), NCRConfig.getCommon().convertToGameMessage)
-					.setDefaultValue(false)
+					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.convertToGameMessage.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getCommon().convertToGameMessage = newValue)
 					.build());
