@@ -10,7 +10,7 @@ public final class NCRConfigCommon extends JSONConfig {
 
 	protected String demandOnClientMessage = "You do not have No Chat Reports, and this server is"
 			+ " configured to require it on client!";
-	protected boolean demandOnClient = true, convertToGameMessage = false,
+	protected boolean demandOnClient = false, convertToGameMessage = true,
 			addQueryData = true, enableDebugLog = false;
 
 	protected NCRConfigCommon() {
