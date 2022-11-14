@@ -1,31 +1,17 @@
 package com.aizistral.nochatreports.encryption;
 
-import static com.aizistral.nochatreports.encryption.Encryption.AES_CFB8;
-import static com.aizistral.nochatreports.encryption.Encryption.BASE64_DECODER;
-import static com.aizistral.nochatreports.encryption.Encryption.BASE64_ENCODER;
-import static javax.crypto.Cipher.DECRYPT_MODE;
-import static javax.crypto.Cipher.ENCRYPT_MODE;
+import net.minecraft.util.Tuple;
 
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
-import java.util.Random;
 
-import javax.annotation.Nullable;
-import javax.crypto.AEADBadTagException;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
-import net.minecraft.SharedConstants;
-import net.minecraft.util.Tuple;
+import static javax.crypto.Cipher.DECRYPT_MODE;
+import static javax.crypto.Cipher.ENCRYPT_MODE;
 
 public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T> {
 	private final T encryption;

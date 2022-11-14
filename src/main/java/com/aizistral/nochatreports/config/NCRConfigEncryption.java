@@ -1,19 +1,11 @@
 package com.aizistral.nochatreports.config;
 
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import com.aizistral.nochatreports.encryption.AESCFB8Encryptor;
 import com.aizistral.nochatreports.encryption.Encryption;
 import com.aizistral.nochatreports.encryption.Encryptor;
-import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.network.chat.Component;
-import net.minecraft.util.StringUtil;
+import java.security.InvalidKeyException;
+import java.util.List;
+import java.util.Optional;
 
 public class NCRConfigEncryption extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Encryption.json";

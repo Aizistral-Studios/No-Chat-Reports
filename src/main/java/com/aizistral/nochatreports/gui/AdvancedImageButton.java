@@ -1,18 +1,9 @@
 package com.aizistral.nochatreports.gui;
 
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
-import com.aizistral.nochatreports.config.NCRConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.components.Button.OnPress;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

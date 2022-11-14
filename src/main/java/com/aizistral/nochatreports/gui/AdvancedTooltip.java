@@ -1,21 +1,8 @@
 package com.aizistral.nochatreports.gui;
 
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
-import org.joml.Matrix4f;
-
+import blue.endless.jankson.annotation.Nullable;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
-
+import com.mojang.blaze3d.vertex.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -26,6 +13,11 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
+import org.joml.Matrix4f;
+
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedTooltip extends Tooltip {
@@ -63,10 +55,13 @@ public class AdvancedTooltip extends Tooltip {
 
 	@Override
 	public List<FormattedCharSequence> toCharSequence(Minecraft minecraft) {
-		if (this.cachedTooltip == null) {
-			this.cachedTooltip = splitTooltip(minecraft, this.getMessage(), this.maxWidth);
-		}
-		return this.cachedTooltip;
+		if (this.supplier == null) {
+			if (this.cachedTooltip == null) {
+				this.cachedTooltip = splitTooltip(minecraft, this.getMessage(), this.maxWidth);
+			}
+			return this.cachedTooltip;
+		} else
+			return splitTooltip(minecraft, this.getMessage(), this.maxWidth);
 	}
 
 	public boolean hasCustomRender() {

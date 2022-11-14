@@ -79,7 +79,7 @@
 	"option.NoChatReports.hideInsecureMessageIndicators": "Ukryj niezweryfikowane wskaźniki czatu",
 	"option.NoChatReports.hideInsecureMessageIndicators.tooltip": "Zapobiega wyświetlaniu przez klienta wskaźników \"Niezabezpieczonych\" w postaci szarego paska po lewej stronie.",
 	"option.NoChatReports.hideModifiedMessageIndicators": "Ukryj zmodyfikowane wskaźniki czatu",
-	"option.NoChatReports.hideModifiedMessageIndicators.tooltip": "Zapobiega wyświetlaniu przez klienta wskaźników \"Zmodyfikowano\" w postaci szarego paska po lewej stronie i §7§l(§r§e?§e§l)§r po najechaniu kursorem na prawo od wiadomości czatu.",
+	"option.NoChatReports.hideModifiedMessageIndicators.tooltip": "Zapobiega wyświetlaniu przez klienta wskaźników \"Zmodyfikowano\" w postaci szarego paska po lewej stronie i §7§l(§r§7?§7§l)§r po najechaniu kursorem na prawo od wiadomości czatu.",
 	"option.NoChatReports.hideSystemMessageIndicators": "Ukryj systemowe wskaźniki czatu",
 	"option.NoChatReports.hideSystemMessageIndicators.tooltip": "Zapobiega wyświetlaniu przez klienta specjalnych wskaźników komunikatów systemowych w postaci szarego paska po lewej stronie.",
 	"option.NoChatReports.hideWarningToast": "Ukryj toast ostrzegawczy",

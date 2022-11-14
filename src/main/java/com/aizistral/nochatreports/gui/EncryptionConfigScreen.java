@@ -1,40 +1,20 @@
 package com.aizistral.nochatreports.gui;
 
-import java.util.List;
-
-import org.spongepowered.include.com.google.common.base.Objects;
-
-import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigEncryption;
-import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.encryption.Encryption;
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Checkbox;
-import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.MultiLineLabel;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractCommandBlockEditScreen;
-import net.minecraft.client.gui.screens.inventory.CommandBlockEditScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.StringUtil;
-import net.minecraft.world.level.BaseCommandBlock;
-import net.minecraft.world.level.block.entity.CommandBlockEntity;
+import org.spongepowered.include.com.google.common.base.Objects;
 
 @Environment(EnvType.CLIENT)
 public class EncryptionConfigScreen extends Screen {
@@ -90,8 +70,8 @@ public class EncryptionConfigScreen extends Screen {
 
 		var button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() - 15, this.keyField.getY() + 3, 12,
 				12, 0, 0, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
-		button.setTooltip(new AdvancedTooltip(() -> this.validationIcon.yTexStart == 0 ? VALIDATION_OK
-				: VALIDATION_FAILED).setMaxWidth(250));
+		button.setTooltip(new AdvancedTooltip(() -> this.validationIcon != null &&
+				this.validationIcon.yTexStart == 0 ? VALIDATION_OK : VALIDATION_FAILED).setMaxWidth(250));
 		button.active = false;
 		button.visible = true;
 
@@ -244,7 +224,7 @@ public class EncryptionConfigScreen extends Screen {
 				this.keyField.setValue(encryption.getPassphraseKey(pass));
 			}
 		} else {
-			//this.keyField.setValue(this.keyField.getValue());
+			this.onKeyUpdate(this.keyField.getValue());
 		}
 		this.settingPassKey = false;
 	}
