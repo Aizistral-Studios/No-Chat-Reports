@@ -13,6 +13,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -69,8 +70,10 @@ public abstract class JSONConfig {
 
 		try (BufferedReader reader = Files.newBufferedReader(file)) {
 			return Optional.of(GSON.fromJson(reader, configClass));
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			NoChatReports.LOGGER.fatal("Could not read config file: {}", file);
+			NoChatReports.LOGGER.fatal("This likely indicates the file is corrupted. "
+					+ "You can try deleting it to fix this problem. Full stacktrace below:");
 			ex.printStackTrace();
 			return null;
 		}
