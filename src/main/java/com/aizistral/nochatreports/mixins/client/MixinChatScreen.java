@@ -86,7 +86,9 @@ public abstract class MixinChatScreen extends Screen {
 
 								if (ServerSafetyState.getCurrent() != ServerSafetyLevel.SECURE) {
 									ServerSafetyState.setAllowChatSigning(true);
-									ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
+									if(ServerSafetyState.getCurrent() != ServerSafetyLevel.INSECURE){
+										ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE_WHITELISTED);
+									}
 								}
 							} else {
 								whitelist.remove(address);
@@ -183,7 +185,7 @@ public abstract class MixinChatScreen extends Screen {
 		return switch (level) {
 		case SECURE -> 21;
 		case UNINTRUSIVE -> 42;
-		case INSECURE -> 0;
+		case INSECURE, INSECURE_WHITELISTED -> 0;
 		case REALMS -> 63;
 		case UNKNOWN -> 84;
 		case UNDEFINED -> 105;
