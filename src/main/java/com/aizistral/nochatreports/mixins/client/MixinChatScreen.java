@@ -86,10 +86,7 @@ public abstract class MixinChatScreen extends Screen {
 
 								if (ServerSafetyState.getCurrent() != ServerSafetyLevel.SECURE) {
 									ServerSafetyState.setAllowChatSigning(true);
-									if(ServerSafetyState.getCurrent() == ServerSafetyLevel.INSECURE){
-										ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
-									}
-									else{
+									if(ServerSafetyState.getCurrent() != ServerSafetyLevel.INSECURE){
 										ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE_WHITELISTED);
 									}
 								}
