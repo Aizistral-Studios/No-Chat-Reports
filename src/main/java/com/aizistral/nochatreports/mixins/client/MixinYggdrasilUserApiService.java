@@ -15,7 +15,7 @@ import com.mojang.authlib.yggdrasil.YggdrasilUserApiService;
 
 import net.minecraft.client.telemetry.ClientTelemetryManager;
 
-@Mixin(YggdrasilUserApiService.class)
+@Mixin(value = YggdrasilUserApiService.class, remap = false)
 public class MixinYggdrasilUserApiService {
 
 	/**
@@ -28,16 +28,6 @@ public class MixinYggdrasilUserApiService {
 		if (NCRConfig.getClient().disableTelemetry()) {
 			info.setReturnValue(TelemetrySession.DISABLED);
 		}
-	}
-
-	@Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lcom/mojang/authlib/minecraft/UserApiService;"
-			+ "newTelemetrySession(Ljava/util/concurrent/Executor;)Lcom/mojang/authlib/minecraft/TelemetrySession;",
-			remap = false))
-	private TelemetrySession onCreateTelemetrySession(UserApiService service, Executor executor) {
-		if (NCRConfig.getClient().disableTelemetry())
-			return TelemetrySession.DISABLED;
-		else
-			return service.newTelemetrySession(executor);
 	}
 
 }
