@@ -13,7 +13,6 @@ mutable field net/minecraft/network/chat/MutableComponent contents Lnet/minecraf
 accessible field net/minecraft/client/gui/screens/multiplayer/WarningScreen message Lnet/minecraft/client/gui/components/MultiLineLabel;
 accessible field net/minecraft/client/multiplayer/ClientPacketListener signedMessageEncoder Lnet/minecraft/network/chat/SignedMessageChain$Encoder;
 accessible field net/minecraft/client/multiplayer/ClientPacketListener chatSession Lnet/minecraft/network/chat/LocalChatSession;
-accessible method net/minecraft/client/multiplayer/ClientPacketListener setChatSession (Lnet/minecraft/network/chat/LocalChatSession;)V
 accessible method net/minecraft/client/gui/components/Tooltip <init> (Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;)V
 accessible field net/minecraft/client/gui/components/Tooltip MAX_WIDTH I
 accessible field net/minecraft/client/gui/components/Tooltip message Lnet/minecraft/network/chat/Component;
