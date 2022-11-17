@@ -13,7 +13,6 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.gui.AdvancedTooltip;
-import com.aizistral.nochatreports.network.ClientChannelHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -70,10 +69,8 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 
 								if (enabled) {
 									((ImageButton)btn).xTexStart = 0;
-									ClientChannelHandler.INSTANCE.register();
 								} else {
 									((ImageButton)btn).xTexStart = 20;
-									ClientChannelHandler.INSTANCE.unregister();
 								}
 
 								ServerSafetyState.reset();

@@ -4,7 +4,6 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.network.ClientChannelHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,10 +26,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		NoChatReports.LOGGER.info("Client initialization...");
 
-		if (NCRConfig.getClient().enableMod()) {
-			ClientChannelHandler.INSTANCE.register();
-		}
-
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
 	}
@@ -52,12 +47,9 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 		client.execute(() -> {
 			if (!client.isLocalServer()) {
-				boolean canSend = ClientPlayNetworking.canSend(NoChatReports.CHANNEL);
 
 				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
-				} else if (canSend) {
-					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
 						ext.preventsChatReports()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
@@ -76,7 +68,7 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				NoChatReports.LOGGER.info("Sucessfully connected to server, safety state: {}", ServerSafetyState.getCurrent());
 			}
 
-			if (NCRConfig.getClient().demandOnServer() && !ClientPlayNetworking.canSend(NoChatReports.CHANNEL)) {
+			if (NCRConfig.getClient().demandOnServer() && ServerSafetyState.getCurrent() != ServerSafetyLevel.SECURE) {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});
