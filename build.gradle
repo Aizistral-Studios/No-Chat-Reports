@@ -126,7 +126,7 @@ modrinth {
     versionType = "beta"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = remapJar
-    gameVersions = ["22w44a"]
+    gameVersions = [ project.minecraft_version ]
 	loaders = ['fabric', 'quilt']
 	
 	dependencies {
