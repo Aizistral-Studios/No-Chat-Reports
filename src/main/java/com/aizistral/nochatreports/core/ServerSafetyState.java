@@ -1,6 +1,5 @@
 package com.aizistral.nochatreports.core;
 
-import blue.endless.jankson.annotation.Nullable;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,6 +10,8 @@ import net.minecraft.network.chat.LocalChatSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * All this global state is questionable, but we have to...
@@ -45,7 +46,7 @@ public final class ServerSafetyState {
 				if (allow && connection.chatSession == null) {
 					Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
 					.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
-						connection.setChatSession(LocalChatSession.create(profileKeyPair));
+						connection.setKeyPair(profileKeyPair);
 						SIGNING_ACTIONS.forEach(Runnable::run);
 						SIGNING_ACTIONS.clear();
 					}), Minecraft.getInstance());
