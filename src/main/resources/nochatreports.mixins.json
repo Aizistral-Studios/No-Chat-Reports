@@ -16,7 +16,7 @@
 	"client.MixinOptions",
 	"client.MixinChatListener",
     "client.MixinChatOptionsScreen",
-	"client.MixinClientTelemetryManager",
+	"client.MixinYggdrasilUserApiService",
 	"client.MixinPlayerEntry",
 	"client.MixinChatScreen",
 	"client.MixinConnectScreen",

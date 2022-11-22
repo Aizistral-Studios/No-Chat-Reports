@@ -1,19 +1,14 @@
 package com.aizistral.nochatreports.config;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
 import com.aizistral.nochatreports.NoChatReports;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.function.Supplier;
 
 public final class NCRConfig {
 	private static NCRConfigCommon common = null;

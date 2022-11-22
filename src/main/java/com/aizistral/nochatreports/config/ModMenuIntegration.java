@@ -1,13 +1,9 @@
-package com.aizistral.nochatreports.config;
+/* package com.aizistral.nochatreports.config;
 
-import java.util.List;
-
-import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.FontHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
@@ -20,12 +16,14 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 
+import java.util.List;
+*/
 /**
  * Implementation of ModMenu and ClothConfig support for the mod.
  *
  * @author MODKILLER1001
  */
-
+/*
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
 
@@ -261,3 +259,4 @@ public final class ModMenuIntegration implements ModMenuApi {
 	}
 
 }
+*/

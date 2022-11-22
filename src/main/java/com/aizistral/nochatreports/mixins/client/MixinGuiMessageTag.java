@@ -1,16 +1,11 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import com.aizistral.nochatreports.config.NCRConfig;
+import net.minecraft.client.GuiMessageTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import com.aizistral.nochatreports.config.NCRConfig;
-
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.GuiMessageTag;
-import net.minecraft.client.GuiMessageTag.Icon;
-import net.minecraft.network.chat.Component;
 
 @Mixin(GuiMessageTag.class)
 public class MixinGuiMessageTag {
