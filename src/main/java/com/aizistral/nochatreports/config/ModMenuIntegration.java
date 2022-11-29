@@ -1,4 +1,4 @@
-/* package com.aizistral.nochatreports.config;
+package com.aizistral.nochatreports.config;
 
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.FontHelper;
@@ -17,13 +17,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 
 import java.util.List;
-*/
+
 /**
  * Implementation of ModMenu and ClothConfig support for the mod.
  *
  * @author MODKILLER1001
  */
-/*
+
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
 
@@ -241,4 +241,3 @@ public final class ModMenuIntegration implements ModMenuApi {
 	}
 
 }
-*/
