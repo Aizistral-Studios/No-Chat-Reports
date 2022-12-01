@@ -16,7 +16,7 @@
 	"configuration.NoChatReports.config": "No Chat Reports",
 	"configuration.NoChatReports.category.visual": "视觉",
 	"configuration.NoChatReports.category.technical": "技术",
-	"configuration.NoChatReports.category.whitelistedServers": "whitelistAllServers",
+	"configuration.NoChatReports.category.whitelistedServers": "已加入白名单的服务器",
 	"option.NoChatReports.showServerSafety": "显示服务器安全性",
 	"option.NoChatReports.showServerSafety.tooltip": "允许客户端在聊天屏幕右下角显示服务器安全状态图标。可以将鼠标光标悬浮在图标上以获取更多信息。",
 	"option.NoChatReports.showServerSafety.moreInfo": "§b点击此处阅读有关服务器安全级别的更多信息",
@@ -42,9 +42,9 @@
 	"option.NoChatReports.showReloadButton.tooltip": "添加一个用于重新加载 No Chat Reports 的配置的按钮到多人游戏菜单。",
 	"option.NoChatReports.whitelistAllServers": "将所有服务器列入白名单",
 	"option.NoChatReports.whitelistAllServers.tooltip": "使模组的行为就像所有服务器都已添加至“§owhitelistAllServers§r”列表中一样",
-	"option.NoChatReports.whitelistedServers": "whitelistAllServers",
+	"option.NoChatReports.whitelistedServers": "已加入白名单的服务器",
 	"option.NoChatReports.whitelistedServers.tooltip": "包含不应显示“不安全的服务器”警告界面的服务器。当您在界面中选中“不再显示” 复选框时，服务器将会被自动添加至此列表。\n每个条目都是一个字符串，格式为：§l<服务器地址>:<端口>§r。",
 	"option.NoChatReports.whitelistedServers.addButtonTooltip": "添加服务器",
 	"option.NoChatReports.whitelistedServers.removeButtonTooltip": "移除服务器",
-	"option.NoChatReports.whitelistedServers.instructions": "添加服务器时，单击“whitelistAllServers”下方的按钮以输入字段。"
+	"option.NoChatReports.whitelistedServers.instructions": "添加服务器时，单击“已加入白名单的服务器”下方的按钮以输入字段。"
 }
