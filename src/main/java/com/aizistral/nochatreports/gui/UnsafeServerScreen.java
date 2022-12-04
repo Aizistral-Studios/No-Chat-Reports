@@ -43,27 +43,8 @@ public final class UnsafeServerScreen extends WarningScreen {
 				button -> {
 					ServerSafetyState.setAllowChatSigning(true);
 					this.minecraft.setScreen(this.previous);
-				}).pos(this.width / 2 - 260 + 28, 100 + i).size(150, 20)
+				}).bounds(this.width / 2 - 155, 100 + i, 150, 20)
 				.build());
-
-		ServerAddress address = ServerSafetyState.getLastServer();
-		var whitelist = Button.builder(Component.translatable("gui.nochatreports.signing_required.whitelist_server"),
-				button -> {
-					if (address != null) {
-						NCRConfig.getServerWhitelist().add(address);
-						NCRConfig.getServerWhitelist().saveFile();
-					}
-
-					ServerSafetyState.setAllowChatSigning(true);
-					this.minecraft.setScreen(this.previous);
-				}).pos(this.width / 2 - 100 + 28, 100 + i).size(150, 20)
-				.build();
-
-		if (address == null) {
-			whitelist.active = false;
-		}
-
-		this.addRenderableWidget(whitelist);
 
 		this.addRenderableWidget(Button.builder(Component.translatable("gui.nochatreports.signing_required.cancel"),
 				button -> {
@@ -71,7 +52,7 @@ public final class UnsafeServerScreen extends WarningScreen {
 						hideThisSession = true;
 					}
 					this.minecraft.setScreen(this.previous);
-				}).pos(this.width / 2 + 60 + 28, 100 + i).size(150, 20).build());
+				}).bounds(this.width / 2 - 155 + 160, 100 + i, 150, 20).build());
 	}
 
 	private void resendLastMessage() {

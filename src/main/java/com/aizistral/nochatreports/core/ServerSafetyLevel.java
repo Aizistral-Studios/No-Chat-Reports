@@ -37,14 +37,6 @@ public enum ServerSafetyLevel {
 	INSECURE,
 
 	/**
-	 * Servers that don't require signatures but the user gave them anyway by whitelisting.
-	 * The state is only displayed after the player toggles the whitelist for a server, because
-	 * it is not possible to determine whether a server requires signatures if they are already given.
-	 */
-
-	INSECURE_WHITELISTED,
-
-	/**
 	 * For Realms specifically, as these are a whole new level of unsafe.
 	 */
 
@@ -62,9 +54,8 @@ public enum ServerSafetyLevel {
 
 	UNDEFINED;
 
-	@Environment(EnvType.CLIENT)
 	public MutableComponent getTooltip() {
-		return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
+		return Component.translatable("gui.nochatreports.safety_status." + this.name().toLowerCase());
 	}
 
 }

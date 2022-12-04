@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
-	private static NCRServerWhitelist whitelist = null;
+	private static NCRServerPreferences serverPreferences = null;
 	private static NCRConfigEncryption encryption = null;
 
 	private NCRConfig() {
@@ -30,8 +30,8 @@ public final class NCRConfig {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static NCRServerWhitelist getServerWhitelist() {
-		return checkLoaded(() -> whitelist);
+	public static NCRServerPreferences getServerPreferences() {
+		return checkLoaded(() -> serverPreferences);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -52,7 +52,7 @@ public final class NCRConfig {
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
-			whitelist = JSONConfig.loadConfig(NCRServerWhitelist.class, NCRServerWhitelist::new, NCRServerWhitelist.FILE_NAME);
+			serverPreferences = JSONConfig.loadConfig(NCRServerPreferences.class, NCRServerPreferences::new, NCRServerPreferences.FILE_NAME);
 			encryption = JSONConfig.loadConfig(NCRConfigEncryption.class, NCRConfigEncryption::new, NCRConfigEncryption.FILE_NAME);
 		}
 
@@ -64,7 +64,7 @@ public final class NCRConfig {
 
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 			checkLoaded(() -> client).saveFile();
-			checkLoaded(() -> whitelist).saveFile();
+			checkLoaded(() -> serverPreferences).saveFile();
 			checkLoaded(() -> encryption).saveFile();
 		}
 

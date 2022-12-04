@@ -4,6 +4,8 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.core.SigningMode;
+
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,6 +14,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.ProfileKeyPairManager;
 import net.minecraft.network.chat.Component;
 
 /**
@@ -21,6 +24,7 @@ import net.minecraft.network.chat.Component;
 
 @Environment(EnvType.CLIENT)
 public final class NoChatReportsClient implements ClientModInitializer {
+	private static boolean signingKeysPresent = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -53,8 +57,8 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
 						ext.preventsChatReports()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
-				} else if (ServerSafetyState.getLastServer() != null &&
-						NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServer())) {
+				} else if (NCRConfig.getServerPreferences().hasMode(ServerSafetyState.getLastServer(),
+						SigningMode.ALWAYS)) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 					ServerSafetyState.setAllowChatSigning(true);
 				} else {
@@ -72,6 +76,14 @@ public final class NoChatReportsClient implements ClientModInitializer {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});
+	}
+
+	public static boolean areSigningKeysPresent() {
+		return signingKeysPresent;
+	}
+
+	public static void setSigningKeysPresent(boolean present) {
+		signingKeysPresent = present;
 	}
 
 }

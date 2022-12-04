@@ -1,19 +1,20 @@
 package com.aizistral.nochatreports.config;
 
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
+import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;
 import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
-	protected boolean enableMod = true, showNCRButton = true, showReloadButton = true, verifiedIconEnabled = true,
-			showServerSafety = true, hideInsecureMessageIndicators = true, hideModifiedMessageIndicators = true,
-			hideSystemMessageIndicators = true, hideWarningToast = true, hideSigningRequestMessage = false,
-			alwaysHideReportButton = false, skipRealmsWarning = false, skipSigningWarning = false,
-			whitelistAllServers = false, disableTelemetry = true, demandOnServer = false;
+	protected SigningMode defaultSigningMode = SigningMode.PROMPT;
+	protected boolean enableMod = true, showNCRButton = true, showReloadButton = true,
+			verifiedIconEnabled = true, showServerSafety = true, hideInsecureMessageIndicators = true,
+			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true,
+			hideWarningToast = true, hideSigningRequestMessage = false, alwaysHideReportButton = false,
+			skipRealmsWarning = false, disableTelemetry = true, demandOnServer = false;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
-
 
 	protected NCRConfigClient() {
 		super(FILE_NAME);
@@ -134,18 +135,6 @@ public final class NCRConfigClient extends JSONConfig {
 	}
 
 	/**
-	 * @return True if the full-screen warning should be skipped for servers that require chat signing,
-	 * letting users simply join the server. Because of that, servers will no longer be added to the
-	 * whitelist.<br><br>
-	 *
-	 * This is false by default.
-	 */
-
-	public boolean whitelistAllServers() {
-		return this.whitelistAllServers;
-	}
-
-	/**
 	 * @return True if "Safe Server" icon should be displayed in multiplayer menu for servers that
 	 * declare themselves as preventing chat reports.<br><br>
 	 *
@@ -206,6 +195,8 @@ public final class NCRConfigClient extends JSONConfig {
 		return this.hideSigningRequestMessage;
 	}
 
-	public boolean skipSigningWarning() { return this.skipSigningWarning; }
+	public SigningMode defaultSigningMode() {
+		return this.defaultSigningMode;
+	}
 
 }

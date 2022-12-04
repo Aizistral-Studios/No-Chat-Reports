@@ -5,6 +5,7 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.EncryptionUtil;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -47,7 +48,7 @@ public class MixinChatListener {
 				if (UnsafeServerScreen.hideThisSession() || ServerSafetyState.allowChatSigning())
 					return;
 
-				if (NCRConfig.getClient().skipSigningWarning()) {
+				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ON_DEMAND)) {
 					ServerSafetyState.scheduleSigningAction(() -> {
 						var mc = Minecraft.getInstance();
 						var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
@@ -68,11 +69,13 @@ public class MixinChatListener {
 					return;
 				}
 
-				Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
-						instanceof ChatScreen chat ? chat : new ChatScreen("")));
+				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.PROMPT)) {
+					Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
+							instanceof ChatScreen chat ? chat : new ChatScreen("")));
 
-				if (NCRConfig.getClient().hideSigningRequestMessage()) {
-					info.cancel();
+					if (NCRConfig.getClient().hideSigningRequestMessage()) {
+						info.cancel();
+					}
 				}
 			}
 		}

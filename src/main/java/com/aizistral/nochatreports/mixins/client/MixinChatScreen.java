@@ -3,6 +3,7 @@ package com.aizistral.nochatreports.mixins.client;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.gui.EncryptionButton;
@@ -73,58 +74,42 @@ public abstract class MixinChatScreen extends Screen {
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
 			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(),
 					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {
-						if (NCRConfig.getClient().whitelistAllServers())
-							return;
-
 						var address = ServerSafetyState.getLastServer();
+
 						if (address != null) {
-							var whitelist = NCRConfig.getServerWhitelist();
-
-							if (!whitelist.isWhitelisted(address)) {
-								whitelist.add(address);
-								whitelist.saveFile();
-
-								if (ServerSafetyState.getCurrent() != ServerSafetyLevel.SECURE) {
-									ServerSafetyState.setAllowChatSigning(true);
-									if(ServerSafetyState.getCurrent() != ServerSafetyLevel.INSECURE){
-										ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE_WHITELISTED);
-									}
-								}
-							} else {
-								whitelist.remove(address);
-								whitelist.saveFile();
-							}
+							var preferences = NCRConfig.getServerPreferences();
+							preferences.setMode(address, preferences.getMode(address).next());
+							preferences.saveFile();
 						}
 					}, Component.empty(), this);
 			this.safetyStatusButton.setTooltip(new AdvancedTooltip(() -> {
 				MutableComponent tooltip = this.getSafetyLevel().getTooltip();
 				ServerAddress address = ServerSafetyState.getLastServer();
-				String signing = "gui.nochatreports.status_signing_denied";
+				String signing = "gui.nochatreports.signing_status.";
 
-				if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
-					signing = "gui.nochatreports.status_signing_allowed_realms";
-				} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
-					signing = "gui.nochatreports.status_signing_denied_secure";
-				} else if (NCRConfig.getServerWhitelist().isWhitelisted(address)) {
-					signing = "gui.nochatreports.status_signing_allowed_whitelisted";
-				} else if (ServerSafetyState.allowChatSigning()) {
-					signing = "gui.nochatreports.status_signing_allowed";
+				if (ServerSafetyState.allowChatSigning()) {
+					tooltip = Component.translatable("gui.nochatreports.safety_status.insecure_signing");
 				}
 
-				tooltip.append("\n\n").append(Component.translatable(signing));
-
-				if (address != null) {
-					String status = "gui.nochatreports.status_whitelist_no";
-
-					if (NCRConfig.getClient().whitelistAllServers()) {
-						status = "gui.nochatreports.status_whitelist_all";
-					} else if (NCRConfig.getServerWhitelist().isWhitelisted(address)) {
-						status = "gui.nochatreports.status_whitelist_yes";
+				if (NCRConfig.getServerPreferences().getMode(address) == SigningMode.NEVER_FORCED) {
+					signing += "impossible";
+				} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+					signing += "allowed_realms";
+				} else if (NCRConfig.getServerPreferences().hasMode(address, SigningMode.ALWAYS)) {
+					if (ServerSafetyState.allowChatSigning()) {
+						signing += "allowed_always";
+					} else {
+						signing += "disabled_allowance_pending";
 					}
-
-					tooltip.append("\n\n").append(Component.translatable(
-							"gui.nochatreports.status_whitelist_mode", Component.translatable(status)));
+				} else if (ServerSafetyState.allowChatSigning()) {
+					signing += "allowed";
 				}
+
+				tooltip.append("\n\n");
+				tooltip.append(Component.translatable(signing));
+				tooltip.append("\n\n");
+				tooltip.append("Signing Mode: ");
+				tooltip.append(NCRConfig.getServerPreferences().getTrueMode(address).getName());
 
 				return tooltip;
 			}).setMaxWidth(250).setRenderWithoutGap(true));
@@ -185,7 +170,7 @@ public abstract class MixinChatScreen extends Screen {
 		return switch (level) {
 		case SECURE -> 21;
 		case UNINTRUSIVE -> 42;
-		case INSECURE, INSECURE_WHITELISTED -> 0;
+		case INSECURE -> 0;
 		case REALMS -> 63;
 		case UNKNOWN -> 84;
 		case UNDEFINED -> 105;
