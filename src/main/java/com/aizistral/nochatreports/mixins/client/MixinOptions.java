@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 
 @Mixin(Options.class)
 public class MixinOptions {
+	private static final Component SECURE_CHAT_TOOLTIP = Component.translatable("gui.nochatreports.secure_chat");
 	private OptionInstance<Boolean> alternativeOption;
 
 	/**
@@ -31,9 +32,10 @@ public class MixinOptions {
 
 		if (this.alternativeOption == null) {
 			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
-					OptionInstance.cachedConstantTooltip(Component.translatable("gui.nochatreports.secure_chat")),
-					(component, value) -> value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF,
-							new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL), false, (value) -> {});
+					OptionInstance.cachedConstantTooltip(SECURE_CHAT_TOOLTIP),
+					OptionInstance.BOOLEAN_TO_STRING,
+					new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL),
+					false, value -> {});
 		}
 
 		cir.setReturnValue(this.alternativeOption);
