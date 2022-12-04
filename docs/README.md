@@ -1,8 +1,8 @@
 # No Chat Reports
 
-**Current Version:** 1.19.3-pre2-v1.16.0
+**Current Version:** 1.19.3-pre3-v1.17.0
 
-**Minecraft Version:** 1.19.3-pre2
+**Minecraft Version:** 1.19.3-pre3
 
 Strips cryptographic signatures from player messages, making it impossible to track and associate them with your Mojang/Microsoft account, as well as use Player Chat Reporting feature.
 
