@@ -7,11 +7,11 @@ import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
-	protected boolean demandOnServer = false, showServerSafety = true, hideInsecureMessageIndicators = true,
-			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true, hideWarningToast = true,
-			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
-			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
-			enableMod = true, skipRealmsWarning = false, hideSigningRequestMessage = false, skipSigningWarning = false;
+	protected boolean enableMod = true, showNCRButton = true, showReloadButton = true, verifiedIconEnabled = true,
+			showServerSafety = true, hideInsecureMessageIndicators = true, hideModifiedMessageIndicators = true,
+			hideSystemMessageIndicators = true, hideWarningToast = true, hideSigningRequestMessage = false,
+			alwaysHideReportButton = false, skipRealmsWarning = false, skipSigningWarning = false,
+			whitelistAllServers = false, disableTelemetry = true, demandOnServer = false;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 
 
