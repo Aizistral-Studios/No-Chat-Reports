@@ -159,7 +159,7 @@ public abstract class Encryptor<T extends Encryption> {
 		map.put('u', 'µ');
 		map.put('v', '¶');
 		map.put('w', '·');
-		map.put('x', '¸');
+		map.put('x', '×');
 		map.put('y', '¹');
 		map.put('z', 'º');
 		map.put('0', '0');
