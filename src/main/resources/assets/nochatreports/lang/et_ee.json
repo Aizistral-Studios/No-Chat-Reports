@@ -59,7 +59,7 @@
 	"gui.nochatreports.realms_warning.check": "Ära kuva uuesti",
 	"gui.nochatreports.realms_warning.learn_more": "Lisateave",
 	"gui.nochatreports.signing_required.header": "Hoiatus: taodeldi vestluse signeerimist",
-	"gui.nochatreports.signing_required.contents": "See server nõuab kõikide vestlussõnumite signeerimist, seega neid saab Mojangile raporteerida ning tagajärjeks võib olla blokeering kõigist mitmikmängu serveritest. See tõenäoliselt tähendab, et serveri omanik jättis failis server.properties valiku \"enforce-secure-profile\" lubatuks, mis on ka vaikeväärtus alates versioonist 1.19.1. Sa võid siiski seal mängida, kuid No Chat Reports ei saa sind kaitsta.",
+	"gui.nochatreports.signing_required.contents_OUTDATED": "See server nõuab kõikide vestlussõnumite signeerimist, seega neid saab Mojangile raporteerida ning tagajärjeks võib olla blokeering kõigist mitmikmängu serveritest. See tõenäoliselt tähendab, et serveri omanik jättis failis server.properties valiku \"enforce-secure-profile\" lubatuks, mis on ka vaikeväärtus alates versioonist 1.19.1. Sa võid siiski seal mängida, kuid No Chat Reports ei saa sind kaitsta.",
 	"gui.nochatreports.signing_required.allow_signing": "Luba signeerimine",
 	"gui.nochatreports.signing_required.whitelist_server": "Server lubamisloendisse",
 	"gui.nochatreports.signing_required.cancel": "Loobu",

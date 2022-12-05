@@ -59,7 +59,7 @@
 	"gui.nochatreports.realms_warning.check": "Nie pokazuj ponownie",
 	"gui.nochatreports.realms_warning.learn_more": "Dowiedz się więcej",
 	"gui.nochatreports.signing_required.header": "Uwaga: Prośba o podpisanie czatu",
-	"gui.nochatreports.signing_required.contents": "Ten serwer wymaga podpisania wszystkich wiadomości na czacie, co oznacza, że można je zgłaszać do Mojang, co może skutkować zablokowaniem wszystkich serwerów dla wielu graczy. Prawdopodobnie oznacza to, że właściciel serwera pozostawił włączony \"enforce-secure-profile\" w server.properties, co jest ustawieniem domyślnym od wersji 1.19.1. Kliknij opcję \"Zezwalaj na podpisywanie\", aby włączyć podpisywanie wiadomości w tej sesji, lub \"Serwer białej listy\", aby zawsze włączać podpisywanie na tym serwerze.",
+	"gui.nochatreports.signing_required.contents_OUTDATED": "Ten serwer wymaga podpisania wszystkich wiadomości na czacie, co oznacza, że można je zgłaszać do Mojang, co może skutkować zablokowaniem wszystkich serwerów dla wielu graczy. Prawdopodobnie oznacza to, że właściciel serwera pozostawił włączony \"enforce-secure-profile\" w server.properties, co jest ustawieniem domyślnym od wersji 1.19.1. Kliknij opcję \"Zezwalaj na podpisywanie\", aby włączyć podpisywanie wiadomości w tej sesji, lub \"Serwer białej listy\", aby zawsze włączać podpisywanie na tym serwerze.",
 	"gui.nochatreports.signing_required.allow_signing": "Zezwól na podpisywanie",
 	"gui.nochatreports.signing_required.whitelist_server": "Dodaj serwer do Białej listy",
 	"gui.nochatreports.signing_required.cancel": "Odrzuć",

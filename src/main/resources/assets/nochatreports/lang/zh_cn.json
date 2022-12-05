@@ -59,7 +59,7 @@
 	"gui.nochatreports.realms_warning.check": "不再提示",
 	"gui.nochatreports.realms_warning.learn_more": "了解更多",
 	"gui.nochatreports.signing_required.header": "警告：聊天签名要求",
-	"gui.nochatreports.signing_required.contents": "该服务器要求所有聊天消息都必须签名，这意味着它们可以被举报给 Mojang，这可能会导致被禁止多人游戏。这可能意味着服务器在 server.properties 中启用了“enforce-secure-profile”，这是自 1.19.1 以来的默认设置。单击“允许签名”可启用此会话的消息签名，或单击“白名单服务器”可始终启用此服务器上的签名。",
+	"gui.nochatreports.signing_required.contents_OUTDATED": "该服务器要求所有聊天消息都必须签名，这意味着它们可以被举报给 Mojang，这可能会导致被禁止多人游戏。这可能意味着服务器在 server.properties 中启用了“enforce-secure-profile”，这是自 1.19.1 以来的默认设置。单击“允许签名”可启用此会话的消息签名，或单击“白名单服务器”可始终启用此服务器上的签名。",
 	"gui.nochatreports.signing_required.allow_signing": "允许签名",
 	"gui.nochatreports.signing_required.whitelist_server": "将服务器加入白名单",
 	"gui.nochatreports.signing_required.cancel": "取消",

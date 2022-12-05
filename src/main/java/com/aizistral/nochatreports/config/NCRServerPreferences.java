@@ -27,18 +27,22 @@ public class NCRServerPreferences extends JSONConfig {
 		return new NCRServerPreferences();
 	}
 
-	public SigningMode getTrueMode(@Nullable ServerAddress address) {
+	public SigningMode getModeRaw(@Nullable ServerAddress address) {
+		return this.signingModes.get(address);
+	}
+
+	public SigningMode getModeUnresolved(@Nullable ServerAddress address) {
 		if (!NoChatReportsClient.areSigningKeysPresent())
 			return SigningMode.NEVER_FORCED;
 		else if (address == null)
 			return SigningMode.DEFAULT;
 
-		SigningMode mode = this.signingModes.get(address);
+		SigningMode mode = this.getModeRaw(address);
 		return mode != null ? mode : SigningMode.DEFAULT;
 	}
 
 	public SigningMode getMode(@Nullable ServerAddress address) {
-		return this.getTrueMode(address).resolve();
+		return this.getModeUnresolved(address).resolve();
 	}
 
 	public boolean hasMode(@Nullable ServerAddress address, SigningMode mode) {

@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.mixins.client;
 
+import com.aizistral.nochatreports.NoChatReportsClient;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
@@ -31,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -74,11 +76,14 @@ public abstract class MixinChatScreen extends Screen {
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
 			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(),
 					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {
+						if (!NoChatReportsClient.areSigningKeysPresent())
+							return;
+
 						var address = ServerSafetyState.getLastServer();
 
 						if (address != null) {
 							var preferences = NCRConfig.getServerPreferences();
-							preferences.setMode(address, preferences.getMode(address).next());
+							preferences.setMode(address, preferences.getModeUnresolved(address).next());
 							preferences.saveFile();
 						}
 					}, Component.empty(), this);
@@ -91,25 +96,25 @@ public abstract class MixinChatScreen extends Screen {
 					tooltip = Component.translatable("gui.nochatreports.safety_status.insecure_signing");
 				}
 
-				if (NCRConfig.getServerPreferences().getMode(address) == SigningMode.NEVER_FORCED) {
-					signing += "impossible";
-				} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+				if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
 					signing += "allowed_realms";
 				} else if (NCRConfig.getServerPreferences().hasMode(address, SigningMode.ALWAYS)) {
 					if (ServerSafetyState.allowChatSigning()) {
-						signing += "allowed_always";
+						signing += "allowed";
 					} else {
 						signing += "disabled_allowance_pending";
 					}
 				} else if (ServerSafetyState.allowChatSigning()) {
-					signing += "allowed";
+					signing += "allowed_session";
+				} else {
+					signing += "disabled";
 				}
 
 				tooltip.append("\n\n");
 				tooltip.append(Component.translatable(signing));
 				tooltip.append("\n\n");
 				tooltip.append("Signing Mode: ");
-				tooltip.append(NCRConfig.getServerPreferences().getTrueMode(address).getName());
+				tooltip.append(NCRConfig.getServerPreferences().getModeUnresolved(address).getName());
 
 				return tooltip;
 			}).setMaxWidth(250).setRenderWithoutGap(true));

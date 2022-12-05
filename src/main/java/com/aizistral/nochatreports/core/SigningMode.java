@@ -69,27 +69,26 @@ public enum SigningMode {
 
 	public SigningMode next() {
 		SigningMode result = null;
-		SigningMode[] values = SigningMode.values();
 
-		if (this.ordinal() == values.length - 1) {
-			result = values[0];
+		if (this.ordinal() == values().length - 1) {
+			result = values()[0];
 		} else {
-			result = values[this.ordinal() + 1];
+			result = values()[this.ordinal() + 1];
 		}
 
 		return result == NEVER_FORCED ? result.next() : result;
 	}
 
 	public SigningMode resolve() {
-		return this == DEFAULT ? NCRConfig.getClient().defaultSigningMode() : this;
+		return switch(this) {
+		case DEFAULT -> NCRConfig.getClient().defaultSigningMode();
+		case NEVER_FORCED -> NEVER;
+		default -> this;
+		};
 	}
 
 	public static SigningMode nullable(@Nullable SigningMode mode) {
 		return mode == null ? DEFAULT : mode;
-	}
-
-	public boolean prohibitsSigning() {
-		return this == NEVER || this == NEVER_FORCED;
 	}
 
 }

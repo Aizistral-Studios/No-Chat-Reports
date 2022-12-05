@@ -26,7 +26,7 @@ import net.minecraft.network.chat.Component;
 @Environment(EnvType.CLIENT)
 public final class UnsafeServerScreen extends AdaptiveWarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.signing_required.header").withStyle(ChatFormatting.BOLD);
-	private static final Component CONTENT = Component.translatable("gui.nochatreports.signing_required_v2.contents");
+	private static final Component CONTENT = Component.translatable("gui.nochatreports.signing_required.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.signing_required.check");
 	private static final Component NARRATION = TITLE.copy().append("\n").append(CONTENT);
 	private static boolean hideThisSession = false;

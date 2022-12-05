@@ -10,8 +10,11 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
+@Environment(EnvType.CLIENT)
 public class ServerAddressAdapter extends TypeAdapter<ServerAddress> {
 	public static final ServerAddressAdapter INSTANCE = new ServerAddressAdapter();
 

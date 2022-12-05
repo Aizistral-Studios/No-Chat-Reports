@@ -39,7 +39,7 @@ public class MixinChatListener {
 	private void onHandleSystemMessage(Component message, boolean overlay, CallbackInfo info) {
 		if (message instanceof MutableComponent mutable && message.getContents() instanceof TranslatableContents translatable) {
 			if (translatable.getKey().equals("chat.disabled.missingProfileKey")) {
-				mutable.contents = new TranslatableContents("chat.nochatreports.disabled.signingRequested");
+				mutable.contents = new TranslatableContents("chat.nochatreports.disabled.signing_requested");
 
 				if (!ServerSafetyState.isOnRealms()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
