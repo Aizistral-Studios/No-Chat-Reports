@@ -1,6 +1,9 @@
 package com.aizistral.nochatreports.gui;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -11,22 +14,24 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
-public abstract class ExtendedWarningScreen extends Screen {
+public abstract class AdaptiveWarningScreen extends Screen {
 	private final Component title;
 	private final Component content;
-	private final Component check;
 	private final Component narration;
-	private final String wiki_link;
+	@Nullable
 	protected final Screen previous;
-	protected MultiLineLabel message = MultiLineLabel.EMPTY;
+	@Nullable
+	private final Component check;
+	@Nullable
 	protected Checkbox stopShowing = null;
+	protected MultiLineLabel message = MultiLineLabel.EMPTY;
 
-	public ExtendedWarningScreen(Component title, Component content, Component check, String wikiLink, Screen previous) {
+	public AdaptiveWarningScreen(Component title, Component content, @Nullable Component check,
+			@Nullable Screen previous) {
 		super(title);
 		this.title = title;
 		this.content = content;
 		this.check = check;
-		this.wiki_link = wikiLink;
 		this.narration = this.title.copy().append("\n").append(this.content);
 		this.previous = previous;
 	}
@@ -40,37 +45,16 @@ public abstract class ExtendedWarningScreen extends Screen {
 		if (this.check != null) {
 			int checkY = this.hugeGUI() ? 27 : 76;
 			int j = this.font.width(this.check);
-			this.stopShowing = new Checkbox(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.check, false);
-			this.addRenderableWidget(this.stopShowing);
+
+			if (this.check != null) {
+				this.stopShowing = new Checkbox(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.check, false);
+				this.addRenderableWidget(this.stopShowing);
+			}
 		}
-		this.initButtons(i);
+		this.initButtons(i + (this.hugeGUI() ? 55 : 100));
 	}
 
-	private void initButtons(int i) {
-		int offset = 28;
-		int buttonY = this.hugeGUI() ? 55 : 100;
-
-		this.addRenderableWidget(Button.builder(CommonComponents.GUI_PROCEED, this::onProceed)
-				.pos(this.width / 2 - 260 + offset, buttonY + i).size(150, 20).build());
-
-		this.addRenderableWidget(Button.builder(Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
-			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
-				if (agree) {
-					Util.getPlatform().openUri(this.wiki_link);
-				}
-
-				Minecraft.getInstance().setScreen(this);
-			}, this.wiki_link, true));
-		}).pos(this.width / 2 - 100 + offset, buttonY + i).size(150, 20).build());
-
-
-		this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, this::onBack)
-				.pos(this.width / 2 + 60 + offset, buttonY + i).size(150, 20).build());
-	}
-
-	protected abstract void onProceed(Button button);
-
-	protected abstract void onBack(Button button);
+	protected abstract void initButtons(int y);
 
 	@Override
 	public void render(PoseStack poseStack, int i, int j, float f) {
