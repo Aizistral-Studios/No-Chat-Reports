@@ -9,6 +9,7 @@ import net.minecraft.network.chat.LocalChatSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.jetbrains.annotations.Nullable;
@@ -38,21 +39,22 @@ public final class ServerSafetyState {
 		return ALLOW_CHAT_SIGNING.get();
 	}
 
-	public static void setAllowChatSigning(boolean allow) {
+	public static CompletableFuture<Void> setAllowChatSigning(boolean allow) {
 		if (ALLOW_CHAT_SIGNING.compareAndSet(!allow, allow)) {
 			if (Minecraft.getInstance().player != null) {
 				var connection = Minecraft.getInstance().player.connection;
 
-				if (allow && connection.chatSession == null) {
-					Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
-					.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
-						connection.setKeyPair(profileKeyPair);
-						SIGNING_ACTIONS.forEach(Runnable::run);
-						SIGNING_ACTIONS.clear();
-					}), Minecraft.getInstance());
-				}
+				if (allow && connection.chatSession == null)
+					return Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
+							.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
+								connection.setKeyPair(profileKeyPair);
+								SIGNING_ACTIONS.forEach(Runnable::run);
+								SIGNING_ACTIONS.clear();
+							}), Minecraft.getInstance());
 			}
 		}
+
+		return CompletableFuture.completedFuture(null);
 	}
 
 	public static void toggleChatSigning() {

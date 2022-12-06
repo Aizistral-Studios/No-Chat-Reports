@@ -11,6 +11,8 @@ import com.aizistral.nochatreports.gui.EncryptionButton;
 import com.aizistral.nochatreports.gui.EncryptionWarningScreen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -26,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -49,6 +52,20 @@ public abstract class MixinChatScreen extends Screen {
 	protected MixinChatScreen() {
 		super(null);
 		throw new IllegalStateException("Can't touch this");
+	}
+
+	@Inject(method = "handleChatInput", at = @At("HEAD"), cancellable = true)
+	public void handleChatInput(String string, boolean bl, CallbackInfoReturnable<Boolean> info) {
+		if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ALWAYS) && !ServerSafetyState.allowChatSigning()) {
+			if (this.minecraft.getConnection().getConnection().isEncrypted()) {
+				if (!this.normalizeChatMessage(string).isEmpty()) {
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
+					ServerSafetyState.scheduleSigningAction(NoChatReportsClient::resendLastChatMessage);
+					ServerSafetyState.setAllowChatSigning(true);
+					info.setReturnValue(true);
+				}
+			}
+		}
 	}
 
 	@Inject(method = "normalizeChatMessage", at = @At("RETURN"), cancellable = true)
@@ -90,15 +107,18 @@ public abstract class MixinChatScreen extends Screen {
 			this.safetyStatusButton.setTooltip(new AdvancedTooltip(() -> {
 				MutableComponent tooltip = this.getSafetyLevel().getTooltip();
 				ServerAddress address = ServerSafetyState.getLastServer();
+				SigningMode mode = NCRConfig.getServerPreferences().getModeUnresolved(address);
 				String signing = "gui.nochatreports.signing_status.";
 
 				if (ServerSafetyState.allowChatSigning()) {
 					tooltip = Component.translatable("gui.nochatreports.safety_status.insecure_signing");
 				}
 
-				if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+				if (!this.minecraft.getConnection().getConnection().isEncrypted()) {
+					signing += "disabled_offline";
+				} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
 					signing += "allowed_realms";
-				} else if (NCRConfig.getServerPreferences().hasMode(address, SigningMode.ALWAYS)) {
+				} else if (mode.resolve() == SigningMode.ALWAYS) {
 					if (ServerSafetyState.allowChatSigning()) {
 						signing += "allowed";
 					} else {
@@ -113,8 +133,12 @@ public abstract class MixinChatScreen extends Screen {
 				tooltip.append("\n\n");
 				tooltip.append(Component.translatable(signing));
 				tooltip.append("\n\n");
-				tooltip.append("Signing Mode: ");
-				tooltip.append(NCRConfig.getServerPreferences().getModeUnresolved(address).getName());
+				tooltip.append(Component.translatable("gui.nochatreports.safety_status_button.controls"));
+				tooltip.append("\n\n");
+				tooltip.append(Component.translatable("gui.nochatreports.signing_mode",
+						mode.getName().withStyle(ChatFormatting.BOLD, ChatFormatting.AQUA)));
+				tooltip.append("\n");
+				tooltip.append((mode == SigningMode.DEFAULT ? mode.resolve() : mode).getTooltip());
 
 				return tooltip;
 			}).setMaxWidth(250).setRenderWithoutGap(true));
@@ -181,5 +205,8 @@ public abstract class MixinChatScreen extends Screen {
 		case UNDEFINED -> 105;
 		};
 	}
+
+	@Shadow
+	public abstract String normalizeChatMessage(String string);
 
 }

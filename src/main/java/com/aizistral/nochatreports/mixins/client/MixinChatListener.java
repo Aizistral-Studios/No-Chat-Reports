@@ -1,6 +1,7 @@
 package com.aizistral.nochatreports.mixins.client;
 
 import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.NoChatReportsClient;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.EncryptionUtil;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
@@ -49,17 +50,7 @@ public class MixinChatListener {
 					return;
 
 				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ON_DEMAND)) {
-					ServerSafetyState.scheduleSigningAction(() -> {
-						var mc = Minecraft.getInstance();
-						var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
-
-						if (chatScr == null) {
-							chatScr = new ChatScreen("");
-							chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
-						}
-						chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
-					});
-
+					ServerSafetyState.scheduleSigningAction(NoChatReportsClient::resendLastChatMessage);
 					ServerSafetyState.setAllowChatSigning(true);
 
 					if (NCRConfig.getClient().hideSigningRequestMessage()) {

@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;
 import net.minecraft.network.chat.Component;
@@ -86,6 +87,18 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 	public static void setSigningKeysPresent(boolean present) {
 		signingKeysPresent = present;
+	}
+
+	public static void resendLastChatMessage() {
+		var mc = Minecraft.getInstance();
+		var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
+
+		if (chatScr == null) {
+			chatScr = new ChatScreen("");
+			chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
+		}
+
+		chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
 	}
 
 }
