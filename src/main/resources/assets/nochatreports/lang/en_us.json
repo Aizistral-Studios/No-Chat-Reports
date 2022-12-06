@@ -59,7 +59,6 @@
 	"gui.nochatreports.signing_required.header": "Caution: Chat Signing Requested",
 	"gui.nochatreports.signing_required.contents": "This server requires all chat messages to be signed, which means they can be reported to Mojang, which may result in a ban from all multiplayer servers. This likely means that the server owner kept \"enforce-secure-profile\" enabled in the server.properties, which is the default since 1.19.1.\n\nClick \"Allow Signing\" to enable message signing for this session. You can also use safety status button in chat screen to select signing mode for this server.",
 	"gui.nochatreports.signing_required.allow_signing": "Allow Signing",
-	"gui.nochatreports.signing_required.whitelist_server": "Whitelist Server",
 	"gui.nochatreports.signing_required.cancel": "Dismiss",
 	"gui.nochatreports.signing_required.check": "Don't show again during this session",
 	"chat.nochatreports.disabled.signing_requested": "Server refused to deliver unsigned message. You can enable chat signing by changing your signing mode or through prompt screen.",
