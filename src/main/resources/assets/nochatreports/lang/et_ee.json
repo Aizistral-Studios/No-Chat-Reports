@@ -59,7 +59,6 @@
 	"gui.nochatreports.signing_required.header": "Hoiatus: taodeldi vestluse signeerimist",
 	"gui.nochatreports.signing_required.contents": "See server nõuab kõikide vestlussõnumite signeerimist, seega neid saab Mojangile raporteerida ning tagajärjeks võib olla blokeering kõigist mitmikmängu serveritest. See tõenäoliselt tähendab, et serveri omanik jättis failis server.properties valiku \"enforce-secure-profile\" lubatuks, mis on ka vaikeväärtus alates versioonist 1.19.1.\n\nSelle seansi jaoks signeerimise lubamiseks klõpsa \"Luba signeerimine\". Võid kasutada ka vestluskuvas olevat serveri turvataseme nuppu, valimaks selle serveri jaoks signeerimisrežiimi.",
 	"gui.nochatreports.signing_required.allow_signing": "Luba signeerimine",
-	"gui.nochatreports.signing_required.whitelist_server": "Server lubamisloendisse",
 	"gui.nochatreports.signing_required.cancel": "Loobu",
 	"gui.nochatreports.signing_required.check": "Ära kuva selle seansi puhul uuesti",
 	"chat.nochatreports.disabled.signing_requested": "Server keeldus signeerimata sõnumi edastamisest. Vestluse signeerimist saad käimasoleva seansi jaoks lubada hüpikaknas.",
