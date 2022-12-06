@@ -38,7 +38,8 @@ public class MixinServerStatus implements ServerDataExtension {
 	public boolean preventsChatReports() {
 		var self = (ServerStatus) (Object) this;
 
-		if (self.getVersion() != null && self.getVersion().getProtocol() < 759)
+		if (self.getVersion() != null && self.getVersion().getProtocol() < 759
+				&& self.getVersion().getProtocol() > 0)
 			return true;
 
 		return this.preventsChatReports;
