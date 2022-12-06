@@ -94,7 +94,7 @@
 	"option.NoChatReports.showEncryptionButton": "Show encryption button",
 	"option.NoChatReports.showEncryptionButton.tooltip": "Setting this to false will simply prevent encryption button from being displayed in the chat screen. Be aware that encryption itself will not be automatically disabled along with the button.",
 	"option.NoChatReports.showEncryptionIndicators": "Show encryption indicators",
-	"option.NoChatReports.showEncryptionIndicators.tooltip": "Toggles the display of the encrypted message indicators, in the form of a purple bar to the left and and §5§l(§r§5ȯ§5§l)§r on hover to the right of the chat message",
+	"option.NoChatReports.showEncryptionIndicators.tooltip": "Toggles the display of the encrypted message indicators, in the form of a purple bar to the left and §5§l(§r§5ȯ§5§l)§r on hover to the right of the chat message.",
 	"option.NoChatReports.showServerSafety": "Show server safety",
 	"option.NoChatReports.showServerSafety.tooltip": "Allows the client to display server safety status in bottom-right corner of chat screen. The icon is hoverable for additional information.",
 	"option.NoChatReports.showServerSafety.moreInfo": "§bClick here to read more about server safety levels",
