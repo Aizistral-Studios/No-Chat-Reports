@@ -70,7 +70,7 @@
 	"gui.nochatreports.signing_mode.never_forced": "mitte kunagi (sunnitud)",
 	"gui.nochatreports.signing_mode.prompt": "küsimisega",
 	"gui.nochatreports.signing_mode.on_demand": "nõudmisel",
-	"gui.nochatreports.signing_mode.always.tooltip": "See režiim lubab sõnumite signeerimise kohe, kui serverisse sisened, nii nagu vanilliklient teeb.",
+	"gui.nochatreports.signing_mode.always.tooltip": "See režiim lubab sõnumite signeerimise kohe kui serverisse sisened, nii nagu vanilliklient seda teeb.",
 	"gui.nochatreports.signing_mode.never.tooltip": "Selles režiimis ei ole sõnumid kunagi signeeritud, ning kõiki serveri taotlusi neid signeerida ignoreeritakse.",
 	"gui.nochatreports.signing_mode.never_forced.tooltip": "See režiim näitab, et su sõnumeid ei saagi signeerida, seda kas võrguta konto kasutuse või Mojangi serveritest signeerimisvõtmete hankimise ebaõnnestumise tõttu.",
 	"gui.nochatreports.signing_mode.prompt.tooltip": "Selles režiimis ei ole sõnumid vaikimisi signeeritud, kuid kui server seda nõuab, kuvatakse hüpik, kus saad ühe seansi jaoks signeerimise lubada.",
