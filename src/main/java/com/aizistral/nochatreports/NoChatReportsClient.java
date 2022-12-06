@@ -54,6 +54,8 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
+				} else if (!handler.getConnection().isEncrypted()) {
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
 						ext.preventsChatReports()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
