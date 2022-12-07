@@ -88,7 +88,7 @@ curseforge {
         apiKey = findProperty('curseKey') ?: 'none'
         
 		id = "${curse_id}"
-        releaseType = "${curse_release}"
+        releaseType = "${version_type}"
         changelogType = 'html'
         changelog = file('docs/changelog.html')
 		mainArtifact(remapJar)
@@ -123,7 +123,7 @@ modrinth {
     projectId = "no-chat-reports"
     versionNumber = "Fabric-" + project.mod_version
 	versionName = "No Chat Reports Fabric-" + project.mod_version
-    versionType = "beta"
+    versionType = "${version_type}"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = remapJar
     gameVersions = [ project.minecraft_version ]
