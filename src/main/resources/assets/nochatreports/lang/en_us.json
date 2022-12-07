@@ -66,7 +66,7 @@
 	"gui.nochatreports.signing_mode.default": "Default (%1$s)",
 	"gui.nochatreports.signing_mode.always": "Always",
 	"gui.nochatreports.signing_mode.never": "Never",
-	"gui.nochatreports.signing_mode.never_forced": "Never (Forced)",
+	"gui.nochatreports.signing_mode.never_forced": "Cannot Enable",
 	"gui.nochatreports.signing_mode.prompt": "Prompt",
 	"gui.nochatreports.signing_mode.on_demand": "On Demand",
 	"gui.nochatreports.signing_mode.always.tooltip": "This mode automatically enables message signing as soon as you enter the server, identically to how vanilla client would.",
