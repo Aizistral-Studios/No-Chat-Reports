@@ -66,7 +66,7 @@
 	"gui.nochatreports.signing_mode.default": "vaikimisi (%1$s)",
 	"gui.nochatreports.signing_mode.always": "alati",
 	"gui.nochatreports.signing_mode.never": "mitte kunagi",
-	"gui.nochatreports.signing_mode.never_forced": "mitte kunagi (sunnitud)",
+	"gui.nochatreports.signing_mode.never_forced": "ei saa lubada",
 	"gui.nochatreports.signing_mode.prompt": "küsimisega",
 	"gui.nochatreports.signing_mode.on_demand": "nõudmisel",
 	"gui.nochatreports.signing_mode.always.tooltip": "See režiim lubab sõnumite signeerimise kohe kui serverisse sisened, nii nagu vanilliklient seda teeb.",
