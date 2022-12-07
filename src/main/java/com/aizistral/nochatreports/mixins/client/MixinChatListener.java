@@ -90,6 +90,10 @@ public class MixinChatListener {
 		if (this.isSenderLocalPlayer(playerChatMessage.sender())) {
 			info.setReturnValue(ChatTrustLevel.SECURE);
 		} else {
+			if (playerChatMessage.hasSignature() && ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
+				ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
+			}
+
 			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, instant);
 
 			if (evaluate == ChatTrustLevel.NOT_SECURE && NCRConfig.getClient().hideInsecureMessageIndicators()) {
