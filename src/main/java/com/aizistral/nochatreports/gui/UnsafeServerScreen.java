@@ -16,6 +16,7 @@ import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
+import net.minecraft.client.gui.screens.multiplayer.SafetyScreen;
 import net.minecraft.client.gui.screens.multiplayer.WarningScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
@@ -23,18 +24,15 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 @Environment(EnvType.CLIENT)
-public final class UnsafeServerScreen extends WarningScreen {
+public final class UnsafeServerScreen extends AdaptiveWarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.signing_required.header").withStyle(ChatFormatting.BOLD);
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.signing_required.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.signing_required.check");
 	private static final Component NARRATION = TITLE.copy().append("\n").append(CONTENT);
 	private static boolean hideThisSession = false;
 
-	private final Screen previous;
-
 	public UnsafeServerScreen(Screen previous) {
-		super(TITLE, CONTENT, CHECK, NARRATION);
-		this.previous = previous;
+		super(TITLE, CONTENT, CHECK, previous);
 	}
 
 	@Override
@@ -43,27 +41,8 @@ public final class UnsafeServerScreen extends WarningScreen {
 				button -> {
 					ServerSafetyState.setAllowChatSigning(true);
 					this.minecraft.setScreen(this.previous);
-				}).pos(this.width / 2 - 260 + 28, 100 + i).size(150, 20)
+				}).bounds(this.width / 2 - 155, i, 150, 20)
 				.build());
-
-		ServerAddress address = ServerSafetyState.getLastServer();
-		var whitelist = Button.builder(Component.translatable("gui.nochatreports.signing_required.whitelist_server"),
-				button -> {
-					if (address != null) {
-						NCRConfig.getServerWhitelist().add(address);
-						NCRConfig.getServerWhitelist().saveFile();
-					}
-
-					ServerSafetyState.setAllowChatSigning(true);
-					this.minecraft.setScreen(this.previous);
-				}).pos(this.width / 2 - 100 + 28, 100 + i).size(150, 20)
-				.build();
-
-		if (address == null) {
-			whitelist.active = false;
-		}
-
-		this.addRenderableWidget(whitelist);
 
 		this.addRenderableWidget(Button.builder(Component.translatable("gui.nochatreports.signing_required.cancel"),
 				button -> {
@@ -71,7 +50,7 @@ public final class UnsafeServerScreen extends WarningScreen {
 						hideThisSession = true;
 					}
 					this.minecraft.setScreen(this.previous);
-				}).pos(this.width / 2 + 60 + 28, 100 + i).size(150, 20).build());
+				}).bounds(this.width / 2 - 155 + 160, i, 150, 20).build());
 	}
 
 	private void resendLastMessage() {

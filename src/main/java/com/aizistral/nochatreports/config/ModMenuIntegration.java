@@ -222,36 +222,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getCommon().addQueryData = newValue)
 					.build());
 
-			// Set an option for skipSigningWarning
-			whitelist.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.skipSigningWarning"), NCRConfig.getClient().skipSigningWarning)
-					.setDefaultValue(false)
-					.setTooltip(this.makeTooltip("option.NoChatReports.skipSigningWarning.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().skipSigningWarning = newValue)
-					.build());
-
-			// Set an option for whitelistAllServers
-			whitelist.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.whitelistAllServers"), NCRConfig.getClient().whitelistAllServers)
-					.setDefaultValue(false)
-					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistAllServers.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().whitelistAllServers = newValue)
-					.build());
-
-			// Instructions for adding servers
-			whitelist.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.whitelistedServers.instructions"))
-					.build());
-
-			// Add or remove whitelisted servers
-			whitelist.addEntry(entryBuilder.startStrList(Component.translatable("option.NoChatReports.whitelistedServers"), NCRConfig.getServerWhitelist().whitelistedServers)
-					.setExpanded(true)
-					.setInsertInFront(true)
-					.setDefaultValue(NCRServerWhitelist.DEFAULT_WHITELISTED_SERVERS)
-					.setTooltip(this.makeTooltip("option.NoChatReports.whitelistedServers.tooltip"))
-					.setAddButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.addButtonTooltip"))
-					.setRemoveButtonTooltip(Component.translatable("option.NoChatReports.whitelistedServers.removeButtonTooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getServerWhitelist().whitelistedServers = newValue)
-					.setCreateNewInstance(baseListEntry -> new StringListListEntry.StringListCell(Language.getInstance().getOrDefault(("option.NoChatReports.whitelistedServers.serverAddress")), baseListEntry))
-					.build());
-
 			// Save config
 			builder.setSavingRunnable(NCRConfig::save);
 			return builder.build();

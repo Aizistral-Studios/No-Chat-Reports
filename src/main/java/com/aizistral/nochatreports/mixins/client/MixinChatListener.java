@@ -1,10 +1,12 @@
 package com.aizistral.nochatreports.mixins.client;
 
 import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.NoChatReportsClient;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.EncryptionUtil;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -38,7 +40,7 @@ public class MixinChatListener {
 	private void onHandleSystemMessage(Component message, boolean overlay, CallbackInfo info) {
 		if (message instanceof MutableComponent mutable && message.getContents() instanceof TranslatableContents translatable) {
 			if (translatable.getKey().equals("chat.disabled.missingProfileKey")) {
-				mutable.contents = new TranslatableContents("chat.nochatreports.disabled.signingRequested");
+				mutable.contents = new TranslatableContents("chat.nochatreports.disabled.signing_requested");
 
 				if (!ServerSafetyState.isOnRealms()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
@@ -47,18 +49,8 @@ public class MixinChatListener {
 				if (UnsafeServerScreen.hideThisSession() || ServerSafetyState.allowChatSigning())
 					return;
 
-				if (NCRConfig.getClient().skipSigningWarning()) {
-					ServerSafetyState.scheduleSigningAction(() -> {
-						var mc = Minecraft.getInstance();
-						var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
-
-						if (chatScr == null) {
-							chatScr = new ChatScreen("");
-							chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
-						}
-						chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
-					});
-
+				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ON_DEMAND)) {
+					ServerSafetyState.scheduleSigningAction(NoChatReportsClient::resendLastChatMessage);
 					ServerSafetyState.setAllowChatSigning(true);
 
 					if (NCRConfig.getClient().hideSigningRequestMessage()) {
@@ -68,11 +60,13 @@ public class MixinChatListener {
 					return;
 				}
 
-				Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
-						instanceof ChatScreen chat ? chat : new ChatScreen("")));
+				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.PROMPT)) {
+					Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
+							instanceof ChatScreen chat ? chat : new ChatScreen("")));
 
-				if (NCRConfig.getClient().hideSigningRequestMessage()) {
-					info.cancel();
+					if (NCRConfig.getClient().hideSigningRequestMessage()) {
+						info.cancel();
+					}
 				}
 			}
 		}

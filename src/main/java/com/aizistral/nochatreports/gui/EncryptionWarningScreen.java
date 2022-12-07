@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 @Environment(EnvType.CLIENT)
-public class EncryptionWarningScreen extends ExtendedWarningScreen {
+public class EncryptionWarningScreen extends TriageWarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.encryption_warning.header").withStyle(ChatFormatting.BOLD);
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.encryption_warning.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.encryption_warning.check");
