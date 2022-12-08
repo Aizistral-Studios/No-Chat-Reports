@@ -1,13 +1,13 @@
 package com.aizistral.nochatreports.config;
 
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.FontHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import me.shedaniel.clothconfig2.gui.entries.StringListListEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Implementation of ModMenu and ClothConfig support for the mod.
@@ -51,7 +52,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 			// Set category
 			ConfigCategory client = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.client"));
 			ConfigCategory lan = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.lan"));
-			ConfigCategory whitelist = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.whitelist"));
 
 			ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
@@ -70,6 +70,16 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.showNCRButton.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().showNCRButton = newValue)
+					.build());
+
+			// Dropdown for defaultSigningMode
+			client.addEntry(entryBuilder.startStringDropdownMenu(Component.translatable("option.NoChatReports.defaultSigningMode"), NCRConfig.getClient().defaultSigningMode.toString()
+					)
+					.setDefaultValue(SigningMode.PROMPT.toString())
+					.setTooltip(this.makeTooltip("option.NoChatReports.defaultSigningMode.tooltip"))
+					.setSelections(Stream.of(SigningMode.values()).map(SigningMode::name).toList())
+					.setSaveConsumer(newValue -> NCRConfig.getClient().defaultSigningMode = SigningMode.valueOf(newValue))
+					.setSuggestionMode(false)
 					.build());
 
 			// Set an option for showReloadButton
