@@ -132,13 +132,15 @@ public abstract class MixinChatScreen extends Screen {
 
 				tooltip.append("\n\n");
 				tooltip.append(Component.translatable(signing));
-				tooltip.append("\n\n");
-				tooltip.append(Component.translatable("gui.nochatreports.safety_status_button.controls"));
-				tooltip.append("\n\n");
-				tooltip.append(Component.translatable("gui.nochatreports.signing_mode",
-						mode.getName().withStyle(ChatFormatting.BOLD, ChatFormatting.AQUA)));
-				tooltip.append("\n");
-				tooltip.append((mode == SigningMode.DEFAULT ? mode.resolve() : mode).getTooltip());
+				if(ServerSafetyState.getCurrent() != ServerSafetyLevel.SECURE){
+					tooltip.append("\n\n");
+					tooltip.append(Component.translatable("gui.nochatreports.safety_status_button.controls"));
+					tooltip.append("\n\n");
+					tooltip.append(Component.translatable("gui.nochatreports.signing_mode",
+							mode.getName().withStyle(ChatFormatting.BOLD, ChatFormatting.AQUA)));
+					tooltip.append("\n");
+					tooltip.append((mode == SigningMode.DEFAULT ? mode.resolve() : mode).getTooltip());
+				}
 
 				return tooltip;
 			}).setMaxWidth(250).setRenderWithoutGap(true));
