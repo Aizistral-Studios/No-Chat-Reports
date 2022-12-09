@@ -15,6 +15,7 @@ import net.minecraft.locale.Language;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,7 +28,6 @@ import java.util.stream.Stream;
 
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
-
 	private Component[] makeTooltip(String key) {
 		String localized = Language.getInstance().getOrDefault(key);
 		List<String> list = FontHelper.wrap(Minecraft.getInstance().font, localized, 250);
@@ -42,6 +42,12 @@ public final class ModMenuIntegration implements ModMenuApi {
 
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
+		MutableComponent signingTooltip = Component.translatable("option.NoChatReports.defaultSigningMode.tooltip")
+				.append("\nALWAYS: ").append(Component.translatable("gui.nochatreports.signing_mode.always.tooltip"))
+				.append("\nNEVER: ").append(Component.translatable("gui.nochatreports.signing_mode.never.tooltip"))
+				.append("\nPROMPT: ").append(Component.translatable("gui.nochatreports.signing_mode.prompt.tooltip"))
+				.append("\nON_DEMAND: ").append(Component.translatable("gui.nochatreports.signing_mode.on_demand.tooltip"));
+
 		return screen -> {
 
 			// Get the previous screen
@@ -76,7 +82,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 			client.addEntry(entryBuilder.startStringDropdownMenu(Component.translatable("option.NoChatReports.defaultSigningMode"), NCRConfig.getClient().defaultSigningMode.toString()
 					)
 					.setDefaultValue(SigningMode.PROMPT.toString())
-					.setTooltip(this.makeTooltip("option.NoChatReports.defaultSigningMode.tooltip"))
+					.setTooltip(signingTooltip)
 					.setSelections(Stream.of(SigningMode.values()).map(SigningMode::name).toList())
 					.setSaveConsumer(newValue -> NCRConfig.getClient().defaultSigningMode = SigningMode.valueOf(newValue))
 					.setSuggestionMode(false)
