@@ -37,6 +37,8 @@ public class NCRServerPreferences extends JSONConfig {
 			return SigningMode.NEVER_FORCED;
 		else if (ServerSafetyState.isInSingleplayer())
 			return SigningMode.NEVER;
+		else if (ServerSafetyState.isOnRealms())
+			return SigningMode.ALWAYS;
 		else if (address == null)
 			return SigningMode.DEFAULT;
 

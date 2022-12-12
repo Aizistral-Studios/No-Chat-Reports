@@ -134,6 +134,10 @@ public abstract class MixinChatScreen extends Screen {
 
 				tooltip.append("\n\n");
 				tooltip.append(Component.translatable(signing));
+
+				if (ServerSafetyState.isOnRealms())
+					return tooltip;
+
 				tooltip.append("\n\n");
 				tooltip.append(Component.translatable("gui.nochatreports.safety_status_button.controls"));
 				tooltip.append("\n\n");
