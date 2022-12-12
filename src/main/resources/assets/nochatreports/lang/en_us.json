@@ -82,6 +82,8 @@
 	"option.NoChatReports.enableMod.tooltip": "Responsible for enabling most of the mod's client-sided functionality. Will require re-joining the server to take effect if toggled mid-session.",
 	"option.NoChatReports.showNCRButton": "Show NCR button",
 	"option.NoChatReports.showNCRButton.tooltip": "Adds a button that toggles most of the mod's client-sided functionality to multiplayer menu.",
+	"option.NoChatReports.defaultSigningMode": "Default signing mode",
+	"option.NoChatReports.defaultSigningMode.tooltip": "Sets the signing mode default for servers that force or allow chat signing.",
 	"option.NoChatReports.showReloadButton": "Show reload button",
 	"option.NoChatReports.showReloadButton.tooltip": "Adds a button for config reloading to multiplayer menu.",
 	"option.NoChatReports.verifiedIconEnabled": "Verified icon enabled",

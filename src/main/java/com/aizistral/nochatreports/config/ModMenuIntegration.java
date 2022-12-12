@@ -1,22 +1,26 @@
 package com.aizistral.nochatreports.config;
 
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.FontHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import me.shedaniel.clothconfig2.gui.entries.StringListListEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Implementation of ModMenu and ClothConfig support for the mod.
@@ -27,9 +31,12 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
 
-	private Component[] makeTooltip(String key) {
-		String localized = Language.getInstance().getOrDefault(key);
-		List<String> list = FontHelper.wrap(Minecraft.getInstance().font, localized, 250);
+	private String translateKey(String key) {
+		return Language.getInstance().getOrDefault(key);
+	}
+
+	private Component[] wrapTooltip(String text) {
+		List<String> list = FontHelper.wrap(Minecraft.getInstance().font, text, 250);
 		Component[] tooltip = new Component[list.size()];
 
 		for (int i = 0; i < list.size(); i++) {
@@ -37,6 +44,10 @@ public final class ModMenuIntegration implements ModMenuApi {
 		}
 
 		return tooltip;
+	}
+
+	private Component[] makeTooltip(String key) {
+		return this.wrapTooltip(this.translateKey(key));
 	}
 
 	@Override
@@ -51,7 +62,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 			// Set category
 			ConfigCategory client = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.client"));
 			ConfigCategory lan = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.lan"));
-			ConfigCategory whitelist = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.whitelist"));
 
 			ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
@@ -71,6 +81,40 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setTooltip(this.makeTooltip("option.NoChatReports.showNCRButton.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().showNCRButton = newValue)
 					.build());
+
+
+			String signingTooltip = this.translateKey("option.NoChatReports.defaultSigningMode.tooltip")
+					+ "\n ";
+
+			for (SigningMode mode : SigningMode.values()) {
+				if (mode.isSelectableGlobally()) {
+					signingTooltip += "\n\n";
+					signingTooltip += ChatFormatting.AQUA;
+					signingTooltip += ChatFormatting.BOLD;
+					signingTooltip += ChatFormatting.UNDERLINE;
+					signingTooltip += this.translateKey(mode.getNameKey());
+					signingTooltip += ChatFormatting.RESET;
+					signingTooltip += "\n";
+					signingTooltip += this.translateKey(mode.getTooltipKey());
+				}
+			}
+
+			// Dropdown for defaultSigningMode
+			client.addEntry(
+					entryBuilder.startStringDropdownMenu(Component.translatable("option.NoChatReports.defaultSigningMode"),
+							NCRConfig.getClient().defaultSigningMode.getName().getString())
+					.setTooltip(this.wrapTooltip(signingTooltip))
+					.setDefaultValue(SigningMode.PROMPT.getName().getString())
+					.setSelections(Stream.of(SigningMode.values()).filter(SigningMode::isSelectableGlobally)
+							.map(mode -> mode.getName().getString()).toList())
+					.setSaveConsumer(newValue -> {
+						NCRConfig.getClient().defaultSigningMode = Arrays.stream(SigningMode.values())
+								.filter(mode -> mode.getName().getString().equals(newValue))
+								.findFirst().get();
+					})
+					.setSuggestionMode(false)
+					.build()
+					);
 
 			// Set an option for showReloadButton
 			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NCRConfig.getClient().showReloadButton)
