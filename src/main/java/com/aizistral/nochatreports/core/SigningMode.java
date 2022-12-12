@@ -53,18 +53,23 @@ public enum SigningMode {
 	 */
 	NEVER_FORCED;
 
-	public MutableComponent getName() {
-		String key = "gui.nochatreports.signing_mode." + this.name().toLowerCase();
+	public String getNameKey() {
+		return "gui.nochatreports.signing_mode." + this.name().toLowerCase();
+	}
 
+	public MutableComponent getName() {
 		if (this != DEFAULT)
-			return Component.translatable(key);
+			return Component.translatable(this.getNameKey());
 		else
-			return Component.translatable(key, NCRConfig.getClient().defaultSigningMode().getName());
+			return Component.translatable(this.getNameKey(), NCRConfig.getClient().defaultSigningMode().getName());
+	}
+
+	public String getTooltipKey() {
+		return "gui.nochatreports.signing_mode." + this.name().toLowerCase() + ".tooltip";
 	}
 
 	public MutableComponent getTooltip() {
-		return Component.translatable("gui.nochatreports.signing_mode." + this.name().toLowerCase() +
-				".tooltip");
+		return Component.translatable(this.getTooltipKey());
 	}
 
 	public SigningMode next() {
@@ -76,7 +81,7 @@ public enum SigningMode {
 			result = values()[this.ordinal() + 1];
 		}
 
-		return result == NEVER_FORCED ? result.next() : result;
+		return result.isSelectable() ? result : result.next();
 	}
 
 	public SigningMode resolve() {
@@ -85,6 +90,14 @@ public enum SigningMode {
 		case NEVER_FORCED -> NEVER;
 		default -> this;
 		};
+	}
+
+	public boolean isSelectable() {
+		return this != NEVER_FORCED;
+	}
+
+	public boolean isSelectableGlobally() {
+		return this.isSelectable() && this != DEFAULT;
 	}
 
 	public static SigningMode nullable(@Nullable SigningMode mode) {
