@@ -17,7 +17,7 @@ public class MixinGuiMessageTag {
 	 * @author Aizistral
 	 */
 
-	@Inject(method = "system", at = @At("HEAD"), cancellable = true)
+	@Inject(method = { "system", "systemSinglePlayer" }, at = @At("HEAD"), cancellable = true)
 	private static void onSystem(CallbackInfoReturnable<GuiMessageTag> info) {
 		if (NCRConfig.getClient().hideSystemMessageIndicators()) {
 			info.setReturnValue(null);
