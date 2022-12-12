@@ -25,3 +25,4 @@ accessible field net/minecraft/client/gui/components/AbstractWidget tooltip Lnet
 accessible field net/minecraft/client/gui/components/AbstractWidget tooltipMsDelay I
 accessible method net/minecraft/client/gui/components/AbstractWidget updateTooltip ()V
 extendable method net/minecraft/client/gui/components/AbstractWidget updateTooltip ()V
+accessible field net/minecraft/client/gui/screens/OptionsScreen TELEMETRY Lnet/minecraft/network/chat/Component;

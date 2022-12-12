@@ -13,7 +13,8 @@ public final class NCRConfigClient extends JSONConfig {
 			verifiedIconEnabled = true, showServerSafety = true, hideInsecureMessageIndicators = true,
 			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true,
 			hideWarningToast = true, hideSigningRequestMessage = false, alwaysHideReportButton = false,
-			skipRealmsWarning = false, disableTelemetry = true, demandOnServer = false;
+			skipRealmsWarning = false, disableTelemetry = true, removeTelemetryButton = true,
+			demandOnServer = false;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 
 	protected NCRConfigClient() {
@@ -197,6 +198,10 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public SigningMode defaultSigningMode() {
 		return this.defaultSigningMode;
+	}
+
+	public boolean removeTelemetryButton() {
+		return this.removeTelemetryButton;
 	}
 
 }

@@ -31,7 +31,8 @@
 	"client.MixinGuiMessageTagIcon",
 	"client.MixinTitleScreen",
 	"client.MixinMinecraft",
-	"client.MixinClientPacketListener"
+	"client.MixinClientPacketListener",
+	"client.MixinRowHelper"
   ],
   "server": [
 	"server.MixinDedicatedServer"
