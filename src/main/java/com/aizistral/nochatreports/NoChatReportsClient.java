@@ -52,7 +52,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 		client.execute(() -> {
 			if (!client.isLocalServer()) {
-
 				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
 				} else if (!handler.getConnection().isEncrypted()) {
@@ -68,14 +67,14 @@ public final class NoChatReportsClient implements ClientModInitializer {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN);
 				}
 			} else {
-				ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
+				ServerSafetyState.updateCurrent(ServerSafetyLevel.SINGLEPLAYER);
 			}
 
 			if (NCRConfig.getCommon().enableDebugLog()) {
 				NoChatReports.LOGGER.info("Sucessfully connected to server, safety state: {}", ServerSafetyState.getCurrent());
 			}
 
-			if (NCRConfig.getClient().demandOnServer() && ServerSafetyState.getCurrent() != ServerSafetyLevel.SECURE) {
+			if (NCRConfig.getClient().demandOnServer() && !ServerSafetyState.getCurrent().isSecure()) {
 				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});

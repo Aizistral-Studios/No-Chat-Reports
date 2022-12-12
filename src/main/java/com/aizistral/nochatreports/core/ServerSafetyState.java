@@ -65,6 +65,10 @@ public final class ServerSafetyState {
 		return current == ServerSafetyLevel.REALMS;
 	}
 
+	public static boolean isInSingleplayer() {
+		return current == ServerSafetyLevel.SINGLEPLAYER;
+	}
+
 	public static boolean isDetermined() {
 		return current != ServerSafetyLevel.UNINTRUSIVE && current != ServerSafetyLevel.UNDEFINED
 				&& current != ServerSafetyLevel.UNKNOWN;

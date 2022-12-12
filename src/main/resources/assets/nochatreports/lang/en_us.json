@@ -5,6 +5,7 @@
 	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
 	"gui.nochatreports.safety_status_button.controls": "Left-click to cycle between signing modes.",
 	"gui.nochatreports.safety_status.secure": "This server has No Chat Reports installed, or prevents your messages from being reportable in some other known way. You can chat safely.",
+	"gui.nochatreports.safety_status.singleplayer": "You can always chat safely in singleplayer.",
 	"gui.nochatreports.safety_status.unintrusive": "This server allows you to send unsigned messages which cannot be reported to Mojang. Unless some kind of plugin is installed on server that prevents chat reports - vanilla clients will still send signed messages, display unsigned messages as \"Unverified\" and not show them if \"Only Show Secure Chat\" is enabled in chat options.",
 	"gui.nochatreports.safety_status.insecure": "This server currently demands all chat messages to be signed. All signed messages are a potentially incriminating evidence that can be used against you in the report.",
 	"gui.nochatreports.safety_status.insecure_signing": "You have enabled chat signing, which makes all your messages a potentially incriminating evidence that can be used against you in the report.",

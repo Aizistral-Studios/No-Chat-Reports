@@ -45,7 +45,7 @@ public class MixinPlayerEntry {
 		if (NCRConfig.getClient().alwaysHideReportButton()) {
 			this.reportButton = new InvisibleButton();
 			this.reportButton.active = this.reportButton.visible = false;
-		} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE && this.reportButton != null) {
+		} else if (ServerSafetyState.getCurrent().isSecure() && this.reportButton != null) {
 			this.reportButton = new AdvancedImageButton(0, 0, 20, 20, 0, 0, 20, REPORT_BUTTON_LOCATION, 64, 64,
 					button -> {}, Component.translatable("gui.socialInteractions.report"), screen);
 			this.reportButton.setTooltip(Tooltip.create(NCR_BUTTON_TOOLTIP));

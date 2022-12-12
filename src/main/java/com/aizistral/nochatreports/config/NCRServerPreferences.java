@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
 import com.aizistral.nochatreports.NoChatReportsClient;
+import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
@@ -34,6 +35,8 @@ public class NCRServerPreferences extends JSONConfig {
 	public SigningMode getModeUnresolved(@Nullable ServerAddress address) {
 		if (!NoChatReportsClient.areSigningKeysPresent())
 			return SigningMode.NEVER_FORCED;
+		else if (ServerSafetyState.isInSingleplayer())
+			return SigningMode.NEVER;
 		else if (address == null)
 			return SigningMode.DEFAULT;
 

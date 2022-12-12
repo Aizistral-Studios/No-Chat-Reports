@@ -19,6 +19,12 @@ public enum ServerSafetyLevel {
 	 */
 	SECURE,
 
+	/**
+	 * For singleplayer specifically. Pretty much identical to {@link #SECURE} since client needs
+	 * NCR installed on it to display any safety level to begin with.
+	 */
+	SINGLEPLAYER,
+
 
 	/**
 	 * For servers that do not make any effort to remove signatures from chat messages themselves,
@@ -56,6 +62,10 @@ public enum ServerSafetyLevel {
 
 	public MutableComponent getTooltip() {
 		return Component.translatable("gui.nochatreports.safety_status." + this.name().toLowerCase());
+	}
+
+	public boolean isSecure() {
+		return this == SECURE || this == SINGLEPLAYER;
 	}
 
 }
