@@ -2,6 +2,8 @@
 
 A mod that strips cryptographic signatures from chat messages and disables Player Chat Reporting in Minecraft.   
 GitLab Mirror: https://gitlab.com/Aizistral-Studios/No-Chat-Reports
+Modrinth: https://modrinth.com/mod/no-chat-reports
+CurseForge: https://www.curseforge.com/minecraft/mc-mods/no-chat-reports
 
 ## Installation and Use
 
