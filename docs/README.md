@@ -1,9 +1,9 @@
 # No Chat Reports
 
 A mod that strips cryptographic signatures from chat messages and disables Player Chat Reporting in Minecraft.   
-GitLab Mirror: https://gitlab.com/Aizistral-Studios/No-Chat-Reports
-Modrinth: https://modrinth.com/mod/no-chat-reports
-CurseForge: https://www.curseforge.com/minecraft/mc-mods/no-chat-reports
+CurseForge: https://cf.way2muchnoise.eu 
+Modrinth: https://shields.io/category/downloads 
+GitLab: https://intergrav.github.io/devins-badges-docs/badges/compact/#available 
 
 ## Installation and Use
 
@@ -16,7 +16,6 @@ This mod supports both Forge and Fabric and can be installed on the client, serv
 Even though the mod can function when present on only one side, it can be configured to demand itself to be installed on the other side in order to play. This way you can install it on the server and require all clients that join to have this mod in order to have full functionality, or leave it server-only if you prefer. Configuration files are located in the NoChatReports subfolder of the default config folder.
 
 Additionally, if installed on the client, this mod will disable telemetry (similar to how No Telemetry does).
-
 
 ## Chat Encryption
 
