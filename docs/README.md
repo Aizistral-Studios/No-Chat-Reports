@@ -1,9 +1,8 @@
 # No Chat Reports
 
 A mod that strips cryptographic signatures from chat messages and disables Player Chat Reporting in Minecraft.   
-CurseForge: https://cf.way2muchnoise.eu 
-Modrinth: https://shields.io/category/downloads 
-GitLab: https://intergrav.github.io/devins-badges-docs/badges/compact/#available 
+
+[![Download from Curseforge](https://cf.way2muchnoise.eu/full_634062_downloads%20on%20Curseforge.svg?badge_style=for_the_badge)](https://www.curseforge.com/minecraft/mc-mods/no-chat-reports) [![Download from Modrinth](https://img.shields.io/modrinth/dt/no-chat-reports?color=4&label=Download%20from%20Modrinth&style=for-the-badge)](https://modrinth.com/mod/no-chat-reports) <a href="https://gitlab.com/Aizistral-Studios/No-Chat-Reports"><img alt="Available on GitLab" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/gitlab_vector.svg"></a>
 
 ## Installation and Use
 
