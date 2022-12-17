@@ -19,7 +19,8 @@ To make Velocity compatible with this mod, set force-key-authentication = false 
 
 ## Chat Encryption
 
-I have created a video about chat encryption, you can watch it to learn how to use it (and whether you should): [The Video](https://www.youtube.com/watch?v=e7RzNP32k-s)
+I have created a video about chat encryption, you can watch it to learn how to use it and whether you should: 
+[![Encryption tutorial](https://img.youtube.com/vi/e7RzNP32k-s/mqdefault.jpg)](https://www.youtube.com/watch?v=e7RzNP32k-s)
 
 ## Documentation
 
