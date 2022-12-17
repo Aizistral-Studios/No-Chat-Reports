@@ -15,7 +15,6 @@ Even though the mod can function when present on only one side, it can be config
 
 Additionally, if installed on the client, this mod will disable telemetry (similar to how No Telemetry does).
 
-To make Velocity compatible with this mod, set force-key-authentication = false in velocity.toml. Thanks to MrMelon54 for pointing this out.
 
 ## Chat Encryption
 
