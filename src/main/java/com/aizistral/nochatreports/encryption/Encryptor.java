@@ -1,17 +1,13 @@
 package com.aizistral.nochatreports.encryption;
 
-import java.nio.ByteBuffer;
+import it.unimi.dsi.fastutil.chars.Char2CharArrayMap;
+import it.unimi.dsi.fastutil.chars.Char2CharMap;
+import it.unimi.dsi.fastutil.chars.Char2CharMaps;
+
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
-
-import it.unimi.dsi.fastutil.chars.Char2CharArrayMap;
-import it.unimi.dsi.fastutil.chars.Char2CharMap;
-import it.unimi.dsi.fastutil.chars.Char2CharMaps;
 
 public abstract class Encryptor<T extends Encryption> {
 	protected static final SecureRandom RANDOM = new SecureRandom();
@@ -163,7 +159,7 @@ public abstract class Encryptor<T extends Encryption> {
 		map.put('u', 'µ');
 		map.put('v', '¶');
 		map.put('w', '·');
-		map.put('x', '¸');
+		map.put('x', '×');
 		map.put('y', '¹');
 		map.put('z', 'º');
 		map.put('0', '0');

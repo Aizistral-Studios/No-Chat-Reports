@@ -8,26 +8,22 @@
   "mixins": [
 	"common.MixinServerStatus",
 	"common.MixinServerStatusSerializer",
-	"server.MixinPlayer",
 	"server.MixinServerboundChatPacket",
 	"server.MixinServerGamePacketListenerImpl",
-	"server.MixinPlayerList"
+	"server.MixinPlayerList",
+	"server.MixinServerboundChatSessionUpdatePacket"
   ],
   "client": [
+	"forge.client.MixinClientConnection",
 	"forge.client.MixinClientHandshakePacketListenerImpl",
 	"forge.client.MixinClientPacketListener",
-	"forge.client.MixinClientConnection",
-	"client.MixinLocalPlayer",
 	"client.MixinOptions",
 	"client.MixinChatListener",
     "client.MixinChatOptionsScreen",
-	"client.MixinProfileKeyPairManager",
-	"client.MixinClientTelemetryManager",
+	"client.MixinYggdrasilUserApiService",
 	"client.MixinPlayerEntry",
 	"client.MixinChatScreen",
-	"client.AccessorDisconnectedScreen",
 	"client.MixinConnectScreen",
-	"client.MixinClientboundHelloPacket",
 	"client.MixinJoinMultiplayerScreen",
 	"client.MixinGuiMessageTag",
 	"client.MixinToastComponent",
@@ -37,7 +33,10 @@
 	"client.MixinOnlineServerEntry",
 	"client.MixinChatComponent",
 	"client.MixinGuiMessageTagIcon",
-	"client.MixinTitleScreen"
+	"client.MixinTitleScreen",
+	"client.MixinMinecraft",
+	"client.MixinClientPacketListener",
+	"client.MixinRowHelper"
   ],
   "server": [
 	"server.MixinDedicatedServer"

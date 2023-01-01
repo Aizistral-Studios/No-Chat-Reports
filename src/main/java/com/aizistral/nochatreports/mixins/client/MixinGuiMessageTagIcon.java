@@ -21,7 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 @Mixin(GuiMessageTag.Icon.class)
 public abstract class MixinGuiMessageTagIcon {
 	private static final ResourceLocation TEXTURE_NCR = new ResourceLocation("nochatreports", "textures/gui/encrypted_tag.png");
-	@Shadow(aliases = "field_39768", remap = false) @Mutable static Icon[] $VALUES;
+	@Shadow(aliases = "field_39768") @Mutable static Icon[] $VALUES;
 
 	@Invoker("<init>")
 	static Icon create(String name, int ordinal, int u, int v, int width, int height) {

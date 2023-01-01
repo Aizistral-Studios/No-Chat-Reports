@@ -11,8 +11,8 @@ import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.minecraft.network.PacketSendListener;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundPlayerChatHeaderPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,15 +34,15 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;)V", at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, CallbackInfo info) {
 		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
-			NoChatReports.LOGGER.info("Sending message: {}", chat.message().serverContent());
+			NoChatReports.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
+					: chat.body().content());
 		}
 
 		if (NCRConfig.getCommon().convertToGameMessage()) {
-			if (packet instanceof ClientboundPlayerChatHeaderPacket) {
-				info.cancel();
-			} else if (packet instanceof ClientboundPlayerChatPacket chat) {
+			if (packet instanceof ClientboundPlayerChatPacket chat) {
 				packet = new ClientboundSystemChatPacket(chat.chatType().resolve(this.player.level.registryAccess())
-						.get().decorate(chat.message().serverContent()), false);
+						.get().decorate(chat.unsignedContent() != null ? chat.unsignedContent()
+								: Component.literal(chat.body().content())), false);
 
 				info.cancel();
 				this.send(packet);
@@ -59,13 +59,12 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 			at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo info) {
 		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
-			NoChatReports.LOGGER.info("Sending message: {}", chat.message().serverContent());
+			NoChatReports.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
+					: chat.body().content());
 		}
 
 		if (NCRConfig.getCommon().convertToGameMessage()) {
-			if (packet instanceof ClientboundPlayerChatHeaderPacket) {
-				info.cancel();
-			} else if (packet instanceof ClientboundPlayerChatPacket chat && packetSendListener != null) {
+			if (packet instanceof ClientboundPlayerChatPacket chat && packetSendListener != null) {
 				info.cancel();
 				((ServerGamePacketListenerImpl) (Object) this).send(chat);
 			}

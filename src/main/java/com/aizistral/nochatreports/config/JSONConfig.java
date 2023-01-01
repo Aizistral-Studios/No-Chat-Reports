@@ -13,23 +13,16 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 public abstract class JSONConfig {
 	protected static final Path CONFIG_DIR = FMLPaths.CONFIGDIR.get();
-	protected static final Gson GSON = new GsonBuilder().setPrettyPrinting()
-			.setExclusionStrategies(new ExclusionStrategy() {
-				@Override
-				public boolean shouldSkipField(FieldAttributes field) {
-					return field.getDeclaringClass() == JSONConfig.class;
-				}
-
-				@Override
-				public boolean shouldSkipClass(Class<?> theClass) {
-					return false;
-				}
-			}).create();
+	protected static final Gson GSON = createGson();
 
 	protected final String fileName;
 	protected final Path filePath;
@@ -69,8 +62,10 @@ public abstract class JSONConfig {
 
 		try (BufferedReader reader = Files.newBufferedReader(file)) {
 			return Optional.of(GSON.fromJson(reader, configClass));
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			NoChatReports.LOGGER.fatal("Could not read config file: {}", file);
+			NoChatReports.LOGGER.fatal("This likely indicates the file is corrupted. "
+					+ "You can try deleting it to fix this problem. Full stacktrace below:");
 			ex.printStackTrace();
 			return null;
 		}
@@ -88,6 +83,28 @@ public abstract class JSONConfig {
 			NoChatReports.LOGGER.fatal("Could not write config file: {}", file);
 			throw new RuntimeException(ex);
 		}
+	}
+
+	private static Gson createGson() {
+		GsonBuilder builder = new GsonBuilder();
+		builder.setPrettyPrinting();
+		builder.setExclusionStrategies(new ExclusionStrategy() {
+			@Override
+			public boolean shouldSkipField(FieldAttributes field) {
+				return field.getDeclaringClass() == JSONConfig.class;
+			}
+
+			@Override
+			public boolean shouldSkipClass(Class<?> theClass) {
+				return false;
+			}
+		});
+
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			builder.registerTypeAdapter(ServerAddress.class, ServerAddressAdapter.INSTANCE);
+		}
+
+		return builder.create();
 	}
 
 }

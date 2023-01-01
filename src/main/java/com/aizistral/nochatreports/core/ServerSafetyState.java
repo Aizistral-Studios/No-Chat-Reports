@@ -1,18 +1,18 @@
 package com.aizistral.nochatreports.core;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.annotation.Nullable;
-
-import com.aizistral.nochatreports.NoChatReports;
-import com.aizistral.nochatreports.config.NCRConfig;
-
-import net.minecraft.client.multiplayer.ServerData;
+import com.aizistral.nochatreports.gui.UnsafeServerScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.network.chat.LocalChatSession;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * All this global state is questionable, but we have to...
@@ -21,13 +21,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public final class ServerSafetyState {
-	private static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
-	private static ServerAddress lastServerAddress = null;
-	private static ServerData lastServerData = null;
-	private static AtomicBoolean allowUnsafeServer = new AtomicBoolean(false),
-			sessionRequestedKey =  new AtomicBoolean(false), isOnServer = new AtomicBoolean(false);
-	private static AtomicInteger reconnectCount = new AtomicInteger(0);
-	private static AtomicLong disconnectMillis = new AtomicLong(0);
+	private static final List<Runnable> RESET_ACTIONS = new ArrayList<>();
+	private static final List<Runnable> SIGNING_ACTIONS = new ArrayList<>();
+	private static final AtomicBoolean ALLOW_CHAT_SIGNING = new AtomicBoolean(false);
+	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
+	private volatile static ServerAddress lastServer = null;
 
 	public static void updateCurrent(ServerSafetyLevel level) {
 		current = level;
@@ -37,79 +35,71 @@ public final class ServerSafetyState {
 		return current;
 	}
 
-	public static boolean allowsUnsafeServer() {
-		return current != ServerSafetyLevel.SECURE ? allowUnsafeServer.get() : false;
+	public static boolean allowChatSigning() {
+		return ALLOW_CHAT_SIGNING.get();
 	}
 
-	public static void setAllowsUnsafeServer(boolean allows) {
-		if (NCRConfig.getCommon().enableDebugLog()) {
-			NoChatReports.LOGGER.info("Set allowUnsafeServer to: " + allows + ", value set in stacktrace:");
-			NoChatReports.LOGGER.catching(new RuntimeException().fillInStackTrace());
+	public static CompletableFuture<Void> setAllowChatSigning(boolean allow) {
+		if (ALLOW_CHAT_SIGNING.compareAndSet(!allow, allow)) {
+			if (Minecraft.getInstance().player != null) {
+				var connection = Minecraft.getInstance().player.connection;
+
+				if (allow && connection.chatSession == null)
+					return Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
+							.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
+								connection.setKeyPair(profileKeyPair);
+								SIGNING_ACTIONS.forEach(Runnable::run);
+								SIGNING_ACTIONS.clear();
+							}), Minecraft.getInstance());
+			}
 		}
 
-		allowUnsafeServer.set(allows);
+		return CompletableFuture.completedFuture(null);
 	}
 
-	public static void setSessionRequestedKey(boolean requested) {
-		sessionRequestedKey.set(requested);
+	public static void toggleChatSigning() {
+		setAllowChatSigning(!ALLOW_CHAT_SIGNING.get());
 	}
 
-	public static boolean sessionRequestedKey() {
-		return current != ServerSafetyLevel.SECURE ? sessionRequestedKey.get() : false;
+	public static boolean isOnRealms() {
+		return current == ServerSafetyLevel.REALMS;
 	}
 
-	public static boolean forceSignedMessages() {
-		return allowsUnsafeServer() && sessionRequestedKey();
+	public static boolean isInSingleplayer() {
+		return current == ServerSafetyLevel.SINGLEPLAYER;
+	}
+
+	public static boolean isDetermined() {
+		return current != ServerSafetyLevel.UNINTRUSIVE && current != ServerSafetyLevel.UNDEFINED
+				&& current != ServerSafetyLevel.UNKNOWN;
 	}
 
 	@Nullable
-	public static ServerAddress getLastServerAddress() {
-		return lastServerAddress;
+	public static ServerAddress getLastServer() {
+		return lastServer;
 	}
 
-	@Nullable
-	public static ServerData getLastServerData() {
-		return lastServerData;
+	public static void setLastServer(@Nullable ServerAddress address) {
+		lastServer = address;
 	}
 
-	public static void setLastConnectedServer(@Nullable ServerAddress address, @Nullable ServerData data) {
-		lastServerAddress = address;
-		lastServerData = data;
+	public static void scheduleResetAction(Runnable action) {
+		RESET_ACTIONS.add(action);
 	}
 
-	public static int getReconnectCount() {
-		return reconnectCount.get();
-	}
-
-	public static void setReconnectCount(int count) {
-		reconnectCount.set(count);
-	}
-
-	public static long getDisconnectMillis() {
-		return disconnectMillis.get();
-	}
-
-	public static void setDisconnectMillis(long millis) {
-		disconnectMillis.set(millis);
-	}
-
-	public static boolean isOnServer() {
-		return isOnServer.get();
-	}
-
-	public static void setOnServer(boolean on) {
-		isOnServer.set(on);
+	public static void scheduleSigningAction(Runnable action) {
+		SIGNING_ACTIONS.add(action);
 	}
 
 	public static void reset() {
+		lastServer = null;
 		current = ServerSafetyLevel.UNDEFINED;
-		allowUnsafeServer.set(false);
-		sessionRequestedKey.set(false);
-		isOnServer.set(false);
+		ALLOW_CHAT_SIGNING.set(false);
+		UnsafeServerScreen.setHideThisSession(false);
 
-		if (NCRConfig.getCommon().enableDebugLog()) {
-			NoChatReports.LOGGER.info("allowUnsafeServer: {}", allowUnsafeServer.get());
-		}
+		RESET_ACTIONS.forEach(Runnable::run);
+		RESET_ACTIONS.clear();
+		SIGNING_ACTIONS.clear();
 	}
 
 }

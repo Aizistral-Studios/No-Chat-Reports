@@ -1,10 +1,7 @@
 package com.aizistral.nochatreports.core;
 
-import com.aizistral.nochatreports.config.NCRConfig;
-
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.network.chat.MutableComponent;
 
 /**
  * Represents the level of "safety" of the given server, in the eyes of the client.
@@ -19,6 +16,12 @@ public enum ServerSafetyLevel {
 	 * verifiable effort to remove cryptographic signature from every player message they relay.
 	 */
 	SECURE,
+
+	/**
+	 * For singleplayer specifically. Pretty much identical to {@link #SECURE} since client needs
+	 * NCR installed on it to display any safety level to begin with.
+	 */
+	SINGLEPLAYER,
 
 
 	/**
@@ -55,12 +58,12 @@ public enum ServerSafetyLevel {
 
 	UNDEFINED;
 
-	@OnlyIn(Dist.CLIENT)
-	public Component getTooltip() {
-		if (NCRConfig.getClient().whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
-			return Component.translatable("gui.nochatreports.status_insecure_whitelist_all_servers");
-		else
-			return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
+	public MutableComponent getTooltip() {
+		return Component.translatable("gui.nochatreports.safety_status." + this.name().toLowerCase());
+	}
+
+	public boolean isSecure() {
+		return this == SECURE || this == SINGLEPLAYER;
 	}
 
 }

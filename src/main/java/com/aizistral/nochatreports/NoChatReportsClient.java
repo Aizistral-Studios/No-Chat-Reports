@@ -6,18 +6,19 @@ import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerDataExtension;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.gui.AwaitConnectionScreen;
+import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
-import com.aizistral.nochatreports.mixins.client.AccessorDisconnectedScreen;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.DisconnectedScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -30,89 +31,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = NoChatReports.MODID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = "nochatreports", bus = Bus.FORGE)
 public class NoChatReportsClient {
-	private static final List<String> KEY_DISCONNECT_REASONS = ImmutableList.of(
-			"multiplayer.disconnect.missing_public_key",
-			"multiplayer.disconnect.invalid_public_key_signature",
-			"multiplayer.disconnect.invalid_public_key"
-			);
-	private static final List<String> STRING_DISCONNECT_REASONS = ImmutableList.of(
-			"A secure profile is required to join this server.",
-			"Secure profile expired.",
-			"Secure profile invalid."
-			);
-	private static final Component CONNECT_FAILED_NCR = Component.translatable("connect.failed");
-	private static boolean screenOverride = false;
+	private static boolean signingKeysPresent = false;
 
 	private NoChatReportsClient() {
 		throw new IllegalStateException("Can't touch this");
-	}
-
-	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
-	public static void onScreenInit(ScreenEvent.Init.Post event) {
-		Minecraft client = Minecraft.getInstance();
-		Screen screen = event.getScreen();
-
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
-		if (screen instanceof AccessorDisconnectedScreen dsc) {
-			if (screenOverride || ServerSafetyState.isOnServer() || screen.getTitle() == CONNECT_FAILED_NCR)
-				return;
-
-			screenOverride = true;
-			var disconnectReason = dsc.getReason();
-
-			if (disconnectReason != null) {
-				if (NCRConfig.getCommon().enableDebugLog()) {
-					NoChatReports.LOGGER.info("Disconnected with reason {}, reconnect count: {}",
-							Component.Serializer.toStableJson(disconnectReason), ServerSafetyState.getReconnectCount());
-				}
-
-				if (ServerSafetyState.allowsUnsafeServer()) {
-					screen = new DisconnectedScreen(new JoinMultiplayerScreen(new TitleScreen()),
-							CONNECT_FAILED_NCR, dsc.getReason());
-					client.setScreen(screen);
-					screenOverride = false;
-					return;
-				} else if (STRING_DISCONNECT_REASONS.contains(disconnectReason.getString())
-						|| (disconnectReason.getContents() instanceof TranslatableContents translatable &&
-								KEY_DISCONNECT_REASONS.contains(translatable.getKey()))) {
-					if (ServerSafetyState.getLastServerAddress() != null) {
-						if (!NCRConfig.getServerWhitelist().isWhitelisted(ServerSafetyState.getLastServerAddress())) {
-							if (NCRConfig.getCommon().enableDebugLog()) {
-								NoChatReports.LOGGER.info("Server {} evaluated as unsafe and is not whitelisted, displaying warning screen.",
-										ServerSafetyState.getLastServerAddress().getHost() + ":" + ServerSafetyState.getLastServerAddress().getPort());
-							}
-
-							client.setScreen(new UnsafeServerScreen());
-						} else {
-							NCRConfig.getClient().updateSigningCheck(ServerSafetyState.getLastServerAddress());
-
-							if (ServerSafetyState.getReconnectCount() <= 0) {
-								ServerSafetyState.setAllowsUnsafeServer(true);
-								client.setScreen(new AwaitConnectionScreen(new JoinMultiplayerScreen(new TitleScreen())));
-								screenOverride = false;
-								return;
-							} else {
-								ServerSafetyState.setReconnectCount(0);
-								screenOverride = false;
-								return;
-							}
-						}
-					}
-				}
-			}
-			screenOverride = false;
-		} else if (screen instanceof JoinMultiplayerScreen) {
-			if (NCRConfig.getCommon().enableDebugLog()) {
-				NoChatReports.LOGGER.info("Initialized JoinMultiplayerScreen screen, resetting safety state!");
-			}
-
-			ServerSafetyState.reset();
-		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -125,51 +49,65 @@ public class NoChatReportsClient {
 		}
 
 		ServerSafetyState.reset();
-		ServerSafetyState.setDisconnectMillis(Util.getMillis());
 	}
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
 	public static void onPlayReady(ClientPlayerNetworkEvent.LoggingIn event) {
 		Minecraft client = Minecraft.getInstance();
+		ClientPacketListener handler = client.getConnection();
 
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
 		client.execute(() -> {
-			ServerSafetyState.setReconnectCount(0);
-			ServerSafetyState.setOnServer(true);
-
 			if (!client.isLocalServer()) {
-				boolean canSend = NoChatReports.isDetectedOnServer();
-
-				if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
-				} else if (canSend) {
+				} else if (!handler.getConnection().isEncrypted()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
-				} else if (ServerSafetyState.forceSignedMessages()) {
+				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
+						ext.preventsChatReports()) {
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
+				} else if (NCRConfig.getServerPreferences().hasMode(ServerSafetyState.getLastServer(),
+						SigningMode.ALWAYS)) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
+					ServerSafetyState.setAllowChatSigning(true);
 				} else {
-					if (ServerSafetyState.getLastServerData() instanceof ServerDataExtension ext
-							&& ext.preventsChatReports()) {
-						ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
-					} else {
-						ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
-					}
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN);
 				}
+			} else {
+				ServerSafetyState.updateCurrent(ServerSafetyLevel.SINGLEPLAYER);
 			}
 
 			if (NCRConfig.getCommon().enableDebugLog()) {
-				NoChatReports.LOGGER.info("Sucessfully connected to server, safety state: {}, reconnect count reset.", ServerSafetyState.getCurrent());
+				NoChatReports.LOGGER.info("Sucessfully connected to server, safety state: {}", ServerSafetyState.getCurrent());
+			}
+
+			if (NCRConfig.getClient().demandOnServer() && !ServerSafetyState.getCurrent().isSecure()) {
+				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
 			}
 		});
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public static void reconnectLastServer() {
-		ServerSafetyState.setReconnectCount(ServerSafetyState.getReconnectCount() + 1);
-		ConnectScreen.startConnecting(new JoinMultiplayerScreen(new TitleScreen()), Minecraft.getInstance(),
-				ServerSafetyState.getLastServerAddress(), ServerSafetyState.getLastServerData());
+	public static boolean areSigningKeysPresent() {
+		return signingKeysPresent;
+	}
+
+	public static void setSigningKeysPresent(boolean present) {
+		signingKeysPresent = present;
+	}
+
+	public static void resendLastChatMessage() {
+		var mc = Minecraft.getInstance();
+		var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
+
+		if (chatScr == null) {
+			chatScr = new ChatScreen("");
+			chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
+		}
+
+		chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
 	}
 
 

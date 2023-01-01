@@ -1,21 +1,12 @@
 package com.aizistral.nochatreports.gui;
 
-import org.jetbrains.annotations.Nullable;
-
 import com.aizistral.nochatreports.config.NCRConfig;
-
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.multiplayer.WarningScreen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
-public class RealmsWarningScreen extends ExtendedWarningScreen {
+public class RealmsWarningScreen extends TriageWarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.realms_warning.header").withStyle(ChatFormatting.BOLD);
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.realms_warning.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.realms_warning.check");

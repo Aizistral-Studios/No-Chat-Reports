@@ -1,24 +1,20 @@
 package com.aizistral.nochatreports.config;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
 import com.aizistral.nochatreports.NoChatReports;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.function.Supplier;
+
 public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
-	private static NCRServerWhitelist whitelist = null;
+	private static NCRServerPreferences serverPreferences = null;
 	private static NCRConfigEncryption encryption = null;
 
 	private NCRConfig() {
@@ -35,8 +31,8 @@ public final class NCRConfig {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static NCRServerWhitelist getServerWhitelist() {
-		return checkLoaded(() -> whitelist);
+	public static NCRServerPreferences getServerPreferences() {
+		return checkLoaded(() -> serverPreferences);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -57,7 +53,7 @@ public final class NCRConfig {
 
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
-			whitelist = JSONConfig.loadConfig(NCRServerWhitelist.class, NCRServerWhitelist::new, NCRServerWhitelist.FILE_NAME);
+			serverPreferences = JSONConfig.loadConfig(NCRServerPreferences.class, NCRServerPreferences::new, NCRServerPreferences.FILE_NAME);
 			encryption = JSONConfig.loadConfig(NCRConfigEncryption.class, NCRConfigEncryption::new, NCRConfigEncryption.FILE_NAME);
 		}
 
@@ -69,7 +65,7 @@ public final class NCRConfig {
 
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			checkLoaded(() -> client).saveFile();
-			checkLoaded(() -> whitelist).saveFile();
+			checkLoaded(() -> serverPreferences).saveFile();
 			checkLoaded(() -> encryption).saveFile();
 		}
 

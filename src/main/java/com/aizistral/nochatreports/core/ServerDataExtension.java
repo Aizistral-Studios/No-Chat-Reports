@@ -1,5 +1,8 @@
 package com.aizistral.nochatreports.core;
 
+import com.aizistral.nochatreports.mixins.client.MixinServerData;
+import com.aizistral.nochatreports.mixins.common.MixinServerStatus;
+
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.protocol.status.ServerStatus;
 

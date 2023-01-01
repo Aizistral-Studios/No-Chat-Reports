@@ -1,21 +1,17 @@
 package com.aizistral.nochatreports.encryption;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
-import java.util.Optional;
-import java.util.Random;
+import net.minecraft.util.StringUtil;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import net.minecraft.util.StringUtil;
-import net.minecraft.util.Tuple;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Random;
 
 public abstract class AESEncryption extends Encryption {
 	private final String mode, padding;

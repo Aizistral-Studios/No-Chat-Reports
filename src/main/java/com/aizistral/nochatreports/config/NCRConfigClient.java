@@ -1,34 +1,21 @@
 package com.aizistral.nochatreports.config;
 
-import java.security.InvalidKeyException;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
-import com.aizistral.nochatreports.encryption.AESCFB8Encryptor;
-import com.aizistral.nochatreports.encryption.Encryptor;
-import com.aizistral.nochatreports.gui.UnsafeServerScreen;
-
-import net.minecraft.Util;
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.util.StringUtil;
+import com.aizistral.nochatreports.core.SigningMode;
+import com.aizistral.nochatreports.mixins.client.MixinChatListener;
+import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
 
 public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
-	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
-			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
-			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
-			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
-			enableMod = true, skipRealmsWarning = false;
-	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
-			postDisconnectAwaitSeconds = 10, signingCheckDelaySeconds = 43200;
-
-	protected Map<String, Long> serverSigningChecks = new HashMap<>();
+	protected SigningMode defaultSigningMode = SigningMode.PROMPT;
+	protected boolean enableMod = true, showNCRButton = true, showReloadButton = true,
+			verifiedIconEnabled = true, showServerSafety = true, hideInsecureMessageIndicators = true,
+			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true,
+			hideWarningToast = true, hideSigningRequestMessage = false, alwaysHideReportButton = false,
+			skipRealmsWarning = false, disableTelemetry = true, removeTelemetryButton = true,
+			demandOnServer = false;
+	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0;
 
 	protected NCRConfigClient() {
 		super(FILE_NAME);
@@ -76,8 +63,8 @@ public final class NCRConfigClient extends JSONConfig {
 	 * @see MixinChatListener#onEvaluateTrustLevel
 	 */
 
-	public boolean hideRedChatIndicators() {
-		return this.hideRedChatIndicators;
+	public boolean hideInsecureMessageIndicators() {
+		return this.hideInsecureMessageIndicators;
 	}
 
 	/**
@@ -88,8 +75,8 @@ public final class NCRConfigClient extends JSONConfig {
 	 * @see MixinChatListener#onEvaluateTrustLevel
 	 */
 
-	public boolean hideYellowChatIndicators() {
-		return this.hideYellowChatIndicators;
+	public boolean hideModifiedMessageIndicators() {
+		return this.hideModifiedMessageIndicators;
 	}
 
 	/**
@@ -100,8 +87,8 @@ public final class NCRConfigClient extends JSONConfig {
 	 * @see com.aizistral.nochatreports.mixins.client.MixinGuiMessageTag#onSystem
 	 */
 
-	public boolean hideGrayChatIndicators() {
-		return this.hideGrayChatIndicators;
+	public boolean hideSystemMessageIndicators() {
+		return this.hideSystemMessageIndicators;
 	}
 
 	/**
@@ -146,18 +133,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean showReloadButton() {
 		return this.showReloadButton;
-	}
-
-	/**
-	 * @return True if the full-screen warning should be skipped for servers that require chat signing,
-	 * letting users simply join the server. Because of that, servers will no longer be added to the
-	 * whitelist.<br><br>
-	 *
-	 * This is false by default.
-	 */
-
-	public boolean whitelistAllServers() {
-		return this.whitelistAllServers;
 	}
 
 	/**
@@ -206,24 +181,6 @@ public final class NCRConfigClient extends JSONConfig {
 	}
 
 	/**
-	 * @return How many seconds No Chat Reports should wait before attemting automatic reconnects.
-	 * @see <a href="https://github.com/Aizistral-Studios/No-Chat-Reports/issues/190">Issue #190</a>
-	 */
-
-	public int getReconnectAwaitSeconds() {
-		return this.reconnectAwaitSeconds;
-	}
-
-	/**
-	 * @return Same as <code>reconnectAwaitSeconds</code>, but countdown starts when user disconnects
-	 * from server. If this delay is greater than <code>reconnectAwaitSeconds</code> then it will apply.
-	 */
-
-	public int getPostDisconnectAwaitSeconds() {
-		return this.postDisconnectAwaitSeconds;
-	}
-
-	/**
 	 * @return Whether warning on entering Realms screen should not be displayed.
 	 */
 
@@ -235,19 +192,16 @@ public final class NCRConfigClient extends JSONConfig {
 		this.skipRealmsWarning = skipRealmsWarning;
 	}
 
-	public boolean doSigningCheck(ServerAddress serverAddress) {
-		String server = serverAddress.getHost() + ":" + serverAddress.getPort();
-
-		if (!this.serverSigningChecks.containsKey(server))
-			return true;
-		else
-			return Instant.now().getEpochSecond() - this.serverSigningChecks.get(server) >= this.signingCheckDelaySeconds;
+	public boolean hideSigningRequestMessage() {
+		return this.hideSigningRequestMessage;
 	}
 
-	public void updateSigningCheck(ServerAddress serverAddress) {
-		String server = serverAddress.getHost() + ":" + serverAddress.getPort();
-		this.serverSigningChecks.put(server, Instant.now().getEpochSecond());
-		this.saveFile();
+	public SigningMode defaultSigningMode() {
+		return this.defaultSigningMode;
+	}
+
+	public boolean removeTelemetryButton() {
+		return this.removeTelemetryButton;
 	}
 
 }

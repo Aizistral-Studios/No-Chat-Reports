@@ -15,7 +15,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  * @author Aizistral
  */
 
-
 @OnlyIn(Dist.CLIENT)
 public final class FontHelper {
 
