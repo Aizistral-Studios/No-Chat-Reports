@@ -58,7 +58,7 @@ compileJava.options.encoding = "UTF-8"
 
 mixin {
 	println("Specifying refmaps for Mixin...")
-    add sourceSets.main, "nochatreports-forge.refmap.json"
+    add sourceSets.main, "nochatreports.refmap.json"
 	config "mixins/common/nochatreports.mixins.json"
 	config "mixins/forge/nochatreports-forge.mixins.json"
 	defaultObfuscationEnv "searge"
@@ -138,7 +138,7 @@ jar {
             "Implementation-Version": "${mod_version}",
             "Implementation-Vendor" :"${mod_author}",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "nochatreports.mixins.json, nochatreports-forge.mixins.json"
+            "MixinConfigs": "mixins/common/nochatreports.mixins.json, mixins/forge/nochatreports-forge.mixins.json"
         ])
     }
 }
