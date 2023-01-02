@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        java: 17
+        java: [ 17 ]
         os: [ubuntu-22.04, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
