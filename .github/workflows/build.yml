@@ -14,22 +14,22 @@ jobs:
         os: [ubuntu-22.04, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Validate Gradle Wrapper
+      - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Setup JDK ${{ matrix.java }}
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
-      - name: Mark Gradle Wrapper As Runnable (Linux)
+      - name: Make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
-      - name: Build This Mod
+      - name: Build the mod
         run: ./gradlew build
-      - name: Upload Build Artifacts
-        if: ${{ runner.os == 'Linux' && matrix.java == '17' }} # Only upload artifacts from one OS + required JDK.
+      - name: Upload build artifacts
+        if: ${{ runner.os == 'Linux' && matrix.java == '17' }} # Only upload artifacts from one OS and required JDK.
         uses: actions/upload-artifact@v3
         with:
           name: Artifacts
