@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
 	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
@@ -14,22 +16,20 @@ group = project.maven_group
 
 apply from: 'common.gradle'
 
-import org.apache.tools.ant.taskdefs.condition.Os
-
-def setupLinks() {
-	if (new File("./forge/src/main").exists()) {
-		println("All directories are present, skipping symbolic link setup")
+def createLink(source, target) {
+	if (new File(target).exists()) {
+		println("Target ${target} already exists, skipping symbolic link creation")
 		return
 	}
-
+	
 	try {
 		exec {
-			println("Setting up symbolic links...")
+			new File(target).getParentFile().mkdirs()
 			
 			if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-				commandLine "cmd", "/c", "mklink /J \"./forge/src/main\" \"./src/main\""
+				commandLine "cmd", "/c", "mklink /J \"${target}\" \"${source}\""
 			} else if (Os.isFamily(Os.FAMILY_UNIX)) {
-				commandLine "bash", "-c", "ln -s \"./forge/src/main\" \"./src/main\""
+				commandLine "bash", "-c", "ln -s \"${source}\" \"${target}\""
 			}
 		}
 	} catch(Exception e){
@@ -37,28 +37,20 @@ def setupLinks() {
 	}
 }
 
+def setupLinks() {
+	println("Setting up symbolic links...")
+	createLink("./src/main/java/com/aizistral/nochatreports/common", "./forge/src/main/java/com/aizistral/nochatreports/common")
+	createLink("./src/main/resources/assets", "./forge/src/main/resources/assets")
+	createLink("./src/main/resources/mixins/common", "./forge/src/main/resources/mixins/common")
+}
+
 setupLinks()
 
-sourceSets {
-    fabric {
-        java {
-			compileClasspath += main.compileClasspath + main.output
-            runtimeClasspath += main.runtimeClasspath + main.output
-        }
-    }
-}
-
-configurations {
-    fabricCompile.extendsFrom mainCompile
-    fabricRuntime.extendsFrom mainRuntime
-}
-
 loom {
-	accessWidenerPath = file("src/fabric/resources/nochatreports.accesswidener")
+	accessWidenerPath = file("src/main/resources/nochatreports.accesswidener")
 
 	mixin {
 		add(sourceSets.main, "nochatreports.refmap.json")
-		add(sourceSets.fabric, "nochatreports-fabric.refmap.json")
 	}
 }
 
@@ -121,8 +113,6 @@ java {
 //}
 
 jar {
-	from sourceSets.fabric.output
-	
 	from("LICENSE") {
 		// NO-OP
 	}

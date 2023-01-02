@@ -1,1 +1,0 @@
-MixinConfigs: nochatreports.mixins.json, nochatreports-forge.mixins.json

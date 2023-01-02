@@ -47,7 +47,6 @@ archivesBaseName = "${mod_archives_name}"
 
 println("Specifying Java compatibility...")
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-compileJava.options.encoding = "UTF-8"
 
 println("Java Installation Data:")
 println(" - Java Version: " + System.getProperty('java.version'))
@@ -55,31 +54,21 @@ println(" - JVM Version: " + System.getProperty('java.vm.version'))
 println(" - Vendor: " + System.getProperty('java.vendor'))
 println(" - OS Archetype: " + System.getProperty('os.arch'))
 
-sourceSets {
-    forge {
-        java {
-            compileClasspath += main.output
-            runtimeClasspath += main.output
-        }
-    }
-}
-
-configurations {
-    forgeCompile.extendsFrom mainCompile
-    forgeRuntime.extendsFrom mainRuntime
-}
+compileJava.options.encoding = "UTF-8"
 
 mixin {
 	println("Specifying refmaps for Mixin...")
-    add sourceSets.main, "nochatreports.refmap.json"
-    add sourceSets.forge, "nochatreports-forge.refmap.json"
+    add sourceSets.main, "nochatreports-forge.refmap.json"
+	config "mixins/common/nochatreports.mixins.json"
+	config "mixins/forge/nochatreports-forge.mixins.json"
+	defaultObfuscationEnv "searge"
 }
 
 minecraft {
 	println("Specifying MCP mappings...")
     mappings channel: 'official', version: project.version_mc
 	println("Specifying Access Transformer configuration...")	
-	accessTransformer = file('src/forge/resources/META-INF/accesstransformer.cfg')
+	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
 	runs {
         client {
@@ -138,7 +127,6 @@ dependencies {
 
 
 jar {
-	from sourceSets.forge.output
 	println("Processing manifest...")	
 
     manifest {

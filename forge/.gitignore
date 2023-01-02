@@ -33,4 +33,8 @@ multiuser_args.txt
 old_enigmatic_desc.txt
 **/TestEventHandler*
 /.apt_generated_tests/
-src/main
+
+# Symlink directories
+src/main/java/com/aizistral/nochatreports/common
+src/main/resources/assets
+src/main/resources/mixins/common
