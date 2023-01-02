@@ -145,7 +145,7 @@ jar {
 
 processResources {
 	println("Processing resources...")
-
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 	exclude 'META-INF/mods.toml'
 
     from("${project.projectDir}/docs/META-INF") {
