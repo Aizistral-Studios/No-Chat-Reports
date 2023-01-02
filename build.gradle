@@ -27,9 +27,11 @@ def createLink(source, target) {
 			new File(target).getParentFile().mkdirs()
 			
 			if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+				println("Creating link from ${source} to ${target} (Windows)")
 				commandLine "cmd", "/c", "mklink /J \"${target}\" \"${source}\""
 			} else if (Os.isFamily(Os.FAMILY_UNIX)) {
-				commandLine "bash", "-c", "ln -s \"${source}\" \"${target}\""
+				println("Creating link from ${source} to ${target} (Unix)")
+				commandLine "sh", "-c", "ln -s \"${source}\" \"${target}\""
 			}
 		}
 	} catch(Exception e){
