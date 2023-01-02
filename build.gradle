@@ -24,6 +24,8 @@ def createLink(source, target) {
 	
 	try {
 		exec {
+			source = new File(projectDir, source).getCanonicalPath()
+			target = new File(projectDir, target).getCanonicalPath()
 			new File(target).getParentFile().mkdirs()
 			
 			if (Os.isFamily(Os.FAMILY_WINDOWS)) {
