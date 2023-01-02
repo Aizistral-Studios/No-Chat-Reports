@@ -200,8 +200,10 @@ modrinth {
 		optional.project "cloth-config"
     }
 	
-	//syncBodyFrom = rootProject.file("docs/README.md").text
+	syncBodyFrom = rootProject.file("docs/README.md").text
 }
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 afterEvaluate {
 	upload.dependsOn(remapJar)
