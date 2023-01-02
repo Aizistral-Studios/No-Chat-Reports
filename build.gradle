@@ -14,6 +14,31 @@ group = project.maven_group
 
 apply from: 'common.gradle'
 
+import org.apache.tools.ant.taskdefs.condition.Os
+
+def setupLinks() {
+	if (new File("./forge/src/main").exists()) {
+		println("All directories are present, skipping symbolic link setup")
+		return
+	}
+
+	try {
+		exec {
+			println("Setting up symbolic links...")
+			
+			if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+				commandLine "cmd", "/c", "mklink /J \"./forge/src/main\" \"./src/main\""
+			} else if (Os.isFamily(Os.FAMILY_UNIX)) {
+				commandLine "bash", "-c", "ln -s \"./forge/src/main\" \"./src/main\""
+			}
+		}
+	} catch(Exception e){
+		println("Exception: $e")
+	}
+}
+
+setupLinks()
+
 sourceSets {
     fabric {
         java {
