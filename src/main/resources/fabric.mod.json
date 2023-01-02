@@ -3,22 +3,22 @@
   "id": "nochatreports",
   "version": "${version}",
 
-  "name": "No Chat Reports",
-  "description": "Strips cryptographic signatures from player messages, making it impossible to track and associate them with your Mojang/Microsoft account, as well as use Player Chat Reporting feature.",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "Aizistral"
+    "${mod_author}"
   ],
   "contributors": [
-	"Madis0 (aka robotkoer)"
+	"${contributor_0}"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/no-chat-reports",
-    "sources": "https://github.com/Aizistral-Studios/No-Chat-Reports",
-    "issues": "https://github.com/Aizistral-Studios/No-Chat-Reports/issues"
+    "homepage": "${mod_url}",
+    "sources": "${mod_url}",
+    "issues": "${issue_tracker_url}"
   },
 
-  "license": "WTFPL",
-  "icon": "assets/nochatreports/textures/misc/NCR_logo.png",
+  "license": "${mod_license}",
+  "icon": "${mod_icon}",
 
   "environment": "*",
   "entrypoints": {
@@ -43,7 +43,7 @@
     "fabric-screen-api-v1": "*",
     "fabric-rendering-v1": "*",
     "fabric-resource-loader-v0": "*",
-    "minecraft": [ ">=1.19.3-alpha.22.44.a" ],
+    "minecraft": [ ">=1.19.3" ],
     "java": ">=17"
   },
   "suggests": {},
@@ -52,8 +52,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.modrinth": "https://modrinth.com/mod/no-chat-reports",
-        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/no-chat-reports"
+        "modmenu.modrinth": "${mod_url}",
+        "modmenu.curseforge": "${issue_tracker_url}"
       }
     }
   }

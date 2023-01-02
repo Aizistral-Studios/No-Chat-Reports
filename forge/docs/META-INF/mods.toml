@@ -8,7 +8,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 displayURL="${mod_url}"
 logoFile="${mod_icon}"
-credits="${mod_credits}"
+credits="${contributor_0}"
 authors="${mod_author}"
 description='''
 ${mod_description}

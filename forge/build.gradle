@@ -42,8 +42,8 @@ apply from: '../common.gradle'
 
 println("Specifying project version/group/archivesBaseName...")
 version = "${mod_version}"
-group = "${mod_group}"
-archivesBaseName = "${mod_archives_name}"
+group = "${maven_group}"
+archivesBaseName = "${archives_base_name}"
 
 println("Specifying Java compatibility...")
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -66,7 +66,7 @@ mixin {
 
 minecraft {
 	println("Specifying MCP mappings...")
-    mappings channel: 'official', version: project.version_mc
+    mappings channel: 'official', version: minecraft_version
 	println("Specifying Access Transformer configuration...")	
 	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
@@ -121,7 +121,7 @@ dependencies {
 	println("Processing dependencies...")	
 
 	// Minecraft & Forge
-    minecraft "net.minecraftforge:forge:${version_forge}"
+    minecraft "net.minecraftforge:forge:${forge_version}"
 	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
@@ -133,9 +133,9 @@ jar {
         attributes([
             "Specification-Title": "${mod_name}",
             "Specification-Vendor": "${mod_author}",
-            "Specification-Version": "${mod_version}",
+            "Specification-Version": "${version}",
             "Implementation-Title": "${mod_name}",
-            "Implementation-Version": "${mod_version}",
+            "Implementation-Version": "${version}",
             "Implementation-Vendor" :"${mod_author}",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "MixinConfigs": "mixins/common/nochatreports.mixins.json, mixins/forge/nochatreports-forge.mixins.json"
@@ -154,25 +154,25 @@ processResources {
 		// Replace properties in mods.toml with ones derived from settings.gradle
         include 'mods.toml'
         expand 'mod_license': mod_license, 
-		'mod_version': project.version, 
+		'mod_version': version, 
 		'mod_id' : mod_id, 
 		'mod_name': mod_name, 
 		'mod_url': mod_url, 
 		'mod_author': mod_author, 
-		'mod_description': mod_description, 
 		'mod_icon': mod_icon, 
-		'issue_tracker_url': issue_tracker_url, 
-		'mod_credits': mod_credits, 
+		'mod_description': mod_description,
+		'issue_tracker_url': issue_tracker_url,
 		'dep_forge': dep_forge, 
-		'dep_minecraft': dep_minecraft
+		'dep_minecraft': dep_minecraft,
+		'contributor_0': contributor_0
 		into 'META-INF'
     }
 
-    from("${project.projectDir}/docs") {
+    from("${rootProject.projectDir}/docs") {
         include 'changelog.html'
     }
 	
-	from("${project.projectDir}") {
+	from("${rootProject.projectDir}") {
         include 'LICENSE'
 	}
 }
@@ -186,11 +186,11 @@ curseforge {
         apiKey = findProperty('curseKey') ?: 'none'
         
 		id = "${curse_id}"
-        releaseType = "${curse_release}"
+        releaseType = "${version_type}"
         changelogType = 'html'
         changelog = file('docs/changelog.html')
 		
-		addGameVersion project.version_mc
+		addGameVersion project.minecraft_version
 		addGameVersion 'Java 17'
 		addGameVersion 'Forge'
 		
@@ -204,10 +204,10 @@ modrinth {
     projectId = "no-chat-reports"
     versionNumber = "Forge-" + project.version
 	versionName = "No Chat Reports Forge-" + project.version
-    versionType = "release"
+    versionType = "${version_type}"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = jar
-    gameVersions = [ project.version_mc ]
+    gameVersions = [ project.minecraft_version ]
 	
 	//syncBodyFrom = rootProject.file("docs/README.md").text
 }

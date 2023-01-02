@@ -72,7 +72,7 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
@@ -92,7 +92,24 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand 'mod_license': mod_license, 
+		'version': version, 
+		'mod_id' : mod_id, 
+		'mod_name': mod_name, 
+		'mod_url': mod_url, 
+		'mod_author': mod_author, 
+		'mod_icon': mod_icon, 
+		'mod_description': mod_description,
+		'issue_tracker_url': issue_tracker_url,
+		'contributor_0': contributor_0
+	}
+
+    from("${rootProject.projectDir}/docs") {
+        include 'changelog.html'
+    }
+	
+	from("${rootProject.projectDir}") {
+        include 'LICENSE'
 	}
 }
 
