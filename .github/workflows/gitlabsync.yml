@@ -1,4 +1,4 @@
-name: GitlabSync
+name: Gitlab Sync
 
 on:
   - push
@@ -6,7 +6,7 @@ on:
 
 jobs:
   sync:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Git Repo Sync
     steps:
     - uses: actions/checkout@v3
