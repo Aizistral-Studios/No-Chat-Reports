@@ -118,7 +118,7 @@
 	"option.NoChatReports.enableDebugLog.tooltip": "启用某些调试信息的日志记录。这对于非开发人员来说通常是无用的。",
 	"option.NoChatReports.disableTelemetry": "禁用遥测",
 	"option.NoChatReports.disableTelemetry.tooltip": "允许模组禁用内置遥测，类似于 No Telemetry。",
-	"configuration.NoChatReports.category.lan": "LAN",
+	"configuration.NoChatReports.category.lan": "局域网",
 	"option.NoChatReports.demandOnClient": "要求在客户端上安装",
 	"option.NoChatReports.demandOnClient.tooltip": "使服务器要求所有加入的客户端都安装 No Chat Reports。",
 	"option.NoChatReports.demandOnClientMessage": "Demand on client kick message",
