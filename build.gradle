@@ -138,12 +138,6 @@ java {
 //	}
 //}
 
-jar {
-	from("LICENSE") {
-		// NO-OP
-	}
-}
-
 curseforge {
 
     project {
