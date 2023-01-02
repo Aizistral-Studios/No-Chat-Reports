@@ -1,6 +1,10 @@
 package com.aizistral.nochatreports.gui;
 
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.gui.AdvancedImageButton;
+import com.aizistral.nochatreports.gui.EncryptionConfigScreen;
+import com.aizistral.nochatreports.gui.EncryptionWarningScreen;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;

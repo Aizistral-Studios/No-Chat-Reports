@@ -8,6 +8,7 @@ import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.multiplayer.chat.ChatListener;

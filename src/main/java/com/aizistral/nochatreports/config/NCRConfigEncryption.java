@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.config;
 
+import com.aizistral.nochatreports.config.JSONConfig;
+import com.aizistral.nochatreports.config.NCRConfigEncryption;
 import com.aizistral.nochatreports.encryption.Encryption;
 import com.aizistral.nochatreports.encryption.Encryptor;
 

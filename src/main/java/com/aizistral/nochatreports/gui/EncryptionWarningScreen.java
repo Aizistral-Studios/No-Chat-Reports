@@ -1,6 +1,9 @@
 package com.aizistral.nochatreports.gui;
 
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.gui.EncryptionConfigScreen;
+import com.aizistral.nochatreports.gui.TriageWarningScreen;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;

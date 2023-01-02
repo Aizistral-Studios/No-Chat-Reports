@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.config.JSONConfig;
+import com.aizistral.nochatreports.config.ServerAddressAdapter;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;

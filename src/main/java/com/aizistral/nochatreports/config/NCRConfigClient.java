@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.config;
 
+import com.aizistral.nochatreports.config.JSONConfig;
+import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;

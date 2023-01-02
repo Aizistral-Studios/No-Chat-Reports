@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.gui;
 
+import com.aizistral.nochatreports.gui.AdvancedTooltip;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -2,6 +2,9 @@ package com.aizistral.nochatreports.encryption;
 
 import java.security.InvalidKeyException;
 
+import com.aizistral.nochatreports.encryption.AESEncryption;
+import com.aizistral.nochatreports.encryption.AESGCMEncryptor;
+
 public class AESGCMEncryption extends AESEncryption {
 
 	protected AESGCMEncryption() {

@@ -1,6 +1,12 @@
 package com.aizistral.nochatreports.config;
 
 import com.aizistral.nochatreports.NoChatReports;
+import com.aizistral.nochatreports.config.JSONConfig;
+import com.aizistral.nochatreports.config.NCRConfigClient;
+import com.aizistral.nochatreports.config.NCRConfigCommon;
+import com.aizistral.nochatreports.config.NCRConfigEncryption;
+import com.aizistral.nochatreports.config.NCRServerPreferences;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;

@@ -1,6 +1,8 @@
 package com.aizistral.nochatreports.gui;
 
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.gui.TriageWarningScreen;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;

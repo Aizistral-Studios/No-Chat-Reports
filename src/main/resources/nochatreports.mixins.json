@@ -39,5 +39,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "refmap": "nochatreports.refmap.json"
 }

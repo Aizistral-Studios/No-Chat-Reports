@@ -3,6 +3,7 @@ package com.aizistral.nochatreports.core;
 import org.jetbrains.annotations.Nullable;
 
 import com.aizistral.nochatreports.config.NCRConfig;
+import com.aizistral.nochatreports.core.SigningMode;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

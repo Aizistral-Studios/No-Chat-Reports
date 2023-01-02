@@ -6,6 +6,13 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
+import com.aizistral.nochatreports.encryption.AESCFB8Encryption;
+import com.aizistral.nochatreports.encryption.AESECBEncryption;
+import com.aizistral.nochatreports.encryption.AESGCMEncryption;
+import com.aizistral.nochatreports.encryption.CaesarEncryption;
+import com.aizistral.nochatreports.encryption.Encryption;
+import com.aizistral.nochatreports.encryption.Encryptor;
+
 public abstract class Encryption {
 	private static final List<Encryption> REGISTERED = new ArrayList<>();
 	protected static final Base64.Encoder BASE64_ENCODER = Base64.getEncoder();

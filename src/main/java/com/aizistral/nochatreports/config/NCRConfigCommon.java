@@ -1,5 +1,8 @@
 package com.aizistral.nochatreports.config;
 
+import com.aizistral.nochatreports.config.JSONConfig;
+import com.aizistral.nochatreports.config.NCRConfigCommon;
+
 public final class NCRConfigCommon extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
 

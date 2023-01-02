@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.jetbrains.annotations.Nullable;
 
 import com.aizistral.nochatreports.NoChatReportsClient;
+import com.aizistral.nochatreports.config.JSONConfig;
+import com.aizistral.nochatreports.config.NCRServerPreferences;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.core.SigningMode;

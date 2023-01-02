@@ -3,6 +3,7 @@ package com.aizistral.nochatreports.mixins.client;
 import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.EncryptionUtil;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GuiMessageTag;
 import net.minecraft.client.gui.components.ChatComponent;

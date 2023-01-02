@@ -4,6 +4,7 @@ import com.aizistral.nochatreports.NoChatReports;
 import com.aizistral.nochatreports.NoChatReportsClient;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
+import com.aizistral.nochatreports.gui.AdaptiveWarningScreen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

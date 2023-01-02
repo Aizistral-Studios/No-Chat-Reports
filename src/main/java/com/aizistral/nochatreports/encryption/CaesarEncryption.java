@@ -3,6 +3,9 @@ package com.aizistral.nochatreports.encryption;
 import java.security.InvalidKeyException;
 import java.security.SecureRandom;
 
+import com.aizistral.nochatreports.encryption.CaesarEncryptor;
+import com.aizistral.nochatreports.encryption.Encryption;
+
 public class CaesarEncryption extends Encryption {
 
 	protected CaesarEncryption() {

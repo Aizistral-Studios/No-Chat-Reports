@@ -9,6 +9,8 @@ import java.security.InvalidKeyException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
+import com.aizistral.nochatreports.encryption.Encryption;
+
 public abstract class Encryptor<T extends Encryption> {
 	protected static final SecureRandom RANDOM = new SecureRandom();
 	protected static final Char2CharMap BASE64R_SHIFTS = createBase64RShifts();

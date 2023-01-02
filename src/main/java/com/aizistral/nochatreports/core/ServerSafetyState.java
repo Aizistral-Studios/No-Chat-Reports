@@ -1,6 +1,8 @@
 package com.aizistral.nochatreports.core;
 
+import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

@@ -2,6 +2,7 @@ package com.aizistral.nochatreports.core;
 
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.encryption.Encryptor;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.MutableComponent;

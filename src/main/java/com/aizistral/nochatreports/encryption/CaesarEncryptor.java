@@ -2,6 +2,10 @@ package com.aizistral.nochatreports.encryption;
 
 import java.security.InvalidKeyException;
 
+import com.aizistral.nochatreports.encryption.CaesarEncryption;
+import com.aizistral.nochatreports.encryption.Encryption;
+import com.aizistral.nochatreports.encryption.Encryptor;
+
 public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 	private static final char PARAGRAPH = '\u00a7', PARAGRAPH_PLACEHOLDER = '\uffef',
 			DELETE = '\u007f', DELETE_PLACEHOLDER = '\ufff0';

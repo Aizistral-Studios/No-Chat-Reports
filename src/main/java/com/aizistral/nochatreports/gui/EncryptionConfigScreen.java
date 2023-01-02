@@ -3,6 +3,8 @@ package com.aizistral.nochatreports.gui;
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigEncryption;
 import com.aizistral.nochatreports.encryption.Encryption;
+import com.aizistral.nochatreports.gui.AdvancedImageButton;
+import com.aizistral.nochatreports.gui.AdvancedTooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;

@@ -2,6 +2,9 @@ package com.aizistral.nochatreports.encryption;
 
 import java.security.InvalidKeyException;
 
+import com.aizistral.nochatreports.encryption.AESCFB8Encryptor;
+import com.aizistral.nochatreports.encryption.AESEncryption;
+
 public class AESCFB8Encryption extends AESEncryption {
 
 	protected AESCFB8Encryption() {

@@ -3,6 +3,11 @@ package com.aizistral.nochatreports.encryption;
 import net.minecraft.util.Tuple;
 
 import javax.crypto.SecretKey;
+
+import com.aizistral.nochatreports.encryption.AESECBEncryption;
+import com.aizistral.nochatreports.encryption.AESEncryptor;
+import com.aizistral.nochatreports.encryption.Encryption;
+
 import java.security.InvalidKeyException;
 import java.security.spec.AlgorithmParameterSpec;
 

@@ -4,6 +4,10 @@ import net.minecraft.util.Tuple;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+
+import com.aizistral.nochatreports.encryption.AESEncryption;
+import com.aizistral.nochatreports.encryption.Encryptor;
+
 import java.nio.ByteBuffer;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;

@@ -1,0 +1,257 @@
+buildscript {
+    repositories {
+        mavenCentral()
+		maven { url "file:///${project.projectDir}/deps/" }
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://dist.creeper.host/Sponge/maven' }
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven {
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+            content { includeGroup "org.spongepowered" }
+        }
+		maven {
+			name "Gradle Plugin Portal"
+			url 'https://plugins.gradle.org/m2/'
+			content { 
+				includeGroup "gradle.plugin.com.matthewprenger"
+				includeGroup "com.modrinth"
+			}
+		}
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
+}
+
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
+}
+
+println("Applying plugins...")
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'com.matthewprenger.cursegradle'
+
+apply from: '../common.gradle'
+
+println("Specifying project version/group/archivesBaseName...")
+version = "${mod_version}"
+group = "${mod_group}"
+archivesBaseName = "${mod_archives_name}"
+
+println("Specifying Java compatibility...")
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+compileJava.options.encoding = "UTF-8"
+
+println("Java Installation Data:")
+println(" - Java Version: " + System.getProperty('java.version'))
+println(" - JVM Version: " + System.getProperty('java.vm.version'))
+println(" - Vendor: " + System.getProperty('java.vendor'))
+println(" - OS Archetype: " + System.getProperty('os.arch'))
+
+sourceSets {
+    forge {
+        java {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+        }
+    }
+}
+
+configurations {
+    forgeCompile.extendsFrom mainCompile
+    forgeRuntime.extendsFrom mainRuntime
+}
+
+mixin {
+	println("Specifying refmaps for Mixin...")
+    add sourceSets.main, "nochatreports.refmap.json"
+    add sourceSets.forge, "nochatreports-forge.refmap.json"
+}
+
+minecraft {
+	println("Specifying MCP mappings...")
+    mappings channel: 'official', version: project.version_mc
+	println("Specifying Access Transformer configuration...")	
+	accessTransformer = file('src/forge/resources/META-INF/accesstransformer.cfg')
+	
+	runs {
+        client {
+			properties 'org.gradle.jvmargs': '-Xms4G -Xmx4G'
+			properties 'fml.earlyprogresswindow': 'false'
+			properties 'mixin.env.disableRefMap': 'true'
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                nochatreports {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+			properties 'mixin.env.disableRefMap': 'true'
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                nochatreports {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.remove(sourceSets.test)
+sourceSets.main.resources {
+    // NO-OP
+}
+
+repositories {
+	println("Specifying repositories...")	
+	flatDir {  dirs 'deps' }
+	maven {  url = "https://maven.theillusivec4.top/" } // curios
+	maven {  url = "https://maven.blamejared.com/" } // patchouli
+	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
+    maven {	 url "https://dvs1.progwml6.com/files/maven/" } // no idea
+}
+
+dependencies {
+	println("Processing dependencies...")	
+
+	// Minecraft & Forge
+    minecraft "net.minecraftforge:forge:${version_forge}"
+	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+
+jar {
+	from sourceSets.forge.output
+	println("Processing manifest...")	
+
+    manifest {
+        attributes([
+            "Specification-Title": "${mod_name}",
+            "Specification-Vendor": "${mod_author}",
+            "Specification-Version": "${mod_version}",
+            "Implementation-Title": "${mod_name}",
+            "Implementation-Version": "${mod_version}",
+            "Implementation-Vendor" :"${mod_author}",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "nochatreports.mixins.json, nochatreports-forge.mixins.json"
+        ])
+    }
+}
+
+processResources {
+	println("Processing resources...")
+
+	exclude 'META-INF/mods.toml'
+
+    from("${project.projectDir}/docs/META-INF") {
+		println("Inflating mods.toml...")	
+	
+		// Replace properties in mods.toml with ones derived from settings.gradle
+        include 'mods.toml'
+        expand 'mod_license': mod_license, 
+		'mod_version': project.version, 
+		'mod_id' : mod_id, 
+		'mod_name': mod_name, 
+		'mod_url': mod_url, 
+		'mod_author': mod_author, 
+		'mod_description': mod_description, 
+		'mod_icon': mod_icon, 
+		'issue_tracker_url': issue_tracker_url, 
+		'mod_credits': mod_credits, 
+		'dep_forge': dep_forge, 
+		'dep_minecraft': dep_minecraft
+		into 'META-INF'
+    }
+
+    from("${project.projectDir}/docs") {
+        include 'changelog.html'
+    }
+	
+	from("${project.projectDir}") {
+        include 'LICENSE'
+	}
+}
+
+curseforge {
+
+    project {
+		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
+	
+		// Specified as cmd argument
+        apiKey = findProperty('curseKey') ?: 'none'
+        
+		id = "${curse_id}"
+        releaseType = "${curse_release}"
+        changelogType = 'html'
+        changelog = file('docs/changelog.html')
+		
+		addGameVersion project.version_mc
+		addGameVersion 'Java 17'
+		addGameVersion 'Forge'
+		
+        //addArtifact(sourcesJar)
+        //addArtifact(apiJar)
+    }
+}
+
+modrinth {
+    token = findProperty('modrinthKey') ?: 'none'
+    projectId = "no-chat-reports"
+    versionNumber = "Forge-" + project.version
+	versionName = "No Chat Reports Forge-" + project.version
+    versionType = "release"
+	changelog = rootProject.file("docs/changelog.html").text
+    uploadFile = jar
+    gameVersions = [ project.version_mc ]
+	
+	//syncBodyFrom = rootProject.file("docs/README.md").text
+}
+
+task upload {
+	dependsOn('modrinth')
+	dependsOn('curseforge')
+}
+
+
+task updateResources() {
+    // NO-OP
+}
+
+tasks.updateResources.dependsOn processResources
+
+//tasks.withType(JavaCompile) {
+//    options.failOnError(true)
+//}
+
+jar.finalizedBy('reobfJar') 
+//publish.dependsOn('reobfJar')
+
+publishing {
+
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}

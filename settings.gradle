@@ -8,3 +8,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+rootProject.name = 'No-Chat-Reports'
+include('forge')

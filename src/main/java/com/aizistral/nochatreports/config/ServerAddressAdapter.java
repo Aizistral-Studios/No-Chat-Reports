@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.config;
 
+import com.aizistral.nochatreports.config.ServerAddressAdapter;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;

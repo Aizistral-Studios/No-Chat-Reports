@@ -12,8 +12,29 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+apply from: 'common.gradle'
+
+sourceSets {
+    fabric {
+        java {
+			compileClasspath += main.compileClasspath + main.output
+            runtimeClasspath += main.runtimeClasspath + main.output
+        }
+    }
+}
+
+configurations {
+    fabricCompile.extendsFrom mainCompile
+    fabricRuntime.extendsFrom mainRuntime
+}
+
 loom {
-	accessWidenerPath = file("src/main/resources/nochatreports.accesswidener")
+	accessWidenerPath = file("src/fabric/resources/nochatreports.accesswidener")
+
+	mixin {
+		add(sourceSets.main, "nochatreports.refmap.json")
+		add(sourceSets.fabric, "nochatreports-fabric.refmap.json")
+	}
 }
 
 repositories {
@@ -40,6 +61,8 @@ dependencies {
 	modImplementation include(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
 }
 
+sourceSets.remove(sourceSets.test)
+
 processResources {
 	inputs.property "version", project.version
 
@@ -56,24 +79,25 @@ java {
 	// withSourcesJar()
 }
 
-task testJar (type: Jar) {
-	classifier = 'test'
-	from sourceSets.test.output
-	testJar.finalizedBy('prepareRemapJar')
-	testJar.finalizedBy('remapJar')
-
-	from("LICENSE") {
-		// NO-OP
-	}
-	
-	doFirst {
-		remapJar.classifier = 'test-reobf'
-		remapJar.inputFile = testJar.outputs.files.singleFile
-	}
-}
+//task testJar (type: Jar) {
+//	classifier = 'test'
+//	from sourceSets.test.output
+//	testJar.finalizedBy('prepareRemapJar')
+//	testJar.finalizedBy('remapJar')
+//
+//	from("LICENSE") {
+//		// NO-OP
+//	}
+//	
+//	doFirst {
+//		remapJar.classifier = 'test-reobf'
+//		remapJar.inputFile = testJar.outputs.files.singleFile
+//	}
+//}
 
 jar {
-
+	from sourceSets.fabric.output
+	
 	from("LICENSE") {
 		// NO-OP
 	}

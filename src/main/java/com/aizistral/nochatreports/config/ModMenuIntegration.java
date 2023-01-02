@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.config;
 
+import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.core.SigningMode;
 import com.aizistral.nochatreports.gui.FontHelper;
