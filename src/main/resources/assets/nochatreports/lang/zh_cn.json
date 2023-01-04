@@ -5,7 +5,7 @@
 	"disconnect.nochatreports.client": "此服务器没有安装 No Chat Reports，但你已将其配置为要求服务器上安装。",
 	"gui.nochatreports.safety_status_button.controls": "左键单击以在签名模式之间循环。",
 	"gui.nochatreports.safety_status.secure": "此服务器安装了 No Chat Reports 或采取了其他已知的措施防止聊天举报。你可以安全地聊天。",
-	"gui.nochatreports.safety_status.singleplayer": "你始终可以在单人模式种安全地聊天。",
+	"gui.nochatreports.safety_status.singleplayer": "你始终可以在单人模式中安全地聊天。",
 	"gui.nochatreports.safety_status.unintrusive": "此服务器没有安装 No Chat Reports，但允许发送不能被举报给 Mojang 的未签名消息。这意味着你的消息不能被举报，但其他人可以通过打开“仅显示安全的聊天”屏蔽你的消息。",
 	"gui.nochatreports.safety_status.insecure": "此服务器要求对所有聊天消息进行签名。所有签名的消息都是潜在的罪证，可能在举报中对你不利。使用聊天加密是一种防止被举报的有效方法。",
 	"gui.nochatreports.safety_status.insecure_signing": "你已经启用了聊天签名，这使你的所有消息都会成为在举报中对你不利的潜在罪证。",
