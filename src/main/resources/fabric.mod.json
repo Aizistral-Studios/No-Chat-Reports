@@ -9,8 +9,8 @@
     "${mod_author}"
   ],
   "contributors": [
-	"${contributor_0}",
-  "${contributor_1}"
+    "${contributor_0}",
+    "${contributor_1}"
   ],
   "contact": {
     "homepage": "${mod_url}",
