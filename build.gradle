@@ -101,8 +101,7 @@ processResources {
 		'mod_author': mod_author, 
 		'mod_icon': mod_icon, 
 		'mod_description': mod_description,
-		'issue_tracker_url': issue_tracker_url,
-		'contributor_0': contributor_0
+		'issue_tracker_url': issue_tracker_url
 	}
 
     from("${rootProject.projectDir}/docs") {
