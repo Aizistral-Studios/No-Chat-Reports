@@ -1,11 +1,11 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.security.InvalidKeyException;
 import java.security.SecureRandom;
 
-public class CaesarEncryption extends Encryption {
+public class CaesarAlgorithm extends Algorithm {
 
-	protected CaesarEncryption() {
+	protected CaesarAlgorithm() {
 		super("caesar", "Caesar");
 	}
 

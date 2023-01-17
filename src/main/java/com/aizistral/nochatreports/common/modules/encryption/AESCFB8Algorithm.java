@@ -1,10 +1,10 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.security.InvalidKeyException;
 
-public class AESCFB8Encryption extends AESEncryption {
+public class AESCFB8Algorithm extends AESAlgorithm {
 
-	protected AESCFB8Encryption() {
+	protected AESCFB8Algorithm() {
 		super("CFB8", "NoPadding", true);
 	}
 

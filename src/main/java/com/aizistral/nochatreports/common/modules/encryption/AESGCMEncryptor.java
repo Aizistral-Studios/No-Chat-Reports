@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
@@ -9,14 +9,14 @@ import javax.crypto.spec.GCMParameterSpec;
 
 import net.minecraft.util.Tuple;
 
-public class AESGCMEncryptor extends AESEncryptor<AESGCMEncryption> {
+public class AESGCMEncryptor extends AESEncryptor<AESGCMAlgorithm> {
 
 	protected AESGCMEncryptor(String key) throws InvalidKeyException {
-		super(key, Encryption.AES_GCM);
+		super(key, Algorithm.AES_GCM);
 	}
 
 	protected AESGCMEncryptor(SecretKey key) throws InvalidKeyException {
-		super(key, Encryption.AES_GCM);
+		super(key, Algorithm.AES_GCM);
 	}
 
 	@Override

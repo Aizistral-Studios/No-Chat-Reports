@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -14,11 +14,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 import net.minecraft.util.StringUtil;
 
-public abstract class AESEncryption extends Encryption {
+public abstract class AESAlgorithm extends Algorithm {
 	private final String mode, padding;
 	private final boolean requiresIV;
 
-	protected AESEncryption(String mode, String padding, boolean requiresIV) {
+	protected AESAlgorithm(String mode, String padding, boolean requiresIV) {
 		super("aes_" + mode.toLowerCase() + "_base64", "AES/" + mode + "+Base64");
 		this.mode = mode;
 		this.padding = padding;

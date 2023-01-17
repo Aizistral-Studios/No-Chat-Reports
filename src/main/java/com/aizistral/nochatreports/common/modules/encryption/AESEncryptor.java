@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
@@ -19,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import net.minecraft.util.Tuple;
 
-public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T> {
+public abstract class AESEncryptor<T extends AESAlgorithm> extends Encryptor<T> {
 	private final T encryption;
 	private final SecretKey key;
 	private final Cipher encryptor, decryptor;

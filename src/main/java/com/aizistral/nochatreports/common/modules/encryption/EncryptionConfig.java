@@ -1,37 +1,36 @@
-package com.aizistral.nochatreports.common.config;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.security.InvalidKeyException;
 import java.util.List;
 import java.util.Optional;
 
-import com.aizistral.nochatreports.common.encryption.Encryption;
-import com.aizistral.nochatreports.common.encryption.Encryptor;
+import com.aizistral.nochatreports.common.config.JSONConfig;
 
-public class NCRConfigEncryption extends JSONConfig {
+public class EncryptionConfig extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Encryption.json";
 	protected boolean skipWarning = false, enableEncryption = false, encryptPublic = true,
 			showEncryptionButton = true, showEncryptionIndicators = true;
-	protected String encryptionKey = Encryption.AES_CFB8.getDefaultKey(), encryptionPassphrase = "",
-			algorithmName = Encryption.AES_CFB8.getName();
+	protected String encryptionKey = Algorithm.AES_CFB8.getDefaultKey(), encryptionPassphrase = "",
+			algorithmName = Algorithm.AES_CFB8.getName();
 	protected List<String> encryptableCommands = List.of("msg:1", "w:1", "whisper:1", "tell:1", "r:0", "dm:1",
 			"me:0", "m:1", "t:1", "pm:1", "emsg:1", "epm:1", "etell:1", "ewhisper:1");
-	private transient Encryption algorithm;
+	private transient Algorithm algorithm;
 	private transient boolean isValid = false;
 	private transient String lastMessage = "???";
 
-	protected NCRConfigEncryption() {
+	protected EncryptionConfig() {
 		super(FILE_NAME);
 	}
 
 	@Override
-	public NCRConfigEncryption getDefault() {
-		return new NCRConfigEncryption();
+	public EncryptionConfig getDefault() {
+		return new EncryptionConfig();
 	}
 
 	@Override
 	protected void uponLoad() {
-		this.algorithm = Encryption.getRegistered().stream().filter(e -> e.getName().equals(this.algorithmName))
-				.findFirst().orElse(Encryption.AES_CFB8);
+		this.algorithm = Algorithm.getRegistered().stream().filter(e -> e.getName().equals(this.algorithmName))
+				.findFirst().orElse(Algorithm.AES_CFB8);
 		this.validate();
 	}
 
@@ -44,7 +43,7 @@ public class NCRConfigEncryption extends JSONConfig {
 		this.saveFile();
 	}
 
-	public void setAlgorithm(Encryption encryption) {
+	public void setAlgorithm(Algorithm encryption) {
 		this.algorithm = encryption;
 		this.algorithmName = encryption.getName();
 		this.validate();
@@ -103,7 +102,7 @@ public class NCRConfigEncryption extends JSONConfig {
 		return this.isEnabled() && this.isValid();
 	}
 
-	public Encryption getAlgorithm() {
+	public Algorithm getAlgorithm() {
 		return this.algorithm;
 	}
 

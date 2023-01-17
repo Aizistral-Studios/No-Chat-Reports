@@ -1,10 +1,10 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.security.InvalidKeyException;
 
-public class AESECBEncryption extends AESEncryption {
+public class AESECBAlgorithm extends AESAlgorithm {
 
-	protected AESECBEncryption() {
+	protected AESECBAlgorithm() {
 		super("ECB", "PKCS5Padding", false);
 	}
 

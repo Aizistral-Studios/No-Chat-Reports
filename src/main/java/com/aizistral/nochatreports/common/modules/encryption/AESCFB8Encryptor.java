@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
@@ -10,14 +10,14 @@ import javax.crypto.spec.IvParameterSpec;
 
 import net.minecraft.util.Tuple;
 
-public class AESCFB8Encryptor extends AESEncryptor<AESCFB8Encryption> {
+public class AESCFB8Encryptor extends AESEncryptor<AESCFB8Algorithm> {
 
 	protected AESCFB8Encryptor(String key) throws InvalidKeyException {
-		super(key, Encryption.AES_CFB8);
+		super(key, Algorithm.AES_CFB8);
 	}
 
 	protected AESCFB8Encryptor(SecretKey key, String mode, String padding, boolean iv) throws InvalidKeyException {
-		super(key, Encryption.AES_CFB8);
+		super(key, Algorithm.AES_CFB8);
 	}
 
 	@Override

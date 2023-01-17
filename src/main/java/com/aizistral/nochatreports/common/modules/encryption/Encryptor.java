@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -9,7 +9,7 @@ import it.unimi.dsi.fastutil.chars.Char2CharArrayMap;
 import it.unimi.dsi.fastutil.chars.Char2CharMap;
 import it.unimi.dsi.fastutil.chars.Char2CharMaps;
 
-public abstract class Encryptor<T extends Encryption> {
+public abstract class Encryptor<T extends Algorithm> {
 	protected static final SecureRandom RANDOM = new SecureRandom();
 	protected static final Char2CharMap BASE64R_SHIFTS = createBase64RShifts();
 	protected static final Char2CharMap BASE64R_SHIFTS_REVERSE = createBase64RShiftsReverse();
@@ -63,7 +63,7 @@ public abstract class Encryptor<T extends Encryption> {
 	}
 
 	protected static String encodeBase64R(byte[] bytes) {
-		return shiftBase64R(fromBytes(Encryption.BASE64_ENCODER.encode(bytes)));
+		return shiftBase64R(fromBytes(Algorithm.BASE64_ENCODER.encode(bytes)));
 	}
 
 	protected static byte[] encodeBase64RBytes(String string) {
@@ -75,16 +75,16 @@ public abstract class Encryptor<T extends Encryption> {
 	}
 
 	protected static byte[] decodeBase64RBytes(String string) {
-		return Encryption.BASE64_DECODER.decode(toBytes(unshiftBase64R(string)));
+		return Algorithm.BASE64_DECODER.decode(toBytes(unshiftBase64R(string)));
 	}
 
 	protected static String encodeBinaryKey(byte[] key) {
-		return fromBytes(Encryption.BASE64_ENCODER.encode(key));
+		return fromBytes(Algorithm.BASE64_ENCODER.encode(key));
 	}
 
 	protected static byte[] decodeBinaryKey(String key) throws InvalidKeyException {
 		try {
-			return Encryption.BASE64_DECODER.decode(toBytes(key));
+			return Algorithm.BASE64_DECODER.decode(toBytes(key));
 		} catch (Exception ex) {
 			throw new InvalidKeyException(ex);
 		}

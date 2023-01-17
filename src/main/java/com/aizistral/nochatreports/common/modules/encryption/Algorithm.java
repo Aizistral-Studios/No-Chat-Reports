@@ -1,4 +1,4 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
@@ -6,19 +6,19 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Encryption {
-	private static final List<Encryption> REGISTERED = new ArrayList<>();
+public abstract class Algorithm {
+	private static final List<Algorithm> REGISTERED = new ArrayList<>();
 	protected static final Base64.Encoder BASE64_ENCODER = Base64.getEncoder();
 	protected static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
 
-	public static final AESCFB8Encryption AES_CFB8 = new AESCFB8Encryption();
-	public static final AESGCMEncryption AES_GCM = new AESGCMEncryption();
-	public static final AESECBEncryption AES_ECB = new AESECBEncryption();
-	public static final CaesarEncryption CAESAR = new CaesarEncryption();
+	public static final AESCFB8Algorithm AES_CFB8 = new AESCFB8Algorithm();
+	public static final AESGCMAlgorithm AES_GCM = new AESGCMAlgorithm();
+	public static final AESECBAlgorithm AES_ECB = new AESECBAlgorithm();
+	public static final CaesarAlgorithm CAESAR = new CaesarAlgorithm();
 
 	private final String id, name;
 
-	protected Encryption(String id, String name) {
+	protected Algorithm(String id, String name) {
 		this.id = id;
 		this.name = name;
 
@@ -52,7 +52,7 @@ public abstract class Encryption {
 
 	public abstract Encryptor<?> getRandomProcessor();
 
-	public static List<Encryption> getRegistered() {
+	public static List<Algorithm> getRegistered() {
 		return Collections.unmodifiableList(REGISTERED);
 	}
 

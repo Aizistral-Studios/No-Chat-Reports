@@ -11,6 +11,8 @@ import com.google.common.base.Preconditions;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.network.chat.LocalChatSession;
+import net.minecraft.network.protocol.game.ServerboundChatSessionUpdatePacket;
 
 public class NCRCore {
 	public static final Logger LOGGER = LogManager.getLogger();

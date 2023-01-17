@@ -1,14 +1,14 @@
-package com.aizistral.nochatreports.common.encryption;
+package com.aizistral.nochatreports.common.modules.encryption;
 
 import java.security.InvalidKeyException;
 
-public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
+public class CaesarEncryptor extends Encryptor<CaesarAlgorithm> {
 	private static final char PARAGRAPH = '\u00a7', PARAGRAPH_PLACEHOLDER = '\uffef',
 			DELETE = '\u007f', DELETE_PLACEHOLDER = '\ufff0';
 	private final int shift;
 
 	protected CaesarEncryptor(int shift) throws InvalidKeyException {
-		if (!Encryption.CAESAR.validateKey(String.valueOf(shift)))
+		if (!Algorithm.CAESAR.validateKey(String.valueOf(shift)))
 			throw new InvalidKeyException();
 		this.shift = shift;
 	}
@@ -52,8 +52,8 @@ public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 	}
 
 	@Override
-	public CaesarEncryption getAlgorithm() {
-		return Encryption.CAESAR;
+	public CaesarAlgorithm getAlgorithm() {
+		return Algorithm.CAESAR;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class CaesarEncryptor extends Encryptor<CaesarEncryption> {
 	}
 
 	private static int fromString(String key) throws InvalidKeyException {
-		if (!Encryption.CAESAR.validateKey(key))
+		if (!Algorithm.CAESAR.validateKey(key))
 			throw new InvalidKeyException(key);
 		return Integer.valueOf(key);
 	}

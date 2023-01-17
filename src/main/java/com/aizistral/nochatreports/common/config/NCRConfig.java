@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.function.Supplier;
 
 import com.aizistral.nochatreports.common.NCRCore;
+import com.aizistral.nochatreports.common.modules.encryption.EncryptionConfig;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,7 +15,7 @@ public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
 	private static NCRServerPreferences serverPreferences = null;
-	private static NCRConfigEncryption encryption = null;
+	private static EncryptionConfig encryption = null;
 
 	private NCRConfig() {
 		throw new IllegalStateException("Can't touch this");
@@ -35,7 +36,7 @@ public final class NCRConfig {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static NCRConfigEncryption getEncryption() {
+	public static EncryptionConfig getEncryption() {
 		return checkLoaded(() -> encryption);
 	}
 
@@ -53,7 +54,7 @@ public final class NCRConfig {
 		if (NCRCore.getProvider().getEnvironment() == EnvType.CLIENT) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
 			serverPreferences = JSONConfig.loadConfig(NCRServerPreferences.class, NCRServerPreferences::new, NCRServerPreferences.FILE_NAME);
-			encryption = JSONConfig.loadConfig(NCRConfigEncryption.class, NCRConfigEncryption::new, NCRConfigEncryption.FILE_NAME);
+			encryption = JSONConfig.loadConfig(EncryptionConfig.class, EncryptionConfig::new, EncryptionConfig.FILE_NAME);
 		}
 
 		save();

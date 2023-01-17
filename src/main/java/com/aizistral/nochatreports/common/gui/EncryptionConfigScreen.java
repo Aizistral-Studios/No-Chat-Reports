@@ -3,8 +3,8 @@ package com.aizistral.nochatreports.common.gui;
 import java.util.Objects;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
-import com.aizistral.nochatreports.common.config.NCRConfigEncryption;
-import com.aizistral.nochatreports.common.encryption.Encryption;
+import com.aizistral.nochatreports.common.modules.encryption.Algorithm;
+import com.aizistral.nochatreports.common.modules.encryption.EncryptionConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -39,7 +39,7 @@ public class EncryptionConfigScreen extends Screen {
 	private final Screen previous;
 	private CustomEditBox keyField, passField;
 	private ImageButton validationIcon;
-	private CycleButton<Encryption> algorithmButton;
+	private CycleButton<Algorithm> algorithmButton;
 	private MultiLineLabel keyDesc = MultiLineLabel.EMPTY, passDesc = MultiLineLabel.EMPTY;
 	protected Checkbox encryptPublicCheck;
 	private boolean settingPassKey = false;
@@ -49,7 +49,7 @@ public class EncryptionConfigScreen extends Screen {
 		this.previous = previous;
 	}
 
-	private NCRConfigEncryption getConfig() {
+	private EncryptionConfig getConfig() {
 		return NCRConfig.getEncryption();
 	}
 
@@ -126,10 +126,10 @@ public class EncryptionConfigScreen extends Screen {
 			this.onClose();
 		}).pos(this.width / 2 + 4, this.passField.getY() + 48).size(219, 20).build());
 
-		CycleButton<Encryption> cycle = CycleButton.<Encryption>builder(value -> {
+		CycleButton<Algorithm> cycle = CycleButton.<Algorithm>builder(value -> {
 			return Component.translatable("gui.nochatreports.encryption_config.algorithm",
 					Component.translatable("algorithm.nochatreports." + value.getID() + ".name"));
-		}).withValues(Encryption.getRegistered()).displayOnlyValue().withInitialValue(this.getConfig()
+		}).withValues(Algorithm.getRegistered()).displayOnlyValue().withInitialValue(this.getConfig()
 				.getAlgorithm()).withTooltip(value -> new AdvancedTooltip(Component.translatable(
 						"algorithm.nochatreports." + value.getID())).setMaxWidth(250))
 				.create(this.width / 2 - 4 - 218, this.passField.getY() + 48, 218, 20, CommonComponents.EMPTY,
@@ -222,7 +222,7 @@ public class EncryptionConfigScreen extends Screen {
 	}
 
 	private void onPassphraseUpdate(String pass) {
-		Encryption encryption = this.algorithmButton.getValue();
+		Algorithm encryption = this.algorithmButton.getValue();
 
 		this.settingPassKey = true;
 		if (!StringUtil.isNullOrEmpty(pass)) {
@@ -235,7 +235,7 @@ public class EncryptionConfigScreen extends Screen {
 		this.settingPassKey = false;
 	}
 
-	private void onAlgorithmUpdate(Encryption encryption) {
+	private void onAlgorithmUpdate(Algorithm encryption) {
 		if (!encryption.supportsPassphrases()) {
 			this.passField.setFocused(false);
 			this.passField.setEditable(this.passField.active = false);
