@@ -10,25 +10,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
+import com.aizistral.nochatreports.common.platform.extensions.ServerPingerExtension;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 import net.minecraft.network.protocol.status.ServerStatus;
 
 @Mixin(targets = "net/minecraft/client/multiplayer/ServerStatusPinger$1")
-public class MixinServerStatusPinger$1 {
-	private static final Field SERVER_DATA_FIELD;
-
-	static {
-		// We use reflection here because Mixin's AP dies when trying to process @Shadow of this lol
-		try {
-			Class<?> pinger = Class.forName("net.minecraft.client.multiplayer.ServerStatusPinger$1");
-			SERVER_DATA_FIELD = pinger.getDeclaredField("val$p_105460_");
-			SERVER_DATA_FIELD.setAccessible(true);
-		} catch (Exception ex) {
-			throw new RuntimeException("Reflection failed in MixinServerStatusPinger$1", ex);
-		}
-	}
+public abstract class MixinServerStatusPinger$1 implements ServerPingerExtension {
 
 	/**
 	 * @reason Ensure "preventsChatReports" property is transferred from {@link ServerStatus} to
@@ -39,16 +29,12 @@ public class MixinServerStatusPinger$1 {
 
 	@Inject(method = "handleStatusResponse(Lnet/minecraft/network/protocol/status/ClientboundStatusResponsePacket;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/status/ServerStatus;getPlayers()Lnet/minecraft/network/protocol/status/ServerStatus$Players;", ordinal = 0, shift = At.Shift.BEFORE))
 	private void getNoChatReports(ClientboundStatusResponsePacket packet, CallbackInfo info) {
-		try {
-			boolean preventsReports = ((ServerDataExtension) packet.getStatus()).preventsChatReports();
-			((ServerDataExtension) SERVER_DATA_FIELD.get(this)).setPreventsChatReports(preventsReports);
+		boolean preventsReports = ((ServerDataExtension) packet.getStatus()).preventsChatReports();
+		((ServerDataExtension) this.getServerData()).setPreventsChatReports(preventsReports);
 
-			if (NCRConfig.getCommon().enableDebugLog()) {
-				NCRCore.LOGGER.info("Received status response packet from server, preventsChatReports: {}",
-						preventsReports);
-			}
-		} catch (IllegalArgumentException | IllegalAccessException ex) {
-			throw new RuntimeException("Failed to get ServerData field via reflection", ex);
+		if (NCRConfig.getCommon().enableDebugLog()) {
+			NCRCore.LOGGER.info("Received status response packet from server, preventsChatReports: {}",
+					preventsReports);
 		}
 	}
 
