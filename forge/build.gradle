@@ -191,7 +191,7 @@ curseforge {
 		id = "${curse_id}"
         releaseType = "${version_type}"
         changelogType = 'html'
-        changelog = file('docs/changelog.html')
+        changelog = rootProject.file('docs/changelog.html')
 		
 		addGameVersion project.minecraft_version
 		addGameVersion 'Java 17'
