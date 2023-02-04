@@ -1,4 +1,4 @@
-﻿{
+{
 	"modmenu.descriptionTranslation.nochatreports": "從玩家消息中剝離加密簽名，使其無法跟蹤並與你的Microsoft帳戶關聯，以及使用聊天舉報功能。",
 	"gui.nochatreports.secure_chat": "此選項被No Chat Reports禁用。",
 	"gui.nochatreports.safety_status.singleplayer": "在單人遊戲中，你總是可以安全地聊天。",
@@ -27,9 +27,9 @@
 	"gui.nochatreports.ncr_toggle_tooltip": "No Chat Reports：%1$s\n禁用或啟用模組的大部分用戶端功能。你可能必須這樣做才能加入一些Paper/Velocity伺服器，因為它們會導致NCR問題。\n某些與網路無關的事情，如加密、聊天信任狀態調整和刪除原版的“聊天消息無法驗證”警告彈窗仍然有效；它們可以在配置中單獨禁用。",
 	"gui.nochatreports.ncr_state_on": "§a§l啟用§r",
 	"gui.nochatreports.ncr_state_off": "§c§l禁用§r",
-	"tag.nochatreports.encrypted": "加密使用：%1$s",
+	"tag.nochatreports.encrypted": "加密方式：%1$s",
 	"tag.nochatreports.encrypted_original": "未解密：%1$s",
-	"gui.nochatreports.encryption_tooltip": "§l加密:§r%1$s\n右擊以配置。\n\n當啟用加密時，你可以通過在發送消息時按住Ctrl來暫時關閉。",
+	"gui.nochatreports.encryption_tooltip": "§l加密：§r%1$s\n右擊以配置。\n\n當啟用加密時，你可以通過在發送消息時按住Ctrl來暫時關閉。",
 	"gui.nochatreports.encryption_tooltip_invalid": "§l加密：§r%1$s\n§c無效配置。按一下以配置。",
 	"gui.nochatreports.encryption_state_on": "§a§l啟用§r",
 	"gui.nochatreports.encryption_state_off": "§c§l禁用§r",
