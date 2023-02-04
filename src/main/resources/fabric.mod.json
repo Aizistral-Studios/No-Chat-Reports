@@ -29,7 +29,7 @@
       "com.aizistral.nochatreports.fabric.NoChatReportsClient"
     ],
     "modmenu": [
-      
+      "com.aizistral.nochatreports.common.config.ModMenuIntegration"
     ]
   },
   "mixins": [

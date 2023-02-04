@@ -110,11 +110,12 @@ sourceSets.main.resources {
 
 repositories {
 	println("Specifying repositories...")	
-	flatDir {  dirs 'deps' }
-	maven {  url = "https://maven.theillusivec4.top/" } // curios
-	maven {  url = "https://maven.blamejared.com/" } // patchouli
+	maven {  url "file:///${project.projectDir}/deps/"    } // local
+	maven {  url = "https://maven.theillusivec4.top/"     } // curios
+	maven {  url = "https://maven.blamejared.com/"        } // patchouli
 	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
     maven {	 url "https://dvs1.progwml6.com/files/maven/" } // no idea
+	maven {  url "https://maven.shedaniel.me/"            } // cloth config
 }
 
 dependencies {
@@ -122,7 +123,9 @@ dependencies {
 
 	// Minecraft & Forge
     minecraft "net.minecraftforge:forge:${forge_version}"
-	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+	implementation "generic:modmenu:5.0.2"
+	implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:" + rootProject.cloth_config_version)
+	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
 
@@ -188,7 +191,7 @@ curseforge {
 		id = "${curse_id}"
         releaseType = "${version_type}"
         changelogType = 'html'
-        changelog = file('docs/changelog.html')
+        changelog = rootProject.file('docs/changelog.html')
 		
 		addGameVersion project.minecraft_version
 		addGameVersion 'Java 17'

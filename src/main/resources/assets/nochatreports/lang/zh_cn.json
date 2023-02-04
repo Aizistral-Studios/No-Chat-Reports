@@ -1,4 +1,4 @@
-﻿{
+{
 	"modmenu.descriptionTranslation.nochatreports": "从玩家消息中剥离加密签名，使其无法跟踪并与你的Microsoft帐户关联，以及使用聊天举报功能。",
 	"gui.nochatreports.secure_chat": "此选项被No Chat Reports禁用。",
 	"gui.nochatreports.safety_status.singleplayer": "在单人游戏中，你总是可以安全地聊天。",
