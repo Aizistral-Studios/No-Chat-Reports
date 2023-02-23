@@ -6,6 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -34,7 +35,7 @@ public class AdvancedImageButton extends ImageButton {
 
 		if (this.isHovered)
 			if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender()) {
-				tooltip.doCustomRender(this.parent, poseStack, mouseX, mouseY);
+				tooltip.doCustomRender(this.parent, poseStack, mouseX, mouseY, this.createTooltipPositioner());
 			}
 	}
 

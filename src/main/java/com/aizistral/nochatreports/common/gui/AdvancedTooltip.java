@@ -80,9 +80,9 @@ public class AdvancedTooltip extends Tooltip {
 		return this.renderWithoutGap;
 	}
 
-	public void doCustomRender(Screen screen, PoseStack poseStack, int x, int y) {
+	public void doCustomRender(Screen screen, PoseStack poseStack, int x, int y, ClientTooltipPositioner positioner) {
 		if (this.renderWithoutGap) {
-			this.renderTooltipNoGap(screen, poseStack, splitTooltip(screen.minecraft, this.getMessage(), this.maxWidth), x, y);
+			this.renderTooltipNoGap(screen, poseStack, splitTooltip(screen.minecraft, this.getMessage(), this.maxWidth), x, y, positioner);
 		} else
 			throw new UnsupportedOperationException("This tooltip doesn't support custom render!");
 	}
@@ -91,8 +91,8 @@ public class AdvancedTooltip extends Tooltip {
 		return minecraft.font.split(component, maxWidth);
 	}
 
-	protected void renderTooltipNoGap(Screen screen, PoseStack poseStack, List<? extends FormattedCharSequence> list, int x, int y) {
-		this.renderTooltipInternalNoGap(screen, poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y, DefaultTooltipPositioner.INSTANCE);
+	protected void renderTooltipNoGap(Screen screen, PoseStack poseStack, List<? extends FormattedCharSequence> list, int x, int y, ClientTooltipPositioner positioner) {
+		this.renderTooltipInternalNoGap(screen, poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y, positioner);
 	}
 
 	protected void renderTooltipInternalNoGap(Screen screen, PoseStack poseStack, List<ClientTooltipComponent> list, int i2, int j2, ClientTooltipPositioner clientTooltipPositioner) {
@@ -101,7 +101,7 @@ public class AdvancedTooltip extends Tooltip {
 		if (list.isEmpty())
 			return;
 		int k2 = 0;
-		int l2 = list.size() == 1 ? -2 : -2;
+		int l2 = list.size() == 1 ? -2 : /*0*/ -2;
 		for (ClientTooltipComponent clientTooltipComponent : list) {
 			int m2 = clientTooltipComponent.getWidth(screen.font);
 			if (m2 > k2) {
@@ -132,7 +132,7 @@ public class AdvancedTooltip extends Tooltip {
 		for (t = 0; t < list.size(); ++t) {
 			clientTooltipComponent2 = list.get(t);
 			clientTooltipComponent2.renderText(screen.font, p, s, matrix4f2, bufferSource);
-			s += clientTooltipComponent2.getHeight() + (t == 0 ? 2 : 0);
+			s += clientTooltipComponent2.getHeight() + /*(t == 0 ? 2 : 0)*/ 0;
 		}
 		bufferSource.endBatch();
 		poseStack.popPose();
@@ -140,7 +140,7 @@ public class AdvancedTooltip extends Tooltip {
 		for (t = 0; t < list.size(); ++t) {
 			clientTooltipComponent2 = list.get(t);
 			clientTooltipComponent2.renderImage(screen.font, p, s, poseStack, screen.itemRenderer, 400);
-			s += clientTooltipComponent2.getHeight() + (t == 0 ? 2 : 0);
+			s += clientTooltipComponent2.getHeight() + /*(t == 0 ? 2 : 0)*/ 0;
 		}
 	}
 
