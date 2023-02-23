@@ -29,7 +29,7 @@ public abstract class MixinServerStatusPinger$1 implements ServerPingerExtension
 
 	@Inject(method = "handleStatusResponse(Lnet/minecraft/network/protocol/status/ClientboundStatusResponsePacket;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/status/ServerStatus;getPlayers()Lnet/minecraft/network/protocol/status/ServerStatus$Players;", ordinal = 0, shift = At.Shift.BEFORE))
 	private void getNoChatReports(ClientboundStatusResponsePacket packet, CallbackInfo info) {
-		boolean preventsReports = ((ServerDataExtension) packet.getStatus()).preventsChatReports();
+		boolean preventsReports = ((ServerDataExtension) (Object) packet.status()).preventsChatReports();
 		((ServerDataExtension) this.getServerData()).setPreventsChatReports(preventsReports);
 
 		if (NCRConfig.getCommon().enableDebugLog()) {
