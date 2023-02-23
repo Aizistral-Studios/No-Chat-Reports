@@ -29,5 +29,9 @@ public class MixinServerStatusPinger$1 implements ServerPingerExtension {
 		return this.val$data;
 	}
 
+	static {
+		NCRCore.LOGGER.info("Fabric mixin into ServerStatusPinger$1 succeeded.");
+	}
+
 }
 

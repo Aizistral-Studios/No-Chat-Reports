@@ -27,7 +27,10 @@ public abstract class MixinServerStatusPinger$1 implements ServerPingerExtension
 	 * @author Aizistral (current version)
 	 */
 
-	@Inject(method = "handleStatusResponse(Lnet/minecraft/network/protocol/status/ClientboundStatusResponsePacket;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/status/ServerStatus;getPlayers()Lnet/minecraft/network/protocol/status/ServerStatus$Players;", ordinal = 0, shift = At.Shift.BEFORE))
+	@Inject(method = "handleStatusResponse(Lnet/minecraft/network/protocol/status/ClientboundStatusResponsePacket;)V",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/status/ServerStatus;"
+					+ "description()Lnet/minecraft/network/chat/Component;",
+					ordinal = 0, shift = At.Shift.BEFORE))
 	private void getNoChatReports(ClientboundStatusResponsePacket packet, CallbackInfo info) {
 		boolean preventsReports = ((ServerDataExtension) (Object) packet.status()).preventsChatReports();
 		((ServerDataExtension) this.getServerData()).setPreventsChatReports(preventsReports);
@@ -36,6 +39,10 @@ public abstract class MixinServerStatusPinger$1 implements ServerPingerExtension
 			NCRCore.LOGGER.info("Received status response packet from server, preventsChatReports: {}",
 					preventsReports);
 		}
+	}
+
+	static {
+		NCRCore.LOGGER.info("Common mixin into ServerStatusPinger$1 succeeded.");
 	}
 
 }
