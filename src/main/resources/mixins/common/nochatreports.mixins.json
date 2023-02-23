@@ -6,7 +6,7 @@
   "verbose": true,
   "mixins": [
 	"common.MixinServerStatus",
-	"common.MixinServerStatusSerializer",
+	"common.MixinFriendlyByteBuf",
 	"server.MixinServerboundChatPacket",
 	"server.MixinServerGamePacketListenerImpl",
 	"server.MixinPlayerList",
