@@ -12,7 +12,7 @@
 	"gui.nochatreports.safety_status.realms": "Questo server è un realm. In questo server non solo è impossibile impedire la segnalazione della chat, ma Mojang si serve anche di un sistema automatico di monitoraggio per identificare possibili \"pericoli online\" e riferirli a moderatori umani per la revisione, anche se il proprietario del server non vuole. La tua unica speranza è la crittografia.",
 	"gui.nochatreports.safety_status.unknown": "No Chat Reports non è in grado di determinare la sicurezza di questo server. Prova a inviare un messaggio per eseguire una valutazione.",
 	"gui.nochatreports.safety_status.undefined": "Non è stato possibile per No Chat Reports valutare la sicurezza di questo server. Questo non dovrebbe mai accadere: ti preghiamo di segnalarlo come un bug allo sviluppatore della mod.",
-	"gui.nochatreports.signing_status.allowed_realms": "La firma dei messaggi è sempre attiva sui Realm perché è sempre obbligatoria e comunque disattivarla non sarebbe utile.",
+	"gui.nochatreports.signing_status.allowed_realms": "La firma dei messaggi è sempre attiva nei realm perché è sempre obbligatoria e comunque disattivarla non sarebbe utile.",
 	"gui.nochatreports.signing_status.allowed": "La firma dei messaggi è stata attivata per questa sessione.",
 	"gui.nochatreports.signing_status.allowed_session": "La firma dei messaggi è stata attivata per questa sessione, ma verrà disattivata la prossima volta che entrerai nel server.",
 	"gui.nochatreports.signing_status.disabled": "La firma dei messaggi è stata disattivata per questa sessione.",
