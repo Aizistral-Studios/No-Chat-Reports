@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.GridWidget;
+import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.OptionsScreen;
 
-@Mixin(GridWidget.RowHelper.class)
+@Mixin(GridLayout.RowHelper.class)
 public abstract class MixinRowHelper {
 
 	@Inject(method = "addChild(Lnet/minecraft/client/gui/components/AbstractWidget;)"

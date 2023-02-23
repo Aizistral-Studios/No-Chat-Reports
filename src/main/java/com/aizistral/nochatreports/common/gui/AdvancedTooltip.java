@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.joml.Vector2ic;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -18,9 +19,13 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
+import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
@@ -87,82 +92,56 @@ public class AdvancedTooltip extends Tooltip {
 	}
 
 	protected void renderTooltipNoGap(Screen screen, PoseStack poseStack, List<? extends FormattedCharSequence> list, int x, int y) {
-		this.renderTooltipInternalNoGap(screen, poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y);
+		this.renderTooltipInternalNoGap(screen, poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y, DefaultTooltipPositioner.INSTANCE);
 	}
 
-	protected void renderTooltipInternalNoGap(Screen screen, PoseStack poseStack, List<ClientTooltipComponent> list, int x, int y) {
+	protected void renderTooltipInternalNoGap(Screen screen, PoseStack poseStack, List<ClientTooltipComponent> list, int i2, int j2, ClientTooltipPositioner clientTooltipPositioner) {
 		ClientTooltipComponent clientTooltipComponent2;
-		int v;
-		int m;
+		int t;
 		if (list.isEmpty())
 			return;
-		int k = 0;
-		int l = list.size() == 1 ? -2 : -2;
+		int k2 = 0;
+		int l2 = list.size() == 1 ? -2 : -2;
 		for (ClientTooltipComponent clientTooltipComponent : list) {
-			m = clientTooltipComponent.getWidth(screen.font);
-			if (m > k) {
-				k = m;
+			int m2 = clientTooltipComponent.getWidth(screen.font);
+			if (m2 > k2) {
+				k2 = m2;
 			}
-			l += clientTooltipComponent.getHeight();
+			l2 += clientTooltipComponent.getHeight();
 		}
-		int n = x + 12;
-		int o = y - 12;
-		m = k;
-		int p = l;
-		if (n + k > screen.width) {
-			n -= 28 + k;
-		}
-		if (o + p + 6 > screen.height) {
-			o = screen.height - p - 6;
-		}
-		if (y - p - 8 < 0) {
-			o = y + 8;
-		}
+		int n2 = k2;
+		int o2 = l2;
+		Vector2ic vector2ic = clientTooltipPositioner.positionTooltip(screen, i2, j2, n2, o2);
+		int p = vector2ic.x();
+		int q = vector2ic.y();
 		poseStack.pushPose();
-		int q = -267386864;
-		int r = 0x505000FF;
-		int s = 1344798847;
-		int t = 400;
-		float f = screen.itemRenderer.blitOffset;
-		screen.itemRenderer.blitOffset = 400.0f;
+		int r = 400;
 		Tesselator tesselator = Tesselator.getInstance();
-		BufferBuilder bufferBuilder = tesselator.getBuilder();
+		BufferBuilder bufferBuilder2 = tesselator.getBuilder();
 		RenderSystem.setShader(GameRenderer::getPositionColorShader);
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-		Matrix4f matrix4f = poseStack.last().pose();
-		fillGradient(matrix4f, bufferBuilder, n - 3, o - 4, n + m + 3, o - 3, 400, -267386864, -267386864);
-		fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 3, n + m + 3, o + p + 4, 400, -267386864, -267386864);
-		fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o + p + 3, 400, -267386864, -267386864);
-		fillGradient(matrix4f, bufferBuilder, n - 4, o - 3, n - 3, o + p + 3, 400, -267386864, -267386864);
-		fillGradient(matrix4f, bufferBuilder, n + m + 3, o - 3, n + m + 4, o + p + 3, 400, -267386864, -267386864);
-		fillGradient(matrix4f, bufferBuilder, n - 3, o - 3 + 1, n - 3 + 1, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
-		fillGradient(matrix4f, bufferBuilder, n + m + 2, o - 3 + 1, n + m + 3, o + p + 3 - 1, 400, 0x505000FF, 1344798847);
-		fillGradient(matrix4f, bufferBuilder, n - 3, o - 3, n + m + 3, o - 3 + 1, 400, 0x505000FF, 0x505000FF);
-		fillGradient(matrix4f, bufferBuilder, n - 3, o + p + 2, n + m + 3, o + p + 3, 400, 1344798847, 1344798847);
+		bufferBuilder2.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+		Matrix4f matrix4f2 = poseStack.last().pose();
+		TooltipRenderUtil.renderTooltipBackground((matrix4f, bufferBuilder, i, j, k, l, m, n, o) -> fillGradient(matrix4f, bufferBuilder, i, j, k, l, m, n, o), matrix4f2, bufferBuilder2, p, q, n2, o2, 400);
 		RenderSystem.enableDepthTest();
-		RenderSystem.disableTexture();
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		BufferUploader.drawWithShader(bufferBuilder.end());
-		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
+		BufferUploader.drawWithShader(bufferBuilder2.end());
 		MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
-		poseStack.translate(0.0, 0.0, 400.0);
-		int u = o;
-		for (v = 0; v < list.size(); ++v) {
-			clientTooltipComponent2 = list.get(v);
-			clientTooltipComponent2.renderText(screen.font, n, u, matrix4f, bufferSource);
-			u += clientTooltipComponent2.getHeight() /*+ (v == 0 ? 2 : 0)*/;
+		poseStack.translate(0.0f, 0.0f, 400.0f);
+		int s = q;
+		for (t = 0; t < list.size(); ++t) {
+			clientTooltipComponent2 = list.get(t);
+			clientTooltipComponent2.renderText(screen.font, p, s, matrix4f2, bufferSource);
+			s += clientTooltipComponent2.getHeight() + (t == 0 ? 2 : 0);
 		}
 		bufferSource.endBatch();
 		poseStack.popPose();
-		u = o;
-		for (v = 0; v < list.size(); ++v) {
-			clientTooltipComponent2 = list.get(v);
-			clientTooltipComponent2.renderImage(screen.font, n, u, poseStack, screen.itemRenderer, 400);
-			u += clientTooltipComponent2.getHeight() + (v == 0 ? 2 : 0);
+		s = q;
+		for (t = 0; t < list.size(); ++t) {
+			clientTooltipComponent2 = list.get(t);
+			clientTooltipComponent2.renderImage(screen.font, p, s, poseStack, screen.itemRenderer, 400);
+			s += clientTooltipComponent2.getHeight() + (t == 0 ? 2 : 0);
 		}
-		screen.itemRenderer.blitOffset = f;
 	}
 
 	protected static void fillGradient(Matrix4f matrix4f, BufferBuilder bufferBuilder, int i, int j, int k, int l, int m, int n, int o) {
