@@ -4,7 +4,8 @@ import java.security.InvalidKeyException;
 import java.security.spec.AlgorithmParameterSpec;
 
 import javax.crypto.SecretKey;
-import net.minecraft.util.Pair;
+
+import net.minecraft.util.Tuple;
 
 public class AESECBEncryptor extends AESEncryptor<AESECBEncryption> {
 
@@ -17,12 +18,12 @@ public class AESECBEncryptor extends AESEncryptor<AESECBEncryption> {
 	}
 
 	@Override
-	protected Pair<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException {
+	protected Tuple<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected Pair<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException {
+	protected Tuple<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 

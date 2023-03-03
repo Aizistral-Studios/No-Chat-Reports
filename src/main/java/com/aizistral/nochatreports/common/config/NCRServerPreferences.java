@@ -1,12 +1,14 @@
 package com.aizistral.nochatreports.common.config;
 
 import java.util.HashMap;
-import net.minecraft.client.network.ServerAddress;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.aizistral.nochatreports.common.NCRClient;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
+
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
 public class NCRServerPreferences extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-ServerPreferences.json";

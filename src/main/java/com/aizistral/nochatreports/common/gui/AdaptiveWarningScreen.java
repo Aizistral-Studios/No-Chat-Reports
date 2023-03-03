@@ -1,25 +1,27 @@
 package com.aizistral.nochatreports.common.gui;
 
-import net.minecraft.client.font.MultilineText;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.CheckboxWidget;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.gui.components.Checkbox;
+import net.minecraft.client.gui.components.MultiLineLabel;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+
 public abstract class AdaptiveWarningScreen extends Screen {
-	private final Text title;
-	private final Text content;
-	private final Text narration;
+	private final Component title;
+	private final Component content;
+	private final Component narration;
 	@Nullable
 	protected final Screen previous;
 	@Nullable
-	private final Text check;
+	private final Component check;
 	@Nullable
-	protected CheckboxWidget stopShowing = null;
-	protected MultilineText message = MultilineText.EMPTY;
+	protected Checkbox stopShowing = null;
+	protected MultiLineLabel message = MultiLineLabel.EMPTY;
 
-	public AdaptiveWarningScreen(Text title, Text content, @Nullable Text check,
+	public AdaptiveWarningScreen(Component title, Component content, @Nullable Component check,
 			@Nullable Screen previous) {
 		super(title);
 		this.title = title;
@@ -31,17 +33,17 @@ public abstract class AdaptiveWarningScreen extends Screen {
 
 	@Override
 	protected void init() {
-		this.clearChildren();
+		this.clearWidgets();
 		super.init();
-		this.message = MultilineText.create(this.textRenderer, this.content, this.width - (this.hugeGUI() ? 65 : 100));
-		int i = (this.message.count() + 1) * this.getLineHeight();
+		this.message = MultiLineLabel.create(this.font, this.content, this.width - (this.hugeGUI() ? 65 : 100));
+		int i = (this.message.getLineCount() + 1) * this.getLineHeight();
 		if (this.check != null) {
 			int checkY = this.hugeGUI() ? 27 : 76;
-			int j = this.textRenderer.getWidth(this.check);
+			int j = this.font.width(this.check);
 
 			if (this.check != null) {
-				this.stopShowing = new CheckboxWidget(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.check, false);
-				this.addDrawableChild(this.stopShowing);
+				this.stopShowing = new Checkbox(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.check, false);
+				this.addRenderableWidget(this.stopShowing);
 			}
 		}
 		this.initButtons(i + (this.hugeGUI() ? 55 : 100));
@@ -50,16 +52,16 @@ public abstract class AdaptiveWarningScreen extends Screen {
 	protected abstract void initButtons(int y);
 
 	@Override
-	public void render(MatrixStack poseStack, int i, int j, float f) {
+	public void render(PoseStack poseStack, int i, int j, float f) {
 		this.renderBackground(poseStack);
 		this.renderTitle(poseStack);
-		int k = this.width / 2 - this.message.getMaxWidth() / 2;
-		this.message.drawWithShadow(poseStack, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);
+		int k = this.width / 2 - this.message.getWidth() / 2;
+		this.message.renderLeftAligned(poseStack, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);
 		super.render(poseStack, i, j, f);
 	}
 
-	private void renderTitle(MatrixStack poseStack) {
-		drawTextWithShadow(poseStack, this.textRenderer, this.title, 25, this.hugeGUI() ? 15 : 30, 0xFFFFFF);
+	private void renderTitle(PoseStack poseStack) {
+		drawString(poseStack, this.font, this.title, 25, this.hugeGUI() ? 15 : 30, 0xFFFFFF);
 	}
 
 	private boolean hugeGUI() {
@@ -68,9 +70,9 @@ public abstract class AdaptiveWarningScreen extends Screen {
 
 	protected int getLineHeight() {
 		if (this.hugeGUI())
-			return (int) (this.client.textRenderer.fontHeight * 1.5) + 1;
+			return (int) (this.minecraft.font.lineHeight * 1.5) + 1;
 		else
-			return this.client.textRenderer.fontHeight * 2;
+			return this.minecraft.font.lineHeight * 2;
 	}
 
 }

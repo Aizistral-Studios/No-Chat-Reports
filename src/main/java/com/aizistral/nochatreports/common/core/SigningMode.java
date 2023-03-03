@@ -3,8 +3,9 @@ package com.aizistral.nochatreports.common.core;
 import org.jetbrains.annotations.Nullable;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 /**
  * Signing modes control how NCR behaves with respect to chat signing.
@@ -54,19 +55,19 @@ public enum SigningMode {
 		return "gui.nochatreports.signing_mode." + this.name().toLowerCase();
 	}
 
-	public MutableText getName() {
+	public MutableComponent getName() {
 		if (this != DEFAULT)
-			return Text.translatable(this.getNameKey());
+			return Component.translatable(this.getNameKey());
 		else
-			return Text.translatable(this.getNameKey(), NCRConfig.getClient().defaultSigningMode().getName());
+			return Component.translatable(this.getNameKey(), NCRConfig.getClient().defaultSigningMode().getName());
 	}
 
 	public String getTooltipKey() {
 		return "gui.nochatreports.signing_mode." + this.name().toLowerCase() + ".tooltip";
 	}
 
-	public MutableText getTooltip() {
-		return Text.translatable(this.getTooltipKey());
+	public MutableComponent getTooltip() {
+		return Component.translatable(this.getTooltipKey());
 	}
 
 	public SigningMode next() {

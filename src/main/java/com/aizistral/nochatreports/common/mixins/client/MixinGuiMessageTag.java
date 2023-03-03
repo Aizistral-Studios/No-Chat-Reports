@@ -6,9 +6,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
-import net.minecraft.client.gui.hud.MessageIndicator;
 
-@Mixin(MessageIndicator.class)
+import net.minecraft.client.GuiMessageTag;
+
+@Mixin(GuiMessageTag.class)
 public class MixinGuiMessageTag {
 
 	/**
@@ -19,7 +20,7 @@ public class MixinGuiMessageTag {
 	 */
 
 	@Inject(method = { "system", "systemSinglePlayer" }, at = @At("HEAD"), cancellable = true)
-	private static void onSystem(CallbackInfoReturnable<MessageIndicator> info) {
+	private static void onSystem(CallbackInfoReturnable<GuiMessageTag> info) {
 		if (NCRConfig.getClient().hideSystemMessageIndicators()) {
 			info.setReturnValue(null);
 		}

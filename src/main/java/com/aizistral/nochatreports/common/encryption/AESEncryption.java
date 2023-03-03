@@ -11,7 +11,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import net.minecraft.util.StringHelper;
+
+import net.minecraft.util.StringUtil;
 
 public abstract class AESEncryption extends Encryption {
 	private final String mode, padding;
@@ -65,7 +66,7 @@ public abstract class AESEncryption extends Encryption {
 
 	@Override
 	public boolean validateKey(String key) {
-		if (StringHelper.isEmpty(key))
+		if (StringUtil.isNullOrEmpty(key))
 			return false;
 
 		try {

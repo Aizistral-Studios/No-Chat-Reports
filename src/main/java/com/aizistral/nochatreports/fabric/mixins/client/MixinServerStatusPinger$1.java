@@ -1,7 +1,7 @@
 package com.aizistral.nochatreports.fabric.mixins.client;
 
 import java.lang.reflect.Field;
-import net.minecraft.client.network.ServerInfo;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,13 +14,18 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
 import com.aizistral.nochatreports.common.platform.extensions.ServerPingerExtension;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
+import net.minecraft.network.protocol.status.ServerStatus;
+
 @Mixin(targets = "net/minecraft/client/multiplayer/ServerStatusPinger$1")
 public class MixinServerStatusPinger$1 implements ServerPingerExtension {
 	@Shadow @Final
-	private ServerInfo val$data;
+	private ServerData val$data;
 
 	@Override
-	public ServerInfo getServerData() {
+	public ServerData getServerData() {
 		return this.val$data;
 	}
 

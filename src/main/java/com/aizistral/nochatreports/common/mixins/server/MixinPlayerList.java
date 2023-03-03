@@ -1,13 +1,14 @@
 package com.aizistral.nochatreports.common.mixins.server;
 
-import net.minecraft.network.message.SignedMessage;
-import net.minecraft.server.PlayerManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PlayerManager.class)
+import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.server.players.PlayerList;
+
+@Mixin(PlayerList.class)
 public class MixinPlayerList {
 
 	/**
@@ -16,7 +17,7 @@ public class MixinPlayerList {
 	 */
 
 	@Inject(method = "verifyChatTrusted", at = @At("HEAD"), cancellable = true)
-	private void onVerifyChatTrusted(SignedMessage playerChatMessage, CallbackInfoReturnable<Boolean> info) {
+	private void onVerifyChatTrusted(PlayerChatMessage playerChatMessage, CallbackInfoReturnable<Boolean> info) {
 		info.setReturnValue(true);
 	}
 

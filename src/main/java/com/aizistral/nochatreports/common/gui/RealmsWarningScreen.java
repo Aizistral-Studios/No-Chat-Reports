@@ -1,15 +1,16 @@
 package com.aizistral.nochatreports.common.gui;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 public class RealmsWarningScreen extends TriageWarningScreen {
-	private static final Text TITLE = Text.translatable("gui.nochatreports.realms_warning.header").formatted(Formatting.BOLD);
-	private static final Text CONTENT = Text.translatable("gui.nochatreports.realms_warning.contents");
-	private static final Text CHECK = Text.translatable("gui.nochatreports.realms_warning.check");
+	private static final Component TITLE = Component.translatable("gui.nochatreports.realms_warning.header").withStyle(ChatFormatting.BOLD);
+	private static final Component CONTENT = Component.translatable("gui.nochatreports.realms_warning.contents");
+	private static final Component CHECK = Component.translatable("gui.nochatreports.realms_warning.check");
 	private static final String WIKI_LINK = "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/The-Realms-Question";
 	private static boolean sessionSeen = false;
 	private final Screen realms;
@@ -20,9 +21,9 @@ public class RealmsWarningScreen extends TriageWarningScreen {
 	}
 
 	@Override
-	protected void onProceed(ButtonWidget button) {
-		this.client.setScreen(this.realms);
-		if (this.stopShowing.isChecked()) {
+	protected void onProceed(Button button) {
+		this.minecraft.setScreen(this.realms);
+		if (this.stopShowing.selected()) {
 			NCRConfig.getClient().setSkipRealmsWarning(true);
 		}
 
@@ -30,8 +31,8 @@ public class RealmsWarningScreen extends TriageWarningScreen {
 	}
 
 	@Override
-	protected void onBack(ButtonWidget button) {
-		this.client.setScreen(null);
+	protected void onBack(Button button) {
+		this.minecraft.setScreen(null);
 	}
 
 	public static boolean shouldShow() {

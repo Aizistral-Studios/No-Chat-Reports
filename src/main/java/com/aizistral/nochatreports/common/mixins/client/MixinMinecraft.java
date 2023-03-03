@@ -11,28 +11,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.aizistral.nochatreports.common.NCRClient;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.RunArgs;
-import net.minecraft.client.util.ProfileKeys;
 
-@Mixin(MinecraftClient.class)
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.main.GameConfig;
+import net.minecraft.client.multiplayer.ProfileKeyPairManager;
+
+@Mixin(Minecraft.class)
 public class MixinMinecraft {
 	@Shadow @Final
-	private ProfileKeys profileKeyPairManager;
+	private ProfileKeyPairManager profileKeyPairManager;
 
 	@Inject(method = "<init>(Lnet/minecraft/client/main/GameConfig;)V", at = @At("RETURN"))
-	private void onConstructed(RunArgs config, CallbackInfo info) {
-		NCRClient.setSigningKeysPresent(this.profileKeyPairManager.fetchKeyPair()
+	private void onConstructed(GameConfig config, CallbackInfo info) {
+		NCRClient.setSigningKeysPresent(this.profileKeyPairManager.prepareKeyPair()
 				.join().isPresent());
 	}
 
 	@Inject(method = "getProfileKeyPairManager", at = @At("HEAD"), cancellable = true)
-	private void onGetProfileKeyPairManager(CallbackInfoReturnable<ProfileKeys> info) {
+	private void onGetProfileKeyPairManager(CallbackInfoReturnable<ProfileKeyPairManager> info) {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
 		if (!ServerSafetyState.allowChatSigning()) {
-			info.setReturnValue(ProfileKeys.MISSING);
+			info.setReturnValue(ProfileKeyPairManager.EMPTY_KEY_MANAGER);
 		}
 	}
 

@@ -1,17 +1,17 @@
 package com.aizistral.nochatreports.common.gui;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ConfirmLinkScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 
 public abstract class TriageWarningScreen extends AdaptiveWarningScreen {
 	private final String wikiLink;
 
-	public TriageWarningScreen(Text title, Text content, Text check, String wikiLink, Screen previous) {
+	public TriageWarningScreen(Component title, Component content, Component check, String wikiLink, Screen previous) {
 		super(title, content, check, previous);
 		this.wikiLink = wikiLink;
 	}
@@ -20,26 +20,26 @@ public abstract class TriageWarningScreen extends AdaptiveWarningScreen {
 	protected void initButtons(int y) {
 		int offset = 28;
 
-		this.addDrawableChild(ButtonWidget.builder(ScreenTexts.PROCEED, this::onProceed)
-				.position(this.width / 2 - 260 + offset, y).size(150, 20).build());
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_PROCEED, this::onProceed)
+				.pos(this.width / 2 - 260 + offset, y).size(150, 20).build());
 
-		this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
-			MinecraftClient.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
+		this.addRenderableWidget(Button.builder(Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
+			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
 				if (agree) {
-					Util.getOperatingSystem().open(this.wikiLink);
+					Util.getPlatform().openUri(this.wikiLink);
 				}
 
-				MinecraftClient.getInstance().setScreen(this);
+				Minecraft.getInstance().setScreen(this);
 			}, this.wikiLink, true));
-		}).position(this.width / 2 - 100 + offset, y).size(150, 20).build());
+		}).pos(this.width / 2 - 100 + offset, y).size(150, 20).build());
 
 
-		this.addDrawableChild(ButtonWidget.builder(ScreenTexts.BACK, this::onBack)
-				.position(this.width / 2 + 60 + offset, y).size(150, 20).build());
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, this::onBack)
+				.pos(this.width / 2 + 60 + offset, y).size(150, 20).build());
 	}
 
-	protected abstract void onProceed(ButtonWidget button);
+	protected abstract void onProceed(Button button);
 
-	protected abstract void onBack(ButtonWidget button);
+	protected abstract void onBack(Button button);
 
 }

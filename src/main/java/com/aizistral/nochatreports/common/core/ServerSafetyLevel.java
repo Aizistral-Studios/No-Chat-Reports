@@ -1,7 +1,7 @@
 package com.aizistral.nochatreports.common.core;
 
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 /**
  * Represents the level of "safety" of the given server, in the eyes of the client.
@@ -58,8 +58,8 @@ public enum ServerSafetyLevel {
 
 	UNDEFINED;
 
-	public MutableText getTooltip() {
-		return Text.translatable("gui.nochatreports.safety_status." + this.name().toLowerCase());
+	public MutableComponent getTooltip() {
+		return Component.translatable("gui.nochatreports.safety_status." + this.name().toLowerCase());
 	}
 
 	public boolean isSecure() {

@@ -8,11 +8,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
-import net.minecraft.client.network.ServerAddress;
-import net.minecraft.client.realms.RealmsConnection;
-import net.minecraft.client.realms.dto.RealmsServer;
+import com.mojang.realmsclient.dto.RealmsServer;
 
-@Mixin(RealmsConnection.class)
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.realms.RealmsConnect;
+
+@Mixin(RealmsConnect.class)
 public class MixinRealmsConnect {
 
 	/**

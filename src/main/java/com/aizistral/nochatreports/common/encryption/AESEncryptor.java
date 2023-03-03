@@ -16,7 +16,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import net.minecraft.util.Pair;
+
+import net.minecraft.util.Tuple;
 
 public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T> {
 	private final T encryption;
@@ -39,7 +40,7 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 
 			Cipher encryptor = Cipher.getInstance(this.key.getAlgorithm() + "/" + mode + "/" + padding);
 			if (this.useIV) {
-				encryptor.init(ENCRYPT_MODE, this.key, this.generateIV().getLeft());
+				encryptor.init(ENCRYPT_MODE, this.key, this.generateIV().getA());
 			} else {
 				encryptor.init(ENCRYPT_MODE, this.key);
 
@@ -48,7 +49,7 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 
 			Cipher decryptor = Cipher.getInstance(this.key.getAlgorithm() + "/" + mode + "/" + padding);
 			if (this.useIV) {
-				decryptor.init(DECRYPT_MODE, this.key, this.generateIV().getLeft());
+				decryptor.init(DECRYPT_MODE, this.key, this.generateIV().getA());
 			} else {
 				decryptor.init(DECRYPT_MODE, this.key);
 			}
@@ -66,10 +67,10 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 			if (this.useIV) {
 				var tuple = this.generateIV();
 
-				this.encryptor.init(ENCRYPT_MODE, this.key, tuple.getLeft());
+				this.encryptor.init(ENCRYPT_MODE, this.key, tuple.getA());
 				byte[] encrypted = this.encryptor.doFinal(toBytes(message));
 
-				return encodeBase64R(ByteBuffer.allocate(encrypted.length + tuple.getRight().length).put(tuple.getRight())
+				return encodeBase64R(ByteBuffer.allocate(encrypted.length + tuple.getB().length).put(tuple.getB())
 						.put(encrypted).array());
 			} else
 				return encodeBase64R(this.encryptor.doFinal(toBytes(message)));
@@ -84,8 +85,8 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 			if (this.useIV) {
 				var tuple = this.splitIV(decodeBase64RBytes(message));
 
-				this.decryptor.init(DECRYPT_MODE, this.key, tuple.getLeft());
-				return fromBytes(this.decryptor.doFinal(tuple.getRight()));
+				this.decryptor.init(DECRYPT_MODE, this.key, tuple.getA());
+				return fromBytes(this.decryptor.doFinal(tuple.getB()));
 			} else
 				return fromBytes(this.decryptor.doFinal(decodeBase64RBytes(message)));
 		} catch (AEADBadTagException ex) {
@@ -105,8 +106,8 @@ public abstract class AESEncryptor<T extends AESEncryption> extends Encryptor<T>
 		return this.encryption;
 	}
 
-	protected abstract Pair<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException;
+	protected abstract Tuple<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException;
 
-	protected abstract Pair<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException;
+	protected abstract Tuple<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException;
 
 }

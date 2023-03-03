@@ -7,18 +7,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
-import net.minecraft.client.network.ServerInfo;
-import net.minecraft.nbt.NbtCompound;
+
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.nbt.CompoundTag;
 
 /**
- * Adds "preventsChatReports" property to {@link ServerInfo} and handles it during serialization to
+ * Adds "preventsChatReports" property to {@link ServerData} and handles it during serialization to
  * and deserialization from NBT-tag.
  *
  * @author fxmorin (original implementation)
  * @author Aizistral (current version)
  */
 
-@Mixin(ServerInfo.class)
+@Mixin(ServerData.class)
 public class MixinServerData implements ServerDataExtension {
 	private boolean preventsChatReports;
 
@@ -33,12 +34,12 @@ public class MixinServerData implements ServerDataExtension {
 	}
 
 	@Inject(method = "write", at = @At("RETURN"))
-	private void onWrite(CallbackInfoReturnable<NbtCompound> info) {
+	private void onWrite(CallbackInfoReturnable<CompoundTag> info) {
 		info.getReturnValue().putBoolean("preventsChatReports", this.preventsChatReports);
 	}
 
 	@Inject(method = "read", locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
-	private static void onRead(NbtCompound tag, CallbackInfoReturnable<ServerInfo> info, ServerInfo data) {
+	private static void onRead(CompoundTag tag, CallbackInfoReturnable<ServerData> info, ServerData data) {
 		((ServerDataExtension)data).setPreventsChatReports(tag.getBoolean("preventsChatReports"));
 	}
 

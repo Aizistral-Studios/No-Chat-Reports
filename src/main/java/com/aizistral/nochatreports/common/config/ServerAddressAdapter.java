@@ -8,7 +8,7 @@ import com.google.gson.stream.JsonWriter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.network.ServerAddress;
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
 @Environment(EnvType.CLIENT)
 public class ServerAddressAdapter extends TypeAdapter<ServerAddress> {
@@ -22,10 +22,10 @@ public class ServerAddressAdapter extends TypeAdapter<ServerAddress> {
 	public ServerAddress read(JsonReader reader) throws IOException {
 		String string = reader.nextString();
 
-		if (!ServerAddress.isValid(string))
+		if (!ServerAddress.isValidAddress(string))
 			throw new IOException("Incorrect server address format: " + string);
 
-		return ServerAddress.parse(string);
+		return ServerAddress.parseString(string);
 	}
 
 	@Override

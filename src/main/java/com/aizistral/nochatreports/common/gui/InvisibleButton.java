@@ -1,21 +1,23 @@
 package com.aizistral.nochatreports.common.gui;
 
 import java.util.function.Supplier;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
 
 @Environment(EnvType.CLIENT)
-public class InvisibleButton extends ButtonWidget {
+public class InvisibleButton extends Button {
 
 	public InvisibleButton() {
-		super(0, 0, 20, 20, Text.empty(), btn -> {}, Supplier::get);
+		super(0, 0, 20, 20, Component.empty(), btn -> {}, Supplier::get);
 	}
 
 	@Override
-	public void render(MatrixStack poseStack, int i, int j, float f) {
+	public void render(PoseStack poseStack, int i, int j, float f) {
 		// NO-OP
 	}
 
