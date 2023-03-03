@@ -6,10 +6,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.common.NCRCore;
+import net.minecraft.client.MinecraftClient;
 
-import net.minecraft.client.Minecraft;
-
-@Mixin(Minecraft.class)
+@Mixin(MinecraftClient.class)
 public class MixinMinecraft {
 
 	@Inject(method = "run", at = @At("HEAD"))

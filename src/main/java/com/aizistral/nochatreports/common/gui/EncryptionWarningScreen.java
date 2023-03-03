@@ -4,16 +4,16 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class EncryptionWarningScreen extends TriageWarningScreen {
-	private static final Component TITLE = Component.translatable("gui.nochatreports.encryption_warning.header").withStyle(ChatFormatting.BOLD);
-	private static final Component CONTENT = Component.translatable("gui.nochatreports.encryption_warning.contents");
-	private static final Component CHECK = Component.translatable("gui.nochatreports.encryption_warning.check");
+	private static final Text TITLE = Text.translatable("gui.nochatreports.encryption_warning.header").formatted(Formatting.BOLD);
+	private static final Text CONTENT = Text.translatable("gui.nochatreports.encryption_warning.contents");
+	private static final Text CHECK = Text.translatable("gui.nochatreports.encryption_warning.check");
 	private static final String WIKI_LINK = "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-to-Encrypt";
 	private static boolean sessionSeen = false;
 
@@ -22,9 +22,9 @@ public class EncryptionWarningScreen extends TriageWarningScreen {
 	}
 
 	@Override
-	protected void onProceed(Button button) {
-		this.minecraft.setScreen(new EncryptionConfigScreen(this.previous));
-		if (this.stopShowing.selected()) {
+	protected void onProceed(ButtonWidget button) {
+		this.client.setScreen(new EncryptionConfigScreen(this.previous));
+		if (this.stopShowing.isChecked()) {
 			NCRConfig.getEncryption().disableWarning();
 		}
 
@@ -32,8 +32,8 @@ public class EncryptionWarningScreen extends TriageWarningScreen {
 	}
 
 	@Override
-	protected void onBack(Button button) {
-		this.minecraft.setScreen(this.previous);
+	protected void onBack(ButtonWidget button) {
+		this.client.setScreen(this.previous);
 	}
 
 	public static boolean seenOnThisSession() {

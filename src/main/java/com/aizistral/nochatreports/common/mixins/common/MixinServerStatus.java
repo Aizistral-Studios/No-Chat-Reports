@@ -7,10 +7,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
+import net.minecraft.server.ServerMetadata;
 
-import net.minecraft.network.protocol.status.ServerStatus;
-
-@Mixin(ServerStatus.class)
+@Mixin(ServerMetadata.class)
 public class MixinServerStatus implements ServerDataExtension {
 
 	/**
@@ -36,10 +35,10 @@ public class MixinServerStatus implements ServerDataExtension {
 
 	@Override
 	public boolean preventsChatReports() {
-		var self = (ServerStatus) (Object) this;
+		var self = (ServerMetadata) (Object) this;
 
-		if (self.version().isPresent() && self.version().get().protocol() < 759
-				&& self.version().get().protocol() > 0)
+		if (self.version().isPresent() && self.version().get().protocolVersion() < 759
+				&& self.version().get().protocolVersion() > 0)
 			return true;
 
 		return this.preventsChatReports;

@@ -1,14 +1,13 @@
 package com.aizistral.nochatreports.common.mixins.server;
 
+import net.minecraft.network.message.MessageSignatureData;
+import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.network.chat.MessageSignature;
-import net.minecraft.network.protocol.game.ServerboundChatPacket;
-
-@Mixin(ServerboundChatPacket.class)
+@Mixin(ChatMessageC2SPacket.class)
 public class MixinServerboundChatPacket {
 
 	/**
@@ -19,7 +18,7 @@ public class MixinServerboundChatPacket {
 	 */
 
 	@Inject(method = "signature", at = @At("RETURN"), cancellable = true)
-	private void onGetSignature(CallbackInfoReturnable<MessageSignature> info) {
+	private void onGetSignature(CallbackInfoReturnable<MessageSignatureData> info) {
 		info.setReturnValue(null);
 	}
 

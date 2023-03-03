@@ -1,15 +1,13 @@
 package com.aizistral.nochatreports.common.mixins.server;
 
+import net.minecraft.network.message.ArgumentSignatureDataMap;
+import net.minecraft.network.packet.c2s.play.CommandExecutionC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.commands.arguments.ArgumentSignatures;
-import net.minecraft.network.chat.MessageSignature;
-import net.minecraft.network.protocol.game.ServerboundChatCommandPacket;
-
-@Mixin(ServerboundChatCommandPacket.class)
+@Mixin(CommandExecutionC2SPacket.class)
 public class MixinServerboundChatCommandPacket {
 
 	/**
@@ -18,8 +16,8 @@ public class MixinServerboundChatCommandPacket {
 	 */
 
 	@Inject(method = "argumentSignatures", at = @At("RETURN"), cancellable = true)
-	private void onGetSignatures(CallbackInfoReturnable<ArgumentSignatures> info) {
-		info.setReturnValue(ArgumentSignatures.EMPTY);
+	private void onGetSignatures(CallbackInfoReturnable<ArgumentSignatureDataMap> info) {
+		info.setReturnValue(ArgumentSignatureDataMap.EMPTY);
 	}
 
 }

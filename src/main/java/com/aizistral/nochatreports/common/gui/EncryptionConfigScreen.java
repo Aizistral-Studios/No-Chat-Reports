@@ -6,46 +6,45 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.config.NCRConfigEncryption;
 import com.aizistral.nochatreports.common.encryption.Encryption;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Checkbox;
-import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.MultiLineLabel;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.StringUtil;
+import net.minecraft.client.font.MultilineText;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.CheckboxWidget;
+import net.minecraft.client.gui.widget.CyclingButtonWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.screen.ScreenTexts;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.StringHelper;
 
 @Environment(EnvType.CLIENT)
 public class EncryptionConfigScreen extends Screen {
-	private static final ResourceLocation ENCRYPTION_ICONS = new ResourceLocation("nochatreports", "textures/gui/encryption_gui_icons.png");
-	private static final Component HEADER = Component.translatable("gui.nochatreports.encryption_config.header");
-	private static final Component KEY_DESC = Component.translatable("gui.nochatreports.encryption_config.key_desc");
-	private static final Component PASS_DESC = Component.translatable("gui.nochatreports.encryption_config.passphrase_desc");
-	private static final Component VALIDATION_OK = Component.translatable("gui.nochatreports.encryption_config.validation_ok");
-	private static final Component VALIDATION_FAILED = Component.translatable("gui.nochatreports.encryption_config.validation_failed");
-	private static final Component DICE_TOOLTIP = Component.translatable("gui.nochatreports.encryption_config.dice_tooltip");
-	private static final Component PASS_NOT_ALLOWED = Component.translatable("gui.nochatreports.encryption_config.pass_not_allowed");
-	private static final Component ENCRYPT_PUBLIC = Component.translatable("gui.nochatreports.encryption_config.encrypt_public");
+	private static final Identifier ENCRYPTION_ICONS = new Identifier("nochatreports", "textures/gui/encryption_gui_icons.png");
+	private static final Text HEADER = Text.translatable("gui.nochatreports.encryption_config.header");
+	private static final Text KEY_DESC = Text.translatable("gui.nochatreports.encryption_config.key_desc");
+	private static final Text PASS_DESC = Text.translatable("gui.nochatreports.encryption_config.passphrase_desc");
+	private static final Text VALIDATION_OK = Text.translatable("gui.nochatreports.encryption_config.validation_ok");
+	private static final Text VALIDATION_FAILED = Text.translatable("gui.nochatreports.encryption_config.validation_failed");
+	private static final Text DICE_TOOLTIP = Text.translatable("gui.nochatreports.encryption_config.dice_tooltip");
+	private static final Text PASS_NOT_ALLOWED = Text.translatable("gui.nochatreports.encryption_config.pass_not_allowed");
+	private static final Text ENCRYPT_PUBLIC = Text.translatable("gui.nochatreports.encryption_config.encrypt_public");
 
 	private static final int FIELDS_Y_START = 45;
 	private final Screen previous;
 	private CustomEditBox keyField, passField;
-	private ImageButton validationIcon;
-	private CycleButton<Encryption> algorithmButton;
-	private MultiLineLabel keyDesc = MultiLineLabel.EMPTY, passDesc = MultiLineLabel.EMPTY;
-	protected Checkbox encryptPublicCheck;
+	private TexturedButtonWidget validationIcon;
+	private CyclingButtonWidget<Encryption> algorithmButton;
+	private MultilineText keyDesc = MultilineText.EMPTY, passDesc = MultilineText.EMPTY;
+	protected CheckboxWidget encryptPublicCheck;
 	private boolean settingPassKey = false;
 
 	public EncryptionConfigScreen(Screen previous) {
-		super(CommonComponents.EMPTY);
+		super(ScreenTexts.EMPTY);
 		this.previous = previous;
 	}
 
@@ -55,108 +54,108 @@ public class EncryptionConfigScreen extends Screen {
 
 	@Override
 	protected void init() {
-		this.clearWidgets();
+		this.clearChildren();
 		super.init();
 
 		int w = (int) (this.width * (this.hugeGUI() ? 0.9 : 0.7));
 
-		this.keyDesc = MultiLineLabel.create(this.font, KEY_DESC, w - 5);
-		int keyDescSpace = (this.keyDesc.getLineCount() + 1) * this.getLineHeight();
+		this.keyDesc = MultilineText.create(this.textRenderer, KEY_DESC, w - 5);
+		int keyDescSpace = (this.keyDesc.count() + 1) * this.getLineHeight();
 
-		this.passDesc = MultiLineLabel.create(this.font, PASS_DESC, w - 5);
-		int passDescSpace = (this.passDesc.getLineCount() + 1) * this.getLineHeight();
+		this.passDesc = MultilineText.create(this.textRenderer, PASS_DESC, w - 5);
+		int passDescSpace = (this.passDesc.count() + 1) * this.getLineHeight();
 
 		w -= 52;
 
-		this.keyField = new CustomEditBox(this.font, (this.width - w)/2 - 2, (this.hugeGUI() ? 25 : FIELDS_Y_START) + keyDescSpace - 15,
-				w, 18, CommonComponents.EMPTY);
+		this.keyField = new CustomEditBox(this.textRenderer, (this.width - w)/2 - 2, (this.hugeGUI() ? 25 : FIELDS_Y_START) + keyDescSpace - 15,
+				w, 18, ScreenTexts.EMPTY);
 		this.keyField.setMaxLength(512);
-		this.keyField.setResponder(this::onKeyUpdate);
-		this.addWidget(this.keyField);
+		this.keyField.setChangedListener(this::onKeyUpdate);
+		this.addSelectableChild(this.keyField);
 
 		var button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() - 15, this.keyField.getY() + 3, 12,
-				12, 0, 0, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
+				12, 0, 0, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Text.empty(), this);
 		button.setTooltip(new AdvancedTooltip(() -> this.validationIcon != null &&
-				this.validationIcon.yTexStart == 0 ? VALIDATION_OK : VALIDATION_FAILED).setMaxWidth(250));
+				this.validationIcon.v == 0 ? VALIDATION_OK : VALIDATION_FAILED).setMaxWidth(250));
 		button.active = false;
 		button.visible = true;
 
-		this.addRenderableOnly(this.validationIcon = button);
+		this.addDrawable(this.validationIcon = button);
 
 		button = new AdvancedImageButton(this.keyField.getX() - 22, this.keyField.getY() - 0, 18, 18, 0,
-				28, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
+				28, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Text.empty(), this);
 		button.active = false;
 		button.visible = true;
 
-		this.addRenderableOnly(button);
+		this.addDrawable(button);
 
 		button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() + 4, this.keyField.getY() - 1, 23, 20, 41,
 				24, 20, ENCRYPTION_ICONS, 64, 64, btn -> {
 					this.unfocusFields();
-					this.keyField.setValue(this.algorithmButton.getValue().getRandomKey());
-				}, Component.empty(), this);
+					this.keyField.setText(this.algorithmButton.getValue().getRandomKey());
+				}, Text.empty(), this);
 		button.setTooltip(new AdvancedTooltip(DICE_TOOLTIP).setMaxWidth(250));
 		button.active = true;
 		button.visible = true;
 
-		this.addRenderableWidget(button);
+		this.addDrawableChild(button);
 
 		w += 25;
 
-		this.passField = new CustomEditBox(this.font, (this.width - w)/2 + 11, this.keyField.getY() +
-				this.keyField.getHeight() + passDescSpace + (this.hugeGUI() ? -3 : 13), w, 18, CommonComponents.EMPTY);
+		this.passField = new CustomEditBox(this.textRenderer, (this.width - w)/2 + 11, this.keyField.getY() +
+				this.keyField.getHeight() + passDescSpace + (this.hugeGUI() ? -3 : 13), w, 18, ScreenTexts.EMPTY);
 		this.passField.setMaxLength(512);
-		this.passField.setResponder(this::onPassphraseUpdate);
-		this.addWidget(this.passField);
+		this.passField.setChangedListener(this::onPassphraseUpdate);
+		this.addSelectableChild(this.passField);
 
 		button = new AdvancedImageButton(this.passField.getX() - 22, this.passField.getY() - 0, 18, 18, 0,
-				46, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
+				46, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Text.empty(), this);
 		button.active = false;
 		button.visible = true;
 
-		this.addRenderableOnly(button);
+		this.addDrawable(button);
 
-		int checkWidth = this.font.width(ENCRYPT_PUBLIC);
-		this.encryptPublicCheck = new Checkbox(this.width / 2 - checkWidth / 2 - 8, this.passField.getY() + 24, checkWidth + 24, 20,
+		int checkWidth = this.textRenderer.getWidth(ENCRYPT_PUBLIC);
+		this.encryptPublicCheck = new CheckboxWidget(this.width / 2 - checkWidth / 2 - 8, this.passField.getY() + 24, checkWidth + 24, 20,
 				ENCRYPT_PUBLIC, NCRConfig.getEncryption().shouldEncryptPublic());
-		this.addRenderableWidget(this.encryptPublicCheck);
+		this.addDrawableChild(this.encryptPublicCheck);
 
-		this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, btn -> {
+		this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, btn -> {
 			this.onDone();
-			this.onClose();
-		}).pos(this.width / 2 + 4, this.passField.getY() + 48).size(219, 20).build());
+			this.close();
+		}).position(this.width / 2 + 4, this.passField.getY() + 48).size(219, 20).build());
 
-		CycleButton<Encryption> cycle = CycleButton.<Encryption>builder(value -> {
-			return Component.translatable("gui.nochatreports.encryption_config.algorithm",
-					Component.translatable("algorithm.nochatreports." + value.getID() + ".name"));
-		}).withValues(Encryption.getRegistered()).displayOnlyValue().withInitialValue(this.getConfig()
-				.getAlgorithm()).withTooltip(value -> new AdvancedTooltip(Component.translatable(
+		CyclingButtonWidget<Encryption> cycle = CyclingButtonWidget.<Encryption>builder(value -> {
+			return Text.translatable("gui.nochatreports.encryption_config.algorithm",
+					Text.translatable("algorithm.nochatreports." + value.getID() + ".name"));
+		}).values(Encryption.getRegistered()).omitKeyText().initially(this.getConfig()
+				.getAlgorithm()).tooltip(value -> new AdvancedTooltip(Text.translatable(
 						"algorithm.nochatreports." + value.getID())).setMaxWidth(250))
-				.create(this.width / 2 - 4 - 218, this.passField.getY() + 48, 218, 20, CommonComponents.EMPTY,
+				.build(this.width / 2 - 4 - 218, this.passField.getY() + 48, 218, 20, ScreenTexts.EMPTY,
 						(cycleButton, value) -> {
 							this.unfocusFields();
 							this.onAlgorithmUpdate(value);
 						});
 
-		this.addRenderableWidget(this.algorithmButton = cycle);
+		this.addDrawableChild(this.algorithmButton = cycle);
 
 		this.onAlgorithmUpdate(this.algorithmButton.getValue());
 
-		if (!StringUtil.isNullOrEmpty(this.getConfig().getEncryptionPassphrase())) {
-			this.passField.setValue(this.getConfig().getEncryptionPassphrase());
-		} else if (!StringUtil.isNullOrEmpty(this.getConfig().getEncryptionKey())) {
+		if (!StringHelper.isEmpty(this.getConfig().getEncryptionPassphrase())) {
+			this.passField.setText(this.getConfig().getEncryptionPassphrase());
+		} else if (!StringHelper.isEmpty(this.getConfig().getEncryptionKey())) {
 			if (!Objects.equals(this.getConfig().getEncryptionKey(), this.algorithmButton.getValue()
 					.getDefaultKey())) {
-				this.keyField.setValue(this.getConfig().getEncryptionKey());
+				this.keyField.setText(this.getConfig().getEncryptionKey());
 			} else {
-				this.keyField.setValue("");
+				this.keyField.setText("");
 			}
 		}
 	}
 
 	@Override
-	public void render(PoseStack poseStack, int i, int j, float f) {
-		if (!this.passField.isActive()) {
+	public void render(MatrixStack poseStack, int i, int j, float f) {
+		if (!this.passField.isNarratable()) {
 			if (this.passField.isFocused()) {
 				this.passField.setFocused(false);
 			}
@@ -164,13 +163,13 @@ public class EncryptionConfigScreen extends Screen {
 		}
 
 		this.renderBackground(poseStack);
-		Screen.drawCenteredString(poseStack, this.font, HEADER, this.width / 2, this.hugeGUI() ? 8 : 16, 0xFFFFFF);
+		Screen.drawCenteredTextWithShadow(poseStack, this.textRenderer, HEADER, this.width / 2, this.hugeGUI() ? 8 : 16, 0xFFFFFF);
 
-		this.keyDesc.renderLeftAligned(poseStack, this.keyField.getX() - 20, (this.hugeGUI() ? 25 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
+		this.keyDesc.drawWithShadow(poseStack, this.keyField.getX() - 20, (this.hugeGUI() ? 25 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
 
 		this.keyField.render(poseStack, i, j, f);
 
-		this.passDesc.renderLeftAligned(poseStack, this.passField.getX() - 20, this.keyField.getY() + this.keyField.getHeight() + (this.hugeGUI() ? 12 : 28),
+		this.passDesc.drawWithShadow(poseStack, this.passField.getX() - 20, this.keyField.getY() + this.keyField.getHeight() + (this.hugeGUI() ? 12 : 28),
 				this.getLineHeight(), 0xFFFFFF);
 
 		this.passField.render(poseStack, i, j, f);
@@ -181,27 +180,27 @@ public class EncryptionConfigScreen extends Screen {
 
 		super.render(poseStack, i, j, f);
 
-		if (StringUtil.isNullOrEmpty(this.keyField.getValue()) && !this.keyField.isFocused()) {
-			Screen.drawString(poseStack, this.font,
-					Component.translatable("gui.nochatreports.encryption_config.default_key",
+		if (StringHelper.isEmpty(this.keyField.getText()) && !this.keyField.isFocused()) {
+			Screen.drawTextWithShadow(poseStack, this.textRenderer,
+					Text.translatable("gui.nochatreports.encryption_config.default_key",
 							this.algorithmButton.getValue().getDefaultKey()), this.keyField.getX() + 4,
 					this.keyField.getY() + 5, 0x999999);
 		}
 
 		if (!this.passField.active) {
-			Screen.drawString(poseStack, this.font, PASS_NOT_ALLOWED, this.passField.getX() + 4,
+			Screen.drawTextWithShadow(poseStack, this.textRenderer, PASS_NOT_ALLOWED, this.passField.getX() + 4,
 					this.passField.getY() + 5, 0x999999);
 			RenderSystem.setShaderTexture(0, ENCRYPTION_ICONS);
 			RenderSystem.enableDepthTest();
-			blit(poseStack, this.passField.getX() - 20, this.passField.getY() + 3, 50, 0, 14, 13, 64, 64);
+			drawTexture(poseStack, this.passField.getX() - 20, this.passField.getY() + 3, 50, 0, 14, 13, 64, 64);
 		}
 	}
 
 	private int getLineHeight() {
 		if (this.hugeGUI())
-			return (int) (this.minecraft.font.lineHeight * 1.5) + 1;
+			return (int) (this.client.textRenderer.fontHeight * 1.5) + 1;
 		else
-			return this.minecraft.font.lineHeight * 2;
+			return this.client.textRenderer.fontHeight * 2;
 	}
 
 	@Override
@@ -211,13 +210,13 @@ public class EncryptionConfigScreen extends Screen {
 
 	private void onKeyUpdate(String key) {
 		if (!this.settingPassKey) {
-			this.passField.setValue("");
+			this.passField.setText("");
 		}
 
-		if (!StringUtil.isNullOrEmpty(key)) {
-			this.validationIcon.yTexStart = this.algorithmButton.getValue().validateKey(key) ? 0 : 12;
+		if (!StringHelper.isEmpty(key)) {
+			this.validationIcon.v = this.algorithmButton.getValue().validateKey(key) ? 0 : 12;
 		} else {
-			this.validationIcon.yTexStart = 0;
+			this.validationIcon.v = 0;
 		}
 	}
 
@@ -225,12 +224,12 @@ public class EncryptionConfigScreen extends Screen {
 		Encryption encryption = this.algorithmButton.getValue();
 
 		this.settingPassKey = true;
-		if (!StringUtil.isNullOrEmpty(pass)) {
+		if (!StringHelper.isEmpty(pass)) {
 			if (encryption.supportsPassphrases()) {
-				this.keyField.setValue(encryption.getPassphraseKey(pass));
+				this.keyField.setText(encryption.getPassphraseKey(pass));
 			}
 		} else {
-			this.onKeyUpdate(this.keyField.getValue());
+			this.onKeyUpdate(this.keyField.getText());
 		}
 		this.settingPassKey = false;
 	}
@@ -239,10 +238,10 @@ public class EncryptionConfigScreen extends Screen {
 		if (!encryption.supportsPassphrases()) {
 			this.passField.setFocused(false);
 			this.passField.setEditable(this.passField.active = false);
-			this.onKeyUpdate(this.keyField.getValue());
+			this.onKeyUpdate(this.keyField.getText());
 		} else {
 			this.passField.setEditable(this.passField.active = true);
-			this.onPassphraseUpdate(this.passField.getValue());
+			this.onPassphraseUpdate(this.passField.getText());
 		}
 	}
 
@@ -255,9 +254,9 @@ public class EncryptionConfigScreen extends Screen {
 		var config = NCRConfig.getEncryption();
 		var encryption = this.algorithmButton.getValue();
 		config.setAlgorithm(encryption);
-		config.setEncryptionKey(!StringUtil.isNullOrEmpty(this.keyField.getValue()) ? this.keyField.getValue()
+		config.setEncryptionKey(!StringHelper.isEmpty(this.keyField.getText()) ? this.keyField.getText()
 				: encryption.getDefaultKey());
-		config.setEncryptPublic(this.encryptPublicCheck.selected());
+		config.setEncryptPublic(this.encryptPublicCheck.isChecked());
 	}
 
 	private boolean hugeGUI() {
@@ -265,12 +264,12 @@ public class EncryptionConfigScreen extends Screen {
 	}
 
 	@Override
-	public void onClose() {
-		this.minecraft.setScreen(this.previous);
+	public void close() {
+		this.client.setScreen(this.previous);
 	}
 
-	private static class CustomEditBox extends EditBox {
-		public CustomEditBox(Font font, int i, int j, int k, int l, Component component) {
+	private static class CustomEditBox extends TextFieldWidget {
+		public CustomEditBox(TextRenderer font, int i, int j, int k, int l, Text component) {
 			super(font, i, j, k, l, component);
 		}
 

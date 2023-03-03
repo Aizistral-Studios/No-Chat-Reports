@@ -1,41 +1,39 @@
 package com.aizistral.nochatreports.common.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class AdvancedImageButton extends ImageButton {
+public class AdvancedImageButton extends TexturedButtonWidget {
 	protected final Screen parent;
 
 	public AdvancedImageButton(int x, int y, int xSize, int ySize, int xTexStart, int yTexStart, int yStateDiff,
-			ResourceLocation texture, int textureWidth, int textureHeight, OnPress onPress, Component name,
+			Identifier texture, int textureWidth, int textureHeight, PressAction onPress, Text name,
 			Screen parent) {
 		super(x, y, xSize, ySize, xTexStart, yTexStart, yStateDiff, texture, textureWidth, textureHeight, onPress, name);
 		this.parent = parent;
 	}
 
 	@Override
-	public void updateTooltip() {
+	public void applyTooltip() {
 		if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender())
 			return;
 
-		super.updateTooltip();
+		super.applyTooltip();
 	}
 
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float delta) {
-		super.renderWidget(poseStack, mouseX, mouseY, delta);
+	public void renderButton(MatrixStack poseStack, int mouseX, int mouseY, float delta) {
+		super.renderButton(poseStack, mouseX, mouseY, delta);
 
-		if (this.isHovered)
+		if (this.hovered)
 			if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender()) {
-				tooltip.doCustomRender(this.parent, poseStack, mouseX, mouseY, this.createTooltipPositioner());
+				tooltip.doCustomRender(this.parent, poseStack, mouseX, mouseY, this.getTooltipPositioner());
 			}
 	}
 

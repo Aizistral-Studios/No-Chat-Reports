@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.fabricmc.api.EnvType;
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.client.network.ServerAddress;
 
 public abstract class JSONConfig {
 	protected static final Path CONFIG_DIR = NCRCore.getProvider().getConfigDir();

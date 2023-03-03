@@ -2,10 +2,10 @@ package com.aizistral.nochatreports.common.platform.events.particular;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 
 @Environment(EnvType.CLIENT)
 public interface PlayReady {
-	public void handle(ClientPacketListener handler, Minecraft client);
+	public void handle(ClientPlayNetworkHandler handler, MinecraftClient client);
 }

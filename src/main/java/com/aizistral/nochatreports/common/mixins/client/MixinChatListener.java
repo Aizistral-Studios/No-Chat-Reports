@@ -3,7 +3,14 @@ package com.aizistral.nochatreports.common.mixins.client;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.UUID;
-
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.network.message.MessageHandler;
+import net.minecraft.client.network.message.MessageTrustStatus;
+import net.minecraft.network.message.SignedMessage;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,16 +28,7 @@ import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
 import com.aizistral.nochatreports.common.gui.UnsafeServerScreen;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.client.multiplayer.chat.ChatListener;
-import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.PlayerChatMessage;
-import net.minecraft.network.chat.contents.TranslatableContents;
-
-@Mixin(ChatListener.class)
+@Mixin(MessageHandler.class)
 public class MixinChatListener {
 
 	@Shadow
@@ -39,10 +37,10 @@ public class MixinChatListener {
 	}
 
 	@Inject(method = "handleSystemMessage", at = @At("HEAD"), cancellable = true)
-	private void onHandleSystemMessage(Component message, boolean overlay, CallbackInfo info) {
-		if (message instanceof MutableComponent mutable && message.getContents() instanceof TranslatableContents translatable) {
+	private void onHandleSystemMessage(Text message, boolean overlay, CallbackInfo info) {
+		if (message instanceof MutableText mutable && message.getContent() instanceof TranslatableTextContent translatable) {
 			if (translatable.getKey().equals("chat.disabled.missingProfileKey")) {
-				mutable.contents = new TranslatableContents("chat.nochatreports.disabled.signing_requested", null, TranslatableContents.NO_ARGS);
+				mutable.content = new TranslatableTextContent("chat.nochatreports.disabled.signing_requested", null, TranslatableTextContent.EMPTY_ARGUMENTS);
 
 				if (!ServerSafetyState.isOnRealms()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
@@ -63,7 +61,7 @@ public class MixinChatListener {
 				}
 
 				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.PROMPT)) {
-					Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
+					MinecraftClient.getInstance().setScreen(new UnsafeServerScreen(MinecraftClient.getInstance().currentScreen
 							instanceof ChatScreen chat ? chat : new ChatScreen("")));
 
 					if (NCRConfig.getClient().hideSigningRequestMessage()) {
@@ -82,35 +80,35 @@ public class MixinChatListener {
 	 */
 
 	@Inject(method = "evaluateTrustLevel", at = @At("HEAD"), cancellable = true)
-	private void onEvaluateTrustLevel(PlayerChatMessage playerChatMessage, Component component, Instant instant, CallbackInfoReturnable<ChatTrustLevel> info) {
-		if (this.isSenderLocalPlayer(playerChatMessage.sender())) {
-			info.setReturnValue(ChatTrustLevel.SECURE);
+	private void onEvaluateTrustLevel(SignedMessage playerChatMessage, Text component, Instant instant, CallbackInfoReturnable<MessageTrustStatus> info) {
+		if (this.isSenderLocalPlayer(playerChatMessage.getSender())) {
+			info.setReturnValue(MessageTrustStatus.SECURE);
 		} else {
 			if (playerChatMessage.hasSignature() && ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
 				ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
 			}
 
-			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, instant);
+			var evaluate = MessageTrustStatus.getStatus(playerChatMessage, component, instant);
 
-			if (evaluate == ChatTrustLevel.NOT_SECURE && NCRConfig.getClient().hideInsecureMessageIndicators()) {
-				info.setReturnValue(ChatTrustLevel.SECURE);
-			} else if (evaluate == ChatTrustLevel.MODIFIED && NCRConfig.getClient().hideModifiedMessageIndicators()) {
-				info.setReturnValue(ChatTrustLevel.SECURE);
+			if (evaluate == MessageTrustStatus.NOT_SECURE && NCRConfig.getClient().hideInsecureMessageIndicators()) {
+				info.setReturnValue(MessageTrustStatus.SECURE);
+			} else if (evaluate == MessageTrustStatus.MODIFIED && NCRConfig.getClient().hideModifiedMessageIndicators()) {
+				info.setReturnValue(MessageTrustStatus.SECURE);
 			}
 		}
 
 		// Debug never dies
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NCRCore.LOGGER.info("Received message: {}, from: {}, signature: {}",
-					Component.Serializer.toStableJson(playerChatMessage.unsignedContent()),
+					Text.Serializer.toSortedJsonString(playerChatMessage.unsignedContent()),
 					playerChatMessage.link().sender(),
-					Base64.getEncoder().encodeToString(playerChatMessage.signature() != null ? playerChatMessage.signature().bytes() : new byte[0]));
+					Base64.getEncoder().encodeToString(playerChatMessage.signature() != null ? playerChatMessage.signature().data() : new byte[0]));
 		}
 	}
 
 	@ModifyVariable(method = "narrateChatMessage(Lnet/minecraft/network/chat/ChatType$Bound;"
 			+ "Lnet/minecraft/network/chat/Component;)V", at = @At("HEAD"), argsOnly = true)
-	private Component decryptNarratedMessage(Component msg) {
+	private Text decryptNarratedMessage(Text msg) {
 		return EncryptionUtil.tryDecrypt(msg).orElse(msg);
 	}
 

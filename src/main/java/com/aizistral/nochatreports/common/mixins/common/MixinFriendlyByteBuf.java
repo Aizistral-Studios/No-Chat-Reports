@@ -18,26 +18,25 @@ import com.mojang.serialization.JsonOps;
 
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
-import net.minecraft.Util;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
-import net.minecraft.network.protocol.status.ServerStatus;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.ServerMetadata;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.Util;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-@Mixin(FriendlyByteBuf.class)
+@Mixin(PacketByteBuf.class)
 public abstract class MixinFriendlyByteBuf {
 	@Shadow @Final
 	private static Gson GSON;
 
 	@Inject(method = "readJsonWithCodec", at = @At("HEAD"), cancellable = true)
 	private void onReadJsonWithCodec(Codec codec, CallbackInfoReturnable info) throws Exception {
-		if (codec == ServerStatus.CODEC) {
+		if (codec == ServerMetadata.CODEC) {
 			info.cancel();
 
-			JsonElement jsonElement = GsonHelper.fromJson(GSON, this.readUtf(), JsonElement.class);
+			JsonElement jsonElement = JsonHelper.deserialize(GSON, this.readUtf(), JsonElement.class);
 			DataResult dataResult = codec.parse(JsonOps.INSTANCE, jsonElement);
-			Object result = Util.getOrThrow(dataResult, string -> new DecoderException("Failed to decode json: " + string));
+			Object result = Util.getResult(dataResult, string -> new DecoderException("Failed to decode json: " + string));
 
 			if (jsonElement.getAsJsonObject().has("preventsChatReports")) {
 				((ServerDataExtension) result).setPreventsChatReports(jsonElement.getAsJsonObject()
@@ -53,11 +52,11 @@ public abstract class MixinFriendlyByteBuf {
 		if (!NCRConfig.getCommon().addQueryData())
 			return;
 
-		if (codec == ServerStatus.CODEC) {
+		if (codec == ServerMetadata.CODEC) {
 			info.cancel();
 
 			DataResult<JsonElement> dataResult = codec.encodeStart(JsonOps.INSTANCE, object);
-			JsonElement element = Util.getOrThrow(dataResult, string -> new EncoderException("Failed to encode: " + string + " " + object));
+			JsonElement element = Util.getResult(dataResult, string -> new EncoderException("Failed to encode: " + string + " " + object));
 
 			element.getAsJsonObject().addProperty("preventsChatReports", true);
 
@@ -69,5 +68,5 @@ public abstract class MixinFriendlyByteBuf {
 	public abstract String readUtf();
 
 	@Shadow
-	public abstract FriendlyByteBuf writeUtf(String string);
+	public abstract PacketByteBuf writeUtf(String string);
 }

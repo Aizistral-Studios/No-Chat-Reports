@@ -11,8 +11,9 @@ import com.aizistral.nochatreports.common.gui.UnsafeServerScreen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ServerAddress;
 
 /**
  * All this global state is questionable, but we have to...
@@ -41,16 +42,16 @@ public final class ServerSafetyState {
 
 	public static CompletableFuture<Void> setAllowChatSigning(boolean allow) {
 		if (ALLOW_CHAT_SIGNING.compareAndSet(!allow, allow)) {
-			if (Minecraft.getInstance().player != null) {
-				var connection = Minecraft.getInstance().player.connection;
+			if (MinecraftClient.getInstance().player != null) {
+				var connection = MinecraftClient.getInstance().player.networkHandler;
 
-				if (allow && connection.chatSession == null)
-					return Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
+				if (allow && connection.session == null)
+					return MinecraftClient.getInstance().getProfileKeys().fetchKeyPair()
 							.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
-								connection.setKeyPair(profileKeyPair);
+								connection.updateKeyPair(profileKeyPair);
 								SIGNING_ACTIONS.forEach(Runnable::run);
 								SIGNING_ACTIONS.clear();
-							}), Minecraft.getInstance());
+							}), MinecraftClient.getInstance());
 			}
 		}
 

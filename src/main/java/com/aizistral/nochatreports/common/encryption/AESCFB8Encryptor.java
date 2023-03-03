@@ -7,8 +7,7 @@ import java.util.Random;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-
-import net.minecraft.util.Tuple;
+import net.minecraft.util.Pair;
 
 public class AESCFB8Encryptor extends AESEncryptor<AESCFB8Encryption> {
 
@@ -21,15 +20,15 @@ public class AESCFB8Encryptor extends AESEncryptor<AESCFB8Encryption> {
 	}
 
 	@Override
-	protected Tuple<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException {
+	protected Pair<AlgorithmParameterSpec, byte[]> generateIV() throws UnsupportedOperationException {
 		long nonce = RANDOM.nextLong();
 		byte[] iv = new byte[16];
 		new Random(nonce).nextBytes(iv);
-		return new Tuple<>(new IvParameterSpec(iv), ByteBuffer.allocate(8).putLong(nonce).array());
+		return new Pair<>(new IvParameterSpec(iv), ByteBuffer.allocate(8).putLong(nonce).array());
 	}
 
 	@Override
-	protected Tuple<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException {
+	protected Pair<AlgorithmParameterSpec, byte[]> splitIV(byte[] message) throws UnsupportedOperationException {
 		ByteBuffer buffer = ByteBuffer.wrap(message);
 		int size = buffer.capacity();
 		long nonce = buffer.getLong();
@@ -37,7 +36,7 @@ public class AESCFB8Encryptor extends AESEncryptor<AESCFB8Encryption> {
 		buffer.get(encrypted);
 		byte[] iv = new byte[16];
 		new Random(nonce).nextBytes(iv);
-		return new Tuple<>(new IvParameterSpec(iv), encrypted);
+		return new Pair<>(new IvParameterSpec(iv), encrypted);
 	}
 
 }

@@ -9,24 +9,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.mojang.brigadier.ParseResults;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.argument.SignedArgumentList;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
+import net.minecraft.network.packet.c2s.play.CommandExecutionC2SPacket;
 
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.SignableCommand;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ServerboundChatCommandPacket;
-import net.minecraft.network.protocol.game.ServerboundChatPacket;
-
-@Mixin(ClientPacketListener.class)
+@Mixin(ClientPlayNetworkHandler.class)
 public abstract class MixinClientPacketListener {
 
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;)V", at = @At("HEAD"))
 	private void onSend(Packet<?> packet, CallbackInfo info) {
 		if (!ServerSafetyState.allowChatSigning() && !ServerSafetyState.isDetermined()) {
-			if (packet instanceof ServerboundChatPacket chat) {
+			if (packet instanceof ChatMessageC2SPacket chat) {
 				ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE); // asume unintrusive until further notice
-			} else if (packet instanceof ServerboundChatCommandPacket command) {
-				if (!SignableCommand.of(this.parseCommand(command.command())).arguments().isEmpty()) {
+			} else if (packet instanceof CommandExecutionC2SPacket command) {
+				if (!SignedArgumentList.of(this.parseCommand(command.command())).arguments().isEmpty()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
 				}
 			}
@@ -34,7 +33,7 @@ public abstract class MixinClientPacketListener {
 	}
 
 	@Shadow
-	private ParseResults<SharedSuggestionProvider> parseCommand(String command) {
+	private ParseResults<CommandSource> parseCommand(String command) {
 		throw new IllegalStateException("@Shadow transformation failed");
 	}
 

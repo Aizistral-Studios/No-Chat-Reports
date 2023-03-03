@@ -6,13 +6,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
+import net.minecraft.network.listener.ServerPlayPacketListener;
+import net.minecraft.network.packet.c2s.play.PlayerSessionC2SPacket;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.text.Text;
 
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ServerGamePacketListener;
-import net.minecraft.network.protocol.game.ServerboundChatSessionUpdatePacket;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
-
-@Mixin(ServerboundChatSessionUpdatePacket.class)
+@Mixin(PlayerSessionC2SPacket.class)
 public class MixinServerboundChatSessionUpdatePacket {
 
 	/**
@@ -21,12 +20,12 @@ public class MixinServerboundChatSessionUpdatePacket {
 	 */
 
 	@Inject(method = "handle", at = @At("HEAD"), cancellable = true)
-	private void onHandle(ServerGamePacketListener listener, CallbackInfo info) {
-		var impl = (ServerGamePacketListenerImpl) listener;
+	private void onHandle(ServerPlayPacketListener listener, CallbackInfo info) {
+		var impl = (ServerPlayNetworkHandler) listener;
 
-		if (!impl.getPlayer().getServer().isSingleplayerOwner(impl.getPlayer().getGameProfile())) {
+		if (!impl.getPlayer().getServer().isHost(impl.getPlayer().getGameProfile())) {
 			if (NCRConfig.getCommon().demandOnClient()) {
-				impl.disconnect(Component.literal(NCRConfig.getCommon().demandOnClientMessage()));
+				impl.disconnect(Text.literal(NCRConfig.getCommon().demandOnClientMessage()));
 			}
 		}
 

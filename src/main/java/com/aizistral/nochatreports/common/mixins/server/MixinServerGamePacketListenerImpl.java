@@ -9,20 +9,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
+import net.minecraft.network.PacketCallbacks;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.EntityTrackingListener;
+import net.minecraft.text.Text;
 
-import net.minecraft.network.PacketSendListener;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
-import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.server.network.ServerPlayerConnection;
-
-@Mixin(ServerGamePacketListenerImpl.class)
-public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerConnection {
+@Mixin(ServerPlayNetworkHandler.class)
+public abstract class MixinServerGamePacketListenerImpl implements EntityTrackingListener {
 	@Shadow
-	public ServerPlayer player;
+	public ServerPlayerEntity player;
 
 	/**
 	 * @reason Convert player message to system message if mod is configured respectively.
@@ -33,19 +32,19 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;)V", at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, CallbackInfo info) {
-		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
+		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ChatMessageS2CPacket chat) {
 			NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
 					: chat.body().content());
 		}
 
 		if (NCRConfig.getCommon().convertToGameMessage()) {
-			if (packet instanceof ClientboundPlayerChatPacket chat) {
-				packet = new ClientboundSystemChatPacket(chat.chatType().resolve(this.player.level.registryAccess())
-						.get().decorate(chat.unsignedContent() != null ? chat.unsignedContent()
-								: Component.literal(chat.body().content())), false);
+			if (packet instanceof ChatMessageS2CPacket chat) {
+				packet = new GameMessageS2CPacket(chat.serializedParameters().toParameters(this.player.world.getRegistryManager())
+						.get().applyChatDecoration(chat.unsignedContent() != null ? chat.unsignedContent()
+								: Text.literal(chat.body().content())), false);
 
 				info.cancel();
-				this.send(packet);
+				this.sendPacket(packet);
 			}
 		}
 	}
@@ -57,16 +56,16 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
 			at = @At("HEAD"), cancellable = true)
-	private void onSend(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo info) {
-		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
+	private void onSend(Packet<?> packet, @Nullable PacketCallbacks packetSendListener, CallbackInfo info) {
+		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ChatMessageS2CPacket chat) {
 			NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
 					: chat.body().content());
 		}
 
 		if (NCRConfig.getCommon().convertToGameMessage()) {
-			if (packet instanceof ClientboundPlayerChatPacket chat && packetSendListener != null) {
+			if (packet instanceof ChatMessageS2CPacket chat && packetSendListener != null) {
 				info.cancel();
-				((ServerGamePacketListenerImpl) (Object) this).send(chat);
+				((ServerPlayNetworkHandler) (Object) this).sendPacket(chat);
 			}
 		}
 	}

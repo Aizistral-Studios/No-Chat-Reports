@@ -9,15 +9,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.SimpleOption;
+import net.minecraft.text.Text;
 
-import net.minecraft.client.OptionInstance;
-import net.minecraft.client.Options;
-import net.minecraft.network.chat.Component;
-
-@Mixin(Options.class)
+@Mixin(GameOptions.class)
 public class MixinOptions {
-	private static final Component SECURE_CHAT_TOOLTIP = Component.translatable("gui.nochatreports.secure_chat");
-	private OptionInstance<Boolean> alternativeOption;
+	private static final Text SECURE_CHAT_TOOLTIP = Text.translatable("gui.nochatreports.secure_chat");
+	private SimpleOption<Boolean> alternativeOption;
 
 	/**
 	 * @reason Disable secure chat option, since it will not work anyways.
@@ -25,15 +24,15 @@ public class MixinOptions {
 	 */
 
 	@Inject(method = "onlyShowSecureChat", at = @At("RETURN"), cancellable = true)
-	private void onlyShowSecureChat(CallbackInfoReturnable<OptionInstance<Boolean>> cir) {
+	private void onlyShowSecureChat(CallbackInfoReturnable<SimpleOption<Boolean>> cir) {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
 		if (this.alternativeOption == null) {
-			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
-					OptionInstance.cachedConstantTooltip(SECURE_CHAT_TOOLTIP),
-					OptionInstance.BOOLEAN_TO_STRING,
-					new OptionInstance.Enum<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL),
+			this.alternativeOption = new SimpleOption<>("options.onlyShowSecureChat",
+					SimpleOption.constantTooltip(SECURE_CHAT_TOOLTIP),
+					SimpleOption.BOOLEAN_TEXT_GETTER,
+					new SimpleOption.PotentialValuesBasedCallbacks<>(ImmutableList.of(Boolean.FALSE), Codec.BOOL),
 					false, value -> {});
 		}
 

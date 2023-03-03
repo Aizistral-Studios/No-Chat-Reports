@@ -9,12 +9,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ConnectScreen;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ConnectScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.network.ServerAddress;
+import net.minecraft.client.network.ServerInfo;
 
 @Mixin(ConnectScreen.class)
 public class MixinConnectScreen {
@@ -26,8 +25,8 @@ public class MixinConnectScreen {
 	 */
 
 	@Inject(method = "startConnecting", at = @At("HEAD"))
-	private static void onStartConnecting(Screen screen, Minecraft minecraft, ServerAddress serverAddress,
-			@Nullable ServerData serverData, CallbackInfo info) {
+	private static void onStartConnecting(Screen screen, MinecraftClient minecraft, ServerAddress serverAddress,
+			@Nullable ServerInfo serverData, CallbackInfo info) {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
@@ -36,8 +35,8 @@ public class MixinConnectScreen {
 
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NCRCore.LOGGER.info("Connecting to: {}",
-					serverAddress.getHost() + ":" + serverAddress.getPort());
-			NCRCore.LOGGER.info("Server Data IP: {}", serverData != null ? serverData.ip : "null");
+					serverAddress.getAddress() + ":" + serverAddress.getPort());
+			NCRCore.LOGGER.info("Server Data IP: {}", serverData != null ? serverData.address : "null");
 		}
 	}
 

@@ -4,11 +4,11 @@ import com.aizistral.nochatreports.common.core.ServerDataExtension;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.network.ServerInfo;
 
 @Environment(EnvType.CLIENT)
 public interface ServerPingerExtension {
 
-	public ServerData getServerData();
+	public ServerInfo getServerData();
 
 }

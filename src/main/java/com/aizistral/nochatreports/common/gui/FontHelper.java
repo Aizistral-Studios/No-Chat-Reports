@@ -5,11 +5,11 @@ import java.util.List;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.Font;
-import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.text.OrderedText;
 
 /**
- * I couldn't find a way to properly convert {@link FormattedCharSequence} back into
+ * I couldn't find a way to properly convert {@link OrderedText} back into
  * normal string. Lol.
  *
  * @author Aizistral
@@ -26,7 +26,7 @@ public final class FontHelper {
 	 * Breaks a string into a list of pieces that will fit a specified width.
 	 */
 
-	public static List<String> wrap(Font font, String str, int wrapWidth) {
+	public static List<String> wrap(TextRenderer font, String str, int wrapWidth) {
 		return Arrays.asList(wrapFormattedStringToWidth(font, str, wrapWidth).split("\n"));
 	}
 
@@ -35,7 +35,7 @@ public final class FontHelper {
 	 * width.
 	 */
 
-	private static String wrapFormattedStringToWidth(Font font, String str, int wrapWidth) {
+	private static String wrapFormattedStringToWidth(TextRenderer font, String str, int wrapWidth) {
 		int j = sizeStringToWidth(font, str, wrapWidth);
 
 		if (str.length() <= j)
@@ -54,7 +54,7 @@ public final class FontHelper {
 	 * width.
 	 */
 
-	private static int sizeStringToWidth(Font font, String str, int wrapWidth) {
+	private static int sizeStringToWidth(TextRenderer font, String str, int wrapWidth) {
 		int j = str.length();
 		int k = 0;
 		int l = 0;
@@ -85,7 +85,7 @@ public final class FontHelper {
 			case 32:
 				i1 = l;
 			default:
-				k += font.width(String.valueOf(c0));
+				k += font.getWidth(String.valueOf(c0));
 
 				if (flag) {
 					++k;

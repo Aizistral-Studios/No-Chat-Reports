@@ -10,10 +10,10 @@ import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ChatScreen;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class NCRClient {
@@ -30,7 +30,7 @@ public class NCRClient {
 		ClientEvents.PLAY_READY.register(NCRClient::onPlayReady);
 	}
 
-	private static void onDisconnect(Minecraft client) {
+	private static void onDisconnect(MinecraftClient client) {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
@@ -41,17 +41,17 @@ public class NCRClient {
 		ServerSafetyState.reset();
 	}
 
-	private static void onPlayReady(ClientPacketListener handler, Minecraft client) {
+	private static void onPlayReady(ClientPlayNetworkHandler handler, MinecraftClient client) {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 
 		client.execute(() -> {
-			if (!client.isLocalServer()) {
+			if (!client.isInSingleplayer()) {
 				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
 				} else if (!handler.getConnection().isEncrypted()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
-				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
+				} else if (client.getCurrentServerEntry() instanceof ServerDataExtension ext &&
 						ext.preventsChatReports()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 				} else if (NCRConfig.getServerPreferences().hasMode(ServerSafetyState.getLastServer(),
@@ -70,7 +70,7 @@ public class NCRClient {
 			}
 
 			if (NCRConfig.getClient().demandOnServer() && !ServerSafetyState.getCurrent().isSecure()) {
-				handler.getConnection().disconnect(Component.translatable("disconnect.nochatreports.client"));
+				handler.getConnection().disconnect(Text.translatable("disconnect.nochatreports.client"));
 			}
 		});
 	}
@@ -84,15 +84,15 @@ public class NCRClient {
 	}
 
 	public static void resendLastChatMessage() {
-		var mc = Minecraft.getInstance();
-		var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
+		var mc = MinecraftClient.getInstance();
+		var chatScr = mc.currentScreen instanceof ChatScreen chat ? chat : null;
 
 		if (chatScr == null) {
 			chatScr = new ChatScreen("");
-			chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
+			chatScr.init(mc, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight());
 		}
 
-		chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
+		chatScr.sendMessage(NCRConfig.getEncryption().getLastMessage(), false);
 	}
 
 }
