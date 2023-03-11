@@ -139,7 +139,7 @@ public class AdvancedTooltip extends Tooltip {
 		s = q;
 		for (t = 0; t < list.size(); ++t) {
 			clientTooltipComponent2 = list.get(t);
-			clientTooltipComponent2.renderImage(screen.font, p, s, poseStack, screen.itemRenderer, 400);
+			clientTooltipComponent2.renderImage(screen.font, p, s, poseStack, screen.itemRenderer);
 			s += clientTooltipComponent2.getHeight() + /*(t == 0 ? 2 : 0)*/ 0;
 		}
 	}
