@@ -17,7 +17,7 @@ import net.minecraft.client.gui.screens.OptionsScreen;
 public abstract class MixinRowHelper {
 
 	@Inject(method = "addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;)"
-			+ "Lnet/minecraft/client/gui/components/AbstractWidget;", at = @At("HEAD"), cancellable = true)
+			+ "Lnet/minecraft/client/gui/layouts/LayoutElement;", at = @At("HEAD"), cancellable = true)
 	private void onAddChild(LayoutElement element, CallbackInfoReturnable<AbstractWidget> info) {
 		if (NCRConfig.getClient().disableTelemetry() && NCRConfig.getClient().removeTelemetryButton())
 			if (element instanceof Button button)
