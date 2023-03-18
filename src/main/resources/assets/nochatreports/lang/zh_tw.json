@@ -90,7 +90,7 @@
 	"option.NoChatReports.hideSystemMessageIndicators": "隱藏系統消息指示符",
 	"option.NoChatReports.hideSystemMessageIndicators.tooltip": "阻止用戶端在聊天消息左側以灰色條的形式顯示系統消息指示符。",
 	"option.NoChatReports.hideWarningToast": "隱藏警告彈窗",
-	"option.NoChatReports.hideWarningToast.tooltip": "刪除在進入禁用§oenforce-sevure-profile§r的伺服器時顯示的警告提示。",
+	"option.NoChatReports.hideWarningToast.tooltip": "刪除在進入禁用§oenforce-secure-profile§r的伺服器時顯示的警告提示。",
 	"option.NoChatReports.alwaysHideReportButton": "總是隱藏舉報按鈕",
 	"option.NoChatReports.alwaysHideReportButton.tooltip": "防止用戶端在社交螢幕中顯示舉報按鈕。預設情況下禁用，模組只會在安裝了No Chat Reports的伺服器上使按鈕無效，並在按鈕的工具提示中添加說明。",
 	"configuration.NoChatReports.category.technical": "技術性",
