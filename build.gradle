@@ -152,7 +152,7 @@ curseforge {
         changelog = file('docs/changelog.html')
 		mainArtifact(remapJar)
 		
-		addGameVersion '${minecraft_version}'
+		addGameVersion rootProject.minecraft_version
 		addGameVersion 'Quilt'
 		addGameVersion 'Fabric'
 		addGameVersion 'Java 17'
