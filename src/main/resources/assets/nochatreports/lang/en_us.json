@@ -1,5 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "Strips cryptographic signatures from player messages, making it impossible to track and associate them with your Mojang/Microsoft account, as well as use Player Chat Reporting feature.",
+	"key.nochatreports.ctrl": "Ctrl",
+	"key.nochatreports.cmd": "Cmd",
 	"gui.nochatreports.secure_chat": "This option cannot work with No Chat Reports, since there are no signatures to verify.",
 	"gui.nochatreports.no_reporting": "Chat reports are disabled on this server, courtesy of No Chat Reports.",
 	"disconnect.nochatreports.client": "This server does not have No Chat Reports, and you have it configured to require itself on server.",
@@ -25,7 +27,7 @@
 	"gui.nochatreports.ncr_state_off": "§c§lDisabled§r",
 	"tag.nochatreports.encrypted": "Encrypted using: %1$s",
 	"tag.nochatreports.encrypted_original": "Non-decrypted: %1$s",
-	"gui.nochatreports.encryption_tooltip": "§lEncryption:§r %1$s\nRight-click to configure.\n\nWhile encryption is enabled, you can prevent it from being applied to the message by holding §n§lCtrl§r when sending it.",
+	"gui.nochatreports.encryption_tooltip": "§lEncryption:§r %1$s\nRight-click to configure.\n\nWhile encryption is enabled, you can prevent it from being applied to the message by holding %2$s when sending it.",
 	"gui.nochatreports.encryption_tooltip_invalid": "§lEncryption:§r %1$s\n§cInvalid configuration. Click to configure.",
 	"gui.nochatreports.encryption_state_on": "§a§lEnabled§r",
 	"gui.nochatreports.encryption_state_off": "§c§lDisabled§r",
