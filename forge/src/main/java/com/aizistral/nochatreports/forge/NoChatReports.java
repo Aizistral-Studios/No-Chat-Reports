@@ -49,13 +49,15 @@ public class NoChatReports implements PlatformProvider {
 	public NoChatReports() {
 		NCRCore.awaken(this);
 	}
-
+	
 	@Override
-	public EnvType getEnvironment() {
-		return switch(FMLEnvironment.dist) {
-			case CLIENT -> EnvType.CLIENT;
-			case DEDICATED_SERVER -> EnvType.SERVER;
-		};
+	public boolean isOnClient() {
+		return FMLEnvironment.dist == Dist.CLIENT;
+	}
+	
+	@Override
+	public boolean isOnDedicatedServer() {
+		return FMLEnvironment.dist == Dist.DEDICATED_SERVER;
 	}
 
 	@Override

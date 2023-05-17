@@ -7,7 +7,9 @@ import net.fabricmc.api.EnvType;
 
 public interface PlatformProvider {
 
-	public EnvType getEnvironment();
+	public boolean isOnClient();
+
+	public boolean isOnDedicatedServer();
 
 	public Path getMinecraftDir();
 

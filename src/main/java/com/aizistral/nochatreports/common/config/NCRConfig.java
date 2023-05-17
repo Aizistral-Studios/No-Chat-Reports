@@ -50,7 +50,7 @@ public final class NCRConfig {
 	public static void load() {
 		common = JSONConfig.loadConfig(NCRConfigCommon.class, NCRConfigCommon::new, NCRConfigCommon.FILE_NAME);
 
-		if (NCRCore.getProvider().getEnvironment() == EnvType.CLIENT) {
+		if (NCRCore.getProvider().isOnClient()) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
 			serverPreferences = JSONConfig.loadConfig(NCRServerPreferences.class, NCRServerPreferences::new, NCRServerPreferences.FILE_NAME);
 			encryption = JSONConfig.loadConfig(NCRConfigEncryption.class, NCRConfigEncryption::new, NCRConfigEncryption.FILE_NAME);
@@ -62,7 +62,7 @@ public final class NCRConfig {
 	public static void save() {
 		checkLoaded(() -> common).saveFile();
 
-		if (NCRCore.getProvider().getEnvironment() == EnvType.CLIENT) {
+		if (NCRCore.getProvider().isOnClient()) {
 			checkLoaded(() -> client).saveFile();
 			checkLoaded(() -> serverPreferences).saveFile();
 			checkLoaded(() -> encryption).saveFile();

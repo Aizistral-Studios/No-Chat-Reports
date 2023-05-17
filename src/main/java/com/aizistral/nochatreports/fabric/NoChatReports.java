@@ -18,8 +18,13 @@ public class NoChatReports implements ModInitializer, PlatformProvider {
 	}
 
 	@Override
-	public EnvType getEnvironment() {
-		return FabricLoader.getInstance().getEnvironmentType();
+	public boolean isOnClient() {
+		return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+	}
+
+	@Override
+	public boolean isOnDedicatedServer() {
+		return FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER;
 	}
 
 	@Override

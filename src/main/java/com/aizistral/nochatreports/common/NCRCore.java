@@ -30,7 +30,7 @@ public class NCRCore {
 
 		setup();
 
-		if (provider.getEnvironment() == EnvType.CLIENT) {
+		if (provider.isOnClient()) {
 			clientSetup();
 		}
 	}
