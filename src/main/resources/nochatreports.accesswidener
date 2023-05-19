@@ -19,7 +19,6 @@ accessible field net/minecraft/client/gui/components/Tooltip message Lnet/minecr
 accessible field net/minecraft/client/gui/components/Tooltip narration Lnet/minecraft/network/chat/Component;
 accessible field net/minecraft/client/gui/components/Tooltip cachedTooltip Ljava/util/List;
 accessible field net/minecraft/client/gui/screens/Screen minecraft Lnet/minecraft/client/Minecraft;
-accessible field net/minecraft/client/gui/screens/Screen itemRenderer Lnet/minecraft/client/renderer/entity/ItemRenderer;
 accessible field net/minecraft/client/gui/screens/Screen font Lnet/minecraft/client/gui/Font;
 accessible field net/minecraft/client/gui/components/AbstractWidget tooltip Lnet/minecraft/client/gui/components/Tooltip;
 accessible field net/minecraft/client/gui/components/AbstractWidget tooltipMsDelay I
