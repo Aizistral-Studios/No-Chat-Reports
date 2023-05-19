@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
@@ -30,12 +31,12 @@ public class AdvancedImageButton extends ImageButton {
 	}
 
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float delta) {
-		super.renderWidget(poseStack, mouseX, mouseY, delta);
+	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+		super.renderWidget(graphics, mouseX, mouseY, delta);
 
 		if (this.isHovered)
 			if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender()) {
-				tooltip.doCustomRender(this.parent, poseStack, mouseX, mouseY, this.createTooltipPositioner());
+				tooltip.doCustomRender(this.parent, graphics, mouseX, mouseY, this.createTooltipPositioner());
 			}
 	}
 

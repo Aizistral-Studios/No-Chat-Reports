@@ -15,7 +15,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.GuiMessageTag;
 import net.minecraft.client.GuiMessageTag.Icon;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 @Mixin(GuiMessageTag.Icon.class)
@@ -29,10 +29,9 @@ public abstract class MixinGuiMessageTagIcon {
 	}
 
 	@Inject(method = "draw", at = @At("HEAD"), cancellable = true)
-	public void onDraw(PoseStack stack, int x, int y, CallbackInfo info) {
+	public void onDraw(GuiGraphics graphics, int x, int y, CallbackInfo info) {
 		if (((Icon)(Object)this).name().equals("CHAT_NCR_ENCRYPTED")) {
-			RenderSystem.setShaderTexture(0, TEXTURE_NCR);
-			GuiComponent.blit(stack, x, y, 0, 0, 9, 9, 9, 9);
+			graphics.blit(TEXTURE_NCR, x, y, 0, 0, 9, 9, 9, 9);
 			info.cancel();
 		}
 	}

@@ -40,7 +40,7 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 
 		if (NCRConfig.getCommon().convertToGameMessage()) {
 			if (packet instanceof ClientboundPlayerChatPacket chat) {
-				packet = new ClientboundSystemChatPacket(chat.chatType().resolve(this.player.level.registryAccess())
+				packet = new ClientboundSystemChatPacket(chat.chatType().resolve(this.player.level().registryAccess())
 						.get().decorate(chat.unsignedContent() != null ? chat.unsignedContent()
 								: Component.literal(chat.body().content())), false);
 

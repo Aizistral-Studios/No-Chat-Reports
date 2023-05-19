@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.MultiLineLabel;
 import net.minecraft.client.gui.screens.Screen;
@@ -52,16 +53,16 @@ public abstract class AdaptiveWarningScreen extends Screen {
 	protected abstract void initButtons(int y);
 
 	@Override
-	public void render(PoseStack poseStack, int i, int j, float f) {
-		this.renderBackground(poseStack);
-		this.renderTitle(poseStack);
+	public void render(GuiGraphics graphics, int i, int j, float f) {
+		this.renderBackground(graphics);
+		this.renderTitle(graphics);
 		int k = this.width / 2 - this.message.getWidth() / 2;
-		this.message.renderLeftAligned(poseStack, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);
-		super.render(poseStack, i, j, f);
+		this.message.renderLeftAligned(graphics, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);
+		super.render(graphics, i, j, f);
 	}
 
-	private void renderTitle(PoseStack poseStack) {
-		drawString(poseStack, this.font, this.title, 25, this.hugeGUI() ? 15 : 30, 0xFFFFFF);
+	private void renderTitle(GuiGraphics graphics) {
+		graphics.drawString(this.font, this.title, 25, this.hugeGUI() ? 15 : 30, 0xFFFFFF);
 	}
 
 	private boolean hugeGUI() {

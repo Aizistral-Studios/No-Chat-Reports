@@ -17,7 +17,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.multiplayer.ServerSelectionList;
 import net.minecraft.client.multiplayer.ServerData;
@@ -37,7 +37,7 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 	private ServerData serverData;
 
 	@Inject(method = "render", at = @At("RETURN"))
-	private void onRender(PoseStack poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo info) {
+	private void onRender(GuiGraphics graphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo info) {
 		if (!NCRConfig.getClient().verifiedIconEnabled())
 			return;
 
@@ -45,9 +45,8 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 			int xOffset = NCRConfig.getClient().getVerifiedIconOffsetX(),
 					yOffset = NCRConfig.getClient().getVerifiedIconOffsetY();
 
-			RenderSystem.setShaderTexture(0, VERIFIED_ICON);
 			RenderSystem.enableBlend();
-			GuiComponent.blit(poseStack, k + l - 35 + xOffset, j - 1 + yOffset, 0.0f, 0.0f, 14, 14, 14, 14);
+			graphics.blit(VERIFIED_ICON, k + l - 35 + xOffset, j - 1 + yOffset, 0.0f, 0.0f, 14, 14, 14, 14);
 			RenderSystem.disableBlend();
 
 			int t = n - k;

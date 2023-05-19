@@ -11,6 +11,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.CycleButton;
@@ -155,7 +156,7 @@ public class EncryptionConfigScreen extends Screen {
 	}
 
 	@Override
-	public void render(PoseStack poseStack, int i, int j, float f) {
+	public void render(GuiGraphics graphics, int i, int j, float f) {
 		if (!this.passField.isActive()) {
 			if (this.passField.isFocused()) {
 				this.passField.setFocused(false);
@@ -163,37 +164,36 @@ public class EncryptionConfigScreen extends Screen {
 			this.passField.setEditable(false);
 		}
 
-		this.renderBackground(poseStack);
-		Screen.drawCenteredString(poseStack, this.font, HEADER, this.width / 2, this.hugeGUI() ? 8 : 16, 0xFFFFFF);
+		this.renderBackground(graphics);
+		graphics.drawCenteredString(this.font, HEADER, this.width / 2, this.hugeGUI() ? 8 : 16, 0xFFFFFF);
 
-		this.keyDesc.renderLeftAligned(poseStack, this.keyField.getX() - 20, (this.hugeGUI() ? 25 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
+		this.keyDesc.renderLeftAligned(graphics, this.keyField.getX() - 20, (this.hugeGUI() ? 25 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
 
-		this.keyField.render(poseStack, i, j, f);
+		this.keyField.render(graphics, i, j, f);
 
-		this.passDesc.renderLeftAligned(poseStack, this.passField.getX() - 20, this.keyField.getY() + this.keyField.getHeight() + (this.hugeGUI() ? 12 : 28),
+		this.passDesc.renderLeftAligned(graphics, this.passField.getX() - 20, this.keyField.getY() + this.keyField.getHeight() + (this.hugeGUI() ? 12 : 28),
 				this.getLineHeight(), 0xFFFFFF);
 
-		this.passField.render(poseStack, i, j, f);
+		this.passField.render(graphics, i, j, f);
 
 		//		if (this.algorithmButton != null && this.algorithmButton.isMouseOver(i, j)) {
 		//			this.renderTooltip(poseStack, this.algorithmButton.getTooltip(), i, j);
 		//		}
 
-		super.render(poseStack, i, j, f);
+		super.render(graphics, i, j, f);
 
 		if (StringUtil.isNullOrEmpty(this.keyField.getValue()) && !this.keyField.isFocused()) {
-			Screen.drawString(poseStack, this.font,
+			graphics.drawString(this.font,
 					Component.translatable("gui.nochatreports.encryption_config.default_key",
 							this.algorithmButton.getValue().getDefaultKey()), this.keyField.getX() + 4,
 					this.keyField.getY() + 5, 0x999999);
 		}
 
 		if (!this.passField.active) {
-			Screen.drawString(poseStack, this.font, PASS_NOT_ALLOWED, this.passField.getX() + 4,
+			graphics.drawString(this.font, PASS_NOT_ALLOWED, this.passField.getX() + 4,
 					this.passField.getY() + 5, 0x999999);
-			RenderSystem.setShaderTexture(0, ENCRYPTION_ICONS);
 			RenderSystem.enableDepthTest();
-			blit(poseStack, this.passField.getX() - 20, this.passField.getY() + 3, 50, 0, 14, 13, 64, 64);
+			graphics.blit(ENCRYPTION_ICONS, this.passField.getX() - 20, this.passField.getY() + 3, 50, 0, 14, 13, 64, 64);
 		}
 	}
 

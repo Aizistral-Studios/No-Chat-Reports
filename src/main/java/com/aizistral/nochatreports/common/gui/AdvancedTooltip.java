@@ -19,7 +19,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -80,83 +80,58 @@ public class AdvancedTooltip extends Tooltip {
 		return this.renderWithoutGap;
 	}
 
-	public void doCustomRender(Screen screen, PoseStack poseStack, int x, int y, ClientTooltipPositioner positioner) {
-		if (this.renderWithoutGap) {
-			this.renderTooltipNoGap(screen, poseStack, splitTooltip(screen.minecraft, this.getMessage(), this.maxWidth), x, y, positioner);
-		} else
-			throw new UnsupportedOperationException("This tooltip doesn't support custom render!");
-	}
-
 	public static List<FormattedCharSequence> splitTooltip(Minecraft minecraft, Component component, int maxWidth) {
 		return minecraft.font.split(component, maxWidth);
 	}
 
-	protected void renderTooltipNoGap(Screen screen, PoseStack poseStack, List<? extends FormattedCharSequence> list, int x, int y, ClientTooltipPositioner positioner) {
+	public void doCustomRender(Screen screen, GuiGraphics graphics, int x, int y, ClientTooltipPositioner positioner) {
+		if (this.renderWithoutGap) {
+			this.renderTooltipNoGap(screen, graphics, splitTooltip(screen.minecraft, this.getMessage(), this.maxWidth), x, y, positioner);
+		} else
+			throw new UnsupportedOperationException("This tooltip doesn't support custom render!");
+	}
+
+	protected void renderTooltipNoGap(Screen screen, GuiGraphics poseStack, List<? extends FormattedCharSequence> list, int x, int y, ClientTooltipPositioner positioner) {
 		this.renderTooltipInternalNoGap(screen, poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y, positioner);
 	}
 
-	protected void renderTooltipInternalNoGap(Screen screen, PoseStack poseStack, List<ClientTooltipComponent> list, int i2, int j2, ClientTooltipPositioner clientTooltipPositioner) {
+	// Originates from GuiGraphics
+	protected void renderTooltipInternalNoGap(Screen screen, GuiGraphics graphics, List<ClientTooltipComponent> list, int i, int j, ClientTooltipPositioner clientTooltipPositioner) {
 		ClientTooltipComponent clientTooltipComponent2;
 		int t;
 		if (list.isEmpty())
 			return;
-		int k2 = 0;
-		int l2 = list.size() == 1 ? -2 : /*0*/ -2;
+		int k = 0;
+		int l = list.size() == 1 ? -2 : /*0*/ -2;
 		for (ClientTooltipComponent clientTooltipComponent : list) {
-			int m2 = clientTooltipComponent.getWidth(screen.font);
-			if (m2 > k2) {
-				k2 = m2;
+			int m = clientTooltipComponent.getWidth(screen.font);
+			if (m > k) {
+				k = m;
 			}
-			l2 += clientTooltipComponent.getHeight();
+			l += clientTooltipComponent.getHeight();
 		}
-		int n2 = k2;
-		int o2 = l2;
-		Vector2ic vector2ic = clientTooltipPositioner.positionTooltip(screen, i2, j2, n2, o2);
+		int n = k;
+		int o = l;
+		Vector2ic vector2ic = clientTooltipPositioner.positionTooltip(graphics.guiWidth(), graphics.guiHeight(), i, j, n, o);
 		int p = vector2ic.x();
 		int q = vector2ic.y();
-		poseStack.pushPose();
+		graphics.pose().pushPose();
 		int r = 400;
-		Tesselator tesselator = Tesselator.getInstance();
-		BufferBuilder bufferBuilder2 = tesselator.getBuilder();
-		RenderSystem.setShader(GameRenderer::getPositionColorShader);
-		bufferBuilder2.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-		Matrix4f matrix4f2 = poseStack.last().pose();
-		TooltipRenderUtil.renderTooltipBackground((matrix4f, bufferBuilder, i, j, k, l, m, n, o) -> fillGradient(matrix4f, bufferBuilder, i, j, k, l, m, n, o), matrix4f2, bufferBuilder2, p, q, n2, o2, 400);
-		RenderSystem.enableDepthTest();
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
-		BufferUploader.drawWithShader(bufferBuilder2.end());
-		MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
-		poseStack.translate(0.0f, 0.0f, 400.0f);
+		graphics.drawManaged(() -> TooltipRenderUtil.renderTooltipBackground(graphics, p, q, n, o, 400));
+		graphics.pose().translate(0.0f, 0.0f, 400.0f);
 		int s = q;
 		for (t = 0; t < list.size(); ++t) {
 			clientTooltipComponent2 = list.get(t);
-			clientTooltipComponent2.renderText(screen.font, p, s, matrix4f2, bufferSource);
+			clientTooltipComponent2.renderText(screen.font, p, s, graphics.pose().last().pose(), graphics.bufferSource());
 			s += clientTooltipComponent2.getHeight() + /*(t == 0 ? 2 : 0)*/ 0;
 		}
-		bufferSource.endBatch();
-		poseStack.popPose();
 		s = q;
 		for (t = 0; t < list.size(); ++t) {
 			clientTooltipComponent2 = list.get(t);
-			clientTooltipComponent2.renderImage(screen.font, p, s, poseStack, screen.itemRenderer);
+			clientTooltipComponent2.renderImage(screen.font, p, s, graphics);
 			s += clientTooltipComponent2.getHeight() + /*(t == 0 ? 2 : 0)*/ 0;
 		}
-	}
-
-	protected static void fillGradient(Matrix4f matrix4f, BufferBuilder bufferBuilder, int i, int j, int k, int l, int m, int n, int o) {
-		float f = (n >> 24 & 0xFF) / 255.0f;
-		float g = (n >> 16 & 0xFF) / 255.0f;
-		float h = (n >> 8 & 0xFF) / 255.0f;
-		float p = (n & 0xFF) / 255.0f;
-		float q = (o >> 24 & 0xFF) / 255.0f;
-		float r = (o >> 16 & 0xFF) / 255.0f;
-		float s = (o >> 8 & 0xFF) / 255.0f;
-		float t = (o & 0xFF) / 255.0f;
-		bufferBuilder.vertex(matrix4f, k, j, m).color(g, h, p, f).endVertex();
-		bufferBuilder.vertex(matrix4f, i, j, m).color(g, h, p, f).endVertex();
-		bufferBuilder.vertex(matrix4f, i, l, m).color(r, s, t, q).endVertex();
-		bufferBuilder.vertex(matrix4f, k, l, m).color(r, s, t, q).endVertex();
+		graphics.pose().popPose();
 	}
 
 }
