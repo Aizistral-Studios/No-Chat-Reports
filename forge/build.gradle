@@ -114,7 +114,6 @@ repositories {
 	maven {  url = "https://maven.theillusivec4.top/"     } // curios
 	maven {  url = "https://maven.blamejared.com/"        } // patchouli
 	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
-    maven {	 url "https://dvs1.progwml6.com/files/maven/" } // no idea
 	maven {  url "https://maven.shedaniel.me/"            } // cloth config
 }
 

@@ -1,5 +1,7 @@
 {
 	"modmenu.descriptionTranslation.nochatreports": "Usuwa sygnatury kryptograficzne z wiadomości graczy, co uniemożliwia śledzenie i powiązanie ich z Twoim kontem Mojang/Microsoft oraz korzystanie z funkcji raportowania czatu gracza.",
+	"key.nochatreports.ctrl": "Ctrl",
+	"key.nochatreports.cmd": "Cmd",
 	"gui.nochatreports.secure_chat": "Ta opcja nie może działać z No Chat Reports, ponieważ nie ma sygnatur do weryfikacji.",
 	"gui.nochatreports.no_reporting": "Raportowanie czatu jest wyłączone na tym serwerze, dzięki No Chat Reports.",
 	"disconnect.nochatreports.client": "Ten serwer nie ma zainstalowanego No Chat Reports, a Ty skonfigurowałeś go do wymagania takiej funkcji.",
