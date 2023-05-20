@@ -123,6 +123,8 @@
 	"configuration.NoChatReports.category.lan": "LAN",
 	"option.NoChatReports.demandOnClient": "클라이언트에 요구",
 	"option.NoChatReports.demandOnClient.tooltip": "서버에 접속하는 모든 클라이언트에 No Chat Reports가 필요하도록 합니다.",
+	"option.NoChatReports.demandOnClientMessage": "클라이언트에 요구 킥 메시지",
+	"option.NoChatReports.demandOnClientMessage.tooltip": "No Chat Reports가 설치되지 않은 클라이언트가 접속하려 할 때 클라이언트에 표시되는 메시지입니다.",
 	"option.NoChatReports.convertToGameMessage": "게임 메시지로 변환",
 	"option.NoChatReports.convertToGameMessage.tooltip": "서버가 모든 대화 메시지를 게임 메시지로 변환하도록 합니다. 게임 메시지는 서명이 표시되어 있지 않으며 신고할 수 없습니다. 수정되지 않은 클라이언트에선 메시지 왼쪽에 회색 표시자가 표시됩니다.",
 	"option.NoChatReports.addQueryData": "쿼리 데이터 추가",
