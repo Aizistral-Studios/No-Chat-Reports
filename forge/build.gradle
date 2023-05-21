@@ -124,6 +124,7 @@ dependencies {
 	// Minecraft & Forge
     minecraft "net.minecraftforge:forge:${forge_version}"
 	implementation "generic:modmenu:5.0.2"
+	implementation "generic:fabric-annotations:v1.0.0"
 	implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:" + rootProject.cloth_config_version)
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }

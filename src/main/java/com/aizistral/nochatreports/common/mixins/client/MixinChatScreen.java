@@ -1,6 +1,7 @@
 package com.aizistral.nochatreports.common.mixins.client;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,10 +17,17 @@ import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.common.gui.EncryptionButton;
 import com.aizistral.nochatreports.common.gui.EncryptionWarningScreen;
+import com.aizistral.nochatreports.common.gui.GUIShenanigans;
+import com.aizistral.nochatreports.common.gui.TooltipHelper;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ComponentPath;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
@@ -38,14 +46,30 @@ public abstract class MixinChatScreen extends Screen {
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons_extended.png");
 	private static final ResourceLocation ENCRYPTION_BUTTON = new ResourceLocation("nochatreports", "textures/gui/encryption_toggle_button.png");
 	private ImageButton safetyStatusButton;
+	@Shadow
+	protected EditBox input;
 
 	protected MixinChatScreen() {
 		super(null);
 		throw new IllegalStateException("Can't touch this");
 	}
 
+	@Override
+	protected void changeFocus(ComponentPath path) {
+		if (GUIShenanigans.getLeaf(path).component() instanceof EditBox) {
+			super.changeFocus(path);
+		}
+	}
+
+	@Override
+	public void setFocused(GuiEventListener listener) {
+		if (listener instanceof EditBox) {
+			super.setFocused(listener);
+		}
+	}
+
 	@Inject(method = "handleChatInput", at = @At("HEAD"), cancellable = true)
-	public void handleChatInput(String string, boolean bl, CallbackInfoReturnable<Boolean> info) {
+	private void onHandleChatInput(String string, boolean bl, CallbackInfoReturnable<Boolean> info) {
 		if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ALWAYS) && !ServerSafetyState.allowChatSigning()) {
 			if (this.minecraft.getConnection().getConnection().isEncrypted()) {
 				if (!this.normalizeChatMessage(string).isEmpty()) {
@@ -164,7 +188,8 @@ public abstract class MixinChatScreen extends Screen {
 			if (NCRConfig.getEncryption().isValid())
 				return Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
 						.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-								.isEnabledAndValid() ? "on" : "off")));
+								.isEnabledAndValid() ? "on" : "off")),
+						TooltipHelper.getCtrl().withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE));
 			else
 				return Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
 						.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()

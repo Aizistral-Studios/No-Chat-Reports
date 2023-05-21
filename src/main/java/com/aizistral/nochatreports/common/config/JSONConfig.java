@@ -96,7 +96,7 @@ public abstract class JSONConfig {
 			}
 		});
 
-		if (NCRCore.getProvider().getEnvironment() == EnvType.CLIENT) {
+		if (NCRCore.getProvider().isOnClient()) {
 			builder.registerTypeAdapter(ServerAddress.class, ServerAddressAdapter.INSTANCE);
 		}
 

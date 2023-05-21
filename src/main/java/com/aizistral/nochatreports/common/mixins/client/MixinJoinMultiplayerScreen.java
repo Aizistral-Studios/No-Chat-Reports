@@ -37,7 +37,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
 		if (NCRConfig.getClient().showReloadButton()) {
-			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 52, 20, 20, 0, 0, 20,
+			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 54, 20, 20, 0, 0, 20,
 					RELOAD_TEXTURE, 64, 64, btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
 			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250).setRenderWithoutGap(true));
 			button.active = true;
@@ -46,7 +46,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 		}
 
 		if (NCRConfig.getClient().showNCRButton()) {
-			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 28, 20, 20,
+			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 30, 20, 20,
 					NCRConfig.getClient().enableMod() ? 0 : 20, 0, 20, TOGGLE_TEXTURE, 64, 64,
 							btn -> {
 								NCRConfig.getClient().toggleMod();
