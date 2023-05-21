@@ -1,13 +1,13 @@
 {
-	"gui.nochatreports.secure_chat": "Cette option ne fonctionne pas avec No Chat Reports, puisqu'il n'y a pas de signature à vérifier.",
-	"gui.nochatreports.no_reporting": "Les signalements sont désactivés sur ce serveur grâce à No Chat Reports.",
-	"disconnect.nochatreports.client": "Ce serveur n'a pas No Chat Reports et vous avez configuré que vous le vouliez toujours.",
-	"gui.nochatreports.safety_status.secure": "Ce serveur a No Chat Reports installé, ou empêche vos messages d'être signalés d'une autre manière. Vous pouvez discuter en toute sécurité.",
-	"gui.nochatreports.OLD_status_unintrusive": "Ce serveur n'empêche pas les signalements, mais vous permet d'envoyer des messages non signés. Techniquement, ils peuvent toujours être signalés à Mojang, mais ne sont généralement pas considérés comme des preuves valides. Il est peu probable que des mesures soient prises sur de tels signalements.",
-	"gui.nochatreports.OLD_status_insecure": "Ce serveur exige que tous les messages des joueurs soient signés et vous avez accepté ces conditions. Tout ce que vous envoyez dans le chat est potentiellement une preuve incriminante qui peut être utilisée contre vous dans un signalement. Vous pouvez supprimer manuellement ce serveur de NoChatReports.json dans votre dossier de configuration pour être averti à nouveau.",
-	"gui.nochatreports.safety_status.undefined": "No Chat Reports n'a pas pu évaluer la sécurité de ce serveur. Cela ne devrait jamais arriver, veuillez le signaler comme un bug au développeur de ce mod.",
-	"gui.nochatreports.unsafe_server.header": "Attention : Serveur dangereux",
-	"gui.nochatreports.unsafe_server.contents": "Ce serveur exige que tous les messages soient signés, ce qui signifie qu'ils peuvent être signalés à Mojang. Le propriétaire du serveur a probablement maintenu 'enforce-secure-profile' activé dans le fichier de configuration server.properties, qui est la valeur par défaut depuis 1.19.1. Vous pouvez quand même choisir de jouer sur ce serveur, mais No Chat Reports ne pourra pas vous protéger.",
-	"gui.nochatreports.unsafe_server.check": "Ne plus afficher pour ce serveur",
-	"gui.nochatreports.reload_config_tooltip": "Recharger la configuration de No Chat Reports. Utilisez avec précaution."
+    "disconnect.nochatreports.client": "Ce serveur n'a pas No Chat Reports et vous avez configuré que vous le vouliez toujours.",
+    "gui.nochatreports.OLD_status_insecure": "Ce serveur exige que tous les messages des joueurs soient signés et vous avez accepté ces conditions. Tout ce que vous envoyez dans le chat est potentiellement une preuve incriminante qui peut être utilisée contre vous dans un signalement. Vous pouvez supprimer manuellement ce serveur de NoChatReports.json dans votre dossier de configuration pour être averti à nouveau.",
+    "gui.nochatreports.OLD_status_unintrusive": "Ce serveur n'empêche pas les signalements, mais vous permet d'envoyer des messages non signés. Techniquement, ils peuvent toujours être signalés à Mojang, mais ne sont généralement pas considérés comme des preuves valides. Il est peu probable que des mesures soient prises sur de tels signalements.",
+    "gui.nochatreports.no_reporting": "Les signalements sont désactivés sur ce serveur grâce à No Chat Reports.",
+    "gui.nochatreports.reload_config_tooltip": "Recharger la configuration de No Chat Reports. Utilisez avec précaution.",
+    "gui.nochatreports.safety_status.secure": "Ce serveur a No Chat Reports installé, ou empêche vos messages d'être signalés d'une autre manière. Vous pouvez discuter en toute sécurité.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports n'a pas pu évaluer la sécurité de ce serveur. Cela ne devrait jamais arriver, veuillez le signaler comme un bug au développeur de ce mod.",
+    "gui.nochatreports.secure_chat": "Cette option ne fonctionne pas avec No Chat Reports, puisqu'il n'y a pas de signature à vérifier.",
+    "gui.nochatreports.unsafe_server.check": "Ne plus afficher pour ce serveur",
+    "gui.nochatreports.unsafe_server.contents": "Ce serveur exige que tous les messages soient signés, ce qui signifie qu'ils peuvent être signalés à Mojang. Le propriétaire du serveur a probablement maintenu 'enforce-secure-profile' activé dans le fichier de configuration server.properties, qui est la valeur par défaut depuis 1.19.1. Vous pouvez quand même choisir de jouer sur ce serveur, mais No Chat Reports ne pourra pas vous protéger.",
+    "gui.nochatreports.unsafe_server.header": "Attention : Serveur dangereux"
 }

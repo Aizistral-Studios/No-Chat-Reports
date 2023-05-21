@@ -1,13 +1,13 @@
 {
-	"gui.nochatreports.secure_chat": "Deze optie kan niet samenwerken met No Chat Reports, omdat er geen digitale handtekingen zijn om te verifiëren.",
-	"gui.nochatreports.no_reporting": "Chat rapporten zijn uitgeschakeld op deze server, met dank aan No Chat Reports.",
-	"disconnect.nochatreports.client": "Deze server heeft geen ondersteuning voor No Chat Reports, en je hebt de mod geconfigureerd om zichzelf te vereisen op de server.",
-	"gui.nochatreports.safety_status.secure": "Deze server heeft No Chat Reports geïnstalleerd, of voorkomt het rapporteren van berichten op een andere bekende manier. Je kan de chat veilig gebruiken.",
-	"gui.nochatreports.OLD_status_unintrusive": "Deze server voorkomt niet dat chatberichten gerapporteerd worden, maar staat het versturen van berichten zonder digitale handtekening toe. Technisch gezien kunnen ze gerapporteerd worden aan Mojang, maar worden over het algemeen niet beschouwd als geldig bewijs. Het is onwaarschijnlijk dat er actie ondernomen wordt op deze rapporten.",
-	"gui.nochatreports.OLD_status_insecure": "Deze server vereist dat alle berichten van spelers digitaal ondertekend worden, en je bent met deze regeling akkoord gegaan. Elk bericht dat je in deze chat verstuurd is mogelijk belastend bewijs dat tegen je gebruikt kan worden in het rapport. Je kan deze server handmatig verwijderen uit je NoChatReports.json in je config folder om opnieuw gewaarschuwd te worden.",
-	"gui.nochatreports.safety_status.undefined": "No Chat Reports kon de veiligheid van deze server niet evalueren. Dit zou nooit mogen gebeuren, rapporteer dit alsjeblieft als een bug aan de mod ontwikkelaar.",
-	"gui.nochatreports.unsafe_server.header": "Opgelet: Onveilige Server",
-	"gui.nochatreports.unsafe_server.contents": "Deze server vereist dat alle berichten van spelers digitaal ondertekend worden, wat betekent dat ze aan Mojang gerapporteerd kunnen worden. Waarschijnlijk komt dit omdat de eigenaar van de server de 'enforce-secure-profile' optie ingeschakeld gehouden heeft in de server.properties, wat sinds 1.19.1 de standaard is. Je kan ervoor kiezen om toch op deze server te spelen, echter zal No Chat Reports niet in staat zijn om je te beschermen.",
-	"gui.nochatreports.unsafe_server.check": "Niet meer tonen voor deze server",
-	"gui.nochatreports.reload_config_tooltip": "Herlaad de No Chat Reports configuratie. Gebruik zorgvuldig."
+    "disconnect.nochatreports.client": "Deze server heeft geen ondersteuning voor No Chat Reports, en je hebt de mod geconfigureerd om zichzelf te vereisen op de server.",
+    "gui.nochatreports.OLD_status_insecure": "Deze server vereist dat alle berichten van spelers digitaal ondertekend worden, en je bent met deze regeling akkoord gegaan. Elk bericht dat je in deze chat verstuurd is mogelijk belastend bewijs dat tegen je gebruikt kan worden in het rapport. Je kan deze server handmatig verwijderen uit je NoChatReports.json in je config folder om opnieuw gewaarschuwd te worden.",
+    "gui.nochatreports.OLD_status_unintrusive": "Deze server voorkomt niet dat chatberichten gerapporteerd worden, maar staat het versturen van berichten zonder digitale handtekening toe. Technisch gezien kunnen ze gerapporteerd worden aan Mojang, maar worden over het algemeen niet beschouwd als geldig bewijs. Het is onwaarschijnlijk dat er actie ondernomen wordt op deze rapporten.",
+    "gui.nochatreports.no_reporting": "Chat rapporten zijn uitgeschakeld op deze server, met dank aan No Chat Reports.",
+    "gui.nochatreports.reload_config_tooltip": "Herlaad de No Chat Reports configuratie. Gebruik zorgvuldig.",
+    "gui.nochatreports.safety_status.secure": "Deze server heeft No Chat Reports geïnstalleerd, of voorkomt het rapporteren van berichten op een andere bekende manier. Je kan de chat veilig gebruiken.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports kon de veiligheid van deze server niet evalueren. Dit zou nooit mogen gebeuren, rapporteer dit alsjeblieft als een bug aan de mod ontwikkelaar.",
+    "gui.nochatreports.secure_chat": "Deze optie kan niet samenwerken met No Chat Reports, omdat er geen digitale handtekingen zijn om te verifiëren.",
+    "gui.nochatreports.unsafe_server.check": "Niet meer tonen voor deze server",
+    "gui.nochatreports.unsafe_server.contents": "Deze server vereist dat alle berichten van spelers digitaal ondertekend worden, wat betekent dat ze aan Mojang gerapporteerd kunnen worden. Waarschijnlijk komt dit omdat de eigenaar van de server de 'enforce-secure-profile' optie ingeschakeld gehouden heeft in de server.properties, wat sinds 1.19.1 de standaard is. Je kan ervoor kiezen om toch op deze server te spelen, echter zal No Chat Reports niet in staat zijn om je te beschermen.",
+    "gui.nochatreports.unsafe_server.header": "Opgelet: Onveilige Server"
 }

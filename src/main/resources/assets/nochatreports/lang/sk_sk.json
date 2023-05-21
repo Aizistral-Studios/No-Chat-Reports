@@ -1,14 +1,14 @@
 {
-	"gui.nochatreports.secure_chat": "Táto možnosť nemôže fungovať s No Chat Reports keďže nie sú podpisy na overenie.",
-	"gui.nochatreports.no_reporting": "Nahlasovanie chatu je zakázané na tomto serveru vďaka No Chat Reports.",
-	"disconnect.nochatreports.client": "Tento server nemá No Chat Reports a nepovolil si pripájanie na takéto servery.",
-	"gui.nochatreports.safety_status.secure": "Tento server má No Chat Reports nainštalované alebo zakazuje nahlasovanie chatu iným známym spôsobom. Môžeš chatovať bezpečne.",
-	"gui.nochatreports.OLD_status_unintrusive": "Tento server nezakazuje nahlasovanie správ ale povoľuje odosielanie správ bez podpisu, ktoré nemôžu byť použité ako dôkaz pre Mojang. Vanilla klienti stále budú odosielať podpisy a riskujú zákaz. Budú tiež vidieť varovania nepodpísaných správ alebo ich nebudú vidieť vôbec ak majú zapnuté \"Len zabezpečený chat\".",
-	"gui.nochatreports.OLD_status_insecure": "Tento server požaduje aby boli všetky správy podpísané a vy ste súhlasili s týmto nastavením. Všetko, čo napíšeš, môže byť použité proti tebe. Toto varovanie sa už nezobrazí pokým si manuálne neodstrániš adresu servera z NoChatReports.json v tvojom priečinku config.",
-	"gui.nochatreports.OLD_status_insecure_whitelist_all_servers": "Tento server požaduje aby boli všetky správy podpísané. Všetko, čo napíšeš, môže byť použité proti tebe. Pre zobrazenie varovania na celej obrazovke môžeš vypnúť \"whitelistAllServers\" z NoChatReports.json v tvojom priečinku config.",
-	"gui.nochatreports.safety_status.undefined": "No Chat Reports nevie zistiť bezpečnosť tohto servera. Toto by sa nikdy nemalo stať, prosím nahlás to ako chybu vývojárovi módu.",
-	"gui.nochatreports.unsafe_server.header": "Pozor: nezabezpečený server",
-	"gui.nochatreports.unsafe_server.contents": "Tento server požaduje aby boli všetky správy podpísané, a teda nahlásené Mojangu. Toto znamená, že správca servera ponechal možnosť \"enforce-secure-profile\" zapnutú v server.properties. Je to tak predvolené vo verzii 1.19.1. Môžeš stále hrať ale No Chat Reports ťa nebude môcť chrániť.",
-	"gui.nochatreports.unsafe_server.check": "Už nikdy nezobrazovať pre tento server",
-	"gui.nochatreports.reload_config_tooltip": "Znovu načítať nastavenia No Chat Reports. Používaj opatrne."
+    "disconnect.nochatreports.client": "Tento server nemá No Chat Reports a nepovolil si pripájanie na takéto servery.",
+    "gui.nochatreports.OLD_status_insecure": "Tento server požaduje aby boli všetky správy podpísané a vy ste súhlasili s týmto nastavením. Všetko, čo napíšeš, môže byť použité proti tebe. Toto varovanie sa už nezobrazí pokým si manuálne neodstrániš adresu servera z NoChatReports.json v tvojom priečinku config.",
+    "gui.nochatreports.OLD_status_insecure_whitelist_all_servers": "Tento server požaduje aby boli všetky správy podpísané. Všetko, čo napíšeš, môže byť použité proti tebe. Pre zobrazenie varovania na celej obrazovke môžeš vypnúť \"whitelistAllServers\" z NoChatReports.json v tvojom priečinku config.",
+    "gui.nochatreports.OLD_status_unintrusive": "Tento server nezakazuje nahlasovanie správ ale povoľuje odosielanie správ bez podpisu, ktoré nemôžu byť použité ako dôkaz pre Mojang. Vanilla klienti stále budú odosielať podpisy a riskujú zákaz. Budú tiež vidieť varovania nepodpísaných správ alebo ich nebudú vidieť vôbec ak majú zapnuté \"Len zabezpečený chat\".",
+    "gui.nochatreports.no_reporting": "Nahlasovanie chatu je zakázané na tomto serveru vďaka No Chat Reports.",
+    "gui.nochatreports.reload_config_tooltip": "Znovu načítať nastavenia No Chat Reports. Používaj opatrne.",
+    "gui.nochatreports.safety_status.secure": "Tento server má No Chat Reports nainštalované alebo zakazuje nahlasovanie chatu iným známym spôsobom. Môžeš chatovať bezpečne.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports nevie zistiť bezpečnosť tohto servera. Toto by sa nikdy nemalo stať, prosím nahlás to ako chybu vývojárovi módu.",
+    "gui.nochatreports.secure_chat": "Táto možnosť nemôže fungovať s No Chat Reports keďže nie sú podpisy na overenie.",
+    "gui.nochatreports.unsafe_server.check": "Už nikdy nezobrazovať pre tento server",
+    "gui.nochatreports.unsafe_server.contents": "Tento server požaduje aby boli všetky správy podpísané, a teda nahlásené Mojangu. Toto znamená, že správca servera ponechal možnosť \"enforce-secure-profile\" zapnutú v server.properties. Je to tak predvolené vo verzii 1.19.1. Môžeš stále hrať ale No Chat Reports ťa nebude môcť chrániť.",
+    "gui.nochatreports.unsafe_server.header": "Pozor: nezabezpečený server"
 }

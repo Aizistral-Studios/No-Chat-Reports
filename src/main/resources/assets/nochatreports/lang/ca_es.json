@@ -1,13 +1,13 @@
 {
-  "gui.nochatreports.secure_chat": "Aquesta opció no pot funcionar amb No Chat Reports, ja que no n'hi ha signatures per a verificar.",
-  "gui.nochatreports.no_reporting": "Els reports del xat hi són deshabilitats en aquest servidor, cortesia de No Chat Reports.",
-  "disconnect.nochatreports.client": "Aquest servidor no té No Chat Reports, i vostè el té configurat perquè sigui requerit al servidor.",
-  "gui.nochatreports.safety_status.secure": "Aquest servidor té No Chat Reports instal·lat, o preveu que els seus missatges siguin reportats d'altra forma coneguda. Pots xatejar amb seguretat.",
-  "gui.nochatreports.OLD_status_unintrusive": "Aquest servidor no evita els reports de xat, però permet que enviïs missatges sense signatura. Tècnicament - encara poden ser reportats a Mojang, però generalment, no seran considerats evidencia vàlida, i és poc probable que es prengui alguna mesura sobre aquests.",
-  "gui.nochatreports.OLD_status_insecure": "Aquest servidor demana que tots els missatges enviats per jugadors tinguin signatura, i vostè ha estat d'acord amb aquests termes. Tot el que enviïs en el xat pot ser usat com a evidència incriminatòria en la seva contra en el report. Pots eliminar aquest servidor de NoChatReports.json en la teva carpeta de configuració manualment per a no ser advertit altra vegada.",
-  "gui.nochatreports.safety_status.undefined": "No Chat Reports no ha pogut avaluar la seguretat d'aquest servidor. Això no deuria haver passat, si us plau informi d'aquest error al desenvolupador d'aquest mod.",
-  "gui.nochatreports.unsafe_server.header": "Precaució: Servidor insegur",
-  "gui.nochatreports.unsafe_server.contents": "Aquest servidor requereix que tots els missatges tinguin signatura, això significa que poden ser reportats a Mojang. Això probablement significa que el propietari del servidor ha mantingut 'enforce-secure-profile' habilitat en server.properties, que és el valor per defecte des de 1.19.1. Pots escollir jugar de totes formes, però No Chat Reports podrà protegir-te.",
-  "gui.nochatreports.unsafe_server.check": "No tornar a mostrar per aquest servidor.",
-  "gui.nochatreports.reload_config_tooltip": "Recarregar la configuració de No Chat Reports. Utilitzar amb compte."
+    "disconnect.nochatreports.client": "Aquest servidor no té No Chat Reports, i vostè el té configurat perquè sigui requerit al servidor.",
+    "gui.nochatreports.OLD_status_insecure": "Aquest servidor demana que tots els missatges enviats per jugadors tinguin signatura, i vostè ha estat d'acord amb aquests termes. Tot el que enviïs en el xat pot ser usat com a evidència incriminatòria en la seva contra en el report. Pots eliminar aquest servidor de NoChatReports.json en la teva carpeta de configuració manualment per a no ser advertit altra vegada.",
+    "gui.nochatreports.OLD_status_unintrusive": "Aquest servidor no evita els reports de xat, però permet que enviïs missatges sense signatura. Tècnicament - encara poden ser reportats a Mojang, però generalment, no seran considerats evidencia vàlida, i és poc probable que es prengui alguna mesura sobre aquests.",
+    "gui.nochatreports.no_reporting": "Els reports del xat hi són deshabilitats en aquest servidor, cortesia de No Chat Reports.",
+    "gui.nochatreports.reload_config_tooltip": "Recarregar la configuració de No Chat Reports. Utilitzar amb compte.",
+    "gui.nochatreports.safety_status.secure": "Aquest servidor té No Chat Reports instal·lat, o preveu que els seus missatges siguin reportats d'altra forma coneguda. Pots xatejar amb seguretat.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports no ha pogut avaluar la seguretat d'aquest servidor. Això no deuria haver passat, si us plau informi d'aquest error al desenvolupador d'aquest mod.",
+    "gui.nochatreports.secure_chat": "Aquesta opció no pot funcionar amb No Chat Reports, ja que no n'hi ha signatures per a verificar.",
+    "gui.nochatreports.unsafe_server.check": "No tornar a mostrar per aquest servidor.",
+    "gui.nochatreports.unsafe_server.contents": "Aquest servidor requereix que tots els missatges tinguin signatura, això significa que poden ser reportats a Mojang. Això probablement significa que el propietari del servidor ha mantingut 'enforce-secure-profile' habilitat en server.properties, que és el valor per defecte des de 1.19.1. Pots escollir jugar de totes formes, però No Chat Reports podrà protegir-te.",
+    "gui.nochatreports.unsafe_server.header": "Precaució: Servidor insegur"
 }

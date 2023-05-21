@@ -1,14 +1,14 @@
 {
-	"gui.nochatreports.secure_chat": "Denne mulighed virker ikke med No Chat Reports, siden der ikke er nogle signaturer at verficere.",
-	"gui.nochatreports.no_reporting": "Chat rapporter er slået fra på denne server, på grund af No Chat Reports.",
-	"disconnect.nochatreports.client": "Denne server har ikke No Chat Reports, men du har selv konfigurede det til at være påkrævet på serveren.",
-	"gui.nochatreports.safety_status.secure": "Denne server har No Chat Reports installeret, eller forhindrer dine beskeder for at blive rapporteret på en anden kendt måde. Du kan chatte sikkert.",
-	"gui.nochatreports.OLD_status_unintrusive": "Denne server forhindrer ikke chat reports, men tillader stadig at sende usigneret beskeder, hvilke ikke kan blive rapporteret til Mojang. Almindelige klienter vil stadig sende signeret beskeder, vise usigneret beskeder som \"Ikke Sikker\" og ikke vise dem hvis \"Vis Kun Sikker Chat\" er slået til i chat indstillinger.",
-	"gui.nochatreports.OLD_status_insecure": "Denne server kræver alle chat beskeder er signeret, og du har accepteret det arrangement. Alt du sender i chatten er potentielt inkriminerende beviser, der kan blive brugt imod dig i rapporten. Du kan manuelt fjerne denne server fra NoChatReports.json i din konfigurations mappe for at blive advaret igen.",
-	"gui.nochatreports.OLD_status_insecure_whitelist_all_servers": "Denne server kræver alle chat beskeder er signeret og du har fjerne fuldskærms advarslen for det. Alt du sender i chatten er potentielt inkriminerende bevis, der kan blive brugt imod dig i rapporten. Du kan slå \"whitelistAllServers\" fra i NoChatReports.json i din konfigurations mappe, for at blive advaret igen.",
-	"gui.nochatreports.safety_status.undefined": "No Chat Reports kunne ikke verificere sikkerheden af denne server. Dette burde aldrig ske, venligst rapporter det som en fejl til mod udvikleren.",
-	"gui.nochatreports.unsafe_server.header": "Advarsel: Usikker Server",
-	"gui.nochatreports.unsafe_server.contents": "Denne server kræver alle chat beskeder bliver signeret, hvilket betyder de kan blive rapporteret til Mojang, hvilket kan resultere i en bandlysning fra alle multiplayer servere. Dette betyder nok at server ejeren har beholdt \"enforce-secure-profile\" slået til i server.properties, hvilket er standarden siden 1.19.1. Du kan stadig vælge at spille, men No Chat Reports vil ikke være i stand til at beskytte dig.",
-	"gui.nochatreports.unsafe_server.check": "Vis ikke igen for denne server",
-	"gui.nochatreports.reload_config_tooltip": "Genindlæs No Chat Reports' konfiguration. Brug med omtanke."
+    "disconnect.nochatreports.client": "Denne server har ikke No Chat Reports, men du har selv konfigurede det til at være påkrævet på serveren.",
+    "gui.nochatreports.OLD_status_insecure": "Denne server kræver alle chat beskeder er signeret, og du har accepteret det arrangement. Alt du sender i chatten er potentielt inkriminerende beviser, der kan blive brugt imod dig i rapporten. Du kan manuelt fjerne denne server fra NoChatReports.json i din konfigurations mappe for at blive advaret igen.",
+    "gui.nochatreports.OLD_status_insecure_whitelist_all_servers": "Denne server kræver alle chat beskeder er signeret og du har fjerne fuldskærms advarslen for det. Alt du sender i chatten er potentielt inkriminerende bevis, der kan blive brugt imod dig i rapporten. Du kan slå \"whitelistAllServers\" fra i NoChatReports.json i din konfigurations mappe, for at blive advaret igen.",
+    "gui.nochatreports.OLD_status_unintrusive": "Denne server forhindrer ikke chat reports, men tillader stadig at sende usigneret beskeder, hvilke ikke kan blive rapporteret til Mojang. Almindelige klienter vil stadig sende signeret beskeder, vise usigneret beskeder som \"Ikke Sikker\" og ikke vise dem hvis \"Vis Kun Sikker Chat\" er slået til i chat indstillinger.",
+    "gui.nochatreports.no_reporting": "Chat rapporter er slået fra på denne server, på grund af No Chat Reports.",
+    "gui.nochatreports.reload_config_tooltip": "Genindlæs No Chat Reports' konfiguration. Brug med omtanke.",
+    "gui.nochatreports.safety_status.secure": "Denne server har No Chat Reports installeret, eller forhindrer dine beskeder for at blive rapporteret på en anden kendt måde. Du kan chatte sikkert.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports kunne ikke verificere sikkerheden af denne server. Dette burde aldrig ske, venligst rapporter det som en fejl til mod udvikleren.",
+    "gui.nochatreports.secure_chat": "Denne mulighed virker ikke med No Chat Reports, siden der ikke er nogle signaturer at verficere.",
+    "gui.nochatreports.unsafe_server.check": "Vis ikke igen for denne server",
+    "gui.nochatreports.unsafe_server.contents": "Denne server kræver alle chat beskeder bliver signeret, hvilket betyder de kan blive rapporteret til Mojang, hvilket kan resultere i en bandlysning fra alle multiplayer servere. Dette betyder nok at server ejeren har beholdt \"enforce-secure-profile\" slået til i server.properties, hvilket er standarden siden 1.19.1. Du kan stadig vælge at spille, men No Chat Reports vil ikke være i stand til at beskytte dig.",
+    "gui.nochatreports.unsafe_server.header": "Advarsel: Usikker Server"
 }

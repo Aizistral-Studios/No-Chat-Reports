@@ -1,13 +1,13 @@
 {
-	"gui.nochatreports.secure_chat": "Tato možnost nemůže fungovat s No Chat Reports, protože nejsou žádné digitální podpisy pro ověření.",
-	"gui.nochatreports.no_reporting": "Nahlašování v chatu je na tomto serveru zakázáno, díky No Chat Reports.",
-	"disconnect.nochatreports.client": "Tento server nemá No Chat Reports, ale nakonfigurovali jste jej tak, aby byl na serveru vyžadován.",
-	"gui.nochatreports.safety_status.secure": "Tento server má naninstalované No Chat Reports, nebo zabraňuje aby vaše zprávy mohly být nahlašovatelné jiným známým způsobem. Můžete bezpečně chatovat.",
-	"gui.nochatreports.OLD_status_unintrusive": "Tento server nezabraňuje nahlašování zpráv, ale povoluje odesílání nepodepsaných zpráv. Technicky vzato - mohou stále být nahlášeny Mojangu, ale většinou nejsou považovány za platné důkazy, a je nepravděpodobné, že by na základě těchto zpráv byla přijata jakákoli opatření.",
-	"gui.nochatreports.OLD_status_insecure": "Tento server vyžaduje, aby všechny zprávy byly podepsané, a vy jste souhlasili s tímto nastavením. Všechno co odešlete do chatu je potenciálně usvědčující důkaz, který může být použit proti vám v hlášení. Můžete manuálně odebrat tento server z NoChatReports.json ve vaší 'config' složce, aby jste znovu dostali varování.",
-	"gui.nochatreports.safety_status.undefined": "No Chat Reports nemůže vyhodnotit bezpečnost tohoto serveru. Toto by se nikdy nemělo stát, prosím nahlašte to jako chybu vývojáři modu.",
-	"gui.nochatreports.unsafe_server.header": "Pozor: Nezabezpečený Server",
-	"gui.nochatreports.unsafe_server.contents": "Tento server vyžaduje, aby všechny zprávy v chatu byly podepsané, což znamená, že je lze nahlásit Mojangu. To pravděpodobně znamená, že majitel serveru ponechal volbu 'enforce-secure-profile' povolenou v server.properties, což je výchozí nastavení od verze 1.19.1. Můžete se rozhodnout hrát i tak, ale No Chat Reports vás nebude moci ochránit.",
-	"gui.nochatreports.unsafe_server.check": "Znovu neukazovat pro tento server",
-	"gui.nochatreports.reload_config_tooltip": "Znovu načíst No Chat Reports nastavení. Používejte opatrně."
+    "disconnect.nochatreports.client": "Tento server nemá No Chat Reports, ale nakonfigurovali jste jej tak, aby byl na serveru vyžadován.",
+    "gui.nochatreports.OLD_status_insecure": "Tento server vyžaduje, aby všechny zprávy byly podepsané, a vy jste souhlasili s tímto nastavením. Všechno co odešlete do chatu je potenciálně usvědčující důkaz, který může být použit proti vám v hlášení. Můžete manuálně odebrat tento server z NoChatReports.json ve vaší 'config' složce, aby jste znovu dostali varování.",
+    "gui.nochatreports.OLD_status_unintrusive": "Tento server nezabraňuje nahlašování zpráv, ale povoluje odesílání nepodepsaných zpráv. Technicky vzato - mohou stále být nahlášeny Mojangu, ale většinou nejsou považovány za platné důkazy, a je nepravděpodobné, že by na základě těchto zpráv byla přijata jakákoli opatření.",
+    "gui.nochatreports.no_reporting": "Nahlašování v chatu je na tomto serveru zakázáno, díky No Chat Reports.",
+    "gui.nochatreports.reload_config_tooltip": "Znovu načíst No Chat Reports nastavení. Používejte opatrně.",
+    "gui.nochatreports.safety_status.secure": "Tento server má naninstalované No Chat Reports, nebo zabraňuje aby vaše zprávy mohly být nahlašovatelné jiným známým způsobem. Můžete bezpečně chatovat.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports nemůže vyhodnotit bezpečnost tohoto serveru. Toto by se nikdy nemělo stát, prosím nahlašte to jako chybu vývojáři modu.",
+    "gui.nochatreports.secure_chat": "Tato možnost nemůže fungovat s No Chat Reports, protože nejsou žádné digitální podpisy pro ověření.",
+    "gui.nochatreports.unsafe_server.check": "Znovu neukazovat pro tento server",
+    "gui.nochatreports.unsafe_server.contents": "Tento server vyžaduje, aby všechny zprávy v chatu byly podepsané, což znamená, že je lze nahlásit Mojangu. To pravděpodobně znamená, že majitel serveru ponechal volbu 'enforce-secure-profile' povolenou v server.properties, což je výchozí nastavení od verze 1.19.1. Můžete se rozhodnout hrát i tak, ale No Chat Reports vás nebude moci ochránit.",
+    "gui.nochatreports.unsafe_server.header": "Pozor: Nezabezpečený Server"
 }

@@ -1,14 +1,14 @@
 {
-	"gui.nochatreports.secure_chat": "Bu seçenek doğrulanacak imza olmadığından No Chat Reports ile çalışamaz.",
-	"gui.nochatreports.no_reporting": "No Chat Reports sayesinde bu sunucuda sohbet bildirileri devre dışı bırakıldı.",
-	"disconnect.nochatreports.client": "Bu sunucuda No Chat Reports yok ve siz kendisini bu sunucuda gerektirecek şekilde ayarladınız.",
-	"gui.nochatreports.safety_status.secure": "Bu sunucuda No Chat Reports yüklü ya da mesajlarınızın bilinen başka bir şekilde bildirilebilmesini engelliyor. Güvenli bir şekilde sohbet edebilirsiniz.",
-	"gui.nochatreports.OLD_status_unintrusive": "Bu sunucu sohbet bildirilerini engellemez, ancak Mojang'a bildirilemeyen imzasız mesajlar göndermenize izin verir. Vanilya istemcileri imzalı mesajlar göndermeye devam edecek, imzasız mesajları \"Güvenli Değil\" olarak gösterecek ve sohbet seçeneklerinde \"Sadece Güvenli Sohbeti Göster\" etkinleştirilmişse bunları göstermeyecektir.",
-	"gui.nochatreports.OLD_status_insecure": "Bu sunucu tüm sohbet mesajlarının imzalanmasını talep ediyor ve siz de bu düzenlemeye uymayı kabul ettiniz. Sohbette gönderdiğiniz her şey, raporda aleyhinize kullanılabilecek potansiyel olarak suçlayıcı kanıtlardır. Yeniden uyarılmak için bu sunucuyu yapılandırma klasöründeki NoChatReports.json'dan manuel olarak kaldırabilirsiniz.",
-	"gui.nochatreports.OLD_status_insecure_whitelist_all_servers": "Bu sunucu, tüm sohbet mesajlarının imzalanmasını talep ediyor ve bu yüzden tam ekran uyarısını devre dışı bıraktınız. Sohbette gönderdiğiniz her şey, raporda aleyhinize kullanılabilecek potansiyel olarak suçlayıcı kanıtlardır. Yeniden uyarılmak için yapılandırma klasörünüzdeki NoChatReports.json'dan \"whitelistAllServers\" öğesini devre dışı bırakabilirsiniz.",
-	"gui.nochatreports.safety_status.undefined": "No Chat Reports bu sunucunun güvenliğini değerlendiremedi. Bu asla olmamalıydı, lütfen mod geliştiricisine bu hatayı bildirin.",
-	"gui.nochatreports.unsafe_server.header": "Dikkat: Güvensiz Sunucu",
-	"gui.nochatreports.unsafe_server.contents": "Bu sunucu, tüm sohbet mesajlarının imzalanmasını gerektiriyor; bu, Mojang'a bildirilebilecekleri anlamına gelir; bu, tüm çok oyunculu sunuculardan yasaklanmayla sonuçlanabilir. Bu muhtemelen sunucu sahibinin 1.19.1'den beri varsayılan olan server.properties'teki \"enforce-secure-profile\" özelliğini etkin tuttuğu anlamına gelir. Yine de oynamayı deneyebilirsiniz, ancak No Chat Reports sizi koruyamaz.",
-	"gui.nochatreports.unsafe_server.check": "Bu sunucu için asla gösterme",
-	"gui.nochatreports.reload_config_tooltip": "No Chat Reports'un yapılandırma klasörünü yenile. Dikkatli kullanın."
+    "disconnect.nochatreports.client": "Bu sunucuda No Chat Reports yok ve siz kendisini bu sunucuda gerektirecek şekilde ayarladınız.",
+    "gui.nochatreports.OLD_status_insecure": "Bu sunucu tüm sohbet mesajlarının imzalanmasını talep ediyor ve siz de bu düzenlemeye uymayı kabul ettiniz. Sohbette gönderdiğiniz her şey, raporda aleyhinize kullanılabilecek potansiyel olarak suçlayıcı kanıtlardır. Yeniden uyarılmak için bu sunucuyu yapılandırma klasöründeki NoChatReports.json'dan manuel olarak kaldırabilirsiniz.",
+    "gui.nochatreports.OLD_status_insecure_whitelist_all_servers": "Bu sunucu, tüm sohbet mesajlarının imzalanmasını talep ediyor ve bu yüzden tam ekran uyarısını devre dışı bıraktınız. Sohbette gönderdiğiniz her şey, raporda aleyhinize kullanılabilecek potansiyel olarak suçlayıcı kanıtlardır. Yeniden uyarılmak için yapılandırma klasörünüzdeki NoChatReports.json'dan \"whitelistAllServers\" öğesini devre dışı bırakabilirsiniz.",
+    "gui.nochatreports.OLD_status_unintrusive": "Bu sunucu sohbet bildirilerini engellemez, ancak Mojang'a bildirilemeyen imzasız mesajlar göndermenize izin verir. Vanilya istemcileri imzalı mesajlar göndermeye devam edecek, imzasız mesajları \"Güvenli Değil\" olarak gösterecek ve sohbet seçeneklerinde \"Sadece Güvenli Sohbeti Göster\" etkinleştirilmişse bunları göstermeyecektir.",
+    "gui.nochatreports.no_reporting": "No Chat Reports sayesinde bu sunucuda sohbet bildirileri devre dışı bırakıldı.",
+    "gui.nochatreports.reload_config_tooltip": "No Chat Reports'un yapılandırma klasörünü yenile. Dikkatli kullanın.",
+    "gui.nochatreports.safety_status.secure": "Bu sunucuda No Chat Reports yüklü ya da mesajlarınızın bilinen başka bir şekilde bildirilebilmesini engelliyor. Güvenli bir şekilde sohbet edebilirsiniz.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports bu sunucunun güvenliğini değerlendiremedi. Bu asla olmamalıydı, lütfen mod geliştiricisine bu hatayı bildirin.",
+    "gui.nochatreports.secure_chat": "Bu seçenek doğrulanacak imza olmadığından No Chat Reports ile çalışamaz.",
+    "gui.nochatreports.unsafe_server.check": "Bu sunucu için asla gösterme",
+    "gui.nochatreports.unsafe_server.contents": "Bu sunucu, tüm sohbet mesajlarının imzalanmasını gerektiriyor; bu, Mojang'a bildirilebilecekleri anlamına gelir; bu, tüm çok oyunculu sunuculardan yasaklanmayla sonuçlanabilir. Bu muhtemelen sunucu sahibinin 1.19.1'den beri varsayılan olan server.properties'teki \"enforce-secure-profile\" özelliğini etkin tuttuğu anlamına gelir. Yine de oynamayı deneyebilirsiniz, ancak No Chat Reports sizi koruyamaz.",
+    "gui.nochatreports.unsafe_server.header": "Dikkat: Güvensiz Sunucu"
 }

@@ -1,13 +1,13 @@
 {
-	"gui.nochatreports.secure_chat": "Opsi ini tidak bekerja dengan §oNo Chat Reports§r, karena tidak ada tanda untuk diverifikasi",
-	"gui.nochatreports.no_reporting": "Melaporkan orang lain dinonaktifkan pada server ini karena adanya §oNo Chat Reports§r",
-	"disconnect.nochatreports.client": "Server ini tidak memiliki §oNo Chat Reports§r, dan kamu memilih konfigurasi yang mewajibkan ada §oNo Chat Reports§r di servernya.",
-	"gui.nochatreports.safety_status.secure": "Server ini memiliki §oNo Chat Reports§r atau cara lain yang membuat semua chatnya aman.",
-	"gui.nochatreports.OLD_status_unintrusive": "Server ini tidak memblokir laporan ke Mojang, tetapi mengizinkan untuk mengirim pesan tanpa tandanya. Jika pesan kamu dilaporkan, kemungkinan besar hanya akan diabaikan oleh Mojang.",
-	"gui.nochatreports.OLD_status_insecure": "Server ini mewajibkan semua orang mengirim pesan dengan tandanya, ini berarti jika pesan kamu dilaporkan dapat digunakan sebagai bukti untuk di§oban§r. Kamu dapat menghapus server ini dari §oNoChatReports.json§r untuk diperingatkan lagi tentang server ini.",
-	"gui.nochatreports.safety_status.undefined": "§oNo Chat Reports§r tidak dapat mengevaluasi keamanan server ini. Ini seharusnya tidak dapat terjadi, mohon laporkan ke developer.",
-	"gui.nochatreports.unsafe_server.header": "Perhatian: Server Tidak Aman",
-	"gui.nochatreports.unsafe_server.contents": "Server ini mewajibkan semua orang mengirim pesan dengan tandanya, ini berarti laporan dapat dikirim ke Mojang. Kemungkinan besar ini berarti pemilik servernya memilih untuk menyalakan 'enforce-secure-profile' di konfigurasi servernya. Kamu masih bisa bermain tetapi §oNo Chat Reports§r tidak dapat melindungi kamu.",
-	"gui.nochatreports.unsafe_server.check": "Jangan perlihatkan lagi untuk server ini",
-	"gui.nochatreports.reload_config_tooltip": "§oReload§r konfigurasi §oNo Chat Reports§r. Gunakan ini secara berhati-hati"
+    "disconnect.nochatreports.client": "Server ini tidak memiliki §oNo Chat Reports§r, dan kamu memilih konfigurasi yang mewajibkan ada §oNo Chat Reports§r di servernya.",
+    "gui.nochatreports.OLD_status_insecure": "Server ini mewajibkan semua orang mengirim pesan dengan tandanya, ini berarti jika pesan kamu dilaporkan dapat digunakan sebagai bukti untuk di§oban§r. Kamu dapat menghapus server ini dari §oNoChatReports.json§r untuk diperingatkan lagi tentang server ini.",
+    "gui.nochatreports.OLD_status_unintrusive": "Server ini tidak memblokir laporan ke Mojang, tetapi mengizinkan untuk mengirim pesan tanpa tandanya. Jika pesan kamu dilaporkan, kemungkinan besar hanya akan diabaikan oleh Mojang.",
+    "gui.nochatreports.no_reporting": "Melaporkan orang lain dinonaktifkan pada server ini karena adanya §oNo Chat Reports§r",
+    "gui.nochatreports.reload_config_tooltip": "§oReload§r konfigurasi §oNo Chat Reports§r. Gunakan ini secara berhati-hati",
+    "gui.nochatreports.safety_status.secure": "Server ini memiliki §oNo Chat Reports§r atau cara lain yang membuat semua chatnya aman.",
+    "gui.nochatreports.safety_status.undefined": "§oNo Chat Reports§r tidak dapat mengevaluasi keamanan server ini. Ini seharusnya tidak dapat terjadi, mohon laporkan ke developer.",
+    "gui.nochatreports.secure_chat": "Opsi ini tidak bekerja dengan §oNo Chat Reports§r, karena tidak ada tanda untuk diverifikasi",
+    "gui.nochatreports.unsafe_server.check": "Jangan perlihatkan lagi untuk server ini",
+    "gui.nochatreports.unsafe_server.contents": "Server ini mewajibkan semua orang mengirim pesan dengan tandanya, ini berarti laporan dapat dikirim ke Mojang. Kemungkinan besar ini berarti pemilik servernya memilih untuk menyalakan 'enforce-secure-profile' di konfigurasi servernya. Kamu masih bisa bermain tetapi §oNo Chat Reports§r tidak dapat melindungi kamu.",
+    "gui.nochatreports.unsafe_server.header": "Perhatian: Server Tidak Aman"
 }

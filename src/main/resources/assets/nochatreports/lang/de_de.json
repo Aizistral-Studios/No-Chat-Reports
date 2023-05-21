@@ -1,13 +1,13 @@
 {
-	"gui.nochatreports.secure_chat": "Diese Option kann nicht mit No Chat Reports verwendet werden, da keine Signaturen zum Verifizieren vorhanden sind.",
-	"gui.nochatreports.no_reporting": "Nachrichten melden ist auf diesem Server dank No Chat Reports deaktiviert.",
-	"disconnect.nochatreports.client": "Dieser Server hat No Chat Reports nicht installiert, aber du hast eingestellt, dass es auf Servern notwendig ist.",
-	"gui.nochatreports.safety_status.secure": "Dieser Server hat No Chat Reports installiert oder verhindert das Melden von Nachrichten auf eine andere bekannte Weise. Niemand sieht einen roten Balken, ein (!) Symbol oder kann Nachrichten mit \"Nur sicheren Chat anzeigen\" verstecken. Du kannst sicher chatten.",
-	"gui.nochatreports.OLD_status_unintrusive": "Dieser Server erlaubt dir, unsignierte Nachrichten zu schicken, welche nicht an Mojang gemeldet werden können. Vanilla-Clients sehen jedoch einen roten Balken links sowie ein (!) Symbol rechts von deinen Nachrichten und Spieler, die die Option \"Nur sicheren Chat anzeigen\" aktivieren, sehen deine Nachrichten überhaupt nicht.",
-	"gui.nochatreports.OLD_status_insecure": "Dieser Server verlangt, dass alle Chatnachrichten signiert sind, und du hast dieser Anforderung zugestimmt. Alles, was du in den Chat schreibst, ist ein potenziell belastender Beweis und kann in Meldungen gegen dich verwendet werden. Du kannst den Server manuell aus der NoChatReports.json im config-Ordner entfernen, um wieder gewarnt zu werden.",
-	"gui.nochatreports.safety_status.undefined": "No Chat Reports konnte die Sicherheit dieses Servers nicht einschätzen. Dies sollte niemals vorkommen, bitte melde es dem Mod-Entwickler als einen Bug.",
-	"gui.nochatreports.unsafe_server.header": "Vorsicht: unsicherer Server",
-	"gui.nochatreports.unsafe_server.contents": "Dieser Server verlangt, dass alle Chatnachrichten signiert sind, was bedeutet, dass sie an Mojang gemeldet werden können, was zu einem Bann aus dem gesamten Mehrspieler führen kann. Wahrscheinlich hat der Server-Besitzer \"enforce-secure-profile\" in der server.properties aktiviert gelassen, was seit der 1.19.1 der Standardwert ist. Du kannst trotzdem spielen, aber No Chat Reports kann dich nicht schützen.",
-	"gui.nochatreports.unsafe_server.check": "Nicht nochmal anzeigen für diesen Server",
-	"gui.nochatreports.reload_config_tooltip": "No Chat Reports Konfigurationsdatei neu laden. Nutze dies mit Bedacht."
+    "disconnect.nochatreports.client": "Dieser Server hat No Chat Reports nicht installiert, aber du hast eingestellt, dass es auf Servern notwendig ist.",
+    "gui.nochatreports.OLD_status_insecure": "Dieser Server verlangt, dass alle Chatnachrichten signiert sind, und du hast dieser Anforderung zugestimmt. Alles, was du in den Chat schreibst, ist ein potenziell belastender Beweis und kann in Meldungen gegen dich verwendet werden. Du kannst den Server manuell aus der NoChatReports.json im config-Ordner entfernen, um wieder gewarnt zu werden.",
+    "gui.nochatreports.OLD_status_unintrusive": "Dieser Server erlaubt dir, unsignierte Nachrichten zu schicken, welche nicht an Mojang gemeldet werden können. Vanilla-Clients sehen jedoch einen roten Balken links sowie ein (!) Symbol rechts von deinen Nachrichten und Spieler, die die Option \"Nur sicheren Chat anzeigen\" aktivieren, sehen deine Nachrichten überhaupt nicht.",
+    "gui.nochatreports.no_reporting": "Nachrichten melden ist auf diesem Server dank No Chat Reports deaktiviert.",
+    "gui.nochatreports.reload_config_tooltip": "No Chat Reports Konfigurationsdatei neu laden. Nutze dies mit Bedacht.",
+    "gui.nochatreports.safety_status.secure": "Dieser Server hat No Chat Reports installiert oder verhindert das Melden von Nachrichten auf eine andere bekannte Weise. Niemand sieht einen roten Balken, ein (!) Symbol oder kann Nachrichten mit \"Nur sicheren Chat anzeigen\" verstecken. Du kannst sicher chatten.",
+    "gui.nochatreports.safety_status.undefined": "No Chat Reports konnte die Sicherheit dieses Servers nicht einschätzen. Dies sollte niemals vorkommen, bitte melde es dem Mod-Entwickler als einen Bug.",
+    "gui.nochatreports.secure_chat": "Diese Option kann nicht mit No Chat Reports verwendet werden, da keine Signaturen zum Verifizieren vorhanden sind.",
+    "gui.nochatreports.unsafe_server.check": "Nicht nochmal anzeigen für diesen Server",
+    "gui.nochatreports.unsafe_server.contents": "Dieser Server verlangt, dass alle Chatnachrichten signiert sind, was bedeutet, dass sie an Mojang gemeldet werden können, was zu einem Bann aus dem gesamten Mehrspieler führen kann. Wahrscheinlich hat der Server-Besitzer \"enforce-secure-profile\" in der server.properties aktiviert gelassen, was seit der 1.19.1 der Standardwert ist. Du kannst trotzdem spielen, aber No Chat Reports kann dich nicht schützen.",
+    "gui.nochatreports.unsafe_server.header": "Vorsicht: unsicherer Server"
 }
