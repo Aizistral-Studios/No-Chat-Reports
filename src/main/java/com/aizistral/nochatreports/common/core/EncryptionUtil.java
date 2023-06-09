@@ -2,6 +2,7 @@ package com.aizistral.nochatreports.common.core;
 
 import java.util.Optional;
 
+import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.encryption.Encryptor;
 
@@ -55,8 +56,11 @@ public class EncryptionUtil {
 
 	public static Optional<String> tryDecrypt(String message, Encryptor<?> encryptor) {
 		try {
-			String[] splat = message.contains(" ") ? message.split(" ") : new String[] { message };
+			String messageCopy = message.replace('：', ' ');
+			String[] splat = messageCopy.contains(" ") ? messageCopy.split(" ") : new String[] { messageCopy };
 			String decryptable = splat[splat.length-1];
+
+			NCRCore.LOGGER.info("Decryptable: " + decryptable);
 
 			String decrypted = encryptor.decrypt(decryptable);
 
