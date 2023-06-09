@@ -60,8 +60,6 @@ public class EncryptionUtil {
 			String[] splat = messageCopy.contains(" ") ? messageCopy.split(" ") : new String[] { messageCopy };
 			String decryptable = splat[splat.length-1];
 
-			NCRCore.LOGGER.info("Decryptable: " + decryptable);
-
 			String decrypted = encryptor.decrypt(decryptable);
 
 			if (decrypted.startsWith("#%"))
