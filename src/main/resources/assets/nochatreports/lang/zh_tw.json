@@ -1,5 +1,5 @@
 {
-	"modmenu.descriptionTranslation.nochatreports": "從玩家訊息中剝離加密簽名，使其無法跟蹤並與您的 Mojang／Microsoft 帳戶關聯，以及使用檢舉功能。",
+	"modmenu.descriptionTranslation.nochatreports": "從玩家訊息中剝離加密簽名，使其無法跟蹤並與您的 Mojang 和 Microsoft 帳戶關聯，以及使用檢舉功能。",
 	"key.nochatreports.ctrl": "Ctrl",
 	"key.nochatreports.cmd": "Cmd",
 	"gui.nochatreports.secure_chat": "此選項被 No Chat Reports 停用。",
@@ -56,7 +56,7 @@
 	"nochatreports.connect.nokey_rejected": "伺服器拒絕沒有簽名金鑰的連接。",
 	"nochatreports.connect.await": "等待重連：%1$s 秒...",
 	"gui.nochatreports.realms_warning.header": "警告：Realms",
-	"gui.nochatreports.realms_warning.contents": "Realms 伺服器不是私有的。Realms 所有者不能停用檢舉，Mojang 應用額外的聊天監控來識別潛在的「線上危害」，並將其上報給人類審查。如果您被發現違反了 Minecraft 的社區標準 - 即使聊天參與者沒有受到冒犯 - 您將被暫時或永久禁止使用所有多人遊戲服務。強烈建議使用加密。",
+	"gui.nochatreports.realms_warning.contents": "Realms 伺服器不是私有的。Realms 擁有者不能停用檢舉，Mojang 應用額外的聊天監控來識別潛在的「線上危害」，並將其上報給人類審查。如果您被發現違反了 Minecraft 的社區標準 - 即使聊天參與者沒有受到冒犯 - 您將被暫時或永久禁止使用所有多人遊戲服務。強烈建議使用加密。",
 	"gui.nochatreports.realms_warning.check": "不再提示",
 	"gui.nochatreports.realms_warning.learn_more": "瞭解更多",
 	"gui.nochatreports.signing_required.header": "警告：簽名要求",
