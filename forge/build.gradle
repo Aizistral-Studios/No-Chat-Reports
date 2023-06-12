@@ -193,9 +193,10 @@ curseforge {
         changelogType = 'html'
         changelog = rootProject.file('docs/changelog.html')
 		
-		addGameVersion project.minecraft_version
-		addGameVersion 'Java 17'
-		addGameVersion 'Forge'
+		addGameVersion "1.20.1"
+		addGameVersion "1.20"
+		addGameVersion "Java 17"
+		addGameVersion "Forge"
 		
         //addArtifact(sourcesJar)
         //addArtifact(apiJar)
@@ -210,7 +211,7 @@ modrinth {
     versionType = "${version_type}"
 	changelog = rootProject.file("docs/changelog.html").text
     uploadFile = jar
-    gameVersions = [ project.minecraft_version ]
+    gameVersions = [ "1.20.1", "1.20" ]
 	
 	syncBodyFrom = rootProject.file("docs/README.md").text
 }
