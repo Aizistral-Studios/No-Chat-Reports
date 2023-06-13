@@ -106,7 +106,7 @@ processResources {
 	}
 
     from("${rootProject.projectDir}/docs") {
-        include 'changelog.html'
+        include 'CHANGELOG.md'
     }
 	
 	from("${rootProject.projectDir}") {
@@ -148,11 +148,12 @@ curseforge {
         
 		id = "${curse_id}"
         releaseType = "${version_type}"
-        changelogType = 'html'
-        changelog = file('docs/changelog.html')
+        changelogType = 'markdown'
+        changelog = file('docs/CHANGELOG.md')
 		mainArtifact(remapJar)
 		
-		addGameVersion rootProject.minecraft_version
+		addGameVersion "1.20.1"
+		addGameVersion "1.20"
 		addGameVersion 'Quilt'
 		addGameVersion 'Fabric'
 		addGameVersion 'Java 17'
@@ -183,9 +184,9 @@ modrinth {
     versionNumber = "Fabric-" + project.mod_version
 	versionName = "No Chat Reports Fabric-" + project.mod_version
     versionType = "${version_type}"
-	changelog = rootProject.file("docs/changelog.html").text
+	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = remapJar
-    gameVersions = [ project.minecraft_version ]
+    gameVersions = [ "1.20.1", "1.20" ]
 	loaders = ['fabric', 'quilt']
 	
 	dependencies {
