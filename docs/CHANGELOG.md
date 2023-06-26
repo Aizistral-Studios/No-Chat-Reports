@@ -1,4 +1,7 @@
-## **The Changelog:**
+#### **\[Build 1.20.1-v2.2.2\]:**
+
+- Improved config I/O error handling and logging;
+- Changelog format was changed to Markdown, [file available on Github](https://github.com/Aizistral-Studios/No-Chat-Reports/blob/1.20-Unified/docs/CHANGELOG.md).
 
 
 #### **\[Build 1.20.1-v2.2.1\]:**
