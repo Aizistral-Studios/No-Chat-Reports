@@ -25,8 +25,6 @@ import net.minecraft.server.network.ServerPlayerConnection;
 @Mixin(ServerCommonPacketListenerImpl.class)
 public abstract class MixinServerCommonPacketListenerImpl {
 
-
-
 	/**
 	 * @reason Convert player message to system message if mod is configured respectively.
 	 * This allows to circumvent signature check on client, as it only checks player messages.
