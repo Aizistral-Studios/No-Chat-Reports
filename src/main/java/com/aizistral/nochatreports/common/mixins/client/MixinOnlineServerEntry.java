@@ -27,7 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Mixin(ServerSelectionList.OnlineServerEntry.class)
 public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
-	private static final ResourceLocation VERIFIED_ICON = new ResourceLocation("nochatreports", "textures/gui/verified_server.png");
+	private static final ResourceLocation VERIFIED_ICON = new ResourceLocation("nochatreports", "verified_server");
 
 	@Shadow @Final
 	private JoinMultiplayerScreen screen;
@@ -46,7 +46,7 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 					yOffset = NCRConfig.getClient().getVerifiedIconOffsetY();
 
 			RenderSystem.enableBlend();
-			graphics.blit(VERIFIED_ICON, k + l - 35 + xOffset, j - 1 + yOffset, 0.0f, 0.0f, 14, 14, 14, 14);
+			graphics.blitSprite(VERIFIED_ICON, k + l - 35 + xOffset, j - 1 + yOffset, 14, 14);
 			RenderSystem.disableBlend();
 
 			int t = n - k;
