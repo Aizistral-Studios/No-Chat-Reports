@@ -20,20 +20,6 @@ public class MixinServerStatus implements ServerDataExtension {
 
 	private boolean preventsChatReports;
 
-	/**
-	 * @reason Spoof the value of "enforcesSecureChat" in case conversion to system messages is enabled.
-	 * There is no way for client to verify the value of the option in such case, so that's one less
-	 * annoying warning.
-	 * @author Aizistral
-	 */
-
-	@Inject(method = "enforcesSecureChat", at = @At("HEAD"), cancellable = true)
-	public void onSecureChatCheck(CallbackInfoReturnable<Boolean> info) {
-		if (NCRConfig.getCommon().convertToGameMessage()) {
-			info.setReturnValue(true);
-		}
-	}
-
 	@Override
 	public boolean preventsChatReports() {
 		var self = (ServerStatus) (Object) this;
