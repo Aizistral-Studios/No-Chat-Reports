@@ -115,7 +115,7 @@ public abstract class MixinChatScreen extends Screen {
 							GUIShenanigans.getSprites("safety_state/realms"),
 							GUIShenanigans.getSprites("safety_state/unknown"),
 							GUIShenanigans.getSprites("safety_state/undefined")
-							),
+							).setIndex(this.getSpriteSet()),
 					btn -> {
 						if (!NCRClient.areSigningKeysPresent())
 							return;
