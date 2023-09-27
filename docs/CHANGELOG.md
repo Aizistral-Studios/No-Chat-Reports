@@ -1,3 +1,10 @@
+#### **\[Build 1.20.2-v2.3.1\]:**
+
+- Fixed verified server icon not rendering correctly ([#438](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/438));
+- Fixed incorrect handling of chat messages that exceed vanilla's limit of 256 characters upon encryption ([thanks festino, #429](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/429));
+- Updated Ukrainian translation ([thanks bettercalldelta, #422](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/422));
+- Updated Simplified and Traditional Chinese translation ([thanks IlyaYezerovsky, #430](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/430)).
+
 #### **\[Build 1.20.2-v2.3.0\]:**
 
 - Initial 1.20.2 port;
