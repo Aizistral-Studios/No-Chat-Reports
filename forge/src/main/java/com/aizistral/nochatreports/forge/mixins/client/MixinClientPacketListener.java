@@ -8,15 +8,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.Component;
 
-@Mixin(value = ClientPacketListener.class)
+@Mixin(value = ClientCommonPacketListenerImpl.class)
 public class MixinClientPacketListener {
 
 	@Inject(method = "onDisconnect", at = @At("HEAD"))
 	private void handleDisconnection(Component reason, CallbackInfo info) {
-		ClientEvents.DISCONNECT.invoker().handle(Minecraft.getInstance());
+		Object self = this;
+		
+		if (self instanceof ClientPacketListener) {
+			ClientEvents.DISCONNECT.invoker().handle(Minecraft.getInstance());
+		}
 	}
 
 }
