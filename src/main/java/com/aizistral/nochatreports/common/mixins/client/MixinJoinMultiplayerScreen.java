@@ -42,7 +42,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 54, 20, 20,
 					SwitchableSprites.of(GUIShenanigans.getSprites("config_reload_button")),
 					btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
-			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250).setRenderWithoutGap(true));
+			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250));
 			button.active = true;
 			button.visible = true;
 			this.addRenderableWidget(button);
