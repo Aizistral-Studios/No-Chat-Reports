@@ -13,6 +13,7 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
+import com.aizistral.nochatreports.common.encryption.Encryptor;
 import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.common.gui.EncryptionButton;
@@ -45,6 +46,7 @@ import net.minecraft.resources.ResourceLocation;
 
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
+	private static final int MESSAGE_MAX_LENGTH = 256;
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons_extended.png");
 	private static final ResourceLocation ENCRYPTION_BUTTON = new ResourceLocation("nochatreports", "textures/gui/encryption_toggle_button.png");
 	private AdvancedImageButton safetyStatusButton;
@@ -96,10 +98,23 @@ public abstract class MixinChatScreen extends Screen {
 				String encrypt = message.substring(index, message.length());
 
 				if (encrypt.length() > 0) {
-					info.setReturnValue(noencrypt + e.encrypt("#%" + encrypt));
+					int maxEncryptedLength = MESSAGE_MAX_LENGTH - noencrypt.length();
+					info.setReturnValue(noencrypt + getEncrypted(e, encrypt, maxEncryptedLength));
 				}
 			});
 		}
+	}
+	
+	private String getEncrypted(Encryptor<?> e, String encrypt, int maxLength) {
+		while (encrypt.length() > 0) {
+			String encrypted = e.encrypt("#%" + encrypt);
+			if (encrypted.length() <= maxLength)
+				return encrypted;
+			
+			encrypt = encrypt.substring(0, encrypt.length() - 1);
+		}
+		
+		return "";
 	}
 
 	@Inject(method = "init", at = @At("HEAD"))
