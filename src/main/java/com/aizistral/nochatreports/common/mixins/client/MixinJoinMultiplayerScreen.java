@@ -53,7 +53,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 					SwitchableSprites.of(
 							GUIShenanigans.getSprites("ncr_active_button"),
 							GUIShenanigans.getSprites("ncr_inactive_button")
-							).setIndex(NCRConfig.getClient().enableMod() ? 1 : 2),
+							).setIndex(NCRConfig.getClient().enableMod() ? 0 : 1),
 					btn -> {
 						NCRConfig.getClient().toggleMod();
 						boolean enabled = NCRConfig.getClient().enableMod();

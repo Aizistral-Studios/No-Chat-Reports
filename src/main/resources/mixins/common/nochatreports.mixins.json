@@ -8,7 +8,7 @@
 	"common.MixinServerStatus",
 	"common.MixinFriendlyByteBuf",
 	"server.MixinServerboundChatPacket",
-	"server.MixinServerGamePacketListenerImpl",
+	"server.MixinServerCommonPacketListenerImpl",
 	"server.MixinPlayerList",
 	"server.MixinServerboundChatSessionUpdatePacket",
 	"server.MixinServerboundChatCommandPacket"
@@ -33,7 +33,8 @@
 	"client.MixinTitleScreen",
 	"client.MixinMinecraft",
 	"client.MixinClientPacketListener",
-	"client.MixinRowHelper"
+	"client.MixinRowHelper",
+	"client.AccessorClientPacketListener"
   ],
   "server": [
 	"server.MixinDedicatedServer"

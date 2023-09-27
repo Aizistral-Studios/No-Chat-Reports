@@ -1,6 +1,7 @@
 package com.aizistral.nochatreports.common.mixins.server;
 
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,14 +16,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerCommonPacketListenerImpl;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.server.network.ServerPlayerConnection;
 
-@Mixin(ServerGamePacketListenerImpl.class)
-public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerConnection {
-	@Shadow
-	public ServerPlayer player;
+@Mixin(ServerCommonPacketListenerImpl.class)
+public abstract class MixinServerCommonPacketListenerImpl {
+
+
 
 	/**
 	 * @reason Convert player message to system message if mod is configured respectively.
@@ -33,19 +36,23 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;)V", at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, CallbackInfo info) {
-		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
-			NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
-					: chat.body().content());
-		}
+		Object self = this;
 
-		if (NCRConfig.getCommon().convertToGameMessage()) {
-			if (packet instanceof ClientboundPlayerChatPacket chat) {
-				packet = new ClientboundSystemChatPacket(chat.chatType().resolve(this.player.level().registryAccess())
-						.get().decorate(chat.unsignedContent() != null ? chat.unsignedContent()
-								: Component.literal(chat.body().content())), false);
+		if (self instanceof ServerGamePacketListenerImpl listener) {
+			if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
+				NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
+						: chat.body().content());
+			}
 
-				info.cancel();
-				this.send(packet);
+			if (NCRConfig.getCommon().convertToGameMessage()) {
+				if (packet instanceof ClientboundPlayerChatPacket chat) {
+					packet = new ClientboundSystemChatPacket(chat.chatType().resolve(listener.player.level()
+							.registryAccess()).get().decorate(chat.unsignedContent() != null ? chat.unsignedContent()
+									: Component.literal(chat.body().content())), false);
+
+					info.cancel();
+					listener.send(packet);
+				}
 			}
 		}
 	}
@@ -58,16 +65,21 @@ public abstract class MixinServerGamePacketListenerImpl implements ServerPlayerC
 	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
 			at = @At("HEAD"), cancellable = true)
 	private void onSend(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo info) {
-		if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
-			NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
-					: chat.body().content());
-		}
+		Object self = this;
 
-		if (NCRConfig.getCommon().convertToGameMessage()) {
-			if (packet instanceof ClientboundPlayerChatPacket chat && packetSendListener != null) {
-				info.cancel();
-				((ServerGamePacketListenerImpl) (Object) this).send(chat);
+		if (self instanceof ServerGamePacketListenerImpl listener) {
+			if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
+				NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
+						: chat.body().content());
 			}
+
+			if (NCRConfig.getCommon().convertToGameMessage()) {
+				if (packet instanceof ClientboundPlayerChatPacket chat && packetSendListener != null) {
+					info.cancel();
+					listener.send(chat);
+				}
+			}
+
 		}
 	}
 

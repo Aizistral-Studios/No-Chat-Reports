@@ -31,6 +31,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
@@ -210,8 +211,8 @@ public abstract class MixinChatScreen extends Screen {
 		this.addRenderableWidget(button);
 	}
 
-	@Inject(method = "tick", at = @At("RETURN"))
-	private void onTick(CallbackInfo info) {
+	@Override
+	public void tick() {
 		if (this.safetyStatusButton != null) {
 			this.safetyStatusButton.useSprites(this.getSpriteSet());
 		}
