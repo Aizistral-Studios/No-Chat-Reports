@@ -1,3 +1,9 @@
+#### **\[Build 1.20.2-v2.3.0\]:**
+
+- Initial 1.20.2 port;
+- Removed server-sided mechanism that prevented "messages cannot be verified" toast from showing up on clients if the mod was configured to convert player messages to system messages.
+
+
 #### **\[Build 1.20.1-v2.2.2\]:**
 
 - Improved config I/O error handling and logging;
