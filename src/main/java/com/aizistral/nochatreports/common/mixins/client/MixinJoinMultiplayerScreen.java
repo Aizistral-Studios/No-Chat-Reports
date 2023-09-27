@@ -9,6 +9,8 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
+import com.aizistral.nochatreports.common.gui.GUIShenanigans;
+import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -37,8 +39,9 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
 		if (NCRConfig.getClient().showReloadButton()) {
-			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 54, 20, 20, 0, 0, 20,
-					RELOAD_TEXTURE, 64, 64, btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
+			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 54, 20, 20,
+					SwitchableSprites.of(GUIShenanigans.getSprites("config_reload_button")),
+					btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
 			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250).setRenderWithoutGap(true));
 			button.active = true;
 			button.visible = true;
@@ -47,19 +50,22 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 
 		if (NCRConfig.getClient().showNCRButton()) {
 			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 30, 20, 20,
-					NCRConfig.getClient().enableMod() ? 0 : 20, 0, 20, TOGGLE_TEXTURE, 64, 64,
-							btn -> {
-								NCRConfig.getClient().toggleMod();
-								boolean enabled = NCRConfig.getClient().enableMod();
+					SwitchableSprites.of(
+							GUIShenanigans.getSprites("ncr_active_button"),
+							GUIShenanigans.getSprites("ncr_inactive_button")
+							).setIndex(NCRConfig.getClient().enableMod() ? 1 : 2),
+					btn -> {
+						NCRConfig.getClient().toggleMod();
+						boolean enabled = NCRConfig.getClient().enableMod();
 
-								if (enabled) {
-									((ImageButton)btn).xTexStart = 0;
-								} else {
-									((ImageButton)btn).xTexStart = 20;
-								}
+						if (enabled) {
+							((AdvancedImageButton)btn).useSprites(0);
+						} else {
+							((AdvancedImageButton)btn).useSprites(1);
+						}
 
-								ServerSafetyState.reset();
-							}, Component.translatable("gui.nochatreports.ncr_toggle"), this);
+						ServerSafetyState.reset();
+					}, Component.translatable("gui.nochatreports.ncr_toggle"), this);
 			button.setTooltip(new AdvancedTooltip(() -> Component.translatable("gui.nochatreports.ncr_toggle_tooltip",
 					Language.getInstance().getOrDefault("gui.nochatreports.ncr_state_" + (NCRConfig.getClient()
 							.enableMod() ? "on" : "off")))).setMaxWidth(250));

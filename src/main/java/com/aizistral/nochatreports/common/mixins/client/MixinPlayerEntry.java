@@ -14,10 +14,12 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.common.gui.InvisibleButton;
+import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.social.PlayerEntry;
 import net.minecraft.client.gui.screens.social.SocialInteractionsScreen;
 import net.minecraft.network.chat.Component;
@@ -26,7 +28,8 @@ import net.minecraft.resources.ResourceLocation;
 @Mixin(PlayerEntry.class)
 public class MixinPlayerEntry {
 	private static final Component NCR_BUTTON_TOOLTIP = Component.translatable("gui.nochatreports.no_reporting");
-	@Shadow @Final private static ResourceLocation REPORT_BUTTON_LOCATION;
+
+	@Shadow @Final private static WidgetSprites REPORT_BUTTON_SPRITES;
 	@Shadow private Button reportButton;
 
 	/**
@@ -40,7 +43,7 @@ public class MixinPlayerEntry {
 			this.reportButton = new InvisibleButton();
 			this.reportButton.active = this.reportButton.visible = false;
 		} else if (ServerSafetyState.getCurrent().isSecure() && this.reportButton != null) {
-			this.reportButton = new AdvancedImageButton(0, 0, 20, 20, 0, 0, 20, REPORT_BUTTON_LOCATION, 64, 64,
+			this.reportButton = new AdvancedImageButton(0, 0, 20, 20, SwitchableSprites.of(REPORT_BUTTON_SPRITES),
 					button -> {}, Component.translatable("gui.socialInteractions.report"), screen);
 			this.reportButton.setTooltip(Tooltip.create(NCR_BUTTON_TOOLTIP));
 			this.reportButton.setTooltipDelay(10);

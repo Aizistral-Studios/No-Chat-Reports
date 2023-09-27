@@ -18,6 +18,7 @@ import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.common.gui.EncryptionButton;
 import com.aizistral.nochatreports.common.gui.EncryptionWarningScreen;
 import com.aizistral.nochatreports.common.gui.GUIShenanigans;
+import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 import com.aizistral.nochatreports.common.gui.TooltipHelper;
 
 import net.minecraft.ChatFormatting;
@@ -45,7 +46,7 @@ import net.minecraft.resources.ResourceLocation;
 public abstract class MixinChatScreen extends Screen {
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons_extended.png");
 	private static final ResourceLocation ENCRYPTION_BUTTON = new ResourceLocation("nochatreports", "textures/gui/encryption_toggle_button.png");
-	private ImageButton safetyStatusButton;
+	private AdvancedImageButton safetyStatusButton;
 	@Shadow
 	protected EditBox input;
 
@@ -105,8 +106,16 @@ public abstract class MixinChatScreen extends Screen {
 		int buttonX = this.width - 23;
 
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
-			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(),
-					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {
+			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20,
+					SwitchableSprites.of(
+							GUIShenanigans.getSprites("safety_state/insecure"),
+							GUIShenanigans.getSprites("safety_state/unintrusive"),
+							GUIShenanigans.getSprites("safety_state/secure"),
+							GUIShenanigans.getSprites("safety_state/realms"),
+							GUIShenanigans.getSprites("safety_state/unknown"),
+							GUIShenanigans.getSprites("safety_state/undefined")
+							),
+					btn -> {
 						if (!NCRClient.areSigningKeysPresent())
 							return;
 
@@ -170,16 +179,16 @@ public abstract class MixinChatScreen extends Screen {
 		if (!NCRConfig.getEncryption().showEncryptionButton())
 			return;
 
-		int xStart = !NCRConfig.getEncryption().isValid() ? 40 : (NCRConfig.getEncryption().isEnabled() ? 0 : 20);
+		int useSprites = !NCRConfig.getEncryption().isValid() ? 2 : (NCRConfig.getEncryption().isEnabled() ? 0 : 1);
 
-		var button = new EncryptionButton(buttonX, this.height - 37, 20, 20, xStart,
-				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
+		var button = new EncryptionButton(buttonX, this.height - 37, 20, 20, useSprites,
+				btn -> {
 					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
 							&& !NCRConfig.getEncryption().isEnabled()) {
 						Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
 					} else if (NCRConfig.getEncryption().isValid()) {
 						NCRConfig.getEncryption().toggleEncryption();
-						((EncryptionButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
+						((EncryptionButton)btn).useSprites(NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 1);
 					} else {
 						((EncryptionButton)btn).openEncryptionConfig();
 					}
@@ -204,7 +213,7 @@ public abstract class MixinChatScreen extends Screen {
 	@Inject(method = "tick", at = @At("RETURN"))
 	private void onTick(CallbackInfo info) {
 		if (this.safetyStatusButton != null) {
-			this.safetyStatusButton.xTexStart = this.getXOffset();
+			this.safetyStatusButton.useSprites(this.getSpriteSet());
 		}
 	}
 
@@ -212,18 +221,18 @@ public abstract class MixinChatScreen extends Screen {
 		return ServerSafetyState.getCurrent();
 	}
 
-	private int getXOffset() {
-		return this.getXOffset(this.getSafetyLevel());
+	private int getSpriteSet() {
+		return this.getSpriteSet(this.getSafetyLevel());
 	}
 
-	private int getXOffset(ServerSafetyLevel level) {
+	private int getSpriteSet(ServerSafetyLevel level) {
 		return switch (level) {
-		case SECURE, SINGLEPLAYER -> 21;
-		case UNINTRUSIVE -> 42;
 		case INSECURE -> 0;
-		case REALMS -> 63;
-		case UNKNOWN -> 84;
-		case UNDEFINED -> 105;
+		case UNINTRUSIVE -> 1;
+		case SECURE, SINGLEPLAYER -> 2;
+		case REALMS -> 3;
+		case UNKNOWN -> 4;
+		case UNDEFINED -> 5;
 		};
 	}
 

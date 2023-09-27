@@ -54,7 +54,7 @@ public abstract class AdaptiveWarningScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics graphics, int i, int j, float f) {
-		this.renderBackground(graphics);
+		this.renderBackground(graphics, i, j, f);
 		this.renderTitle(graphics);
 		int k = this.width / 2 - this.message.getWidth() / 2;
 		this.message.renderLeftAligned(graphics, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);

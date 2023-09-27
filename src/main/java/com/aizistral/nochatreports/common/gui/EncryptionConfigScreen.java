@@ -18,6 +18,7 @@ import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.MultiLineLabel;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -26,7 +27,6 @@ import net.minecraft.util.StringUtil;
 
 @Environment(EnvType.CLIENT)
 public class EncryptionConfigScreen extends Screen {
-	private static final ResourceLocation ENCRYPTION_ICONS = new ResourceLocation("nochatreports", "textures/gui/encryption_gui_icons.png");
 	private static final Component HEADER = Component.translatable("gui.nochatreports.encryption_config.header");
 	private static final Component KEY_DESC = Component.translatable("gui.nochatreports.encryption_config.key_desc");
 	private static final Component PASS_DESC = Component.translatable("gui.nochatreports.encryption_config.passphrase_desc");
@@ -35,11 +35,12 @@ public class EncryptionConfigScreen extends Screen {
 	private static final Component DICE_TOOLTIP = Component.translatable("gui.nochatreports.encryption_config.dice_tooltip");
 	private static final Component PASS_NOT_ALLOWED = Component.translatable("gui.nochatreports.encryption_config.pass_not_allowed");
 	private static final Component ENCRYPT_PUBLIC = Component.translatable("gui.nochatreports.encryption_config.encrypt_public");
+	private static final ResourceLocation CROSSMARK = new ResourceLocation("nochatreports", "encryption/crossmark_big");
 
 	private static final int FIELDS_Y_START = 45;
 	private final Screen previous;
 	private CustomEditBox keyField, passField;
-	private ImageButton validationIcon;
+	private AdvancedImageButton validationIcon;
 	private CycleButton<Encryption> algorithmButton;
 	private MultiLineLabel keyDesc = MultiLineLabel.EMPTY, passDesc = MultiLineLabel.EMPTY;
 	protected Checkbox encryptPublicCheck;
@@ -69,30 +70,36 @@ public class EncryptionConfigScreen extends Screen {
 
 		w -= 52;
 
-		this.keyField = new CustomEditBox(this.font, (this.width - w)/2 - 2, (this.hugeGUI() ? 25 : FIELDS_Y_START) + keyDescSpace - 15,
-				w, 18, CommonComponents.EMPTY);
+		this.keyField = new CustomEditBox(this.font, (this.width - w) / 2 - 2,
+				(this.hugeGUI() ? 25 : FIELDS_Y_START) + keyDescSpace - 15, w, 18, CommonComponents.EMPTY);
 		this.keyField.setMaxLength(512);
 		this.keyField.setResponder(this::onKeyUpdate);
 		this.addWidget(this.keyField);
 
-		var button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() - 15, this.keyField.getY() + 3, 12,
-				12, 0, 0, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
-		button.setTooltip(new AdvancedTooltip(() -> this.validationIcon != null &&
-				this.validationIcon.yTexStart == 0 ? VALIDATION_OK : VALIDATION_FAILED).setMaxWidth(250));
+		var button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() - 15,
+				this.keyField.getY() + 3, 12, 12, SwitchableSprites.of(
+						GUIShenanigans.getSprites("encryption/checkmark", false, false),
+						GUIShenanigans.getSprites("encryption/crossmark", false, false)
+						), btn -> {}, Component.empty(), this);
+
+		button.setTooltip(new AdvancedTooltip(
+				() -> this.validationIcon != null && this.validationIcon.getSpritesIndex() == 0 ? VALIDATION_OK
+						: VALIDATION_FAILED).setMaxWidth(250));
 		button.active = false;
 		button.visible = true;
 
 		this.addRenderableOnly(this.validationIcon = button);
 
-		button = new AdvancedImageButton(this.keyField.getX() - 22, this.keyField.getY() - 0, 18, 18, 0,
-				28, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
+		button = new AdvancedImageButton(this.keyField.getX() - 22, this.keyField.getY() - 0, 18, 18,
+				SwitchableSprites.of(GUIShenanigans.getSprites("encryption/key_button", false, false)), btn -> {},
+				Component.empty(), this);
 		button.active = false;
 		button.visible = true;
 
 		this.addRenderableOnly(button);
 
-		button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() + 4, this.keyField.getY() - 1, 23, 20, 41,
-				24, 20, ENCRYPTION_ICONS, 64, 64, btn -> {
+		button = new AdvancedImageButton(this.keyField.getX() + this.keyField.getWidth() + 4, this.keyField.getY() - 1,
+				23, 20, SwitchableSprites.of(GUIShenanigans.getSprites("encryption/random_button")), btn -> {
 					this.unfocusFields();
 					this.keyField.setValue(this.algorithmButton.getValue().getRandomKey());
 				}, Component.empty(), this);
@@ -110,8 +117,9 @@ public class EncryptionConfigScreen extends Screen {
 		this.passField.setResponder(this::onPassphraseUpdate);
 		this.addWidget(this.passField);
 
-		button = new AdvancedImageButton(this.passField.getX() - 22, this.passField.getY() - 0, 18, 18, 0,
-				46, 0, ENCRYPTION_ICONS, 64, 64, btn -> {}, Component.empty(), this);
+		button = new AdvancedImageButton(this.passField.getX() - 22, this.passField.getY() - 0, 18, 18,
+				SwitchableSprites.of(GUIShenanigans.getSprites("encryption/lock_button", false, false)),
+				btn -> {}, Component.empty(), this);
 		button.active = false;
 		button.visible = true;
 
@@ -164,7 +172,7 @@ public class EncryptionConfigScreen extends Screen {
 			this.passField.setEditable(false);
 		}
 
-		this.renderBackground(graphics);
+		this.renderBackground(graphics, j, j, f);
 		graphics.drawCenteredString(this.font, HEADER, this.width / 2, this.hugeGUI() ? 8 : 16, 0xFFFFFF);
 
 		this.keyDesc.renderLeftAligned(graphics, this.keyField.getX() - 20, (this.hugeGUI() ? 25 : FIELDS_Y_START), this.getLineHeight(), 0xFFFFFF);
@@ -193,7 +201,7 @@ public class EncryptionConfigScreen extends Screen {
 			graphics.drawString(this.font, PASS_NOT_ALLOWED, this.passField.getX() + 4,
 					this.passField.getY() + 5, 0x999999);
 			RenderSystem.enableDepthTest();
-			graphics.blit(ENCRYPTION_ICONS, this.passField.getX() - 20, this.passField.getY() + 3, 50, 0, 14, 13, 64, 64);
+			graphics.blitSprite(CROSSMARK, this.passField.getX() - 20, this.passField.getY() + 3, 14, 13);
 		}
 	}
 
@@ -204,20 +212,15 @@ public class EncryptionConfigScreen extends Screen {
 			return this.minecraft.font.lineHeight * 2;
 	}
 
-	@Override
-	public void tick() {
-		this.keyField.tick();
-	}
-
 	private void onKeyUpdate(String key) {
 		if (!this.settingPassKey) {
 			this.passField.setValue("");
 		}
 
 		if (!StringUtil.isNullOrEmpty(key)) {
-			this.validationIcon.yTexStart = this.algorithmButton.getValue().validateKey(key) ? 0 : 12;
+			this.validationIcon.useSprites(this.algorithmButton.getValue().validateKey(key) ? 0 : 1);
 		} else {
-			this.validationIcon.yTexStart = 0;
+			this.validationIcon.useSprites(0);
 		}
 	}
 

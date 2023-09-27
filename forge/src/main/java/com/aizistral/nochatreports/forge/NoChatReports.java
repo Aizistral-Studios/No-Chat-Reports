@@ -39,8 +39,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.event.EventNetworkChannel;
-import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
 @Mod("nochatreports")
