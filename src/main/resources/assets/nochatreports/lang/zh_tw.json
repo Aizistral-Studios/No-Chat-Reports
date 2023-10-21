@@ -32,7 +32,7 @@
 	"gui.nochatreports.encryption_state_on": "§a§l已啟用§r",
 	"gui.nochatreports.encryption_state_off": "§c§l已停用§r",
 	"gui.nochatreports.encryption_warning.header": "關於加密",
-	"gui.nochatreports.encryption_warning.contents": "你可以使用祕密金鑰來加密你的訊息。只有知道此金鑰的人才有辦法解密它們。當適當的金鑰設定好且啟用了該功能時，「No Chat Reports」將會自動解密所有加密的訊息。\n但是，請注意加密並不是一種「魔法棒」揮一揮就解決的方式。第三方伺服器管理員可以將你訊息視為無意義亂碼洗版，將你給禁言或封鎖。此外，建議你生成自訂的加密金鑰，並僅通過安全頻道中。點擊「了解更多」來了解何時及如何使用加密。",
+	"gui.nochatreports.encryption_warning.contents": "你可以使用祕密金鑰來加密你的訊息。只有知道此金鑰的人才有辦法解密它們。當適當的金鑰設定好且啟用了該功能時，「No Chat Reports」將會自動解密所有加密的訊息。\n但是，請注意加密並不是一種「魔法棒」揮一揮就解決的神奇方式。第三方伺服器管理員可以將你訊息視為無意義亂碼洗版，將你給禁言或封鎖。此外，建議你生成自訂的加密金鑰，並僅通過安全頻道中。點擊「了解更多」來了解何時及如何使用加密。",
 	"gui.nochatreports.encryption_warning.check": "不再顯示",
 	"gui.nochatreports.encryption_warning.learn_more": "了解更多",
 	"gui.nochatreports.encryption_config.header": "聊天加密設定",
