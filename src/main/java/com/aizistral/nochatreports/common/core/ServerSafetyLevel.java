@@ -33,7 +33,7 @@ public enum ServerSafetyLevel {
 
 	/**
 	 * Same as UNINTRUSIVE, but also checks that the server type is vanilla.
-	 * This only changes the tooltip to better inform the user, not any functionality.
+	 * This only changes the tooltip to better inform the user, functionality remains identical to UNINTRUSIVE.
 	 */
 	UNINTRUSIVE_VANILLA,
 
