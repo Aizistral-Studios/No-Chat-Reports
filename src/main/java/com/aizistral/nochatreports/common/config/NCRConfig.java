@@ -57,7 +57,7 @@ public final class NCRConfig {
 		}
 
 		if(common.enableDebugLog())
-			System.setProperty("mixin.debug.verbose", "true");
+			System.setProperty("mixin.verbose", "true");
 
 		save();
 	}
