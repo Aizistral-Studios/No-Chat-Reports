@@ -14,7 +14,9 @@ public class MixinMinecraft {
 
 	@Inject(method = "run", at = @At("HEAD"))
 	private void onRun(CallbackInfo info) {
-		NCRCore.LOGGER.info("Game entered main loop!");
+		if (NCRConfig.getCommon().enableDebugLog()) {
+			NCRCore.LOGGER.info("Game entered main loop!");
+		}
 	}
 
 }
