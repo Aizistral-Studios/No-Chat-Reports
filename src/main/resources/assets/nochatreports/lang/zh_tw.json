@@ -7,12 +7,13 @@
 	"disconnect.nochatreports.client": "此伺服器沒有「No Chat Reports」，且你已將其設定為伺服器上需要有。",
 	"gui.nochatreports.safety_status_button.controls": "左鍵點擊來切換簽章模式。",
 	"gui.nochatreports.safety_status.secure": "此伺服器已安裝了「No Chat Reports」，或者其他方式防止你的訊息可被檢舉。你可以放心地聊天。",
-	"gui.nochatreports.safety_status.singleplayer": "在單人遊戲和自己架設的區網世界中，你總是可以安全地聊天。",
-	"gui.nochatreports.safety_status.unintrusive": "此伺服器允許你傳送未經簽章的訊息，這些訊息無法被回報至 Mojang。除非在伺服器上安裝了某種防止聊天檢舉的插件 - 原版用戶端仍然會傳送簽章的訊息，將未簽章的訊息顯示為「未認證」，如果在選項中啟用了「僅顯示已受保護的聊天內容」時，將不會顯示這些未經簽章的訊息。",
+	"gui.nochatreports.safety_status.singleplayer": "在單人遊戲和由你開啟的區網世界中，你總是可以安全地聊天。",
+	"gui.nochatreports.safety_status.unintrusive": "此伺服器允許你傳送未經簽章的訊息，這些訊息無法向 Mojang 檢舉。除非在伺服器上安裝了某種防止聊天檢舉的插件 - 原版用戶端仍然會傳送已簽章的訊息，將未簽章的訊息顯示為「未認證」，如果在選項中啟用了「僅顯示已受保護的聊天內容」時，將不會顯示這些未經簽章的訊息。",
+	"gui.nochatreports.safety_status.unintrusive_vanilla": "此伺服器允許你傳送未經簽章的訊息，這些訊息無法向 Mojang 檢舉。因為這是原版伺服器，原版用戶端仍會傳送已簽章的訊息，將未簽章的訊息顯示為「未認證」，如果在選項中啟用了「僅顯示已受保護的聊天內容」時，將不會顯示這些未經簽章的訊息。",
 	"gui.nochatreports.safety_status.insecure": "此伺服器目前要求所有聊天訊息都經過簽章。所有已簽章的訊息都可能成為對你不利的證據，在檢舉中可能會被用來追究你的責任。",
 	"gui.nochatreports.safety_status.insecure_signing": "你已啟用了聊天簽章，這使你所傳的所有訊息都可能成為對你不利的證據，在檢舉時可能會被用來追究你的責任。",
-	"gui.nochatreports.safety_status.realms": "這是 Realms 伺服器。在這裡，不僅無法防止聊天檢舉，Mojang 還使用自動化聊天監控來識別潛在的「網路傷害」，並升級為人工審核，無論該伺服器擁有者是否喜歡。你唯一的希望是使用「聊天加密」。",
-	"gui.nochatreports.safety_status.unknown": "No Chat Reports 還並不知道此伺服器的安全性。嘗試在聊天室中發送一則訊息來評估。",
+	"gui.nochatreports.safety_status.realms": "這是 Realms 伺服器。在這裡，不僅無法防止聊天檢舉，Mojang 還會使用自動化聊天監控來識別潛在的「網路傷害」，並升級為人工審核，無論該伺服器擁有者是否喜歡。你唯一的希望是使用「聊天加密」。",
+	"gui.nochatreports.safety_status.unknown": "No Chat Reports 還並不知道此伺服器的安全性。嘗試在聊天室中傳送一則訊息來評估。",
 	"gui.nochatreports.safety_status.undefined": "No Chat Reports 無法評估此伺服器的安全性。這應該永不發生，請向模組開發者回報。",
 	"gui.nochatreports.signing_status.allowed_realms": "在 Realms 中，聊天簽章是始終啟用的，因為是必須的，且停用它並不會帶來任何好處。",
 	"gui.nochatreports.signing_status.allowed": "本次工作階段已啟用訊息簽章。",
@@ -128,5 +129,5 @@
 	"option.NoChatReports.convertToGameMessage": "轉換為遊戲訊息",
 	"option.NoChatReports.convertToGameMessage.tooltip": "使伺服器將所有玩家的聊天訊息都轉換為系統訊息。系統訊息沒有任何簽章且無法被檢舉；在非模組用戶端上，系統訊息將顯示為灰色條。",
 	"option.NoChatReports.addQueryData": "新增查詢資料",
-	"option.NoChatReports.addQueryData.tooltip": "允許伺服器在處理 Ping 時向用戶端發送額外的資料。這用於顯示「安全伺服器」的圖示，以及其他一些技術性目的。"
+	"option.NoChatReports.addQueryData.tooltip": "允許伺服器在處理 Ping 時向用戶端傳送額外的資料。這用於顯示「安全伺服器」的圖示，以及其他一些技術性目的。"
 }
