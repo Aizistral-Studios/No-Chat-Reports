@@ -70,7 +70,7 @@ public final class ServerSafetyState {
 	}
 
 	public static boolean isDetermined() {
-		return current != ServerSafetyLevel.UNINTRUSIVE && current != ServerSafetyLevel.UNDEFINED
+		return current != ServerSafetyLevel.UNINTRUSIVE && current != ServerSafetyLevel.UNINTRUSIVE_VANILLA && current != ServerSafetyLevel.UNDEFINED
 				&& current != ServerSafetyLevel.UNKNOWN;
 	}
 

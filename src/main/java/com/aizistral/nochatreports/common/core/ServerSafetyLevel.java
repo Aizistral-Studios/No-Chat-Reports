@@ -32,6 +32,12 @@ public enum ServerSafetyLevel {
 	UNINTRUSIVE,
 
 	/**
+	 * Same as UNINTRUSIVE, but also checks that the server type is vanilla.
+	 * This only changes the tooltip to better inform the user, not any functionality.
+	 */
+	UNINTRUSIVE_VANILLA,
+
+	/**
 	 * For servers that have <code>enforce-secure-profile</code> enabled, or enforce signed messages
 	 * through some other means. Users of this mod can choose to play on those servers regardless
 	 * after being informed of danger, but there is very little mod will be able to do to protect
