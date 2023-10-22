@@ -30,9 +30,7 @@ public class MixinServerStatusPinger$1 implements ServerPingerExtension {
 	}
 
 	static {
-		if (NCRConfig.getCommon().enableDebugLog()) {
-			NCRCore.LOGGER.info("Fabric mixin into ServerStatusPinger$1 succeeded.");
-		}
+		NCRCore.LOGGER.debug("Fabric mixin into ServerStatusPinger$1 succeeded.");
 	}
 
 }
