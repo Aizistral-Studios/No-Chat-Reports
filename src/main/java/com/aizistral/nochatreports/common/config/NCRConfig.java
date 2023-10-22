@@ -56,6 +56,9 @@ public final class NCRConfig {
 			encryption = JSONConfig.loadConfig(NCRConfigEncryption.class, NCRConfigEncryption::new, NCRConfigEncryption.FILE_NAME);
 		}
 
+		if(common.enableDebugLog())
+			System.setProperty("mixin.debug.verbose", "true");
+
 		save();
 	}
 
