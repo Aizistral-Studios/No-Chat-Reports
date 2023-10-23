@@ -23,7 +23,7 @@
 	"gui.nochatreports.signing_status.disabled_offline": "因為這是離線伺服器，所以訊息簽章已被停用。",
 	"gui.nochatreports.reload_config_tooltip": "重新載入 No Chat Reports 的設定。謹慎使用。",
 	"gui.nochatreports.verified_server": "§a§l安全伺服器§r\n我們可以驗證這個伺服器已安裝「No Chat Reports」，或任何其他防止檢舉的方式。你可以在這裡安全地聊天。",
-	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports：§r %1$s\n停用或啟用大部分用戶端的功能。你可能需要這樣做才能加入一些 Paper/Velocity 伺服器，因為它們已知會與「No Chat Reports」產生問題。\n某些與網路不相關的功能，如加密、聊天信任狀態調整和移除原版的「無法驗證聊天訊息」彈出提示框，仍可以正常運作；它們可以在設定中單獨停用。",
+	"gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports：§r%1$s\n停用或啟用大部分用戶端的功能。你可能需要這樣做才能加入一些 Paper/Velocity 伺服器，因為它們已知會與「No Chat Reports」產生問題。\n某些與網路不相關的功能，如加密、聊天信任狀態調整和移除原版的「無法驗證聊天訊息」彈出提示框，仍可以正常運作；它們可以在設定中單獨停用。",
 	"gui.nochatreports.ncr_state_on": "§a§l已啟用§r",
 	"gui.nochatreports.ncr_state_off": "§c§l已停用§r",
 	"tag.nochatreports.encrypted": "加密方式：%1$s",
@@ -77,7 +77,7 @@
 	"gui.nochatreports.signing_mode.never.tooltip": "此模式下訊息將永不簽章，所有要求簽章的伺服器都會被忽略。",
 	"gui.nochatreports.signing_mode.never_forced.tooltip": "此模式下代表你的訊息根本無法進行簽章，可能是因為你使用的是離線帳號或用戶端無法從 Mojang 服務中取得你的簽章金鑰。",
 	"gui.nochatreports.signing_mode.prompt.tooltip": "此模式下，訊息預設不會簽章，但如果伺服器要求簽章，你將會看到彈出式介面，你可以在那裡啟用此工作階段的簽章。",
-	"gui.nochatreports.signing_mode.on_demand.tooltip": "類似於提示模式，但不會顯示彈出式介面來請求簽章，而是在伺服器需要時自動啟用。",
+	"gui.nochatreports.signing_mode.on_demand.tooltip": "類似於提示模式，但不會顯示彈出式介面來要求簽章，而是在伺服器需要時自動啟用。",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 	"configuration.NoChatReports.category.client": "用戶端",
