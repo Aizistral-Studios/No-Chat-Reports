@@ -1,10 +1,10 @@
 {
-	"modmenu.descriptionTranslation.nochatreports": "從玩家訊息中撥離加密簽章，使其無法追蹤並與你的 Mojang 與 Microsoft 帳號關聯，同時也無法使用聊天檢舉功能。",
+	"modmenu.descriptionTranslation.nochatreports": "從玩家訊息中剝離加密簽章，使其無法追蹤並與你的 Mojang 與 Microsoft 帳號關聯，同時也無法使用聊天檢舉功能。",
 	"key.nochatreports.ctrl": "Ctrl",
 	"key.nochatreports.cmd": "Cmd",
 	"gui.nochatreports.secure_chat": "這個選項無法與「No Chat Reports」一起使用，因為沒有任何簽章可以驗證。",
 	"gui.nochatreports.no_reporting": "此伺服器的聊天檢舉已被停用，由「No Chat Reports」提供。",
-	"disconnect.nochatreports.client": "此伺服器沒有「No Chat Reports」，且你已將其設定為伺服器上需要有。",
+	"disconnect.nochatreports.client": "此伺服器沒有「No Chat Reports」，且你已設定伺服器上需要有此模組。",
 	"gui.nochatreports.safety_status_button.controls": "左鍵點擊來切換簽章模式。",
 	"gui.nochatreports.safety_status.secure": "此伺服器已安裝了「No Chat Reports」，或者其他方式防止你的訊息可被檢舉。你可以放心地聊天。",
 	"gui.nochatreports.safety_status.singleplayer": "在單人遊戲和由你開啟的區網世界中，你總是可以安全地聊天。",
@@ -54,7 +54,7 @@
 	"algorithm.nochatreports.aes_ecb_base64": "§lAES/ECB+Base64R§r\n比 CFB 模式的安全性低很多，\n但不需要初始化向量，因此可以減少一些位元組。\n但仍勝過凱撒密碼。",
 	"algorithm.nochatreports.caesar.name": "凱撒密碼",
 	"algorithm.nochatreports.caesar": "§l凱撒密碼§r\n迷因等級的加密。\n使用這個方法，你基本上希望其他人放棄並不嘗試解密你的訊息。\n在許多情況下可能會是真的，所以使用它的可行性取決於你的威脅模型。\n金鑰應為 1 到 1024 整數之間。\n移位是根據字元代碼而不是字母順序而進行的，以確保與任何語言的相容性。",
-	"nochatreports.connect.nokey_rejected": "伺服器拒絕連線，未提供聊天署名金鑰。",
+	"nochatreports.connect.nokey_rejected": "伺服器拒絕連線，未提供聊天簽章金鑰。",
 	"nochatreports.connect.await": "等待重新連線：%1$s 秒...",
 	"gui.nochatreports.realms_warning.header": "注意：Realms",
 	"gui.nochatreports.realms_warning.contents": "Realms 伺服器不是私人的。Realm 擁有者無法停用聊天檢舉，Mojang 也應用了額外的聊天監控來識別潛在的「線上危害」，並將其升級為人工審核。如果你被發現違反了 Minecraft 社群標準，即使聊天參與者並未感到被冒犯，但你仍將會被暫時或永久性禁止使用所有多人遊戲服務。強烈建議使用「聊天加密」功能。",
@@ -75,7 +75,7 @@
 	"gui.nochatreports.signing_mode.on_demand": "依需求",
 	"gui.nochatreports.signing_mode.always.tooltip": "此模式將會在你進伺服器時自動啟用訊息簽章，就像是原版用戶端一樣。",
 	"gui.nochatreports.signing_mode.never.tooltip": "此模式下訊息將永不簽章，所有要求簽章的伺服器都會被忽略。",
-	"gui.nochatreports.signing_mode.never_forced.tooltip": "此模式下代表你的訊息根本無法進行簽章，可能是因為你使用的是離線帳號或用戶端無法從 Mojang 的服務中取得你的簽章金鑰。",
+	"gui.nochatreports.signing_mode.never_forced.tooltip": "此模式下代表你的訊息根本無法進行簽章，可能是因為你使用的是離線帳號或用戶端無法從 Mojang 服務中取得你的簽章金鑰。",
 	"gui.nochatreports.signing_mode.prompt.tooltip": "此模式下，訊息預設不會簽章，但如果伺服器要求簽章，你將會看到彈出式介面，你可以在那裡啟用此工作階段的簽章。",
 	"gui.nochatreports.signing_mode.on_demand.tooltip": "類似於提示模式，但不會顯示彈出式介面來請求簽章，而是在伺服器需要時自動啟用。",
 
@@ -95,13 +95,13 @@
 	"option.NoChatReports.verifiedIconOffsetX.tooltip": "定義「安全伺服器」圖示繪製的 X 軸位移量。",
 	"option.NoChatReports.verifiedIconOffsetY": "驗證圖示 Y 位移量",
 	"option.NoChatReports.verifiedIconOffsetY.tooltip": "定義「安全伺服器」圖示繪製的 Y 軸位移量。",
-	"gui.NoChatReports.showEncryptionButtonWarning": "§c下方不會停用加密功能，它只是隱藏按紐！",
+	"gui.NoChatReports.showEncryptionButtonWarning": "§c下方不會停用加密功能，它只會隱藏按紐！",
 	"option.NoChatReports.showEncryptionButton": "顯示加密按紐",
 	"option.NoChatReports.showEncryptionButton.tooltip": "將此設定為「否」將只會阻止加密按鈕顯示在聊天畫面之中。請注意，加密本身不會隨著按鈕消失而自動停用。",
 	"option.NoChatReports.showEncryptionIndicators": "顯示加密指標",
 	"option.NoChatReports.showEncryptionIndicators.tooltip": "切換顯示加密訊息指標，以紫色條形顯示在聊天訊息左側，懸停於聊天訊息時右側顯示 §5§l(§r§5ȯ§5§l)§r。",
 	"option.NoChatReports.showServerSafety": "顯示伺服器安全性",
-	"option.NoChatReports.showServerSafety.tooltip": "允許用戶端在聊天畫面右下角顯示伺服器安全性狀態。該圖示可懸停，以取得更多資訊。",
+	"option.NoChatReports.showServerSafety.tooltip": "允許用戶端在聊天畫面右下角顯示伺服器安全性狀態。該圖示可懸停，以獲得更多資訊。",
 	"option.NoChatReports.showServerSafety.moreInfo": "§b點擊這裡來了解更多有關於伺服器安全性等級的資訊",
 	"option.NoChatReports.hideInsecureMessageIndicators": "隱藏未經驗證訊息的指示器",
 	"option.NoChatReports.hideInsecureMessageIndicators.tooltip": "防止用戶端顯示未經驗證訊息的指示器，該顯示形式為聊天室訊息左側的灰色條。",
@@ -129,5 +129,5 @@
 	"option.NoChatReports.convertToGameMessage": "轉換為遊戲訊息",
 	"option.NoChatReports.convertToGameMessage.tooltip": "使伺服器將所有玩家的聊天訊息都轉換為系統訊息。系統訊息沒有任何簽章且無法被檢舉；在非模組用戶端上，系統訊息將顯示為灰色條。",
 	"option.NoChatReports.addQueryData": "新增查詢資料",
-	"option.NoChatReports.addQueryData.tooltip": "允許伺服器在處理 Ping 時向用戶端傳送額外的資料。這用於顯示「安全伺服器」的圖示，以及其他一些技術性目的。"
+	"option.NoChatReports.addQueryData.tooltip": "允許伺服器在處理 Ping 時向用戶端發送額外的資料。這用於顯示「安全伺服器」的圖示，以及其他一些技術性目的。"
 }
