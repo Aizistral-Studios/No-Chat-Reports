@@ -33,7 +33,7 @@ public abstract class JSONConfig {
 	}
 
 	public void saveFile() {
-		NCRCore.LOGGER.info("Writing config file {}...", this.fileName);
+		NCRCore.LOGGER.debug("Writing config file {}...", this.fileName);
 		writeFile(this.fileName, this);
 	}
 
@@ -44,7 +44,7 @@ public abstract class JSONConfig {
 	public abstract JSONConfig getDefault();
 
 	public static <T extends JSONConfig> T loadConfig(Class<T> configClass, Supplier<T> freshInstance, String fileName) {
-		NCRCore.LOGGER.info("Reading config file {}...", fileName);
+		NCRCore.LOGGER.debug("Reading config file {}...", fileName);
 		T config = readFile(fileName, configClass).orElseGet(freshInstance);
 		config.uponLoad();
 		return config;

@@ -36,8 +36,8 @@ public class NCRCore {
 	}
 
 	private static void setup() {
-		LOGGER.info("KONNICHIWA ZA WARUDO!");
-		LOGGER.info("Default JVM text encoding is: " + Charset.defaultCharset().displayName());
+		LOGGER.debug("KONNICHIWA ZA WARUDO!");
+		LOGGER.debug("Default JVM text encoding is: " + Charset.defaultCharset().displayName());
 
 		NCRConfig.load();
 	}

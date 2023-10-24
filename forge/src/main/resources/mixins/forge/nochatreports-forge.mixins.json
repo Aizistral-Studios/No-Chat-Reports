@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "com.aizistral.nochatreports.forge.mixins",
   "compatibilityLevel": "JAVA_17",
-  "verbose": true,
   "mixins": [],
   "client": [
 	"client.MixinClientConnection",
