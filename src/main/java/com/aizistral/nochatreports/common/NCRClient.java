@@ -24,7 +24,7 @@ public class NCRClient {
 	}
 
 	static void setup() {
-		NCRCore.LOGGER.info("Client initialization...");
+		NCRCore.LOGGER.debug("Client initialization...");
 
 		ClientEvents.DISCONNECT.register(NCRClient::onDisconnect);
 		ClientEvents.PLAY_READY.register(NCRClient::onPlayReady);
@@ -66,7 +66,7 @@ public class NCRClient {
 			}
 
 			if (NCRConfig.getCommon().enableDebugLog()) {
-				NCRCore.LOGGER.info("Sucessfully connected to server, safety state: {}", ServerSafetyState.getCurrent());
+				NCRCore.LOGGER.info("Successfully connected to server, safety state: {}", ServerSafetyState.getCurrent());
 			}
 
 			if (NCRConfig.getClient().demandOnServer() && !ServerSafetyState.getCurrent().isSecure()) {
