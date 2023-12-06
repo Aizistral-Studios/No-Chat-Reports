@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Checkbox;
+import net.minecraft.client.gui.components.Checkbox.OnValueChange;
 import net.minecraft.client.gui.components.MultiLineLabel;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -43,7 +44,8 @@ public abstract class AdaptiveWarningScreen extends Screen {
 			int j = this.font.width(this.check);
 
 			if (this.check != null) {
-				this.stopShowing = new Checkbox(this.width / 2 - j / 2 - 8, checkY + i, j + 24, 20, this.check, false);
+				this.stopShowing = Checkbox.builder(this.check, this.font).pos(this.width / 2 - j / 2 - 8, checkY + i)
+						.build();
 				this.addRenderableWidget(this.stopShowing);
 			}
 		}

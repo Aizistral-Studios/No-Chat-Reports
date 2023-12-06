@@ -38,20 +38,13 @@ public class AdvancedImageButton extends ImageButton {
 	}
 
 	@Override
-	public void updateTooltip() {
-		if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender())
-			return;
-
-		super.updateTooltip();
-	}
-
-	@Override
 	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
 		graphics.blitSprite(this.getCurrentTexture(), this.getX(), this.getY(), this.width, this.height);
 
 		if (this.isHovered)
 			if (this.tooltip instanceof AdvancedTooltip tooltip && tooltip.hasCustomRender()) {
-				tooltip.doCustomRender(this.parent, graphics, mouseX, mouseY, this.createTooltipPositioner());
+				tooltip.doCustomRender(this.parent, graphics, mouseX, mouseY, tooltip.createTooltipPositioner(
+						this.isHovered(), this.isFocused(), this.getRectangle()));
 			}
 	}
 
