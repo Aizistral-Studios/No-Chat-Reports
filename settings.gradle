@@ -10,5 +10,5 @@ pluginManagement {
 }
 
 rootProject.name = 'No-Chat-Reports'
-//include('forge')
-//project(":forge").name = "Forge"
+include('forge')
+project(":forge").name = "Forge"
