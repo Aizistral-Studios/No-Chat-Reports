@@ -22,6 +22,7 @@ import com.aizistral.nochatreports.common.core.SigningMode;
 import com.aizistral.nochatreports.common.gui.UnsafeServerScreen;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.client.multiplayer.chat.ChatTrustLevel;
@@ -88,6 +89,9 @@ public class MixinChatListener {
 		} else {
 			if (playerChatMessage.hasSignature() && ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
 				ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
+
+				if(this.client.getNetworkHandler().getBrand() == "vanilla")
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE_VANILLA);
 			}
 
 			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, instant);
