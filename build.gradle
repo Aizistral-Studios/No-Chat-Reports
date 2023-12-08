@@ -78,12 +78,6 @@ dependencies {
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-
-	include(fabricApi.module("fabric-api-base", project.fabric_version))
-	modImplementation include(fabricApi.module("fabric-networking-api-v1", project.fabric_version))
-	modImplementation include(fabricApi.module("fabric-screen-api-v1", project.fabric_version))
-	modImplementation include(fabricApi.module("fabric-rendering-v1", project.fabric_version))
-	modImplementation include(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
 }
 
 sourceSets.remove(sourceSets.test)
@@ -158,7 +152,7 @@ curseforge {
 		addGameVersion 'Java 17'
 		
 		relations {
-			embeddedLibrary 'fabric-api'
+			requiredDependency 'fabric-api'
 			optionalDependency 'modmenu'
 			optionalDependency 'cloth-config'
 		}
@@ -190,7 +184,7 @@ modrinth {
 	
 	dependencies {
 		// The scope can be `required`, `optional`, or `incompatible`
-		embedded.project "fabric-api"
+		required.project "fabric-api"
 		optional.project "modmenu"
 		optional.project "cloth-config"
     }
