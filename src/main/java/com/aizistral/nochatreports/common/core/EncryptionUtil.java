@@ -9,7 +9,7 @@ import com.aizistral.nochatreports.common.encryption.Encryptor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.PlainTextContents.LiteralContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 
 public class EncryptionUtil {
@@ -72,7 +72,7 @@ public class EncryptionUtil {
 	}
 
 	public static Component recreate(Component component) {
-		return Component.Serializer.fromJson(Component.Serializer.toStableJson(component));
+		return Component.Serializer.fromJson(Component.Serializer.toJson(component));
 	}
 
 }

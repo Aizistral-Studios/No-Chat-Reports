@@ -31,7 +31,7 @@ public abstract class MixinFriendlyByteBuf {
 	private static Gson GSON;
 
 	@Inject(method = "readJsonWithCodec", at = @At("HEAD"), cancellable = true)
-	private void onReadJsonWithCodec(Codec codec, CallbackInfoReturnable info) throws Exception {
+	private void onReadJsonWithCodec(Codec codec, CallbackInfoReturnable info) throws Throwable {
 		if (codec == ServerStatus.CODEC) {
 			info.cancel();
 

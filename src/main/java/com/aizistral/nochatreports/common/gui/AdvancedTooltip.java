@@ -21,10 +21,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.tooltip.BelowOrAboveWidgetTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.gui.screens.inventory.tooltip.MenuTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -132,6 +135,19 @@ public class AdvancedTooltip extends Tooltip {
 			s += clientTooltipComponent2.getHeight() + /*(t == 0 ? 2 : 0)*/ 0;
 		}
 		graphics.pose().popPose();
+	}
+
+	@Override
+	public ClientTooltipPositioner createTooltipPositioner(boolean hovered, boolean focused, ScreenRectangle rectangle) {
+		return super.createTooltipPositioner(hovered, focused, rectangle);
+	}
+
+	@Override // ideally tooltip shouldn't control it's own render like this, but for now it does
+	public void refreshTooltipForNextRenderPass(boolean hovered, boolean focused, ScreenRectangle screenRectangle) {
+		if (this.hasCustomRender())
+			return;
+
+		super.refreshTooltipForNextRenderPass(hovered, focused, screenRectangle);
 	}
 
 }

@@ -126,8 +126,8 @@ public class EncryptionConfigScreen extends Screen {
 		this.addRenderableOnly(button);
 
 		int checkWidth = this.font.width(ENCRYPT_PUBLIC);
-		this.encryptPublicCheck = new Checkbox(this.width / 2 - checkWidth / 2 - 8, this.passField.getY() + 24, checkWidth + 24, 20,
-				ENCRYPT_PUBLIC, NCRConfig.getEncryption().shouldEncryptPublic());
+		this.encryptPublicCheck = Checkbox.builder(ENCRYPT_PUBLIC, this.font).pos(this.width / 2 - checkWidth / 2 - 8,
+				this.passField.getY() + 24).selected(NCRConfig.getEncryption().shouldEncryptPublic()).build();
 		this.addRenderableWidget(this.encryptPublicCheck);
 
 		this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, btn -> {

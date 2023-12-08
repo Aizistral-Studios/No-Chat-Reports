@@ -59,7 +59,7 @@ public class MixinChatComponent {
 	private FormattedText modifyGUIMessage(FormattedText msg) {
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NCRCore.LOGGER.info("Adding chat message, structure: " +
-					Component.Serializer.toStableJson((Component) msg));
+					Component.Serializer.toJson((Component) msg));
 		}
 
 		var decrypted = EncryptionUtil.tryDecrypt((Component) msg);
