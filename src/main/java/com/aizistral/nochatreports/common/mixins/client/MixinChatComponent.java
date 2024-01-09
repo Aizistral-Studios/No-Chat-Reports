@@ -40,12 +40,7 @@ public class MixinChatComponent {
 					+ "wrapComponents(Lnet/minecraft/network/chat/FormattedText;ILnet/minecraft/client/gui/Font;"
 					+ ")Ljava/util/List;", ordinal = 0, shift = Shift.AFTER), argsOnly = true)
 	private synchronized GuiMessageTag modifyGUITag(GuiMessageTag tag) {
-		if (!NCRConfig.getEncryption().showEncryptionIndicators() && this.lastMessageEncrypted
-				|| NCRConfig.getEncryption().showEncryptionIndicators() && !this.lastMessageEncrypted
-				|| NCRConfig.getClient().showSignedMessageIndicators() && !this.lastMessageSigned)
-			return tag;
-
-		if(NCRConfig.getEncryption().showEncryptionIndicators() && this.lastMessageEncrypted){
+		if (NCRConfig.getEncryption().showEncryptionIndicators() && this.lastMessageEncrypted) {
 			this.lastMessageEncrypted = false;
 			Component tooltip = Component.empty().append(Component.translatable("tag.nochatreports.encrypted",
 					Component.literal(NCRConfig.getEncryption().getAlgorithm().getName())
@@ -54,10 +49,8 @@ public class MixinChatComponent {
 							this.lastMessageOriginal));
 
 			return new GuiMessageTag(0x8B3EC7, ENCRYPTED_ICON, tooltip, "Encrypted");
-		}
-		else if (NCRConfig.getClient().showSignedMessageIndicators() && this.lastMessageSigned){
+		} else if (NCRConfig.getClient().showSignedMessageIndicators() && this.lastMessageSigned) {
 			this.lastMessageSigned = false;
-
 			return new GuiMessageTag(0xFF5858, SIGNED_ICON, Component.translatable("tag.nochatreports.signed"), "Signed");
 		}
 
