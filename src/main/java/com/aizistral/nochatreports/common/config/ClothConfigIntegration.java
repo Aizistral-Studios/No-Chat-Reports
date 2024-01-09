@@ -208,6 +208,13 @@ public final class ClothConfigIntegration {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().hideSystemMessageIndicators = newValue)
 					.build());
 
+			// Set an option for showSignedMessageIndicators
+			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showSignedMessageIndicators"), NCRConfig.getClient().showSignedMessageIndicators)
+					.setDefaultValue(false)
+					.setTooltip(makeTooltip("option.NoChatReports.showSignedMessageIndicators.tooltip"))
+					.setSaveConsumer(newValue -> NCRConfig.getClient().hideSystemMessageIndicators = newValue)
+					.build());
+
 			// Set an option for hideWarningToast
 			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.hideWarningToast"), NCRConfig.getClient().hideWarningToast)
 					.setDefaultValue(true)
