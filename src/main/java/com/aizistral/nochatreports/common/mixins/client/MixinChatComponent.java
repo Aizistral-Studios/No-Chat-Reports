@@ -21,7 +21,9 @@ import net.minecraft.network.chat.FormattedText;
 @Mixin(ChatComponent.class)
 public class MixinChatComponent {
 	private static final GuiMessageTag.Icon ENCRYPTED_ICON = GuiMessageTag.Icon.valueOf("CHAT_NCR_ENCRYPTED");
+	private static final GuiMessageTag.Icon SIGNED_ICON = GuiMessageTag.Icon.valueOf("CHAT_NCR_SIGNED");
 	private boolean lastMessageEncrypted;
+	private boolean lastMessageSigned;
 	private Component lastMessageOriginal;
 
 	@ModifyVariable(method = "addRecentChat", at = @At("HEAD"), argsOnly = true)
@@ -38,17 +40,28 @@ public class MixinChatComponent {
 					+ "wrapComponents(Lnet/minecraft/network/chat/FormattedText;ILnet/minecraft/client/gui/Font;"
 					+ ")Ljava/util/List;", ordinal = 0, shift = Shift.AFTER), argsOnly = true)
 	private synchronized GuiMessageTag modifyGUITag(GuiMessageTag tag) {
-		if (!NCRConfig.getEncryption().showEncryptionIndicators() || !this.lastMessageEncrypted)
+		if (!NCRConfig.getEncryption().showEncryptionIndicators() && this.lastMessageEncrypted
+				|| NCRConfig.getEncryption().showEncryptionIndicators() && !this.lastMessageEncrypted
+				|| NCRConfig.getClient().showSignedMessageIndicators() && !this.lastMessageSigned)
 			return tag;
 
-		this.lastMessageEncrypted = false;
-		Component tooltip = Component.empty().append(Component.translatable("tag.nochatreports.encrypted",
-				Component.literal(NCRConfig.getEncryption().getAlgorithm().getName())
-				.withStyle(ChatFormatting.BOLD))).append(CommonComponents.NEW_LINE).append(
-						Component.translatable("tag.nochatreports.encrypted_original",
-								this.lastMessageOriginal));
+		if(NCRConfig.getEncryption().showEncryptionIndicators() && this.lastMessageEncrypted){
+			this.lastMessageEncrypted = false;
+			Component tooltip = Component.empty().append(Component.translatable("tag.nochatreports.encrypted",
+					Component.literal(NCRConfig.getEncryption().getAlgorithm().getName())
+							.withStyle(ChatFormatting.BOLD))).append(CommonComponents.NEW_LINE).append(
+					Component.translatable("tag.nochatreports.encrypted_original",
+							this.lastMessageOriginal));
 
-		return new GuiMessageTag(0x8B3EC7, ENCRYPTED_ICON, tooltip, "Encrypted");
+			return new GuiMessageTag(0x8B3EC7, ENCRYPTED_ICON, tooltip, "Encrypted");
+		}
+		else if (NCRConfig.getClient().showSignedMessageIndicators() && this.lastMessageSigned){
+			this.lastMessageSigned = false;
+
+			return new GuiMessageTag(0xFF5858, SIGNED_ICON, Component.translatable("tag.nochatreports.signed"), "Signed");
+		}
+
+		return tag;
 	}
 
 	@ModifyArg(index = 0, method = "addMessage(Lnet/minecraft/network/chat/Component;"
@@ -61,6 +74,9 @@ public class MixinChatComponent {
 			NCRCore.LOGGER.info("Adding chat message, structure: " +
 					Component.Serializer.toJson((Component) msg));
 		}
+
+		if(msg.isSigned) //TODO: no idea lol
+			this.lastMessageSigned = true;
 
 		var decrypted = EncryptionUtil.tryDecrypt((Component) msg);
 

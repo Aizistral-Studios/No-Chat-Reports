@@ -20,7 +20,8 @@ import net.minecraft.resources.ResourceLocation;
 
 @Mixin(GuiMessageTag.Icon.class)
 public abstract class MixinGuiMessageTagIcon {
-	private static final ResourceLocation TEXTURE_NCR = new ResourceLocation("nochatreports", "encryption/encrypted_tag");
+	private static final ResourceLocation TEXTURE_NCR_ENCRYPTION = new ResourceLocation("nochatreports", "encryption/encrypted_tag");
+	private static final ResourceLocation TEXTURE_NCR_SIGNED = new ResourceLocation("nochatreports", "signed_tag");
 	@Shadow(aliases = "field_39768") @Mutable static Icon[] $VALUES;
 
 	@Invoker("<init>")
@@ -31,7 +32,8 @@ public abstract class MixinGuiMessageTagIcon {
 	static {
 		var ordinal = $VALUES.length;
 		var values = Arrays.copyOf($VALUES, ordinal + 1);
-		values[ordinal] = create("CHAT_NCR_ENCRYPTED", ordinal, TEXTURE_NCR, 9, 9);
+		values[ordinal] = create("CHAT_NCR_ENCRYPTED", ordinal, TEXTURE_NCR_ENCRYPTION, 9, 9);
+		values[ordinal + 1] = create("CHAT_NCR_SIGNED", ordinal + 1, TEXTURE_NCR_SIGNED, 9, 9);
 		$VALUES = values;
 	}
 
