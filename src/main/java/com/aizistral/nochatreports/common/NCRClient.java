@@ -7,6 +7,8 @@ import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
 import com.aizistral.nochatreports.common.platform.PlatformProvider;
 import com.aizistral.nochatreports.common.platform.events.ClientEvents;
+import net.minecraft.network.chat.MutableComponent;
+import com.aizistral.nochatreports.common.config.ClothConfigIntegration;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,6 +27,33 @@ public class NCRClient {
 
 	static void setup() {
 		NCRCore.LOGGER.debug("Client initialization...");
+
+		KeyBinding cycleChatState = KeyBindingHelper.registerKeyBinding(new KeyBinding("gui.nochatreports.safety_status_button.hotkey", InputUtil.Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), "configuration.NoChatReports.config"));
+		KeyBinding toggleEncryption = KeyBindingHelper.registerKeyBinding(new KeyBinding("gui.nochatreports.encryption_hotkey", InputUtil.Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), "configuration.NoChatReports.config"));
+		KeyBinding encryptionConfig = KeyBindingHelper.registerKeyBinding(new KeyBinding("gui.nochatreports.encryption_config.header", InputUtil.Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), "configuration.NoChatReports.config"));
+		KeyBinding globalConfig = KeyBindingHelper.registerKeyBinding(new KeyBinding("configuration.NoChatReports.config.hotkey", InputUtil.Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), "configuration.NoChatReports.config"));
+
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			while (cycleChatState.wasPressed()) {
+				//TODO: cycle state
+				showState(client, ""); //gui.nochatreports.encryption_tooltip_short
+			}
+			while (toggleEncryption.wasPressed()) {
+				//TODO: toggle state
+				showState(client, SigningMode.getTooltip().toString());
+			}
+			while (encryptionConfig.wasPressed()) {
+				if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
+						&& !NCRConfig.getEncryption().isEnabledAndValid()) {
+					Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this.parent));
+				} else {
+					Minecraft.getInstance().setScreen(new EncryptionConfigScreen(this.parent));
+				}
+			}
+			while (globalConfig.wasPressed()) {
+				ClothConfigIntegration.getConfigScreen();
+			}
+		});
 
 		ClientEvents.DISCONNECT.register(NCRClient::onDisconnect);
 		ClientEvents.PLAY_READY.register(NCRClient::onPlayReady);
@@ -95,4 +124,8 @@ public class NCRClient {
 		chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
 	}
 
+	private static void showState(MinecraftClient client, String value){
+		assert client.player != null;
+		client.player.sendMessage(Text.translatable(value), true);
+	}
 }
