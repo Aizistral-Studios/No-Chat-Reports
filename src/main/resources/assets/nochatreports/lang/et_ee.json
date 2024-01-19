@@ -26,7 +26,7 @@
 	"gui.nochatreports.ncr_state_off": "§c§lkeelatud§r",
 	"tag.nochatreports.encrypted": "Krüpteeritud algoritmiga: %1$s",
 	"tag.nochatreports.encrypted_original": "Mitte-dekrüpteeritud: %1$s",
-	"gui.nochatreports.encryption_hotkey": "Toggle encryption",
+	"gui.nochatreports.encryption_hotkey": "Lülita krüpteering sisse/välja",
 	"gui.nochatreports.encryption_tooltip": "§lKrüpteering:§r %1$s\nSeadistamiseks paremklõpsa.\n\nKrüpteeringu lubamisel saad sa selle rakendamist ajutiselt vältida, hoides sõnumi saatmise ajal klahvi §n§lCtrl§r all.",
 	"gui.nochatreports.encryption_tooltip_invalid": "§lKrüpteering:§r %1$s\n§cSobimatu seadistus. Seadistamiseks klõpsa.",
 	"gui.nochatreports.encryption_tooltip_short": "§lKrüpteering:§r %1$s",
