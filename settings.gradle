@@ -4,6 +4,7 @@ pluginManagement {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        maven { url = 'https://maven.neoforged.net' }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -12,3 +13,5 @@ pluginManagement {
 rootProject.name = 'No-Chat-Reports'
 include('forge')
 project(":forge").name = "Forge"
+include('neoforge')
+project(":neoforge").name = "NeoForge"

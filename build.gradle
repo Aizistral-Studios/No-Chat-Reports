@@ -43,13 +43,18 @@ def createLink(source, target) {
 
 def setupLinks() {
 	println("Setting up symbolic links...")
-	createLink("./src/main/java/com/aizistral/nochatreports/common", "./forge/src/main/java/com/aizistral/nochatreports/common")
-	createLink("./src/main/resources/assets", "./forge/src/main/resources/assets")
-	createLink("./src/main/resources/mixins/common", "./forge/src/main/resources/mixins/common")
-	
-	if (!new File("./forge/src/main/java/com/aizistral/nochatreports/common/platform/PlatformProvider.java").exists()) {
-		throw new IllegalStateException("No PlatformProvider found :/")
+
+	for(platform in ["forge", "neoforge"]) {
+		createLink("${rootProject.projectDir}/src/main/java/com/aizistral/nochatreports/common", "${rootProject.projectDir}/${platform}/src/main/java/com/aizistral/nochatreports/common")
+		createLink("${rootProject.projectDir}/src/main/resources/assets", "${rootProject.projectDir}/${platform}/src/main/resources/assets")
+		createLink("${rootProject.projectDir}/src/main/resources/mixins/common", "${rootProject.projectDir}/${platform}/src/main/resources/mixins/common")
+
+		if (!new File("${rootProject.projectDir}/${platform}/src/main/java/com/aizistral/nochatreports/common/platform/PlatformProvider.java").exists()) {
+			throw new IllegalStateException("No PlatformProvider found :/")
+		}
 	}
+
+	createLink("${rootProject.projectDir}/forge/deps", "${rootProject.projectDir}/neoforge/deps")
 }
 
 setupLinks()
@@ -79,8 +84,6 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 }
-
-sourceSets.remove(sourceSets.test)
 
 processResources {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
