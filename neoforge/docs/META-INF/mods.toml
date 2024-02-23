@@ -1,0 +1,34 @@
+license="${mod_license}"
+modLoader="javafml"
+loaderVersion="[1,)"
+issueTrackerURL="${issue_tracker_url}"
+
+[[mixins]]
+config="mixins/common/nochatreports.mixins.json"
+
+[[mixins]]
+config="mixins/neoforge/nochatreports-neoforge.mixins.json"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+displayURL="${mod_url}"
+logoFile="${mod_icon}"
+credits="${contributor_0}"
+authors="${mod_author}"
+description='''
+${mod_description}
+'''
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${dep_neoforge}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${dep_minecraft}"
+    ordering="NONE"
+    side="BOTH"

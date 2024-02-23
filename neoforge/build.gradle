@@ -2,13 +2,7 @@ buildscript {
     repositories {
         mavenCentral()
 		maven { url "file:///${project.projectDir}/deps/" }
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
         maven { url 'https://plugins.gradle.org/m2/' }
-        maven {
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-            content { includeGroup "org.spongepowered" }
-        }
 		maven {
 			name "Gradle Plugin Portal"
 			url 'https://plugins.gradle.org/m2/'
@@ -19,20 +13,17 @@ buildscript {
 		}
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.18'
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
-        classpath 'org.spongepowered:mixingradle:0.7.+'
     }
 }
 
 plugins {
     id "com.modrinth.minotaur" version "2.+"
+    id "net.neoforged.gradle.userdev" version "7.0.94"
 }
 
 println("Applying plugins...")
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
@@ -56,50 +47,31 @@ println(" - OS Archetype: " + System.getProperty('os.arch'))
 
 compileJava.options.encoding = "UTF-8"
 
-mixin {
-	println("Specifying refmaps for Mixin...")
-    add sourceSets.main, "nochatreports.refmap.json"
-	config "mixins/common/nochatreports.mixins.json"
-	config "mixins/forge/nochatreports-forge.mixins.json"
-	defaultObfuscationEnv "searge"
-}
+println("Specifying Access Transformer configuration...")
 
-minecraft {
-	println("Specifying MCP mappings...")
-    mappings channel: 'official', version: minecraft_version
-	println("Specifying Access Transformer configuration...")	
-	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-	
-	runs {
-        client {
-			properties 'org.gradle.jvmargs': '-Xms4G -Xmx4G'
-			properties 'fml.earlyprogresswindow': 'false'
-			properties 'mixin.env.disableRefMap': 'true'
-            workingDirectory project.file('run')
+minecraft.accessTransformers.file project.file('src/main/resources/META-INF/accesstransformer.cfg')
 
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+runs {
+    client {
+        systemProperty 'org.gradle.jvmargs', '-Xms4G -Xmx4G'
+        systemProperty 'fml.earlyprogresswindow', 'false'
+        systemProperty 'mixin.env.disableRefMap', 'true'
+        workingDirectory project.file('run')
 
-            mods {
-                nochatreports {
-                    source sourceSets.main
-                }
-            }
-        }
+        systemProperty 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+        systemProperty 'forge.logging.console.level', 'debug'
 
-        server {
-			properties 'mixin.env.disableRefMap': 'true'
-            workingDirectory project.file('run')
+        modSource project.sourceSets.main
+    }
 
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+    server {
+        systemProperty 'mixin.env.disableRefMap', 'true'
+        workingDirectory project.file('run')
 
-            mods {
-                nochatreports {
-                    source sourceSets.main
-                }
-            }
-        }
+        systemProperty 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+        systemProperty 'forge.logging.console.level', 'debug'
+
+        modSource project.sourceSets.main
     }
 }
 
@@ -120,11 +92,10 @@ dependencies {
 	println("Processing dependencies...")	
 
 	// Minecraft & Forge
-    minecraft "net.minecraftforge:forge:${forge_version}"
+    implementation "net.neoforged:neoforge:${neoforge_version}"
 	implementation "generic:modmenu:5.0.2"
 	implementation "generic:fabric-annotations:v1.0.0"
-	implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:" + rootProject.cloth_config_version)
-	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+	implementation "me.shedaniel.cloth:cloth-config-neoforge:" + rootProject.cloth_config_version
 }
 
 
@@ -140,7 +111,6 @@ jar {
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"${mod_author}",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "mixins/common/nochatreports.mixins.json, mixins/forge/nochatreports-forge.mixins.json"
         ])
     }
 }
@@ -164,7 +134,7 @@ processResources {
 		'mod_icon': mod_icon, 
 		'mod_description': mod_description,
 		'issue_tracker_url': issue_tracker_url,
-		'dep_forge': dep_forge,
+		'dep_neoforge': dep_neoforge,
 		'dep_minecraft': dep_minecraft,
 		'contributor_0': contributor_0
 		into 'META-INF'
@@ -194,7 +164,7 @@ curseforge {
 		
 		addGameVersion project.minecraft_version
 		addGameVersion "Java 17"
-		addGameVersion "Forge"
+		addGameVersion "NeoForge"
 		
         //addArtifact(sourcesJar)
         //addArtifact(apiJar)
@@ -204,8 +174,8 @@ curseforge {
 modrinth {
     token = findProperty('modrinthKey') ?: 'none'
     projectId = "no-chat-reports"
-    versionNumber = "Forge-" + project.version
-	versionName = "No Chat Reports Forge-" + project.version
+    versionNumber = "NeoForge-" + project.version
+	versionName = "No Chat Reports NeoForge-" + project.version
     versionType = "${version_type}"
 	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = jar
@@ -229,9 +199,6 @@ tasks.updateResources.dependsOn processResources
 //tasks.withType(JavaCompile) {
 //    options.failOnError(true)
 //}
-
-jar.finalizedBy('reobfJar') 
-//publish.dependsOn('reobfJar')
 
 publishing {
 
