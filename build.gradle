@@ -17,15 +17,15 @@ group = project.maven_group
 apply from: 'common.gradle'
 
 def createLink(source, target) {
-	if (new File(target).exists()) {
+	if (new File(rootProject.projectDir, target).exists()) {
 		println("Target ${target} already exists, skipping symbolic link creation")
 		return
 	}
 	
 	try {
 		exec {
-			source = new File(projectDir, source).getCanonicalPath()
-			target = new File(projectDir, target).getCanonicalPath()
+			source = new File(rootProject.projectDir, source).getCanonicalPath()
+			target = new File(rootProject.projectDir, target).getCanonicalPath()
 			new File(target).getParentFile().mkdirs()
 			
 			if (Os.isFamily(Os.FAMILY_WINDOWS)) {
@@ -45,16 +45,16 @@ def setupLinks() {
 	println("Setting up symbolic links...")
 
 	for(platform in ["forge", "neoforge"]) {
-		createLink("${rootProject.projectDir}/src/main/java/com/aizistral/nochatreports/common", "${rootProject.projectDir}/${platform}/src/main/java/com/aizistral/nochatreports/common")
-		createLink("${rootProject.projectDir}/src/main/resources/assets", "${rootProject.projectDir}/${platform}/src/main/resources/assets")
-		createLink("${rootProject.projectDir}/src/main/resources/mixins/common", "${rootProject.projectDir}/${platform}/src/main/resources/mixins/common")
+		createLink("./src/main/java/com/aizistral/nochatreports/common", "./${platform}/src/main/java/com/aizistral/nochatreports/common")
+		createLink("./src/main/resources/assets", "./${platform}/src/main/resources/assets")
+		createLink("./src/main/resources/mixins/common", "./${platform}/src/main/resources/mixins/common")
 
-		if (!new File("${rootProject.projectDir}/${platform}/src/main/java/com/aizistral/nochatreports/common/platform/PlatformProvider.java").exists()) {
+		if (!new File("./${platform}/src/main/java/com/aizistral/nochatreports/common/platform/PlatformProvider.java").exists()) {
 			throw new IllegalStateException("No PlatformProvider found :/")
 		}
 	}
 
-	createLink("${rootProject.projectDir}/forge/deps", "${rootProject.projectDir}/neoforge/deps")
+	createLink("./forge/deps", "./neoforge/deps")
 }
 
 setupLinks()
