@@ -20,7 +20,7 @@
 	"gui.nochatreports.ncr_state_off": "§c§lDesabilitada§r",
 	"tag.nochatreports.encrypted": "Criptografado usando: %1$s",
 	"tag.nochatreports.encrypted_original": "Não concretizado: %1$s",
-	"gui.nochatreports.encryption_tooltip": "§lCriptografia:§r %1$s\nClique com o botão direito do mouse para configurar.\n\nEnquanto a criptografia está ativada, você pode impedir que ela seja aplicada à mensagem segurando §n§lCtrl§r Ao enviá-lo.",
+	"gui.nochatreports.encryption_tooltip": "§lCriptografia:§r %1$s\nClique com o botão direito do mouse para configurar.\n\nEnquanto a criptografia está ativada, você pode impedir que ela seja aplicada à mensagem segurando §n§l%2$s§r Ao enviá-lo.",
 	"gui.nochatreports.encryption_tooltip_invalid": "§lEcriptografia:§r %1$s\n§cConfiguração inválida.Clique para configurar.",
 	"gui.nochatreports.encryption_state_on": "§a§lHabilitada§r",
 	"gui.nochatreports.encryption_state_off": "§c§lDesabilitada§r",

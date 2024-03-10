@@ -27,7 +27,7 @@
 	"gui.nochatreports.ncr_state_off": "§c§lWyłączone§r",
 	"tag.nochatreports.encrypted": "Zaszyfrowane przy użyciu: %1$s",
 	"tag.nochatreports.encrypted_original": "Nieodszyfrowane: %1$s",
-	"gui.nochatreports.encryption_tooltip": "§lSzyfrowanie:§r %1$s\nKliknij prawym przyciskiem myszy, aby skonfigurować.\n\nPodczas gdy szyfrowanie jest włączone, możesz zapobiec jego zastosowaniu do wiadomości, przytrzymując klawisz §n§lCtrl§r podczas jej wysyłania.",
+	"gui.nochatreports.encryption_tooltip": "§lSzyfrowanie:§r %1$s\nKliknij prawym przyciskiem myszy, aby skonfigurować.\n\nPodczas gdy szyfrowanie jest włączone, możesz zapobiec jego zastosowaniu do wiadomości, przytrzymując klawisz §n§l%2$s§r podczas jej wysyłania.",
 	"gui.nochatreports.encryption_tooltip_invalid": "§lSzyfrowanie:§r %1$s\n§cNieprawidłowa konfiguracja. Kliknij, aby skonfigurować.",
 	"gui.nochatreports.encryption_state_on": "§a§lWłączone§r",
 	"gui.nochatreports.encryption_state_off": "§c§lWyłączone§r",

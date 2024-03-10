@@ -27,7 +27,7 @@
 	"gui.nochatreports.ncr_state_off": "§c§lปิด§r",
 	"tag.nochatreports.encrypted": "เข้ารหัสโดยใช้: %1$s",
 	"tag.nochatreports.encrypted_original": "ไม่ถอดรหัส: %1$s",
-	"gui.nochatreports.encryption_tooltip": "§lการเข้ารหัส:§r %1$s\n§cการตั้งค่าไม่ถูกต้อง คลิกเพื่อตั้งค่า\n\nขณะที่การเข้ารหัสถูกเปิดเอาไว้ คุณสามารถป้องกันไม่ให้ข้อความถูกเข้ารหัสได้โดยการกดปุ่ม §n§lCtrl§r ค้างไว้ในขณะที่กำลังกดส่ง",
+	"gui.nochatreports.encryption_tooltip": "§lการเข้ารหัส:§r %1$s\n§cการตั้งค่าไม่ถูกต้อง คลิกเพื่อตั้งค่า\n\nขณะที่การเข้ารหัสถูกเปิดเอาไว้ คุณสามารถป้องกันไม่ให้ข้อความถูกเข้ารหัสได้โดยการกดปุ่ม §n§l%2$s§r ค้างไว้ในขณะที่กำลังกดส่ง",
 	"gui.nochatreports.encryption_tooltip_invalid": "§lการเข้ารหัส:§r %1$s\n§cการตั้งค่าไม่ถูกต้อง คลิกเพื่อตั้งค่า",
 	"gui.nochatreports.encryption_state_on": "§a§lเปิด§r",
 	"gui.nochatreports.encryption_state_off": "§c§lปิด§r",
