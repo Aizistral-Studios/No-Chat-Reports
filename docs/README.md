@@ -38,6 +38,8 @@ The configuration files are located in the `NoChatReports` subfolder of the defa
 
 `NCR-ServerPreferences.json` stores Per-Server Signing Modes
 
+You can find more information [here](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/).
+
 ## Chat Encryption
 I have put together a video dedicated to Chat Encryption, watching it will help you to learn how it is used (and whether you should): https://www.youtube.com/watch?v=e7RzNP32k-s
 
