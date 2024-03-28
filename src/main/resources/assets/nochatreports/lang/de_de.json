@@ -1,5 +1,5 @@
 {
-	"modmenu.descriptionTranslation.nochatreports": "Entfernt kryptographische Signaturen von Chatnachrichten, sodass sie nicht nachverfolgt oder mit deinem Mojang/Microsoft-Account in Verbindung gebracht werden können, wodurch sie nicht an Mojang gemeldet werden können.",
+	"modmenu.descriptionTranslation.nochatreports": "Entfernt kryptographische Signaturen von Chatnachrichten, sodass sie nicht nachverfolgt oder mit deinem Microsoft-Account in Verbindung gebracht werden können, wodurch sie nicht an Mojang gemeldet werden können.",
 	"key.nochatreports.ctrl": "Strg",
 	"key.nochatreports.cmd": "Cmd",
 	"gui.nochatreports.secure_chat": "Diese Option kann nicht mit No Chat Reports verwendet werden, da keine Signaturen zum Verifizieren vorhanden sind.",
