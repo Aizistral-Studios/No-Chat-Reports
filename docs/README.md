@@ -2,9 +2,9 @@
 
 <a href="https://www.curseforge.com/minecraft/mc-mods/no-chat-reports"><img alt="curseforge" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/curseforge_vector.svg"></a> <a href="https://modrinth.com/mod/no-chat-reports"><img alt="modrinth" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/modrinth_vector.svg"></a> <a href="https://github.com/Aizistral-Studios/No-Chat-Reports"><img alt="github" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/github_vector.svg"></a> <a href="https://gitlab.com/Aizistral-Studios/No-Chat-Reports"><img alt="gitlab" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/gitlab_vector.svg"></a>
 
-This mod strips cryptographic signatures which are attached to every chat message sent from 1.19 and onwards. Removing them makes it impossible to track and associate your chat messages with your Minecraft Client, and, by extension, Microsoft Account.
+This mod strips cryptographic signatures which are attached to every chat message sent from 1.19 and onwards. Removing them makes it impossible to track and associate your chat messages with your Minecraft client, and, by extension, Microsoft account.
 
-**Disables Player Chat Reporting from 1.19 and onwards.**
+**Disables Player Chat Reporting from 1.19.1 and onwards.**
 
 Please notice that, while I am aware of [Guardian](https://github.com/nodusclient/guardian) and certain other exploits that allow you to counteract reporting systems on the client against the will of the server, I am consciously choosing to not integrate them as part of this mod. No Chat Reports will only remain effective on the client side if the server allows it to be. If you do not like servers that enforce chat signing and fully support chat reporting - I advise to simply not play on them.
 
@@ -12,9 +12,9 @@ Also, while there are many plugins out there that "borrow" the name and even ico
 
 ## Installation and Usage:
 
-NoChatReports supports both Fabric and Forge, just download the version for your respective Mod-Loader and game version. It can be installed on either the client, server, or on both sides, and will function differently depending on which sides it is present on:
+NoChatReports supports both Fabric and Forge, just download the version for your respective modloader and game version. It can be installed on either the client, server, or on both sides, and will function differently depending on which sides it is present on:
 
-**1. Only Client:** The Client will refuse to send the Account's public key to the server, and signatures will be stripped from the messages that you send. This way it won't be useful to try and report your messages, as there will be no proof they were actually sent from your account. Server will relay them unless the `enforce-secure-profile` option is set to `true` in the `server.properties` file (which it is by default since 1.19.1), in which case you will not be able to join, unless you agree to send signed messages (NoChatReports will supply a warning screen)
+**1. Only Client:** The client will refuse to send the account's public key to the server, and signatures will be stripped from the messages that you send. This way it won't be useful to try and report your messages, as there will be no proof they were actually sent from your account. Server will relay them unless the `enforce-secure-profile` option is set to `true` in the `server.properties` file (which it is by default since 1.19.1), in which case you will not be able to join, unless you agree to send signed messages (NoChatReports will supply a warning screen)
 
 **2. Only Server:** Clients will still attach signatures when sending messages to the server, but the server will strip them before relaying them to other players. This way chat reporting will not work for any players that join. You can enable the conversion of player to system messages in the config, to prevent players without the mod from seeing them as "Not Secure"
 
@@ -24,7 +24,7 @@ Although NoChatReports can function when it is only present on one of either sid
 
 Additionally, if installed on the client, NoChatReports will disable Telemetry (similar to what [No Telemetry](https://modrinth.com/mod/no-telemetry) does).
 
-To make Velocity compatible with NoChatReports, set `force-key-authentication = false` in `velocity.toml`. Thanks to [MrMelon54](https://github.com/MrMelon54) for pointing this out.
+To make sure that your server is compatible with NoChatReports, you can take a look at [this part of the wiki](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Protecting-Server-Players).
 
 ## Configuration
 
@@ -34,7 +34,7 @@ The configuration files are located in the `NoChatReports` subfolder of the defa
 
 `NCR-Common.json` stores Server-Side settings
 
-`NCR-Encryption.json` stores setting about Chat Encryption (Only effective on the Client)
+`NCR-Encryption.json` stores setting about Chat Encryption (Only effective on the client)
 
 `NCR-ServerPreferences.json` stores Per-Server Signing Modes
 
@@ -44,7 +44,7 @@ You can find more information [here](https://github.com/Aizistral-Studios/No-Cha
 I have put together a video dedicated to Chat Encryption, watching it will help you to learn how it is used (and whether you should): https://www.youtube.com/watch?v=e7RzNP32k-s
 
 ## Documentation:
-You can find documentation and other information relevant to this mod on the [Wiki](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/). It currently features the following articles:
+You can find documentation and other information relevant to this mod on the [wiki](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/). It currently features the following articles:
 - [Configuration Files](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/)
 - [Protecting Server Players](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Protecting-Server-Players/)
 - [How to Get Safe Server Status](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/How-to-Get-Safe-Server-Status)
