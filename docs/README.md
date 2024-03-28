@@ -16,7 +16,7 @@ NoChatReports supports both Fabric and Forge, just download the version for your
 
 **1. Only Client:** The client will refuse to send the account's public key to the server, and signatures will be stripped from the messages that you send. This way it won't be useful to try and report your messages, as there will be no proof that they were actually sent from your account. The server will relay them unless the `enforce-secure-profile` option is set to `true` in the `server.properties` file (which it is by default since 1.19.1)
 
-If the server does require you to sign messages and you are on either 1.19.1 or 1.19.2, you won't be able to join the server unless you agree to send signed messages (NoChatReports will supply a warning screen), if you are on 1.19.3 or higher, you will still be able to join the server, but won't be able to use chat-related commands (other commands do still work)
+If the server does require you to sign messages and you are on either 1.19.1 or 1.19.2, you will not be able to join the server unless you agree to send signed messages (NoChatReports will supply a warning screen), if you are on 1.19.3 or higher, you will still be able to join the server, but won't be able to use chat-related commands (other commands do still work)
 
 **2. Only Server:** Clients will still attach signatures when sending messages to the server, but the server will strip them before relaying them to other players. This way chat reporting will not work for any players that join. You can enable the conversion of player to system messages in the config, to prevent players without the mod from seeing them as "Not Secure"
 
