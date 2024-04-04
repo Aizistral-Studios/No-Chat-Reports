@@ -2,9 +2,11 @@
 
 <a href="https://www.curseforge.com/minecraft/mc-mods/no-chat-reports"><img alt="curseforge" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/curseforge_vector.svg"></a> <a href="https://modrinth.com/mod/no-chat-reports"><img alt="modrinth" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/modrinth_vector.svg"></a> <a href="https://github.com/Aizistral-Studios/No-Chat-Reports"><img alt="github" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/github_vector.svg"></a> <a href="https://gitlab.com/Aizistral-Studios/No-Chat-Reports"><img alt="gitlab" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/compact/available/gitlab_vector.svg"></a>
 
-This mod strips cryptographic signatures which are attached to every chat message sent from 1.19.1 and onwards. Removing them makes it impossible to track and associate your chat messages with your Minecraft client, and, by extension, Microsoft account.
+This mod strips cryptographic signatures which are attached to every chat message sent from 1.19 and onwards. Removing them makes it impossible to track and associate your chat messages with your Minecraft client, and, by extension, Microsoft account.
 
 **Disables Player Chat Reporting from 1.19.1 and onwards.**
+
+**Also removes signatures on 1.19 as a security measure, even though the ability to report players only got added in 1.19.1.**
 
 Please notice that, while I am aware of [Guardian](https://github.com/nodusclient/guardian) and certain other exploits that allow you to counteract reporting systems on the client against the will of the server, I am consciously choosing to not integrate them as part of this mod. No Chat Reports will only remain effective on the client side if the server allows it to be. If you do not like servers that enforce chat signing and fully support chat reporting - I advise to simply not play on them.
 
