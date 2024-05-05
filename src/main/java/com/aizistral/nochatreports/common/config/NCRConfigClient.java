@@ -11,7 +11,7 @@ public final class NCRConfigClient extends JSONConfig {
 	protected SigningMode defaultSigningMode = SigningMode.PROMPT;
 	protected boolean enableMod = true, showNCRButton = true, showReloadButton = true,
 			verifiedIconEnabled = true, showServerSafety = true, hideInsecureMessageIndicators = true,
-			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true,
+			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true, showSignedMessageIndicators = false,
 			hideWarningToast = true, hideSigningRequestMessage = false, alwaysHideReportButton = false,
 			skipRealmsWarning = false, disableTelemetry = true, removeTelemetryButton = true,
 			demandOnServer = false;
@@ -89,6 +89,18 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean hideSystemMessageIndicators() {
 		return this.hideSystemMessageIndicators;
+	}
+
+	/**
+	 * @return True if signed messages should have a (dis)trust indicator.<br><br>
+	 *
+	 * This is false by default.
+	 *
+	 * @see com.aizistral.nochatreports.common.mixins.client.MixinChatCoponent#modifyGUITag
+	 */
+
+	public boolean showSignedMessageIndicators() {
+		return this.showSignedMessageIndicators;
 	}
 
 	/**
