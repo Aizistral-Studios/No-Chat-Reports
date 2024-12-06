@@ -19,8 +19,8 @@ public class EncryptionButton extends AdvancedImageButton {
 	public boolean mouseClicked(double x, double y, int i) {
 		if (!this.active || !this.visible)
 			return false;
-
-		if (i == 1 && this.clicked(x, y)) {
+		
+		if (i == 1 && this.isMouseOver(x, y)) {
 			this.playDownSound(Minecraft.getInstance().getSoundManager());
 			this.openEncryptionConfig();
 			return true;
