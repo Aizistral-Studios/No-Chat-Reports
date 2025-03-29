@@ -40,7 +40,7 @@ public class MixinServerData implements ServerDataExtension {
 
 	@Inject(method = "read", locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
 	private static void onRead(CompoundTag tag, CallbackInfoReturnable<ServerData> info, ServerData data) {
-		((ServerDataExtension)data).setPreventsChatReports(tag.getBoolean("preventsChatReports"));
+		((ServerDataExtension)data).setPreventsChatReports(tag.getBooleanOr("preventsChatReports", false));
 	}
 
 }
