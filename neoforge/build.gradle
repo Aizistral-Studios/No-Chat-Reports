@@ -22,7 +22,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id "com.modrinth.minotaur" version "2.+"
-    id 'net.neoforged.gradle.userdev' version '7.0.145'
+    id 'net.neoforged.gradle.userdev' version '7.0.183'
 }
 
 println("Applying plugins...")

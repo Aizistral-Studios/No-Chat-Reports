@@ -3,7 +3,7 @@ package com.aizistral.nochatreports.common.gui;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.config.NCRConfigEncryption;
 import com.aizistral.nochatreports.common.encryption.Encryption;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.opengl.GlStateManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
@@ -192,7 +192,7 @@ public class EncryptionConfigScreen extends Screen {
 		if (!this.passField.active) {
 			graphics.drawString(this.font, PASS_NOT_ALLOWED, this.passField.getX() + 4,
 					this.passField.getY() + 5, 0x999999);
-			RenderSystem.enableDepthTest();
+			GlStateManager._enableDepthTest();
 			graphics.blitSprite(RenderType::guiTextured, CROSSMARK, this.passField.getX() - 20, this.passField.getY() + 3, 14, 13);
 		}
 	}

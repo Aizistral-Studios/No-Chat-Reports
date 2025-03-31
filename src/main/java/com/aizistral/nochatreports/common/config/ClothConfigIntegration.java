@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.common.config;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -184,7 +185,7 @@ public final class ClothConfigIntegration {
 			// Add link for documentation for showServerSafety
 			client.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.showServerSafety.moreInfo")
 					.withStyle(s -> s
-							.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))))
+							.withHoverEvent(new HoverEvent.ShowText(Component.translatable("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))).withClickEvent(new ClickEvent.OpenUrl(URI.create("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety")))))
 					.build());
 
 			// Set an option for hideInsecureMessageIndicators
