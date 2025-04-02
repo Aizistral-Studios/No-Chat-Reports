@@ -158,7 +158,6 @@ curseforge {
 		mainArtifact(remapJar)
 		
 		addGameVersion project.minecraft_version
-		addGameVersion 'Quilt'
 		addGameVersion 'Fabric'
 		addGameVersion 'Java 21'
 		
@@ -191,7 +190,7 @@ modrinth {
 	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = remapJar
     gameVersions = [ project.minecraft_version ]
-	loaders = ['fabric', 'quilt']
+	loaders = ['fabric']
 	
 	dependencies {
 		// The scope can be `required`, `optional`, or `incompatible`
