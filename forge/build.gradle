@@ -19,7 +19,7 @@ buildscript {
 		}
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.18'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '[6.0.35,6.2)'
 		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
         classpath 'org.spongepowered:mixingradle:0.7.+'
     }
@@ -46,7 +46,7 @@ group = "${maven_group}"
 archivesBaseName = "${archives_base_name}"
 
 println("Specifying Java compatibility...")
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 println("Java Installation Data:")
 println(" - Java Version: " + System.getProperty('java.version'))
@@ -67,38 +67,37 @@ mixin {
 minecraft {
 	println("Specifying MCP mappings...")
     mappings channel: 'official', version: minecraft_version
+	
 	println("Specifying Access Transformer configuration...")	
 	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
+    reobf = false
+    copyIdeResources = true
+	
 	runs {
+		 configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+        }
+
+	
         client {
 			properties 'org.gradle.jvmargs': '-Xms4G -Xmx4G'
 			properties 'fml.earlyprogresswindow': 'false'
 			properties 'mixin.env.disableRefMap': 'true'
-            workingDirectory project.file('run')
-
+			
+			property 'forge.enabledGameTestNamespaces', mod_id
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-
-            mods {
-                nochatreports {
-                    source sourceSets.main
-                }
-            }
         }
 
         server {
 			properties 'mixin.env.disableRefMap': 'true'
-            workingDirectory project.file('run')
-
+			property 'forge.enabledGameTestNamespaces', mod_id
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-
-            mods {
-                nochatreports {
-                    source sourceSets.main
-                }
-            }
+            args '--nogui'
         }
     }
 }
@@ -123,8 +122,11 @@ dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
 	implementation "generic:modmenu:5.0.2"
 	implementation "generic:fabric-annotations:v1.0.0"
-	implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:" + rootProject.cloth_config_version)
+	implementation "generic:cloth-config-api:14.0.126"
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+	
+	// Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+ 
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 }
 
 
@@ -193,7 +195,7 @@ curseforge {
         changelog = rootProject.file('docs/CHANGELOG.md')
 		
 		addGameVersion project.minecraft_version
-		addGameVersion "Java 17"
+		addGameVersion "Java 21"
 		addGameVersion "Forge"
 		
         //addArtifact(sourcesJar)
@@ -230,7 +232,7 @@ tasks.updateResources.dependsOn processResources
 //    options.failOnError(true)
 //}
 
-jar.finalizedBy('reobfJar') 
+//jar.finalizedBy('reobfJar') 
 //publish.dependsOn('reobfJar')
 
 publishing {
@@ -245,4 +247,10 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourceSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }

@@ -33,9 +33,9 @@ public final class GUIShenanigans {
 	}
 
 	public static WidgetSprites getSprites(String path, boolean hasHovered, boolean hasDisabled) {
-		var normal = new ResourceLocation("nochatreports", path);
-		var hovered = hasHovered ? new ResourceLocation("nochatreports", path + "_hovered") : normal;
-		var disabled = hasDisabled ?  new ResourceLocation("nochatreports", path + "_hovered") : hovered;
+		var normal = ResourceLocation.fromNamespaceAndPath("nochatreports", path);
+		var hovered = hasHovered ? ResourceLocation.fromNamespaceAndPath("nochatreports", path + "_hovered") : normal;
+		var disabled = hasDisabled ?  ResourceLocation.fromNamespaceAndPath("nochatreports", path + "_hovered") : hovered;
 		return new WidgetSprites(normal, hovered, disabled);
 	}
 

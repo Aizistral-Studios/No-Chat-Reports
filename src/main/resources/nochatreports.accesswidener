@@ -1,10 +1,10 @@
 accessWidener v1 named
-accessible field net/minecraft/client/gui/screens/SimpleOptionsSubScreen list Lnet/minecraft/client/gui/components/OptionsList;
+accessible field net/minecraft/client/gui/screens/options/OptionsSubScreen list Lnet/minecraft/client/gui/components/OptionsList;
 accessible field net/minecraft/network/chat/contents/TranslatableContents args [Ljava/lang/Object;
 mutable field net/minecraft/network/chat/contents/TranslatableContents args [Ljava/lang/Object;
 accessible field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;
 mutable field net/minecraft/network/chat/MutableComponent contents Lnet/minecraft/network/chat/ComponentContents;
-accessible field net/minecraft/client/gui/screens/multiplayer/WarningScreen message Lnet/minecraft/client/gui/components/MultiLineLabel;
+#accessible field net/minecraft/client/gui/screens/multiplayer/WarningScreen message Lnet/minecraft/client/gui/components/MultiLineLabel;
 accessible field net/minecraft/client/multiplayer/ClientPacketListener signedMessageEncoder Lnet/minecraft/network/chat/SignedMessageChain$Encoder;
 accessible field net/minecraft/client/multiplayer/ClientPacketListener chatSession Lnet/minecraft/network/chat/LocalChatSession;
 accessible method net/minecraft/client/gui/components/Tooltip <init> (Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;)V
@@ -14,14 +14,22 @@ accessible field net/minecraft/client/gui/components/Tooltip narration Lnet/mine
 accessible field net/minecraft/client/gui/components/Tooltip cachedTooltip Ljava/util/List;
 accessible field net/minecraft/client/gui/screens/Screen minecraft Lnet/minecraft/client/Minecraft;
 accessible field net/minecraft/client/gui/screens/Screen font Lnet/minecraft/client/gui/Font;
-accessible field net/minecraft/client/gui/components/AbstractWidget tooltip Lnet/minecraft/client/gui/components/Tooltip;
+#accessible field net/minecraft/client/gui/components/AbstractWidget tooltip Lnet/minecraft/client/gui/components/Tooltip;
 #accessible field net/minecraft/client/gui/components/AbstractWidget tooltipMsDelay I
 #accessible method net/minecraft/client/gui/components/AbstractWidget updateTooltip ()V
 #extendable method net/minecraft/client/gui/components/AbstractWidget updateTooltip ()V
-accessible field net/minecraft/client/gui/screens/OptionsScreen TELEMETRY Lnet/minecraft/network/chat/Component;
+accessible field net/minecraft/client/gui/screens/options/OptionsScreen TELEMETRY Lnet/minecraft/network/chat/Component;
 
 accessible method net/minecraft/client/gui/components/AbstractWidget render (Lnet/minecraft/client/gui/GuiGraphics;IIF)V
 extendable method net/minecraft/client/gui/components/AbstractWidget render (Lnet/minecraft/client/gui/GuiGraphics;IIF)V
 
 #accessible method net/minecraft/client/gui/components/Tooltip createTooltipPositioner (ZZLnet/minecraft/client/gui/navigation/ScreenRectangle;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;
 #extendable method net/minecraft/client/gui/components/Tooltip createTooltipPositioner (ZZLnet/minecraft/client/gui/navigation/ScreenRectangle;)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;
+
+accessible field net/minecraft/client/gui/components/AbstractWidget tooltip Lnet/minecraft/client/gui/components/WidgetTooltipHolder;
+mutable field net/minecraft/client/gui/components/AbstractWidget tooltip Lnet/minecraft/client/gui/components/WidgetTooltipHolder;
+
+accessible method net/minecraft/client/gui/components/WidgetTooltipHolder createTooltipPositioner (Lnet/minecraft/client/gui/navigation/ScreenRectangle;ZZ)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;
+extendable method net/minecraft/client/gui/components/WidgetTooltipHolder createTooltipPositioner (Lnet/minecraft/client/gui/navigation/ScreenRectangle;ZZ)Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;
+
+accessible method net/minecraft/client/multiplayer/ClientPacketListener setKeyPair (Lnet/minecraft/world/entity/player/ProfileKeyPair;)V

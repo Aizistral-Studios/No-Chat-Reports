@@ -1,3 +1,48 @@
+#### **\[Build 1.21.5-v2.12.0\]:**
+
+- Initial 1.21.5 port ([thanks to Tert0, #510](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/510));
+- Dropped chat encryption support since better, dedicated solutions are available (see [To Encrypt or Not to Encrypt: Alternatives](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-to-Encrypt#alternatives)).
+
+
+#### **\[Build 1.21.4-v2.11.0\]:**
+
+- Initial 1.21.4 port;
+- Added Malay and Malay (Jawi) translations translations ([thanks NuruddinPlays, #497](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/497)).
+
+
+#### **\[Build 1.21.3-v2.10.1\]:**
+
+- Fixed a bug with network protocol error occuring when joining some servers ([#492](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/492)/[#493](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/493)/[#495](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/495)).
+
+#### **\[Build 1.21.3-v2.10.0\]:**
+
+- Initial 1.21.3 port ([thanks Onako2, #491](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/491));
+- Renamed `AES/X+Base64` algorithms to `AES/X+Base64R` in encryption config;
+- Algorithm names used in encrypted tag tooltip are now correctly localized.
+
+
+#### **\[Build 1.21.1-v2.9.0\]:**
+
+- Initial 1.21.1 port;
+- Fixed a bug where client would disconnect from Realms if encryption is enabled, and a player's death from a named item is announced in chat ([thanks forkiesassds, #480](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/480));
+- Fixed server ping hanging up in multiplayer menu in some cases ([thanks pietro-lopes, #487](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/487)).
+
+#### **\[Build 1.21-v2.8.0\]:**
+
+- Initial 1.21 port.
+
+#### **\[Build 1.20.6-v2.7.1\]:**
+
+- Added Mexican Spanish translation ([thanks TheLegendofSaram, #474](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/474)).
+
+#### **\[Build 1.20.6-v2.7.0\]:**
+
+- Initial port to 1.20.6 (but should work for 1.20.5 too).
+
+#### **\[Build 1.20.4-v2.6.1\]:**
+
+- Fixed startup crash on dedicated servers with NeoForge ([#473](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/473)).
+
 #### **\[Build 1.20.4-v2.6.0\]:**
 
 - Added support for NeoForge ([big thanks to embeddedt, #464](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/464));

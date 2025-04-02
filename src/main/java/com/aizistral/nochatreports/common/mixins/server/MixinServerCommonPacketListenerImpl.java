@@ -44,9 +44,10 @@ public abstract class MixinServerCommonPacketListenerImpl {
 
 			if (NCRConfig.getCommon().convertToGameMessage()) {
 				if (packet instanceof ClientboundPlayerChatPacket chat) {
-					packet = new ClientboundSystemChatPacket(chat.chatType().resolve(listener.player.level()
-							.registryAccess()).get().decorate(chat.unsignedContent() != null ? chat.unsignedContent()
-									: Component.literal(chat.body().content())), false);
+					packet = new ClientboundSystemChatPacket(chat.chatType().decorate(
+							chat.unsignedContent() != null ? chat.unsignedContent()
+									: Component.literal(chat.body().content())
+							), false);
 
 					info.cancel();
 					listener.send(packet);

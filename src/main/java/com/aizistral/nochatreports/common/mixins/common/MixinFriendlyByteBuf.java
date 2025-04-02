@@ -37,7 +37,7 @@ public abstract class MixinFriendlyByteBuf {
 
 			JsonElement jsonElement = GsonHelper.fromJson(GSON, this.readUtf(), JsonElement.class);
 			DataResult dataResult = codec.parse(JsonOps.INSTANCE, jsonElement);
-			Object result = Util.getOrThrow(dataResult, string -> new DecoderException("Failed to decode json: " + string));
+			Object result = dataResult.getOrThrow(string -> new DecoderException("Failed to decode json: " + string));
 
 			if (jsonElement.getAsJsonObject().has("preventsChatReports")) {
 				((ServerDataExtension) result).setPreventsChatReports(jsonElement.getAsJsonObject()
@@ -57,7 +57,7 @@ public abstract class MixinFriendlyByteBuf {
 			info.cancel();
 
 			DataResult<JsonElement> dataResult = codec.encodeStart(JsonOps.INSTANCE, object);
-			JsonElement element = Util.getOrThrow(dataResult, string -> new EncoderException("Failed to encode: " + string + " " + object));
+			JsonElement element = dataResult.getOrThrow(string -> new EncoderException("Failed to encode: " + string + " " + object));
 
 			element.getAsJsonObject().addProperty("preventsChatReports", true);
 

@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.Checkbox.OnValueChange;
 import net.minecraft.client.gui.components.MultiLineLabel;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -56,11 +57,10 @@ public abstract class AdaptiveWarningScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics graphics, int i, int j, float f) {
-		this.renderBackground(graphics, i, j, f);
+		super.render(graphics, i, j, f);
 		this.renderTitle(graphics);
 		int k = this.width / 2 - this.message.getWidth() / 2;
 		this.message.renderLeftAligned(graphics, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);
-		super.render(graphics, i, j, f);
 	}
 
 	private void renderTitle(GuiGraphics graphics) {

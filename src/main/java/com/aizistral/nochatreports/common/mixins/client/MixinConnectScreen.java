@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.multiplayer.TransferState;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
 @Mixin(ConnectScreen.class)
@@ -27,7 +28,7 @@ public class MixinConnectScreen {
 
 	@Inject(method = "startConnecting", at = @At("HEAD"))
 	private static void onStartConnecting(Screen screen, Minecraft minecraft, ServerAddress serverAddress,
-			@Nullable ServerData serverData, boolean quickplay, CallbackInfo info) {
+			@Nullable ServerData serverData, boolean quickplay, @Nullable TransferState transferState, CallbackInfo info) {
 		if (!NCRConfig.getClient().enableMod())
 			return;
 

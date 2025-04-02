@@ -1,14 +1,11 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
-	id 'fabric-loom' version '1.1-SNAPSHOT'
+	id 'fabric-loom' version '1.10.2'
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "2.+"
 	id "com.matthewprenger.cursegradle" version "1.+"
 }
-
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -58,6 +55,17 @@ def setupLinks() {
 }
 
 setupLinks()
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+}
+
+java {
+	// withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
 
 loom {
 	accessWidenerPath = file("src/main/resources/nochatreports.accesswidener")
@@ -112,7 +120,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -152,7 +160,7 @@ curseforge {
 		addGameVersion project.minecraft_version
 		addGameVersion 'Quilt'
 		addGameVersion 'Fabric'
-		addGameVersion 'Java 17'
+		addGameVersion 'Java 21'
 		
 		relations {
 			requiredDependency 'fabric-api'

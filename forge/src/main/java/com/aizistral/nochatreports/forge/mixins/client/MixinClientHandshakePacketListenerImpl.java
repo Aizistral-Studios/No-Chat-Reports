@@ -9,13 +9,14 @@ import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl;
+import net.minecraft.network.DisconnectionDetails;
 import net.minecraft.network.chat.Component;
 
 @Mixin(ClientHandshakePacketListenerImpl.class)
 public class MixinClientHandshakePacketListenerImpl {
 
 	@Inject(method = "onDisconnect", at = @At("HEAD"))
-	private void invokeLoginDisconnectEvent(Component reason, CallbackInfo info) {
+	private void invokeLoginDisconnectEvent(DisconnectionDetails details, CallbackInfo info) {
 		ClientEvents.DISCONNECT.invoker().handle(Minecraft.getInstance());
 	}
 

@@ -10,13 +10,14 @@ import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.DisconnectionDetails;
 import net.minecraft.network.chat.Component;
 
 @Mixin(value = ClientCommonPacketListenerImpl.class)
 public class MixinClientPacketListener {
 
 	@Inject(method = "onDisconnect", at = @At("HEAD"))
-	private void handleDisconnection(Component reason, CallbackInfo info) {
+	private void handleDisconnection(DisconnectionDetails details, CallbackInfo info) {
 		Object self = this;
 		
 		if (self instanceof ClientPacketListener) {

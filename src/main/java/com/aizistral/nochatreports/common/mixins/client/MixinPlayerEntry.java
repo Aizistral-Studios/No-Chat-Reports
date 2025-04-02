@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.common.mixins.client;
 
+import java.time.Duration;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -46,7 +47,7 @@ public class MixinPlayerEntry {
 			this.reportButton = new AdvancedImageButton(0, 0, 20, 20, SwitchableSprites.of(REPORT_BUTTON_SPRITES),
 					button -> {}, Component.translatable("gui.socialInteractions.report"), screen);
 			this.reportButton.setTooltip(Tooltip.create(NCR_BUTTON_TOOLTIP));
-			this.reportButton.setTooltipDelay(10);
+			this.reportButton.setTooltipDelay(Duration.ofMillis(500L));
 			this.reportButton.active = false;
 		}
 	}

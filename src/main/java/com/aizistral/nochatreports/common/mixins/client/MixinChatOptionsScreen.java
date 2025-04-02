@@ -9,9 +9,9 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.screens.ChatOptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.SimpleOptionsSubScreen;
+import net.minecraft.client.gui.screens.options.ChatOptionsScreen;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
 
 /**
@@ -22,10 +22,10 @@ import net.minecraft.network.chat.Component;
  */
 
 @Mixin(ChatOptionsScreen.class)
-public class MixinChatOptionsScreen extends SimpleOptionsSubScreen {
+public abstract class MixinChatOptionsScreen extends OptionsSubScreen {
 
-	public MixinChatOptionsScreen(Screen screen, Options options, Component component, OptionInstance<?>... optionInstances) {
-		super(screen, options, component, optionInstances);
+	public MixinChatOptionsScreen() {
+		super(null, null, null);
 		throw new IllegalStateException("Can't touch this");
 	}
 

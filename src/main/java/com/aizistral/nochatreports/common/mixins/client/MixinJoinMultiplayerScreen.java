@@ -27,8 +27,8 @@ import net.minecraft.resources.ResourceLocation;
 
 @Mixin(JoinMultiplayerScreen.class)
 public abstract class MixinJoinMultiplayerScreen extends Screen {
-	private static final ResourceLocation RELOAD_TEXTURE = new ResourceLocation("nochatreports", "textures/gui/config_reload_button.png"),
-			TOGGLE_TEXTURE = new ResourceLocation("nochatreports", "textures/gui/ncr_toggle_button.png");
+	private static final ResourceLocation RELOAD_TEXTURE = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/config_reload_button.png"),
+			TOGGLE_TEXTURE = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/ncr_toggle_button.png");
 	private static final Component RELOAD_TOOLTIP = Component.translatable("gui.nochatreports.reload_config_tooltip");
 
 	protected MixinJoinMultiplayerScreen() {

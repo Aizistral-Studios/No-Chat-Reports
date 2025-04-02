@@ -8,9 +8,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.minecraft.commands.arguments.ArgumentSignatures;
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.protocol.game.ServerboundChatCommandPacket;
+import net.minecraft.network.protocol.game.ServerboundChatCommandSignedPacket;
 
-@Mixin(ServerboundChatCommandPacket.class)
-public class MixinServerboundChatCommandPacket {
+@Mixin(ServerboundChatCommandSignedPacket.class)
+public class MixinServerboundChatCommandSignedPacket {
 
 	/**
 	 * @reason Same as {@link MixinServerboundChatPacket#onGetSignature}.

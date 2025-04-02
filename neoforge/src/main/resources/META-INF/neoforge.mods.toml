@@ -11,3 +11,9 @@ logoFile="ncr_logo.png"
 description='''
 None
 '''
+
+[[mixins]]
+config="mixins/common/nochatreports.mixins.json"
+
+[[mixins]]
+config="mixins/neoforge/nochatreports-neoforge.mixins.json"

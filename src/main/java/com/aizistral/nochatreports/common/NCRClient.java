@@ -116,7 +116,7 @@ public class NCRClient {
 			chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
 		}
 
-		chatScr.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
+		chatScr.handleChatInput(ServerSafetyState.getLastMessage(), false);
 	}
 
 	private static void showState(Minecraft client, String translationKey){

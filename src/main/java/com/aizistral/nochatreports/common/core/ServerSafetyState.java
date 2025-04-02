@@ -1,18 +1,18 @@
 package com.aizistral.nochatreports.common.core;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.jetbrains.annotations.Nullable;
-
 import com.aizistral.nochatreports.common.gui.UnsafeServerScreen;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.network.chat.LocalChatSession;
+import net.minecraft.network.protocol.game.ServerboundChatSessionUpdatePacket;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * All this global state is questionable, but we have to...
@@ -26,6 +26,7 @@ public final class ServerSafetyState {
 	private static final AtomicBoolean ALLOW_CHAT_SIGNING = new AtomicBoolean(false);
 	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
 	private volatile static ServerAddress lastServer = null;
+	private volatile static String lastMessage = "???";
 
 	public static void updateCurrent(ServerSafetyLevel level) {
 		current = level;
@@ -41,16 +42,19 @@ public final class ServerSafetyState {
 
 	public static CompletableFuture<Void> setAllowChatSigning(boolean allow) {
 		if (ALLOW_CHAT_SIGNING.compareAndSet(!allow, allow)) {
-			if (Minecraft.getInstance().player != null) {
-				var connection = Minecraft.getInstance().player.connection;
+			Minecraft mc = Minecraft.getInstance();
+
+			if (mc.player != null) {
+				var connection = mc.player.connection;
 
 				if (allow && connection.chatSession == null)
-					return Minecraft.getInstance().getProfileKeyPairManager().prepareKeyPair()
+					return mc.getProfileKeyPairManager().prepareKeyPair()
 							.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
 								connection.setKeyPair(profileKeyPair);
+
 								SIGNING_ACTIONS.forEach(Runnable::run);
 								SIGNING_ACTIONS.clear();
-							}), Minecraft.getInstance());
+							}), mc);
 			}
 		}
 
@@ -81,6 +85,14 @@ public final class ServerSafetyState {
 
 	public static void setLastServer(@Nullable ServerAddress address) {
 		lastServer = address;
+	}
+
+	public static String getLastMessage() {
+		return lastMessage;
+	}
+
+	public static void setLastMessage(String message) {
+		lastMessage = message;
 	}
 
 	public static void scheduleResetAction(Runnable action) {

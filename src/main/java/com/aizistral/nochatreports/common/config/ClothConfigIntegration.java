@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.common.config;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -160,20 +161,6 @@ public final class ClothConfigIntegration {
 			client.addEntry(entryBuilder.startTextDescription(Component.translatable("gui.NoChatReports.showEncryptionButtonWarning"))
 					.build());
 
-			// Set an option for showEncryptionButton
-			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionButton"), NCRConfig.getEncryption().showEncryptionButton)
-					.setDefaultValue(true)
-					.setTooltip(makeTooltip("option.NoChatReports.showEncryptionButton.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionButton = newValue)
-					.build());
-
-			// Set an option for showEncryptionIndicators
-			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionIndicators"), NCRConfig.getEncryption().showEncryptionIndicators)
-					.setDefaultValue(true)
-					.setTooltip(makeTooltip("option.NoChatReports.showEncryptionIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionIndicators = newValue)
-					.build());
-
 			// Set an option for showServerSafety
 			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NCRConfig.getClient().showServerSafety)
 					.setDefaultValue(true)
@@ -184,7 +171,7 @@ public final class ClothConfigIntegration {
 			// Add link for documentation for showServerSafety
 			client.addEntry(entryBuilder.startTextDescription(Component.translatable("option.NoChatReports.showServerSafety.moreInfo")
 					.withStyle(s -> s
-							.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))))
+							.withHoverEvent(new HoverEvent.ShowText(Component.translatable("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety"))).withClickEvent(new ClickEvent.OpenUrl(URI.create("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files/#option-showserversafety")))))
 					.build());
 
 			// Set an option for hideInsecureMessageIndicators

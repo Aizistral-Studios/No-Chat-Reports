@@ -24,6 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -68,11 +69,10 @@ public class NoChatReports implements PlatformProvider {
 		return FMLPaths.CONFIGDIR.get();
 	}
 	
-	@EventBusSubscriber(modid = "nochatreports", bus = Bus.FORGE)
+	@EventBusSubscriber(modid = "nochatreports", bus = Bus.FORGE, value = Dist.CLIENT)
 	public static class Events {
 		
 		@SubscribeEvent
-		@OnlyIn(Dist.CLIENT)
 		public static void onPlayReady(ClientPlayerNetworkEvent.LoggingIn event) {
 			Minecraft client = Minecraft.getInstance();
 			ClientPacketListener handler = client.getConnection();
