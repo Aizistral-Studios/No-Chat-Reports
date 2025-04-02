@@ -1,7 +1,7 @@
 #### **\[Build 1.21.5-v2.12.0\]:**
 
 - Initial 1.21.5 port ([thanks to Tert0, #510](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/510));
-- Dropped chat encryption support since better, dedicated solutions are available (see [To Encrypt or Not to Encrypt: alternatives](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-to-Encrypt#alternatives)).
+- Dropped chat encryption support since better, dedicated solutions are available (see [To Encrypt or Not to Encrypt: Alternatives](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-to-Encrypt#alternatives)).
 
 
 #### **\[Build 1.21.4-v2.11.0\]:**
