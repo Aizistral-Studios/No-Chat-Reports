@@ -41,12 +41,6 @@ public final class UnsafeServerScreen extends AdaptiveWarningScreen {
 				}).bounds(this.width / 2 - 155 + 160, i, 150, 20).build());
 	}
 
-	private void resendLastMessage() {
-		if (this.previous instanceof ChatScreen chat) {
-			chat.handleChatInput(NCRConfig.getEncryption().getLastMessage(), false);
-		}
-	}
-
 	public static void setHideThisSession(boolean hide) {
 		hideThisSession = hide;
 	}

@@ -26,6 +26,7 @@ public final class ServerSafetyState {
 	private static final AtomicBoolean ALLOW_CHAT_SIGNING = new AtomicBoolean(false);
 	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
 	private volatile static ServerAddress lastServer = null;
+	private volatile static String lastMessage = "???";
 
 	public static void updateCurrent(ServerSafetyLevel level) {
 		current = level;
@@ -42,7 +43,7 @@ public final class ServerSafetyState {
 	public static CompletableFuture<Void> setAllowChatSigning(boolean allow) {
 		if (ALLOW_CHAT_SIGNING.compareAndSet(!allow, allow)) {
 			Minecraft mc = Minecraft.getInstance();
-			
+
 			if (mc.player != null) {
 				var connection = mc.player.connection;
 
@@ -50,7 +51,7 @@ public final class ServerSafetyState {
 					return mc.getProfileKeyPairManager().prepareKeyPair()
 							.thenAcceptAsync(optional -> optional.ifPresent(profileKeyPair -> {
 								connection.setKeyPair(profileKeyPair);
-								
+
 								SIGNING_ACTIONS.forEach(Runnable::run);
 								SIGNING_ACTIONS.clear();
 							}), mc);
@@ -84,6 +85,14 @@ public final class ServerSafetyState {
 
 	public static void setLastServer(@Nullable ServerAddress address) {
 		lastServer = address;
+	}
+
+	public static String getLastMessage() {
+		return lastMessage;
+	}
+
+	public static void setLastMessage(String message) {
+		lastMessage = message;
 	}
 
 	public static void scheduleResetAction(Runnable action) {

@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.aizistral.nochatreports.common.NCRClient;
 import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
-import com.aizistral.nochatreports.common.core.EncryptionUtil;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
@@ -113,13 +112,6 @@ public class MixinChatListener {
 					playerChatMessage.link().sender(),
 					Base64.getEncoder().encodeToString(playerChatMessage.signature() != null ? playerChatMessage.signature().bytes() : new byte[0]));
 		}
-	}
-
-	@ModifyVariable(method = "narrateChatMessage(Lnet/minecraft/network/chat/ChatType$Bound;"
-			+ "Lnet/minecraft/network/chat/Component;)V", at = @At("HEAD"), argsOnly = true)
-	private Component decryptNarratedMessage(Component msg) {
-        assert minecraft.level != null;
-        return EncryptionUtil.tryDecrypt(minecraft.level.registryAccess(), msg).orElse(msg);
 	}
 
 }
