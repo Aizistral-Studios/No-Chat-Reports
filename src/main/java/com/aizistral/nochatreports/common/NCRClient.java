@@ -5,8 +5,6 @@ import com.aizistral.nochatreports.common.core.ServerDataExtension;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
-import com.aizistral.nochatreports.common.gui.EncryptionConfigScreen;
-import com.aizistral.nochatreports.common.gui.EncryptionWarningScreen;
 import com.aizistral.nochatreports.common.platform.PlatformProvider;
 import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -37,8 +35,6 @@ public class NCRClient {
 		NCRCore.LOGGER.debug("Client initialization...");
 
 		KeyMapping cycleChatState = KeyBindingHelper.registerKeyBinding(new KeyMapping("gui.nochatreports.safety_status_hotkey", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), "configuration.NoChatReports.config"));
-		KeyMapping toggleEncryption = KeyBindingHelper.registerKeyBinding(new KeyMapping("gui.nochatreports.encryption_hotkey", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), "configuration.NoChatReports.config"));
-		KeyMapping encryptionConfig = KeyBindingHelper.registerKeyBinding(new KeyMapping("gui.nochatreports.encryption_config.header", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), "configuration.NoChatReports.config"));
 		KeyMapping globalConfig = KeyBindingHelper.registerKeyBinding(new KeyMapping("configuration.NoChatReports.config.hotkey", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), "configuration.NoChatReports.config"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -48,19 +44,6 @@ public class NCRClient {
 				var nextMode = preferences.getModeUnresolved(address).next();
 				preferences.setMode(address, nextMode);
 				showState(client, nextMode.getName().toString());
-			}
-			while (toggleEncryption.isDown()) {
-				var preferences = NCRConfig.getEncryption();
-				preferences.toggleEncryption();
-				showState(client, preferences.isEnabled(), "gui.nochatreports.encryption_tooltip_short");
-			}
-			while (encryptionConfig.isDown()) {
-				if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
-						&& !NCRConfig.getEncryption().isEnabledAndValid()) {
-					Minecraft.getInstance().setScreen(new EncryptionWarningScreen(Minecraft.getInstance().screen));
-				} else {
-					Minecraft.getInstance().setScreen(new EncryptionConfigScreen(Minecraft.getInstance().screen));
-				}
 			}
 			while (globalConfig.isDown()) {
 				ClothConfigIntegration.getConfigScreen(Minecraft.getInstance().screen);
