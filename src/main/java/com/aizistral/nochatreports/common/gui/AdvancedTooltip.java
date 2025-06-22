@@ -101,9 +101,6 @@ public class AdvancedTooltip extends Tooltip {
 		Vector2ic vector2ic = clientTooltipPositioner.positionTooltip(graphics.guiWidth(), graphics.guiHeight(), i, j, n, o);
 		int p = vector2ic.x();
 		int q = vector2ic.y();
-		graphics.pose().pushPose();
-		int r = 400;
-		graphics.pose().translate(0.0f, 0.0f, 400.0f);
 
         int maxWidth = 0;
 
@@ -114,9 +111,7 @@ public class AdvancedTooltip extends Tooltip {
 			}
 		}
 
-		graphics.renderTooltip(screen.font, splitTooltip(screen.minecraft, component), p + maxWidth , q, null);
-
-		graphics.pose().popPose();
+		graphics.setTooltipForNextFrame(screen.font, splitTooltip(screen.minecraft, component), p + maxWidth , q, null);
 	}
 
 }

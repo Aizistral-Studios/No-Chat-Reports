@@ -10,7 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.multiplayer.ServerSelectionList;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -47,16 +47,16 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 					yOffset = NCRConfig.getClient().getVerifiedIconOffsetY();
 
 			GlStateManager._enableBlend();
-			graphics.blitSprite(RenderType::guiTextured, VERIFIED_ICON, k + l - 35 + xOffset, j - 1 + yOffset, 14, 14);
+			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, VERIFIED_ICON, k + l - 35 + xOffset, j - 1 + yOffset, 14, 14);
 			GlStateManager._disableBlend();
 
 			int t = n - k;
 			int u = o - j;
 			if (t >= l - 35 + xOffset && t <= l - 22 + xOffset && u >= 0 + yOffset && u <= 11 + yOffset) {
-				this.screen.setTooltipForNextRenderPass(Lists.transform(FontHelper.wrap(this.minecraft.font,
+				graphics.setTooltipForNextFrame(Lists.transform(FontHelper.wrap(this.minecraft.font,
 						Language.getInstance().getOrDefault("gui.nochatreports.verified_server"), 250).stream()
 						.map(Component::literal).collect(Collectors.toCollection(() ->
-						new ArrayList<Component>())), Component::getVisualOrderText));
+						new ArrayList<Component>())), Component::getVisualOrderText), n, o);
 			}
 		}
 	}
