@@ -1,9 +1,8 @@
 package com.aizistral.nochatreports.common.mixins.server;
 
+import io.netty.channel.ChannelFutureListener;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -11,16 +10,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 
-import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerCommonPacketListenerImpl;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.server.network.ServerPlayerConnection;
 
 @Mixin(ServerCommonPacketListenerImpl.class)
 public abstract class MixinServerCommonPacketListenerImpl {
@@ -61,9 +56,9 @@ public abstract class MixinServerCommonPacketListenerImpl {
 	 * @author Aizistral
 	 */
 
-	@Inject(method = "send(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketSendListener;)V",
+	@Inject(method = "Lnet/minecraft/server/network/ServerCommonPacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;Lio/netty/channel/ChannelFutureListener;)V",
 			at = @At("HEAD"), cancellable = true)
-	private void onSend(Packet<?> packet, @Nullable PacketSendListener packetSendListener, CallbackInfo info) {
+	private void onSend(Packet<?> packet, @Nullable ChannelFutureListener channelFutureListener, CallbackInfo info) {
 		Object self = this;
 
 		if (self instanceof ServerGamePacketListenerImpl listener) {
@@ -73,7 +68,7 @@ public abstract class MixinServerCommonPacketListenerImpl {
 			}
 
 			if (NCRConfig.getCommon().convertToGameMessage()) {
-				if (packet instanceof ClientboundPlayerChatPacket chat && packetSendListener != null) {
+				if (packet instanceof ClientboundPlayerChatPacket chat && channelFutureListener != null) {
 					info.cancel();
 					listener.send(chat);
 				}

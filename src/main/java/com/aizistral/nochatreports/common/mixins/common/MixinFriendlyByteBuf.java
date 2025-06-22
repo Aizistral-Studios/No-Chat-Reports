@@ -18,9 +18,7 @@ import com.mojang.serialization.JsonOps;
 
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
-import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.util.GsonHelper;
 
@@ -30,8 +28,8 @@ public abstract class MixinFriendlyByteBuf {
 	@Shadow @Final
 	private static Gson GSON;
 
-	@Inject(method = "readJsonWithCodec", at = @At("HEAD"), cancellable = true)
-	private void onReadJsonWithCodec(Codec codec, CallbackInfoReturnable info) throws Throwable {
+	@Inject(method = "readLenientJsonWithCodec", at = @At("HEAD"), cancellable = true)
+	private void onReadLenientJsonWithCodec(Codec codec, CallbackInfoReturnable info) throws Throwable {
 		if (codec == ServerStatus.CODEC) {
 			info.cancel();
 
