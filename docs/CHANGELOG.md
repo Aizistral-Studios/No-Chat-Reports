@@ -1,3 +1,13 @@
+#### **\[Build 1.21.6-v2.13.0\]:**
+
+- Initial 1.21.6 port ([thanks to sarunint, #520](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/520));
+- Removed encryption-related assets from mod `.jar`;
+- Fabric versions of the mod no longer specify explicit Quilt compatibility;
+- Added Argentine Spanish translation ([thanks Texaliuz, #515](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/515));
+- Updated Simplified and Traditional Chinese translations ([thanks IlyaYezerovsky, #514](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/514));
+- Updated French translation ([thanks Ezmana, #513](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/513));
+- Removed encryption-related strings from most translations ([thanks Madis0, #512](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/512)).
+
 #### **\[Build 1.21.5-v2.12.0\]:**
 
 - Initial 1.21.5 port ([thanks to Tert0, #510](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/510));
@@ -7,7 +17,7 @@
 #### **\[Build 1.21.4-v2.11.0\]:**
 
 - Initial 1.21.4 port;
-- Added Malay and Malay (Jawi) translations translations ([thanks NuruddinPlays, #497](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/497)).
+- Added Malay and Malay (Jawi) translations ([thanks NuruddinPlays, #497](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/497)).
 
 
 #### **\[Build 1.21.3-v2.10.1\]:**
