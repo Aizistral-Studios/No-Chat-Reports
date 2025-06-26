@@ -4,12 +4,16 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.UUID;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.network.chat.ComponentSerialization;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -107,8 +111,10 @@ public class MixinChatListener {
 
 		// Debug never dies
 		if (NCRConfig.getCommon().enableDebugLog()) {
+			Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
+
 			NCRCore.LOGGER.info("Received message: {}, from: {}, signature: {}",
-					Component.Serializer.toJson(playerChatMessage.decoratedContent(), RegistryAccess.EMPTY),
+					GSON.toJson(ComponentSerialization.CODEC.encodeStart(RegistryAccess.EMPTY.createSerializationContext(JsonOps.INSTANCE), playerChatMessage.decoratedContent()).getOrThrow(JsonParseException::new)),
 					playerChatMessage.link().sender(),
 					Base64.getEncoder().encodeToString(playerChatMessage.signature() != null ? playerChatMessage.signature().bytes() : new byte[0]));
 		}

@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -37,7 +37,7 @@ public class AdvancedImageButton extends ImageButton {
 
 	@Override
 	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-		graphics.blitSprite(RenderType::guiTextured, this.getCurrentTexture(), this.getX(), this.getY(), this.width, this.height);
+		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getCurrentTexture(), this.getX(), this.getY(), this.width, this.height);
 
 		if (this.isHovered)
 			if (this.tooltip instanceof AdvancedWidgetTooltipHolder holder && holder.hasCustomRender()) {

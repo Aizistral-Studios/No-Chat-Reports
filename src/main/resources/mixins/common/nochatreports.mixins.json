@@ -4,8 +4,7 @@
   "package": "com.aizistral.nochatreports.common.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-	"common.MixinServerStatus",
-	"common.MixinFriendlyByteBuf",
+	"common.MixinJsonByteBufCodec",
 	"server.MixinServerboundChatPacket",
 	"server.MixinServerCommonPacketListenerImpl",
 	"server.MixinPlayerList",

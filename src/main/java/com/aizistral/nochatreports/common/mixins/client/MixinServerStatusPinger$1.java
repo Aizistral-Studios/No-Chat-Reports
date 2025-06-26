@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
+import com.aizistral.nochatreports.common.core.ServerStatusCache;
 
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
@@ -23,6 +24,7 @@ import net.minecraft.network.protocol.status.ServerStatus;
 /**
  * This one ensures "preventsChatReports" property is transferred from {@link ServerStatus} to
  * {@link ServerData} when handling status response.
+ *
  * @author fxmorin (original implementation)
  * @author Aizistral (current version)
  * @author pietro-lopes (fixed https://github.com/Aizistral-Studios/No-Chat-Reports/issues/481)
@@ -43,7 +45,16 @@ public abstract class MixinServerStatusPinger$1 {
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/status/ServerStatus;"
 					+ "description()Lnet/minecraft/network/chat/Component;"))
 	private void getNoChatReports(ClientboundStatusResponsePacket packet, CallbackInfo info) {
-		boolean preventsReports = ((ServerDataExtension) (Object) packet.status()).preventsChatReports();
+		ServerStatus status = packet.status();
+		boolean preventsReports = ServerStatusCache.doesPreventReports();
+
+		if (status.version().isPresent()) {
+			ServerStatus.Version version = status.version().get();
+
+			if (version.protocol() < 759 && version.protocol() > 0)  {
+				preventsReports = true;
+			}
+		}
 
 		if (this.nochatreports$serverData == null) {
 			NCRCore.LOGGER.error("Failed to capture ServerData instance in MixinServerStatusPinger$1!");

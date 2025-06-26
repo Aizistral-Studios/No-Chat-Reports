@@ -26,11 +26,11 @@ public class AdvancedWidgetTooltipHolder extends WidgetTooltipHolder {
 	}
 
 	@Override // ideally tooltip shouldn't control it's own render like this, but for now it does
-	public void refreshTooltipForNextRenderPass(boolean hovered, boolean focused, ScreenRectangle screenRectangle) {
+	public void refreshTooltipForNextRenderPass(GuiGraphics guiGraphics, int i, int j, boolean hovered, boolean focused, ScreenRectangle screenRectangle) {
 		if (this.hasCustomRender())
 			return;
 
-		super.refreshTooltipForNextRenderPass(hovered, focused, screenRectangle);
+		super.refreshTooltipForNextRenderPass(guiGraphics, i, j, hovered, focused, screenRectangle);
 	}
 
 }

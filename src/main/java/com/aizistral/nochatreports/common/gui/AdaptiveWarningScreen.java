@@ -10,6 +10,7 @@ import net.minecraft.client.gui.components.Checkbox.OnValueChange;
 import net.minecraft.client.gui.components.MultiLineLabel;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.multiplayer.WarningScreen;
 import net.minecraft.network.chat.Component;
 
 public abstract class AdaptiveWarningScreen extends Screen {
@@ -38,6 +39,7 @@ public abstract class AdaptiveWarningScreen extends Screen {
 	protected void init() {
 		this.clearWidgets();
 		super.init();
+
 		this.message = MultiLineLabel.create(this.font, this.content, this.width - (this.hugeGUI() ? 65 : 100));
 		int i = (this.message.getLineCount() + 1) * this.getLineHeight();
 		if (this.check != null) {
@@ -60,11 +62,11 @@ public abstract class AdaptiveWarningScreen extends Screen {
 		super.render(graphics, i, j, f);
 		this.renderTitle(graphics);
 		int k = this.width / 2 - this.message.getWidth() / 2;
-		this.message.renderLeftAligned(graphics, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFF);
+		this.message.renderLeftAligned(graphics, k, this.hugeGUI() ? 35 : 70, this.getLineHeight(), 0xFFFFFFFF);
 	}
 
 	private void renderTitle(GuiGraphics graphics) {
-		graphics.drawString(this.font, this.title, 25, this.hugeGUI() ? 15 : 30, 0xFFFFFF);
+		graphics.drawString(this.font, this.title, 25, this.hugeGUI() ? 15 : 30, 0xFFFFFFFF);
 	}
 
 	private boolean hugeGUI() {
