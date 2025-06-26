@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerStatusCache;
-import com.aizistral.nochatreports.fabric.NoChatReports;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -30,7 +29,7 @@ public class MixinJsonByteBufCodec {
 	// @Shadow @Final
 	// private int val$p_422673_;
 
-	@Inject(method = "encode", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "encode(Lio/netty/buffer/ByteBuf;Lcom/google/gson/JsonElement;)V", at = @At("HEAD"), cancellable = true)
 	private void onEncode(ByteBuf buf, JsonElement element, CallbackInfo info) {
 		if (!NCRConfig.getCommon().addQueryData() || !this.isServerStatusElement(element))
 			return;
@@ -48,7 +47,7 @@ public class MixinJsonByteBufCodec {
 		Utf8String.write(buf, string, 32767);
 	}
 
-	@Inject(method = "decode", at = @At("RETURN"), cancellable = true)
+	@Inject(method = "decode(Lio/netty/buffer/ByteBuf;)Lcom/google/gson/JsonElement;", at = @At("RETURN"), cancellable = true)
 	private void onDecode(ByteBuf buf, CallbackInfoReturnable<JsonElement> info) {
 		JsonElement element = info.getReturnValue();
 
