@@ -1,8 +1,12 @@
 package com.aizistral.nochatreports.common.mixins.client;
 
+import com.aizistral.nochatreports.common.gui.AdvancedIconButton;
+import com.aizistral.nochatreports.common.gui.ButtonIconData;
+import com.aizistral.nochatreports.common.gui.IconData;
+import com.aizistral.nochatreports.common.gui.SwitchableButtonIcon;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -13,25 +17,16 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
-import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.common.gui.GUIShenanigans;
-import com.aizistral.nochatreports.common.gui.SwitchableSprites;
-import com.aizistral.nochatreports.common.gui.TooltipHelper;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ComponentPath;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -43,11 +38,32 @@ import net.minecraft.resources.ResourceLocation;
 
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
-	private static final ResourceLocation CHAT_STATUS_ICONS = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/chat_status_icons_extended.png");
-	private static final ResourceLocation ENCRYPTION_BUTTON = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/encryption_toggle_button.png");
-	private AdvancedImageButton safetyStatusButton;
-	@Shadow
-	protected EditBox input;
+	@Unique private static final ResourceLocation INSECURE_ICON = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/insecure");
+	@Unique private static final ResourceLocation INSECURE_ICON_DISABLED = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/insecure_disabled");
+	@Unique private static final ResourceLocation REALMS_ICON = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/realms");
+	@Unique private static final ResourceLocation REALMS_ICON_DISABLED = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/realms_disabled");
+	@Unique private static final ResourceLocation SECURE_ICON = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/secure");
+	@Unique private static final ResourceLocation SECURE_ICON_DISABLED = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/secure_disabled");
+	@Unique private static final ResourceLocation UNDEFINED_ICON = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/undefined");
+	@Unique private static final ResourceLocation UNDEFINED_ICON_DISABLED = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/undefined_disabled");
+	@Unique private static final ResourceLocation UNINTRUSIVE_ICON = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/unintrusive");
+	@Unique private static final ResourceLocation UNINTRUSIVE_ICON_DISABLED = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/unintrusive_disabled");
+	@Unique private static final ResourceLocation UNKNOWN_ICON = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/unknown");
+	@Unique private static final ResourceLocation UNKNOWN_ICON_DISABLED = ResourceLocation
+			.fromNamespaceAndPath("nochatreports", "safety_state/unknown_disabled");
+
+	@Unique private AdvancedIconButton safetyStatusButton;
 
 	protected MixinChatScreen() {
 		super(null);
@@ -90,18 +106,29 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		int buttonX = this.width - 23;
-
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
-			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20,
-					SwitchableSprites.of(
-							GUIShenanigans.getSprites("safety_state/insecure"),
-							GUIShenanigans.getSprites("safety_state/unintrusive"),
-							GUIShenanigans.getSprites("safety_state/secure"),
-							GUIShenanigans.getSprites("safety_state/realms"),
-							GUIShenanigans.getSprites("safety_state/unknown"),
-							GUIShenanigans.getSprites("safety_state/undefined")
-							).setIndex(this.getSpriteSet()),
+			safetyStatusButton = new AdvancedIconButton(
+					this.width - 23, this.height - 37, 20, 20,
+					new SwitchableButtonIcon(
+							new ButtonIconData(
+									new IconData(INSECURE_ICON, 12, 12),
+									new IconData(INSECURE_ICON_DISABLED, 12, 12)),
+							new ButtonIconData(
+									new IconData(UNINTRUSIVE_ICON, 12, 12),
+									new IconData(UNINTRUSIVE_ICON_DISABLED, 12, 12)),
+							new ButtonIconData(
+									new IconData(SECURE_ICON, 12, 12),
+									new IconData(SECURE_ICON_DISABLED, 12, 12)),
+							new ButtonIconData(
+									new IconData(REALMS_ICON, 12, 12),
+									new IconData(REALMS_ICON_DISABLED, 12, 12)),
+							new ButtonIconData(
+									new IconData(UNKNOWN_ICON, 12, 12),
+									new IconData(UNKNOWN_ICON_DISABLED, 12, 12)),
+							new ButtonIconData(
+									new IconData(UNDEFINED_ICON, 12, 12),
+									new IconData(UNDEFINED_ICON_DISABLED, 12, 12))
+					).setIndex(getSpriteSet()),
 					btn -> {
 						if (!NCRClient.areSigningKeysPresent())
 							return;
@@ -113,7 +140,8 @@ public abstract class MixinChatScreen extends Screen {
 							preferences.setMode(address, preferences.getModeUnresolved(address).next());
 							preferences.saveFile();
 						}
-					}, Component.empty(), this);
+					},
+					this);
 			this.safetyStatusButton.setTooltip(new AdvancedTooltip(() -> {
 				MutableComponent tooltip = this.getSafetyLevel().getTooltip();
 
@@ -160,14 +188,13 @@ public abstract class MixinChatScreen extends Screen {
 			}).setMaxWidth(250).setRenderWithoutGap(true));
 
 			this.addRenderableWidget(this.safetyStatusButton);
-			buttonX -= 25;
 		}
 	}
 
 	@Override
 	public void tick() {
 		if (this.safetyStatusButton != null) {
-			this.safetyStatusButton.useSprites(this.getSpriteSet());
+			this.safetyStatusButton.setIconIndex(this.getSpriteSet());
 		}
 	}
 
@@ -181,12 +208,12 @@ public abstract class MixinChatScreen extends Screen {
 
 	private int getSpriteSet(ServerSafetyLevel level) {
 		return switch (level) {
-		case INSECURE -> 0;
-		case UNINTRUSIVE -> 1;
-		case SECURE, SINGLEPLAYER -> 2;
-		case REALMS -> 3;
-		case UNKNOWN -> 4;
-		case UNDEFINED -> 5;
+			case INSECURE -> 0;
+			case UNINTRUSIVE -> 1;
+			case SECURE, SINGLEPLAYER -> 2;
+			case REALMS -> 3;
+			case UNKNOWN -> 4;
+			case UNDEFINED -> 5;
 		};
 	}
 
