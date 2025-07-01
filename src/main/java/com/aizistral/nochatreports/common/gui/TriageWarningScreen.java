@@ -9,10 +9,12 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 public abstract class TriageWarningScreen extends AdaptiveWarningScreen {
+	private final Component learnMore;
 	private final String wikiLink;
 
-	public TriageWarningScreen(Component title, Component content, Component check, String wikiLink, Screen previous) {
+	public TriageWarningScreen(Component title, Component content, Component check, Component learn, String wikiLink, Screen previous) {
 		super(title, content, check, previous);
+		this.learnMore = learn;
 		this.wikiLink = wikiLink;
 	}
 
@@ -23,7 +25,7 @@ public abstract class TriageWarningScreen extends AdaptiveWarningScreen {
 		this.addRenderableWidget(Button.builder(CommonComponents.GUI_PROCEED, this::onProceed)
 				.pos(this.width / 2 - 260 + offset, y).size(150, 20).build());
 
-		this.addRenderableWidget(Button.builder(Component.translatable("gui.nochatreports.encryption_warning.learn_more"), button -> {
+		this.addRenderableWidget(Button.builder(this.learnMore, button -> {
 			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
 				if (agree) {
 					Util.getPlatform().openUri(this.wikiLink);

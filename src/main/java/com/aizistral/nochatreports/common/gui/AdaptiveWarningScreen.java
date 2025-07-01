@@ -25,8 +25,7 @@ public abstract class AdaptiveWarningScreen extends Screen {
 	protected Checkbox stopShowing = null;
 	protected MultiLineLabel message = MultiLineLabel.EMPTY;
 
-	public AdaptiveWarningScreen(Component title, Component content, @Nullable Component check,
-			@Nullable Screen previous) {
+	public AdaptiveWarningScreen(Component title, Component content, @Nullable Component check, @Nullable Screen previous) {
 		super(title);
 		this.title = title;
 		this.content = content;

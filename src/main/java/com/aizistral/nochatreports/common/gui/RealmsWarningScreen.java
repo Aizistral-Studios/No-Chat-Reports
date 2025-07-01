@@ -11,12 +11,13 @@ public class RealmsWarningScreen extends TriageWarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.realms_warning.header").withStyle(ChatFormatting.BOLD);
 	private static final Component CONTENT = Component.translatable("gui.nochatreports.realms_warning.contents");
 	private static final Component CHECK = Component.translatable("gui.nochatreports.realms_warning.check");
+	private static final Component LEARN = Component.translatable("gui.nochatreports.realms_warning.learn_more");
 	private static final String WIKI_LINK = "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/The-Realms-Question";
 	private static boolean sessionSeen = false;
 	private final Screen realms;
 
 	public RealmsWarningScreen(Screen previous, Screen realms) {
-		super(TITLE, CONTENT, CHECK, WIKI_LINK, previous);
+		super(TITLE, CONTENT, CHECK, LEARN, WIKI_LINK, previous);
 		this.realms = realms;
 	}
 
