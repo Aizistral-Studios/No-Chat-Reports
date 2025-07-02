@@ -1,3 +1,8 @@
+#### **\[Build 1.21.7-v2.14.0\]:**
+
+- Initial 1.21.7 port ([thanks to sarunint, #524](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/524));
+- Fixed unlocalized "Learn more" button in Realms warning screen ([#525](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/525)).
+
 #### **\[Build 1.21.6-v2.13.0\]:**
 
 - Initial 1.21.6 port ([thanks to sarunint, #520](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/520));
