@@ -37,8 +37,8 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 	@Shadow @Final
 	private ServerData serverData;
 
-	@Inject(method = "render", at = @At("RETURN"))
-	private void onRender(GuiGraphics graphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f, CallbackInfo info) {
+	@Inject(method = "renderContent", at = @At("RETURN"))
+	private void onRender(GuiGraphics graphics, int i, int j, boolean bl, float f, CallbackInfo info) {
 		if (!NCRConfig.getClient().verifiedIconEnabled())
 			return;
 
@@ -47,16 +47,16 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 					yOffset = NCRConfig.getClient().getVerifiedIconOffsetY();
 
 			GlStateManager._enableBlend();
-			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, VERIFIED_ICON, k + l - 35 + xOffset, j - 1 + yOffset, 14, 14);
+			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, VERIFIED_ICON, this.getContentRight() - 35 + xOffset, this.getContentY() - 1 + yOffset, 14, 14);
 			GlStateManager._disableBlend();
 
-			int t = n - k;
-			int u = o - j;
-			if (t >= l - 35 + xOffset && t <= l - 22 + xOffset && u >= 0 + yOffset && u <= 11 + yOffset) {
+			int t = i - this.getContentX();
+			int u = j - this.getContentY();
+			if (t >= this.getContentWidth() - 35 + xOffset && t <= this.getContentWidth() - 22 + xOffset && u >= 0 + yOffset && u <= 11 + yOffset) {
 				graphics.setTooltipForNextFrame(Lists.transform(FontHelper.wrap(this.minecraft.font,
 						Language.getInstance().getOrDefault("gui.nochatreports.verified_server"), 250).stream()
 						.map(Component::literal).collect(Collectors.toCollection(() ->
-						new ArrayList<Component>())), Component::getVisualOrderText), n, o);
+						new ArrayList<Component>())), Component::getVisualOrderText), i, j);
 			}
 		}
 	}

@@ -24,7 +24,7 @@ public class MixinServerboundChatSessionUpdatePacket {
 	private void onHandle(ServerGamePacketListener listener, CallbackInfo info) {
 		var impl = (ServerGamePacketListenerImpl) listener;
 
-		if (!impl.getPlayer().getServer().isSingleplayerOwner(impl.getPlayer().getGameProfile())) {
+		if (!impl.getPlayer().level().getServer().isSingleplayerOwner(impl.getPlayer().nameAndId())) {
 			if (NCRConfig.getCommon().demandOnClient()) {
 				impl.disconnect(Component.literal(NCRConfig.getCommon().demandOnClientMessage()));
 			}
