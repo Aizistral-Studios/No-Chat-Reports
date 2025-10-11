@@ -88,7 +88,7 @@ public class NCRClient {
 		var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
 
 		if (chatScr == null) {
-			chatScr = new ChatScreen("");
+			chatScr = new ChatScreen("", false);
 			chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
 		}
 

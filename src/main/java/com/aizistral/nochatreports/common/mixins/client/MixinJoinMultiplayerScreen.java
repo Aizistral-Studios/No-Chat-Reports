@@ -1,6 +1,10 @@
 package com.aizistral.nochatreports.common.mixins.client;
 
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.layouts.LinearLayout;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -12,7 +16,6 @@ import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.common.gui.GUIShenanigans;
 import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 
-import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.locale.Language;
@@ -27,6 +30,8 @@ import net.minecraft.resources.ResourceLocation;
 
 @Mixin(JoinMultiplayerScreen.class)
 public abstract class MixinJoinMultiplayerScreen extends Screen {
+	@Shadow @Final
+	private HeaderAndFooterLayout layout;
 	private static final ResourceLocation RELOAD_TEXTURE = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/config_reload_button.png"),
 			TOGGLE_TEXTURE = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/ncr_toggle_button.png");
 	private static final Component RELOAD_TOOLTIP = Component.translatable("gui.nochatreports.reload_config_tooltip");
@@ -38,18 +43,22 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
+		LinearLayout ncrButtons = this.layout.addToFooter(LinearLayout.vertical().spacing(4), layoutSettings -> {
+			layoutSettings.paddingLeft(336);
+		});
+
 		if (NCRConfig.getClient().showReloadButton()) {
-			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 54, 20, 20,
+			var button = new AdvancedImageButton(0, 0, 20, 20,
 					SwitchableSprites.of(GUIShenanigans.getSprites("config_reload_button")),
 					btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
 			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250));
 			button.active = true;
 			button.visible = true;
-			this.addRenderableWidget(button);
+			ncrButtons.addChild(button);
 		}
 
 		if (NCRConfig.getClient().showNCRButton()) {
-			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 30, 20, 20,
+			var button = new AdvancedImageButton(0, 0, 20, 20,
 					SwitchableSprites.of(
 							GUIShenanigans.getSprites("ncr_active_button"),
 							GUIShenanigans.getSprites("ncr_inactive_button")
@@ -71,7 +80,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 							.enableMod() ? "on" : "off")))).setMaxWidth(250));
 			button.active = true;
 			button.visible = true;
-			this.addRenderableWidget(button);
+			ncrButtons.addChild(button);
 		}
 	}
 

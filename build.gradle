@@ -1,7 +1,7 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
-	id 'fabric-loom' version '1.10.2'
+	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "2.+"
 	id "com.matthewprenger.cursegradle" version "1.+"
@@ -159,7 +159,7 @@ curseforge {
 		
 		addGameVersion "1.21.8"
 		addGameVersion project.minecraft_version
-		addGameVersion "1.21.6"
+		addGameVersion "1.21.9"
 		addGameVersion 'Fabric'
 		addGameVersion 'Java 21'
 		
@@ -191,7 +191,7 @@ modrinth {
     versionType = "${version_type}"
 	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = remapJar
-    gameVersions = [ "1.21.8", project.minecraft_version, "1.21.6" ]
+    gameVersions = [ project.minecraft_version, "1.21.9" ]
 	loaders = ['fabric']
 	
 	dependencies {

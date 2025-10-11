@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.common.gui;
 
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -11,7 +12,7 @@ public final class TooltipHelper {
 	}
 
 	public static MutableComponent getCtrl() {
-		if (Minecraft.ON_OSX)
+		if (Util.getPlatform() == Util.OS.OSX)
 			return Component.translatable("key.nochatreports.cmd");
 		else
 			return Component.translatable("key.nochatreports.ctrl");
