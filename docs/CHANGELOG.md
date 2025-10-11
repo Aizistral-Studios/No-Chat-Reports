@@ -1,3 +1,8 @@
+#### **\[Build 1.21.10-v2.16.0\]:**
+
+- Initial 1.21.10 (and 1.21.9) port ([big thanks to tibequadorian, #533](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/533));
+- Removed placeholder for removed label in the Cloth Config GUI ([thanks to Madis0, #529](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/529)).
+
 #### **\[Build 1.21.8-v2.15.0\]:**
 
 - Fixed "broken implementation of ModMenuApi" crash ([thanks to litetex, #528](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/528)).
