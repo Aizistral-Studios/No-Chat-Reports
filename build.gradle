@@ -157,7 +157,6 @@ curseforge {
         changelog = file('docs/CHANGELOG.md')
 		mainArtifact(remapJar)
 		
-		addGameVersion "1.21.8"
 		addGameVersion project.minecraft_version
 		addGameVersion "1.21.9"
 		addGameVersion 'Fabric'
