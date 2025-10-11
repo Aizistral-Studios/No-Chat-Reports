@@ -20,7 +20,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.Utf8String;
 import net.minecraft.network.codec.ByteBufCodecs;
 
-@Mixin(targets = "net.minecraft.network.codec.ByteBufCodecs$35")
+@Mixin(targets = "net.minecraft.network.codec.ByteBufCodecs$34")
 public class MixinJsonByteBufCodec {
 	@Shadow @Final
 	private static Gson GSON;
