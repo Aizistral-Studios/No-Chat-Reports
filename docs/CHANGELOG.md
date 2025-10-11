@@ -1,3 +1,7 @@
+#### **\[Build 1.21.8-v2.15.0\]:**
+
+- Fixed "broken implementation of ModMenuApi" crash ([thanks to litetex, #528](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/528)).
+
 #### **\[Build 1.21.7-v2.14.0\]:**
 
 - Initial 1.21.7 port ([thanks to sarunint, #524](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/524));
