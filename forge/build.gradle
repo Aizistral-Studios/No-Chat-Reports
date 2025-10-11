@@ -194,6 +194,7 @@ curseforge {
         changelogType = 'markdown'
         changelog = rootProject.file('docs/CHANGELOG.md')
 		
+		addGameVersion "1.21.8"
 		addGameVersion project.minecraft_version
 		addGameVersion "1.21.6"
 		addGameVersion "Java 21"
@@ -212,7 +213,7 @@ modrinth {
     versionType = "${version_type}"
 	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = jar
-    gameVersions = [ project.minecraft_version, "1.21.6" ]
+    gameVersions = [ "1.21.8", project.minecraft_version, "1.21.6" ]
 	
 	syncBodyFrom = rootProject.file("docs/README.md").text
 }
