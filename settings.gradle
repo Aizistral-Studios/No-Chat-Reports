@@ -11,7 +11,7 @@ pluginManagement {
 }
 
 rootProject.name = 'No-Chat-Reports'
-include('forge')
-project(":forge").name = "Forge"
-include('neoforge')
-project(":neoforge").name = "NeoForge"
+//include('forge')
+//project(":forge").name = "Forge"
+//include('neoforge')
+//project(":neoforge").name = "NeoForge"

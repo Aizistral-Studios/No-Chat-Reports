@@ -21,7 +21,7 @@ import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * This is responsible for adding config reload button to server selection menu.
@@ -32,8 +32,8 @@ import net.minecraft.resources.ResourceLocation;
 public abstract class MixinJoinMultiplayerScreen extends Screen {
 	@Shadow @Final
 	private HeaderAndFooterLayout layout;
-	private static final ResourceLocation RELOAD_TEXTURE = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/config_reload_button.png"),
-			TOGGLE_TEXTURE = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/ncr_toggle_button.png");
+	private static final Identifier RELOAD_TEXTURE = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/config_reload_button.png"),
+			TOGGLE_TEXTURE = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/ncr_toggle_button.png");
 	private static final Component RELOAD_TOOLTIP = Component.translatable("gui.nochatreports.reload_config_tooltip");
 
 	protected MixinJoinMultiplayerScreen() {

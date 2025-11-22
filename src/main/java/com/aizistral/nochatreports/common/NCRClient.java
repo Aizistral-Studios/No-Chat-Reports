@@ -89,7 +89,7 @@ public class NCRClient {
 
 		if (chatScr == null) {
 			chatScr = new ChatScreen("", false);
-			chatScr.init(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
+			chatScr.init(mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
 		}
 
 		chatScr.handleChatInput(ServerSafetyState.getLastMessage(), false);

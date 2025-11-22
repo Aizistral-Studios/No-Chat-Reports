@@ -13,7 +13,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Mixin(ServerSelectionList.OnlineServerEntry.class)
 public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 	@Unique
-	private static final ResourceLocation VERIFIED_ICON = ResourceLocation.fromNamespaceAndPath("nochatreports", "verified_server");
+	private static final Identifier VERIFIED_ICON = Identifier.fromNamespaceAndPath("nochatreports", "verified_server");
 
 	@Shadow @Final
 	private JoinMultiplayerScreen screen;
