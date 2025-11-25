@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import net.minecraft.client.multiplayer.ServerStatusPinger;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.network.Connection;
+import net.minecraft.server.network.EventLoopGroupHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,7 +38,7 @@ public abstract class MixinServerStatusPinger$1 {
 	private ServerDataExtension nochatreports$serverData;
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void captureServerData(ServerStatusPinger serverStatusPinger, Connection connection, ServerData serverData, Runnable runnable, Runnable runnable2, InetSocketAddress inetSocketAddress, ServerAddress serverAddress, CallbackInfo ci){
+	private void captureServerData(ServerStatusPinger serverStatusPinger, Connection connection, ServerData serverData, Runnable runnable, Runnable runnable2, InetSocketAddress inetSocketAddress, ServerAddress serverAddress, EventLoopGroupHolder eventLoopGroupHolder, CallbackInfo ci){
 		this.nochatreports$serverData = (ServerDataExtension) serverData;
 	}
 
