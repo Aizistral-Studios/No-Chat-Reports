@@ -37,7 +37,10 @@ apply from: '../common.gradle'
 println("Specifying project version/group/archivesBaseName...")
 version = "${mod_version}"
 group = "${maven_group}"
-archivesBaseName = "${archives_base_name}"
+
+base {
+    archivesName = "${archives_base_name}"
+}
 
 println("Specifying Java compatibility...")
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

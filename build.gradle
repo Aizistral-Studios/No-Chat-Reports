@@ -8,9 +8,12 @@ plugins {
 	id "com.matthewprenger.cursegradle" version "1.+"
 }
 
-archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
 
 apply from: 'common.gradle'
 
