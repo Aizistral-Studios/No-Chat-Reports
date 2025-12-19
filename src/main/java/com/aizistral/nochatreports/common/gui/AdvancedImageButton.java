@@ -8,7 +8,7 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedImageButton extends ImageButton {
@@ -31,12 +31,12 @@ public class AdvancedImageButton extends ImageButton {
 		return this.switchable.getIndex();
 	}
 
-	public ResourceLocation getCurrentTexture() {
+	public Identifier getCurrentTexture() {
 		return this.switchable.getCurrent().get(this.isActive(), this.isHoveredOrFocused());
 	}
 
 	@Override
-	public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+	public void renderContents(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
 		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getCurrentTexture(), this.getX(), this.getY(), this.width, this.height);
 
 		if (this.isHovered)

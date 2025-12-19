@@ -18,7 +18,7 @@ public class InvisibleButton extends Button {
 	}
 
 	@Override
-	public void render(GuiGraphics graphics, int i, int j, float f) {
+	public void renderContents(GuiGraphics graphics, int i, int j, float f) {
 		// NO-OP
 	}
 

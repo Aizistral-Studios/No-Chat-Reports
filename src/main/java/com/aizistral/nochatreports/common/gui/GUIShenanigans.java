@@ -4,7 +4,7 @@ import com.aizistral.nochatreports.common.NCRCore;
 
 import net.minecraft.client.gui.ComponentPath;
 import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public final class GUIShenanigans {
 
@@ -33,9 +33,9 @@ public final class GUIShenanigans {
 	}
 
 	public static WidgetSprites getSprites(String path, boolean hasHovered, boolean hasDisabled) {
-		var normal = ResourceLocation.fromNamespaceAndPath("nochatreports", path);
-		var hovered = hasHovered ? ResourceLocation.fromNamespaceAndPath("nochatreports", path + "_hovered") : normal;
-		var disabled = hasDisabled ?  ResourceLocation.fromNamespaceAndPath("nochatreports", path + "_hovered") : hovered;
+		var normal = Identifier.fromNamespaceAndPath("nochatreports", path);
+		var hovered = hasHovered ? Identifier.fromNamespaceAndPath("nochatreports", path + "_hovered") : normal;
+		var disabled = hasDisabled ? Identifier.fromNamespaceAndPath("nochatreports", path + "_hovered") : hovered;
 		return new WidgetSprites(normal, hovered, disabled);
 	}
 

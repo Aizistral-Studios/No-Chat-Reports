@@ -37,7 +37,10 @@ apply from: '../common.gradle'
 println("Specifying project version/group/archivesBaseName...")
 version = "${mod_version}"
 group = "${maven_group}"
-archivesBaseName = "${archives_base_name}"
+
+base {
+    archivesName = "${archives_base_name}"
+}
 
 println("Specifying Java compatibility...")
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -170,7 +173,6 @@ curseforge {
         changelog = rootProject.file('docs/CHANGELOG.md')
 		
 		addGameVersion project.minecraft_version
-		addGameVersion "1.21.9"
 		addGameVersion "Java 21"
 		addGameVersion "NeoForge"
 		
@@ -187,7 +189,7 @@ modrinth {
     versionType = "${version_type}"
 	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = jar
-    gameVersions = [ project.minecraft_version, "1.21.9" ]
+    gameVersions = [ project.minecraft_version ]
 	
 	syncBodyFrom = rootProject.file("docs/README.md").text
 }

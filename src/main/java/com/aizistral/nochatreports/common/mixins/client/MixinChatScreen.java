@@ -34,7 +34,7 @@ import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * This is responsible for adding safety status indicator to the bottom-right corner of chat screen.
@@ -43,8 +43,8 @@ import net.minecraft.resources.ResourceLocation;
 
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
-	private static final ResourceLocation CHAT_STATUS_ICONS = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/chat_status_icons_extended.png");
-	private static final ResourceLocation ENCRYPTION_BUTTON = ResourceLocation.fromNamespaceAndPath("nochatreports", "textures/gui/encryption_toggle_button.png");
+	private static final Identifier CHAT_STATUS_ICONS = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/chat_status_icons_extended.png");
+	private static final Identifier ENCRYPTION_BUTTON = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/encryption_toggle_button.png");
 	private AdvancedImageButton safetyStatusButton;
 	@Shadow
 	protected EditBox input;
