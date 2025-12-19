@@ -1,3 +1,7 @@
+#### **\[Build 1.21.11-v2.17.0\]:**
+
+- Initial 1.21.11 port ([huuuuuuge thanks <3 to tibequadorian, #537](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/537)).
+
 #### **\[Build 1.21.10-v2.16.0\]:**
 
 - Initial 1.21.10 (and 1.21.9) port ([big thanks to tibequadorian, #533](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/533));
