@@ -1,17 +1,22 @@
 package com.aizistral.nochatreports.common;
 
+import java.util.function.Function;
+
+import com.aizistral.nochatreports.common.config.ClothConfigIntegration;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
-import com.aizistral.nochatreports.common.platform.PlatformProvider;
 import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.Component;
 
@@ -29,6 +34,14 @@ public class NCRClient {
 		ClientEvents.DISCONNECT.register(NCRClient::onDisconnect);
 		ClientEvents.PLAY_READY.register(NCRClient::onPlayReady);
 	}
+
+    @Nullable
+    public static Function<Screen, Screen> getConfigScreen() {
+        if (ClothConfigIntegration.ACTIVE) return ClothConfigIntegration::getConfigScreen;
+
+        NCRCore.LOGGER.warn("ClothConfig API not found, cannot provide config screen factory.");
+        return null;
+    }
 
 	private static void onDisconnect(Minecraft client) {
 		if (!NCRConfig.getClient().enableMod())
