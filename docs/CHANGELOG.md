@@ -1,3 +1,7 @@
+#### **\[Build 1.21.11-v2.18.0\]:**
+
+- Added Cloth Config compatibility for Forge/NeoForge ([thanks to rcubedev, #506](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/506)).
+
 #### **\[Build 1.21.11-v2.17.0\]:**
 
 - Initial 1.21.11 port ([huuuuuuge thanks <3 to tibequadorian, #537](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/537)).
