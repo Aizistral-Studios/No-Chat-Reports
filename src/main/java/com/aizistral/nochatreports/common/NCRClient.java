@@ -9,6 +9,14 @@ import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
 import com.aizistral.nochatreports.common.platform.events.ClientEvents;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.client.player.Input;
+import net.minecraft.network.chat.MutableComponent;
+import com.aizistral.nochatreports.common.config.ClothConfigIntegration;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,6 +38,22 @@ public class NCRClient {
 
 	static void setup() {
 		NCRCore.LOGGER.debug("Client initialization...");
+
+		KeyMapping cycleChatState = KeyBindingHelper.registerKeyBinding(new KeyMapping("gui.nochatreports.safety_status_hotkey", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), "configuration.NoChatReports.config"));
+		KeyMapping globalConfig = KeyBindingHelper.registerKeyBinding(new KeyMapping("configuration.NoChatReports.config.hotkey", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(), "configuration.NoChatReports.config"));
+
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			while (cycleChatState.consumeClick()) {
+				var address = ServerSafetyState.getLastServer();
+				var preferences = NCRConfig.getServerPreferences();
+				var nextMode = preferences.getModeUnresolved(address).next();
+				preferences.setMode(address, nextMode);
+				showState(client, nextMode.getName().toString());
+			}
+			while (globalConfig.isDown()) {
+				ClothConfigIntegration.getConfigScreen(Minecraft.getInstance().screen);
+			}
+		});
 
 		ClientEvents.DISCONNECT.register(NCRClient::onDisconnect);
 		ClientEvents.PLAY_READY.register(NCRClient::onPlayReady);
@@ -108,4 +132,13 @@ public class NCRClient {
 		chatScr.handleChatInput(ServerSafetyState.getLastMessage(), false);
 	}
 
+	private static void showState(Minecraft client, String translationKey){
+		assert client.player != null;
+		client.player.displayClientMessage(Component.translatable(translationKey), true);
+	}
+
+	private static void showState(Minecraft client, boolean variable, String translationKey){
+		assert client.player != null;
+		client.player.displayClientMessage(Component.translatable(variable ? "options.on.composed" : "options.off.composed", Component.translatable(translationKey).getString()), true);
+	}
 }
