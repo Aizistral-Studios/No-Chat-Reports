@@ -266,5 +266,4 @@ public final class ClothConfigIntegration {
 			return builder.build();
 		}
 	}
-
 }

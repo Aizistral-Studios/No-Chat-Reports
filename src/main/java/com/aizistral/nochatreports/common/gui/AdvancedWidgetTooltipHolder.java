@@ -1,6 +1,6 @@
 package com.aizistral.nochatreports.common.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetTooltipHolder;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
@@ -21,12 +21,12 @@ public class AdvancedWidgetTooltipHolder extends WidgetTooltipHolder {
 		return this.get() instanceof AdvancedTooltip advanced && advanced.hasCustomRender();
 	}
 
-	public void doCustomRender(Screen screen, GuiGraphics graphics, int x, int y, ClientTooltipPositioner positioner) {
+	public void doCustomRender(Screen screen, GuiGraphicsExtractor graphics, int x, int y, ClientTooltipPositioner positioner) {
 		((AdvancedTooltip) this.get()).doCustomRender(screen, graphics, x, y, positioner);
 	}
 
 	@Override // ideally tooltip shouldn't control it's own render like this, but for now it does
-	public void refreshTooltipForNextRenderPass(GuiGraphics guiGraphics, int i, int j, boolean hovered, boolean focused, ScreenRectangle screenRectangle) {
+	public void refreshTooltipForNextRenderPass(GuiGraphicsExtractor guiGraphics, int i, int j, boolean hovered, boolean focused, ScreenRectangle screenRectangle) {
 		if (this.hasCustomRender())
 			return;
 

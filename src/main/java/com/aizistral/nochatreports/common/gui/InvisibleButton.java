@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
@@ -18,7 +18,7 @@ public class InvisibleButton extends Button {
 	}
 
 	@Override
-	public void renderContents(GuiGraphics graphics, int i, int j, float f) {
+	public void extractContents(GuiGraphicsExtractor graphics, int i, int j, float f) {
 		// NO-OP
 	}
 

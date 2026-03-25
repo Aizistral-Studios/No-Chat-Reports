@@ -20,7 +20,7 @@ public class MixinTitleScreen extends Screen {
 		throw new IllegalStateException("Can't touch this");
 	}
 
-	@Inject(method = { "method_55814", "lambda$createNormalMenuOptions$11" }, at = @At("HEAD"), cancellable = true)
+	@Inject(method = { "lambda$createNormalMenuOptions$2" }, at = @At("HEAD"), cancellable = true)
 	private void onRealmsButtonClicked(Button button, CallbackInfo info) {
 		if (RealmsWarningScreen.shouldShow()) {
 			this.minecraft.setScreen(new RealmsWarningScreen(new TitleScreen(), new RealmsMainScreen(this)));

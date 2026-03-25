@@ -4,7 +4,8 @@ pluginManagement {
 			name = 'Fabric'
 			url = 'https://maven.fabricmc.net/'
 		}
-        maven { url = 'https://maven.neoforged.net' }
+        maven { url = 'https://maven.neoforged.net/releases' }
+        maven { url = 'https://maven.maxhenkel.de/repository/public' }
         mavenCentral()
         gradlePluginPortal()
     }

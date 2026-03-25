@@ -3,7 +3,7 @@ package com.aizistral.nochatreports.common.gui;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -70,19 +70,19 @@ public class AdvancedTooltip extends Tooltip {
 		return minecraft.font.split(component, maxWidth);
 	}
 
-	public void doCustomRender(Screen screen, GuiGraphics graphics, int x, int y, ClientTooltipPositioner positioner) {
+	public void doCustomRender(Screen screen, GuiGraphicsExtractor graphics, int x, int y, ClientTooltipPositioner positioner) {
 		if (this.renderWithoutGap) {
 			this.renderTooltipNoGap(screen, graphics, splitTooltip(screen.minecraft, this.getMessage(), this.maxWidth), this.getMessage(), x, y, positioner);
 		} else
 			throw new UnsupportedOperationException("This tooltip doesn't support custom render!");
 	}
 
-	protected void renderTooltipNoGap(Screen screen, GuiGraphics poseStack, List<? extends FormattedCharSequence> list, Component component, int x, int y, ClientTooltipPositioner positioner) {
+	protected void renderTooltipNoGap(Screen screen, GuiGraphicsExtractor poseStack, List<? extends FormattedCharSequence> list, Component component, int x, int y, ClientTooltipPositioner positioner) {
 		this.renderTooltipInternalNoGap(screen, poseStack, list.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), component, x, y, positioner);
 	}
 
 	// Originates from GuiGraphics
-	protected void renderTooltipInternalNoGap(Screen screen, GuiGraphics graphics, List<ClientTooltipComponent> list, Component component, int i, int j, ClientTooltipPositioner clientTooltipPositioner) {
+	protected void renderTooltipInternalNoGap(Screen screen, GuiGraphicsExtractor graphics, List<ClientTooltipComponent> list, Component component, int i, int j, ClientTooltipPositioner clientTooltipPositioner) {
 		ClientTooltipComponent clientTooltipComponent2;
 		int t;
 		if (list.isEmpty())
