@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.common.mixins.client;
 
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import org.spongepowered.asm.mixin.Final;
@@ -11,10 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
-import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
-import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
+import net.minecraft.client.gui.components.CycleButton;
 import com.aizistral.nochatreports.common.gui.GUIShenanigans;
-import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
@@ -48,36 +48,39 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 		});
 
 		if (NCRConfig.getClient().showReloadButton()) {
-			var button = new AdvancedImageButton(0, 0, 20, 20,
-					SwitchableSprites.of(GUIShenanigans.getSprites("config_reload_button")),
-					btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
-			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250));
+			var button = new ImageButton(0, 0, 20, 20,
+					GUIShenanigans.getSprites("config_reload_button"),
+					btn -> NCRConfig.load(), CommonComponents.EMPTY);
+			button.setTooltip(Tooltip.create(RELOAD_TOOLTIP));
 			button.active = true;
 			button.visible = true;
 			ncrButtons.addChild(button);
 		}
 
 		if (NCRConfig.getClient().showNCRButton()) {
-			var button = new AdvancedImageButton(0, 0, 20, 20,
-					SwitchableSprites.of(
-							GUIShenanigans.getSprites("ncr_active_button"),
-							GUIShenanigans.getSprites("ncr_inactive_button")
-							).setIndex(NCRConfig.getClient().enableMod() ? 0 : 1),
-					btn -> {
-						NCRConfig.getClient().toggleMod();
-						boolean enabled = NCRConfig.getClient().enableMod();
+			var button = CycleButton.onOffBuilder(NCRConfig.getClient().enableMod())
+					.withSprite((btn, value) -> {
+						var sprites = GUIShenanigans.getSprites(
+								value ? "ncr_active_button" : "ncr_inactive_button"
+						);
+						return sprites.get(btn.isActive(), btn.isHoveredOrFocused());
+					})
+					.withTooltip(value -> Tooltip.create(
+							Component.translatable(
+									"gui.nochatreports.ncr_toggle_tooltip",
+									Language.getInstance().getOrDefault("gui.nochatreports.ncr_state_" + (value ? "on" : "off"))
+							)
+					))
+					.displayState(CycleButton.DisplayState.HIDE)
+					.create(
+							0, 0, 20, 20,
+							Component.empty(),
+							(btn, value) -> {
+								NCRConfig.getClient().setEnableMod(value);
+								ServerSafetyState.reset();
+							}
+					);
 
-						if (enabled) {
-							((AdvancedImageButton)btn).useSprites(0);
-						} else {
-							((AdvancedImageButton)btn).useSprites(1);
-						}
-
-						ServerSafetyState.reset();
-					}, Component.translatable("gui.nochatreports.ncr_toggle"), this);
-			button.setTooltip(new AdvancedTooltip(() -> Component.translatable("gui.nochatreports.ncr_toggle_tooltip",
-					Language.getInstance().getOrDefault("gui.nochatreports.ncr_state_" + (NCRConfig.getClient()
-							.enableMod() ? "on" : "off")))).setMaxWidth(250));
 			button.active = true;
 			button.visible = true;
 			ncrButtons.addChild(button);

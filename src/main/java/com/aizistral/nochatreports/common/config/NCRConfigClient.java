@@ -26,10 +26,6 @@ public final class NCRConfigClient extends JSONConfig {
 		return new NCRConfigClient();
 	}
 
-	public void toggleMod() {
-		this.enableMod = !this.enableMod;
-	}
-
 	/**
 	 * @return True if client with No Chat Reports installed should demand that mod is present on
 	 * every server that it tries to join. In that case client will not be able to join servers that
@@ -178,6 +174,10 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean enableMod() {
 		return this.enableMod;
+	}
+
+	public void setEnableMod(boolean enableMod) {
+		this.enableMod = enableMod;
 	}
 
 	/**
