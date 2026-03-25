@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.UUID;
 import java.util.function.Supplier;
 
+import net.minecraft.client.gui.components.ImageButton;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,9 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
-import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.common.gui.InvisibleButton;
-import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -44,8 +43,8 @@ public class MixinPlayerEntry {
 			this.reportButton = new InvisibleButton();
 			this.reportButton.active = this.reportButton.visible = false;
 		} else if (ServerSafetyState.getCurrent().isSecure() && this.reportButton != null) {
-			this.reportButton = new AdvancedImageButton(0, 0, 20, 20, SwitchableSprites.of(REPORT_BUTTON_SPRITES),
-					button -> {}, Component.translatable("gui.socialInteractions.report"), screen);
+			this.reportButton = new ImageButton(0, 0, 20, 20, REPORT_BUTTON_SPRITES,
+					button -> {}, Component.translatable("gui.socialInteractions.report"));
 			this.reportButton.setTooltip(Tooltip.create(NCR_BUTTON_TOOLTIP));
 			this.reportButton.setTooltipDelay(Duration.ofMillis(500L));
 			this.reportButton.active = false;
