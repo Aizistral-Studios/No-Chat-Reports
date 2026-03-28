@@ -1,3 +1,7 @@
+#### **\[Build 26.1-v2.19.0\]:**
+
+- Initial 26.1 port ([huuuge thanks (and hugs and kisses <3) to tibequadorian, #545](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/545)).
+
 #### **\[Build 1.21.11-v2.18.0\]:**
 
 - Added Cloth Config compatibility for Forge/NeoForge ([thanks to rcubedev, #506](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/506)).
