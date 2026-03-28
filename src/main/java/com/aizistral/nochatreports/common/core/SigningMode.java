@@ -70,18 +70,6 @@ public enum SigningMode {
 		return Component.translatable(this.getTooltipKey());
 	}
 
-	public SigningMode next() {
-		SigningMode result = null;
-
-		if (this.ordinal() == values().length - 1) {
-			result = values()[0];
-		} else {
-			result = values()[this.ordinal() + 1];
-		}
-
-		return result.isSelectable() ? result : result.next();
-	}
-
 	public SigningMode resolve() {
 		return switch(this) {
 		case DEFAULT -> NCRConfig.getClient().defaultSigningMode();

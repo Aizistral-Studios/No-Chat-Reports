@@ -10,16 +10,16 @@ jobs:
   build:
     strategy:
       matrix:
-        java: [ 21 ]
+        java: [ 25 ]
         os: [ubuntu-22.04, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/actions/wrapper-validation@v5
       - name: Setup JDK ${{ matrix.java }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
@@ -29,7 +29,7 @@ jobs:
       - name: Build the mod
         run: ./gradlew build
       - name: Upload build artifacts
-        if: ${{ runner.os == 'Linux' && matrix.java == '21' }} # Only upload artifacts from one OS and required JDK.
+        if: ${{ runner.os == 'Linux' && matrix.java == '25' }} # Only upload artifacts from one OS and required JDK.
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts

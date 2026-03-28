@@ -38,13 +38,13 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.17.2",
+    "fabricloader": ">=0.18.4",
     "fabric-api": "*",
-    "minecraft": [ ">=1.21.9" ],
-    "java": ">=21"
+    "minecraft": [ ">=26.1" ],
+    "java": ">=25"
   },
   "suggests": {},
-  "accessWidener" : "nochatreports.accesswidener",
+  "accessWidener" : "nochatreports.classtweaker",
 
   "custom": {
     "modmenu": {

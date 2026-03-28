@@ -13,18 +13,15 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
-import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
-import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
 import com.aizistral.nochatreports.common.gui.GUIShenanigans;
-import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 import com.aizistral.nochatreports.common.gui.TooltipHelper;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ComponentPath;
-import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -45,7 +42,6 @@ import net.minecraft.resources.Identifier;
 public abstract class MixinChatScreen extends Screen {
 	private static final Identifier CHAT_STATUS_ICONS = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/chat_status_icons_extended.png");
 	private static final Identifier ENCRYPTION_BUTTON = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/encryption_toggle_button.png");
-	private AdvancedImageButton safetyStatusButton;
 	@Shadow
 	protected EditBox input;
 
@@ -90,84 +86,44 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		int buttonX = this.width - 23;
-
 		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
-			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20,
-					SwitchableSprites.of(
-							GUIShenanigans.getSprites("safety_state/insecure"),
-							GUIShenanigans.getSprites("safety_state/unintrusive"),
-							GUIShenanigans.getSprites("safety_state/secure"),
-							GUIShenanigans.getSprites("safety_state/realms"),
-							GUIShenanigans.getSprites("safety_state/unknown"),
-							GUIShenanigans.getSprites("safety_state/undefined")
-							).setIndex(this.getSpriteSet()),
-					btn -> {
+			CycleButton<SigningMode> safetyStatusButton = CycleButton.<SigningMode>builder(
+					mode -> Component.empty(),
+					NCRConfig.getServerPreferences().getModeUnresolved(ServerSafetyState.getLastServer())
+			)
+			.withValues(NCRClient.areSigningKeysPresent()
+					? new SigningMode[]{ SigningMode.DEFAULT, SigningMode.NEVER, SigningMode.ALWAYS, SigningMode.PROMPT, SigningMode.ON_DEMAND }
+					: new SigningMode[]{ SigningMode.NEVER_FORCED })
+			.withSprite((btn, value) -> {
+				var sprites = switch (ServerSafetyState.getCurrent()) {
+					case INSECURE -> GUIShenanigans.getSprites("safety_state/insecure");
+					case UNINTRUSIVE -> GUIShenanigans.getSprites("safety_state/unintrusive");
+					case SECURE, SINGLEPLAYER -> GUIShenanigans.getSprites("safety_state/secure");
+					case REALMS -> GUIShenanigans.getSprites("safety_state/realms");
+					case UNKNOWN -> GUIShenanigans.getSprites("safety_state/unknown");
+					case UNDEFINED -> GUIShenanigans.getSprites("safety_state/undefined");
+				};
+				return sprites.get(btn.isActive(), btn.isHoveredOrFocused());
+			})
+			.withTooltip(mode -> Tooltip.create(createSafetyTooltip(mode)))
+			.displayState(CycleButton.DisplayState.HIDE)
+			.create(
+					this.width - 23, this.height - 37, 20, 20,
+					Component.empty(),
+					(btn, mode) -> {
 						if (!NCRClient.areSigningKeysPresent())
 							return;
 
 						var address = ServerSafetyState.getLastServer();
-
 						if (address != null) {
 							var preferences = NCRConfig.getServerPreferences();
-							preferences.setMode(address, preferences.getModeUnresolved(address).next());
+							preferences.setMode(address, mode);
 							preferences.saveFile();
 						}
-					}, Component.empty(), this);
-			this.safetyStatusButton.setTooltip(new AdvancedTooltip(() -> {
-				MutableComponent tooltip = this.getSafetyLevel().getTooltip();
-
-				if (ServerSafetyState.allowChatSigning()) {
-					tooltip = Component.translatable("gui.nochatreports.safety_status.insecure_signing");
-				} else if (ServerSafetyState.isInSingleplayer())
-					return tooltip;
-
-				ServerAddress address = ServerSafetyState.getLastServer();
-				SigningMode mode = NCRConfig.getServerPreferences().getModeUnresolved(address);
-				String signing = "gui.nochatreports.signing_status.";
-
-				if (!this.minecraft.getConnection().getConnection().isEncrypted()) {
-					signing += "disabled_offline";
-				} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
-					signing += "allowed_realms";
-				} else if (mode.resolve() == SigningMode.ALWAYS) {
-					if (ServerSafetyState.allowChatSigning()) {
-						signing += "allowed";
-					} else {
-						signing += "disabled_allowance_pending";
 					}
-				} else if (ServerSafetyState.allowChatSigning()) {
-					signing += "allowed_session";
-				} else {
-					signing += "disabled";
-				}
+			);
 
-				tooltip.append("\n\n");
-				tooltip.append(Component.translatable(signing));
-
-				if (ServerSafetyState.isOnRealms())
-					return tooltip;
-
-				tooltip.append("\n\n");
-				tooltip.append(Component.translatable("gui.nochatreports.safety_status_button.controls"));
-				tooltip.append("\n\n");
-				tooltip.append(Component.translatable("gui.nochatreports.signing_mode",
-						mode.getName().withStyle(ChatFormatting.BOLD, ChatFormatting.AQUA)));
-				tooltip.append("\n");
-				tooltip.append((mode == SigningMode.DEFAULT ? mode.resolve() : mode).getTooltip());
-
-				return tooltip;
-			}).setMaxWidth(250).setRenderWithoutGap(true));
-
-			this.addRenderableWidget(this.safetyStatusButton);
-			buttonX -= 25;
-		}
-	}
-
-	@Override
-	public void tick() {
-		if (this.safetyStatusButton != null) {
-			this.safetyStatusButton.useSprites(this.getSpriteSet());
+			this.addRenderableWidget(safetyStatusButton);
 		}
 	}
 
@@ -175,19 +131,47 @@ public abstract class MixinChatScreen extends Screen {
 		return ServerSafetyState.getCurrent();
 	}
 
-	private int getSpriteSet() {
-		return this.getSpriteSet(this.getSafetyLevel());
-	}
+	private Component createSafetyTooltip(SigningMode mode) {
+		MutableComponent tooltip = this.getSafetyLevel().getTooltip();
 
-	private int getSpriteSet(ServerSafetyLevel level) {
-		return switch (level) {
-		case INSECURE -> 0;
-		case UNINTRUSIVE -> 1;
-		case SECURE, SINGLEPLAYER -> 2;
-		case REALMS -> 3;
-		case UNKNOWN -> 4;
-		case UNDEFINED -> 5;
-		};
+		if (ServerSafetyState.allowChatSigning()) {
+			tooltip = Component.translatable("gui.nochatreports.safety_status.insecure_signing");
+		} else if (ServerSafetyState.isInSingleplayer())
+			return tooltip;
+
+		String signing = "gui.nochatreports.signing_status.";
+
+		if (!this.minecraft.getConnection().getConnection().isEncrypted()) {
+			signing += "disabled_offline";
+		} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
+			signing += "allowed_realms";
+		} else if (mode.resolve() == SigningMode.ALWAYS) {
+			if (ServerSafetyState.allowChatSigning()) {
+				signing += "allowed";
+			} else {
+				signing += "disabled_allowance_pending";
+			}
+		} else if (ServerSafetyState.allowChatSigning()) {
+			signing += "allowed_session";
+		} else {
+			signing += "disabled";
+		}
+
+		tooltip.append("\n\n");
+		tooltip.append(Component.translatable(signing));
+
+		if (ServerSafetyState.isOnRealms())
+			return tooltip;
+
+		tooltip.append("\n\n");
+		tooltip.append(Component.translatable("gui.nochatreports.safety_status_button.controls"));
+		tooltip.append("\n\n");
+		tooltip.append(Component.translatable("gui.nochatreports.signing_mode",
+				mode.getName().withStyle(ChatFormatting.BOLD, ChatFormatting.AQUA)));
+		tooltip.append("\n");
+		tooltip.append((mode == SigningMode.DEFAULT ? mode.resolve() : mode).getTooltip());
+
+		return tooltip;
 	}
 
 	@Shadow
