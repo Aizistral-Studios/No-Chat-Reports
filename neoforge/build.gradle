@@ -19,7 +19,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
-    id "de.maxhenkel.cursegradle" version "1.+"
+    id 'net.darkhax.curseforgegradle' version '1.+'
     id 'net.neoforged.gradle.userdev' version '7.1.21'
 }
 
@@ -148,26 +148,22 @@ processResources {
 	}
 }
 
-curseforge {
-
-    project {
-		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
+task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+	println("[NeoForge] Pushing CurseForgeGradle specifications for project ID: ${curse_id}")
+	disableVersionDetection()
 	
-		// Specified as cmd argument
-        apiKey = findProperty('curseKey') ?: 'none'
-        
-		id = "${curse_id}"
-        releaseType = "${version_type}"
-        changelogType = 'markdown'
-        changelog = rootProject.file('docs/CHANGELOG.md')
-		
-		addGameVersion project.minecraft_version
-		addGameVersion "Java 25"
-		addGameVersion "NeoForge"
-		
-        //addArtifact(sourcesJar)
-        //addArtifact(apiJar)
-    }
+	apiToken = findProperty('curseKey') ?: '0'
+	
+	def projectId = "${curse_id}"
+	def mainFile = upload(projectId, jar)
+	
+	mainFile.changelogType = 'markdown'
+	mainFile.changelog = rootProject.file("docs/CHANGELOG.md").text
+	mainFile.releaseType = "${version_type}"
+	
+	mainFile.addModLoader('NeoForge')
+	mainFile.addJavaVersion('Java 25')
+	mainFile.addGameVersion(project.minecraft_version)
 }
 
 modrinth {

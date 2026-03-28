@@ -5,7 +5,7 @@ plugins {
 	id "net.fabricmc.fabric-loom" version "${loom_version}"
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "2.+"
-	id "de.maxhenkel.cursegradle" version "1.+"
+	id 'net.darkhax.curseforgegradle' version '1.+'
 }
 
 version = project.mod_version
@@ -132,43 +132,27 @@ java {
 //		remapJar.inputFile = testJar.outputs.files.singleFile
 //	}
 //}
-
-curseforge {
-
-    project {
-		println("Pushing CurseGradle specifications for project ID: ${curse_id}")	
 	
-		// Specified as cmd argument
-        apiKey = findProperty('curseKey') ?: 'none'
-        
-		id = "${curse_id}"
-        releaseType = "${version_type}"
-        changelogType = 'markdown'
-        changelog = file('docs/CHANGELOG.md')
-		mainArtifact(jar)
-		
-		addGameVersion project.minecraft_version
-		addGameVersion 'Fabric'
-		addGameVersion 'Java 25'
-		
-		relations {
-			requiredDependency 'fabric-api'
-			optionalDependency 'modmenu'
-			optionalDependency 'cloth-config'
-		}
-		
-		afterEvaluate {
-			uploadTask.dependsOn(jar)
-		}
-		
-		//debug = true
-        //addArtifact(sourcesJar)
-        //addArtifact(apiJar)
-    }
+task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+	println("[Fabric] Pushing CurseForgeGradle specifications for project ID: ${curse_id}")
+	disableVersionDetection()
 	
-	options {
-		forgeGradleIntegration = false
-	}
+	apiToken = findProperty('curseKey') ?: '0'
+	
+	def projectId = "${curse_id}"
+	def mainFile = upload(projectId, jar)
+	
+	mainFile.changelogType = 'markdown'
+	mainFile.changelog = rootProject.file("docs/CHANGELOG.md").text
+	mainFile.releaseType = "${version_type}"
+	
+	mainFile.addModLoader('Fabric')
+	mainFile.addJavaVersion('Java 25')
+	mainFile.addGameVersion(project.minecraft_version)
+	
+	mainFile.addRequirement('fabric-api')
+	mainFile.addOptional('modmenu')
+	mainFile.addOptional('cloth-config')
 }
 
 modrinth {
