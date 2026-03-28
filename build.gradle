@@ -139,7 +139,7 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
 	
 	apiToken = findProperty('curseKey') ?: '0'
 	
-	def projectId = "${curse_id}"
+	def projectId = project.curse_id
 	def mainFile = upload(projectId, jar)
 	
 	mainFile.changelogType = 'markdown'
