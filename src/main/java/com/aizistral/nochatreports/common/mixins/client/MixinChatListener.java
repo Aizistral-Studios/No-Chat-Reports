@@ -2,6 +2,7 @@ package com.aizistral.nochatreports.common.mixins.client;
 
 import java.time.Instant;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -92,6 +93,9 @@ public class MixinChatListener {
 		} else {
 			if (playerChatMessage.hasSignature() && ServerSafetyState.getCurrent() == ServerSafetyLevel.SECURE) {
 				ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE);
+
+				if(Objects.equals(Minecraft.getInstance().getCurrentServer().status.getString(), "vanilla")) // Doesn't seem correct, but close
+					ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE_VANILLA);
 			}
 
 			var evaluate = ChatTrustLevel.evaluate(playerChatMessage, component, instant);

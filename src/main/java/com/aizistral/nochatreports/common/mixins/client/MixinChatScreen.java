@@ -245,10 +245,11 @@ public abstract class MixinChatScreen extends Screen {
 		return switch (level) {
 		case INSECURE -> 0;
 		case UNINTRUSIVE -> 1;
-		case SECURE, SINGLEPLAYER -> 2;
-		case REALMS -> 3;
-		case UNKNOWN -> 4;
-		case UNDEFINED -> 5;
+		case UNINTRUSIVE_VANILLA -> 2;
+		case SECURE, SINGLEPLAYER -> 3;
+		case REALMS -> 4;
+		case UNKNOWN -> 5;
+		case UNDEFINED -> 6;
 		};
 	}
 
