@@ -60,10 +60,6 @@ java {
 
 loom {
 	accessWidenerPath = file("src/main/resources/nochatreports.classtweaker")
-
-	mixin {
-		add(sourceSets.main, "nochatreports.refmap.json")
-	}
 }
 
 repositories {
