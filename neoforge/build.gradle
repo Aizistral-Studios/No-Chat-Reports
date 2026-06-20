@@ -20,7 +20,7 @@ plugins {
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
     id 'net.darkhax.curseforgegradle' version '1.+'
-    id 'net.neoforged.gradle.userdev' version '7.1.21'
+    id 'net.neoforged.gradle.userdev' version '7.1.38'
 }
 
 println("Specifying project version/group/archivesBaseName...")

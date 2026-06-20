@@ -97,7 +97,9 @@ processResources {
 		'mod_icon': mod_icon, 
 		'mod_description': mod_description,
 		'issue_tracker_url': issue_tracker_url,
-		'contributor_0': contributor_0
+		'contributor_0': contributor_0,
+		'fabric_loader_version': fabric_loader_version,
+		'minecraft_version': minecraft_version
 	}
 
     from("${rootProject.projectDir}/docs") {
