@@ -62,7 +62,7 @@ public class NCRClient {
 			if (!client.isLocalServer()) {
 				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
-				} else if (!handler.getConnection().isEncrypted()) {
+				} else if (!handler.onlineMode()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
 						ext.preventsChatReports()) {
@@ -98,7 +98,7 @@ public class NCRClient {
 
 	public static void resendLastChatMessage() {
 		var mc = Minecraft.getInstance();
-		var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
+		var chatScr = mc.gui.screen() instanceof ChatScreen chat ? chat : null;
 
 		if (chatScr == null) {
 			chatScr = new ChatScreen("", false);

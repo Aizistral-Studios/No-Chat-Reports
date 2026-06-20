@@ -41,13 +41,13 @@ public final class UnsafeServerScreen extends WarningScreen {
 		LinearLayout linearLayout = LinearLayout.horizontal().spacing(8);
 		linearLayout.addChild(Button.builder(Component.translatable("gui.nochatreports.signing_required.allow_signing"), button -> {
 			ServerSafetyState.setAllowChatSigning(true);
-			this.minecraft.setScreen(this.previous);
+			this.minecraft.gui.setScreen(this.previous);
 		}).build());
 		linearLayout.addChild(Button.builder(Component.translatable("gui.nochatreports.signing_required.cancel"), button -> {
 			if (this.stopShowing.selected()) {
 				hideThisSession = true;
 			}
-			this.minecraft.setScreen(this.previous);
+			this.minecraft.gui.setScreen(this.previous);
 		}).build());
 		return linearLayout;
 	}

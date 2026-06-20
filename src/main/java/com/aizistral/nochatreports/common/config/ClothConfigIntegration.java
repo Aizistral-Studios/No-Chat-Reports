@@ -69,7 +69,7 @@ public final class ClothConfigIntegration {
 		protected static Screen getConfigScreen(Screen parent) {
 			// Get the previous screen
 			ConfigBuilder builder = ConfigBuilder.create()
-					.setParentScreen(Minecraft.getInstance().screen)
+					.setParentScreen(Minecraft.getInstance().gui.screen())
 					.setTitle(Component.translatable("configuration.NoChatReports.config"));
 
 			// Set category

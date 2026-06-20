@@ -71,10 +71,10 @@ public class MixinChatListener {
 				}
 
 				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.PROMPT)) {
-					Screen returnScreen = Minecraft.getInstance().screen instanceof ChatScreen chat ? chat
+					Screen returnScreen = Minecraft.getInstance().gui.screen() instanceof ChatScreen chat ? chat
 							: new ChatScreen("", false);
 					Screen unsafeScreen = new UnsafeServerScreen(returnScreen);
-					Minecraft.getInstance().setScreen(unsafeScreen);
+					Minecraft.getInstance().gui.setScreen(unsafeScreen);
 
 					if (NCRConfig.getClient().hideSigningRequestMessage()) {
 						info.cancel();
