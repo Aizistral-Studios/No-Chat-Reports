@@ -2,7 +2,6 @@ package com.aizistral.nochatreports.common;
 
 import java.util.function.Function;
 
-import com.aizistral.nochatreports.common.config.ClothConfigIntegration;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
@@ -34,14 +33,6 @@ public class NCRClient {
 		ClientEvents.DISCONNECT.register(NCRClient::onDisconnect);
 		ClientEvents.PLAY_READY.register(NCRClient::onPlayReady);
 	}
-
-    @Nullable
-    public static Function<Screen, Screen> getConfigScreen() {
-        if (ClothConfigIntegration.ACTIVE) return ClothConfigIntegration::getConfigScreen;
-
-        NCRCore.LOGGER.warn("ClothConfig API not found, cannot provide config screen factory.");
-        return null;
-    }
 
 	private static void onDisconnect(Minecraft client) {
 		if (!NCRConfig.getClient().enableMod())

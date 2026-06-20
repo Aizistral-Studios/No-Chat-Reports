@@ -81,13 +81,16 @@ sourceSets.main.resources {
     // NO-OP
 }
 
+sourceSets.main.java {
+    exclude 'com/aizistral/nochatreports/common/config/ClothConfigIntegration.java'
+}
+
 repositories {
 	println("Specifying repositories...")
 	maven {  url file("deps")                             } // local
 	maven {  url = "https://maven.theillusivec4.top/"     } // curios
 	maven {  url = "https://maven.blamejared.com/"        } // patchouli
 	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
-	maven {  url "https://maven.shedaniel.me/"            } // cloth config
 	minecraft.mavenizer(it)                                 // minecraft
 }
 
@@ -98,7 +101,6 @@ dependencies {
 	implementation minecraft.dependency("net.minecraftforge:forge:$minecraft_version-$forge_version")
 	implementation "generic:modmenu:5.0.2"
 	implementation "generic:fabric-annotations:v1.0.0"
-	implementation "generic:cloth-config-api:14.0.126"
 	
 	// Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+ 
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
