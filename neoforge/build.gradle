@@ -1,18 +1,3 @@
-buildscript {
-    repositories {
-        mavenCentral()
-		maven { url file("deps") }
-        maven { url 'https://plugins.gradle.org/m2/' }
-		maven {
-			name "Gradle Plugin Portal"
-			url 'https://plugins.gradle.org/m2/'
-			content {
-				includeGroup "com.modrinth"
-			}
-		}
-    }
-}
-
 plugins {
 	id 'java-library'
     id 'eclipse'
@@ -81,9 +66,6 @@ configurations {
 repositories {
 	println("Specifying repositories...")	
 	maven {  url file("deps")                             } // local
-	maven {  url = "https://maven.theillusivec4.top/"     } // curios
-	maven {  url = "https://maven.blamejared.com/"        } // patchouli
-	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
 	maven {  url "https://maven.shedaniel.me/"            } // cloth config
 }
 

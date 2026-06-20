@@ -69,7 +69,6 @@ loom {
 repositories {
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases/" }
-	maven { url 'https://jitpack.io' }
 	maven { url file("deps") }
 }
 
