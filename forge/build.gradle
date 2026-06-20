@@ -99,7 +99,6 @@ dependencies {
 
 	// Minecraft & Forge
 	implementation minecraft.dependency("net.minecraftforge:forge:$minecraft_version-$forge_version")
-	implementation "generic:modmenu:5.0.2"
 	implementation "generic:fabric-annotations:v1.0.0"
 	
 	// Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+ 

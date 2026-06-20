@@ -92,7 +92,6 @@ dependencies {
 
 	// Minecraft & Forge
     implementation "net.neoforged:neoforge:${neoforge_version}"
-	implementation "generic:modmenu:5.0.2"
 	implementation "generic:fabric-annotations:v1.0.0"
 	implementation "generic:cloth-config-api:14.0.126"
 }
