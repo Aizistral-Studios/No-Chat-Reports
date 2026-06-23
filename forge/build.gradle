@@ -123,7 +123,9 @@ processResources {
 		'issue_tracker_url': issue_tracker_url,
 		'dep_forge': dep_forge,
 		'dep_minecraft': dep_minecraft,
-		'contributor_0': contributor_0
+		'contributor_0': contributor_0,
+		'contributor_1': contributor_1,
+		'contributor_2': contributor_2
 		into 'META-INF'
     }
 
