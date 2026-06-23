@@ -1,30 +1,9 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url file("deps") }
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
-        maven { url 'https://plugins.gradle.org/m2/' }
-        maven {
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-            content { includeGroup "org.spongepowered" }
-        }
-		maven {
-			name "Gradle Plugin Portal"
-			url 'https://plugins.gradle.org/m2/'
-			content {
-				includeGroup "com.modrinth"
-			}
-		}
-    }
-}
-
 plugins {
     id 'java'
     id 'idea'
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[7.0.17,8.0)'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8)'
     id "com.modrinth.minotaur" version "2.+"
     id 'net.darkhax.curseforgegradle' version '1.+'
 }
@@ -81,14 +60,17 @@ sourceSets.main.resources {
     // NO-OP
 }
 
+sourceSets.main.java {
+    // NO-OP
+}
+
 repositories {
 	println("Specifying repositories...")
 	maven {  url file("deps")                             } // local
-	maven {  url = "https://maven.theillusivec4.top/"     } // curios
-	maven {  url = "https://maven.blamejared.com/"        } // patchouli
-	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
-	maven {  url "https://maven.shedaniel.me/"            } // cloth config
 	minecraft.mavenizer(it)                                 // minecraft
+	maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
 }
 
 dependencies {
@@ -96,12 +78,10 @@ dependencies {
 
 	// Minecraft & Forge
 	implementation minecraft.dependency("net.minecraftforge:forge:$minecraft_version-$forge_version")
-	implementation "generic:modmenu:5.0.2"
 	implementation "generic:fabric-annotations:v1.0.0"
-	implementation "generic:cloth-config-api:14.0.126"
+	implementation "generic:cloth-config:26.2.155"
 	
-	// Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+ 
-    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
 }
 
 
@@ -143,7 +123,9 @@ processResources {
 		'issue_tracker_url': issue_tracker_url,
 		'dep_forge': dep_forge,
 		'dep_minecraft': dep_minecraft,
-		'contributor_0': contributor_0
+		'contributor_0': contributor_0,
+		'contributor_1': contributor_1,
+		'contributor_2': contributor_2
 		into 'META-INF'
     }
 
@@ -172,6 +154,8 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
 	mainFile.addModLoader('Forge')
 	mainFile.addJavaVersion('Java 25')
 	mainFile.addGameVersion(project.minecraft_version)
+
+	mainFile.addOptional('cloth-config-forge')
 }
 
 modrinth {
@@ -183,6 +167,11 @@ modrinth {
 	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = jar
     gameVersions = [ project.minecraft_version ]
+		
+	dependencies {
+		// The scope can be `required`, `optional`, or `incompatible`
+		optional.project "cloth-config-forge"
+    }
 	
 	syncBodyFrom = rootProject.file("docs/README.md").text
 }

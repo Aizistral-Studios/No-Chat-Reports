@@ -9,7 +9,9 @@
     "${mod_author}"
   ],
   "contributors": [
-	"${contributor_0}"
+	"${contributor_0}",
+	"${contributor_1}",
+	"${contributor_2}"
   ],
   "contact": {
     "homepage": "${mod_url}",
@@ -38,9 +40,9 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.18.4",
+    "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
-    "minecraft": [ ">=26.1" ],
+    "minecraft": [ ">=${minecraft_version}" ],
     "java": ">=25"
   },
   "suggests": {},

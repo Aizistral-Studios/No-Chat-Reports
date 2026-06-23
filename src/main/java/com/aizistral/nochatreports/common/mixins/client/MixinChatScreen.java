@@ -67,7 +67,7 @@ public abstract class MixinChatScreen extends Screen {
 	@Inject(method = "handleChatInput", at = @At("HEAD"), cancellable = true)
 	private void onHandleChatInput(String string, boolean bl, CallbackInfo info) {
 		if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ALWAYS) && !ServerSafetyState.allowChatSigning()) {
-			if (this.minecraft.getConnection().getConnection().isEncrypted()) {
+			if (this.minecraft.getConnection().onlineMode()) {
 				if (!this.normalizeChatMessage(string).isEmpty()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 					ServerSafetyState.scheduleSigningAction(NCRClient::resendLastChatMessage);
@@ -141,7 +141,7 @@ public abstract class MixinChatScreen extends Screen {
 
 		String signing = "gui.nochatreports.signing_status.";
 
-		if (!this.minecraft.getConnection().getConnection().isEncrypted()) {
+		if (!this.minecraft.getConnection().onlineMode()) {
 			signing += "disabled_offline";
 		} else if (ServerSafetyState.getCurrent() == ServerSafetyLevel.REALMS) {
 			signing += "allowed_realms";

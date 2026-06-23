@@ -32,7 +32,7 @@ public class RealmsWarningScreen extends WarningScreen {
 	}
 
 	protected void onProceed(Button button) {
-		this.minecraft.setScreen(this.realms);
+		this.minecraft.gui.setScreen(this.realms);
 		if (this.stopShowing.selected()) {
 			NCRConfig.getClient().setSkipRealmsWarning(true);
 		}
@@ -41,7 +41,7 @@ public class RealmsWarningScreen extends WarningScreen {
 	}
 
 	protected void onBack(Button button) {
-		this.minecraft.setScreen(this.previous);
+		this.minecraft.gui.setScreen(this.previous);
 	}
 
 	public static boolean shouldShow() {
@@ -53,12 +53,12 @@ public class RealmsWarningScreen extends WarningScreen {
 		LinearLayout linearLayout = LinearLayout.horizontal().spacing(8);
 		linearLayout.addChild(Button.builder(CommonComponents.GUI_PROCEED, this::onProceed).build());
 		linearLayout.addChild(Button.builder(LEARN, button -> {
-			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(agree -> {
+			Minecraft.getInstance().gui.setScreen(new ConfirmLinkScreen(agree -> {
 				if (agree) {
 					Util.getPlatform().openUri(WIKI_LINK);
 				}
 
-				Minecraft.getInstance().setScreen(this);
+				Minecraft.getInstance().gui.setScreen(this);
 			}, WIKI_LINK, true));
 		}).build());
 		linearLayout.addChild(Button.builder(CommonComponents.GUI_BACK, this::onBack).build());

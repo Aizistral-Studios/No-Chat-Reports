@@ -15,7 +15,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 displayURL="${mod_url}"
 logoFile="${mod_icon}"
-credits="${contributor_0}"
+credits="${contributor_0}, ${contributor_1}, ${contributor_2}"
 authors="${mod_author}"
 description='''
 ${mod_description}

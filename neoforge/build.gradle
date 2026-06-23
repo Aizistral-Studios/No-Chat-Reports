@@ -1,18 +1,3 @@
-buildscript {
-    repositories {
-        mavenCentral()
-		maven { url file("deps") }
-        maven { url 'https://plugins.gradle.org/m2/' }
-		maven {
-			name "Gradle Plugin Portal"
-			url 'https://plugins.gradle.org/m2/'
-			content {
-				includeGroup "com.modrinth"
-			}
-		}
-    }
-}
-
 plugins {
 	id 'java-library'
     id 'eclipse'
@@ -20,7 +5,7 @@ plugins {
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
     id 'net.darkhax.curseforgegradle' version '1.+'
-    id 'net.neoforged.gradle.userdev' version '7.1.21'
+    id 'net.neoforged.gradle.userdev' version '7.1.38'
 }
 
 println("Specifying project version/group/archivesBaseName...")
@@ -81,9 +66,6 @@ configurations {
 repositories {
 	println("Specifying repositories...")	
 	maven {  url file("deps")                             } // local
-	maven {  url = "https://maven.theillusivec4.top/"     } // curios
-	maven {  url = "https://maven.blamejared.com/"        } // patchouli
-	maven {  url = "https://repo.spongepowered.org/maven" } // mixin
 	maven {  url "https://maven.shedaniel.me/"            } // cloth config
 }
 
@@ -92,9 +74,8 @@ dependencies {
 
 	// Minecraft & Forge
     implementation "net.neoforged:neoforge:${neoforge_version}"
-	implementation "generic:modmenu:5.0.2"
 	implementation "generic:fabric-annotations:v1.0.0"
-	implementation "generic:cloth-config-api:14.0.126"
+    implementation "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
 }
 
 
@@ -135,7 +116,9 @@ processResources {
 		'issue_tracker_url': issue_tracker_url,
 		'dep_neoforge': dep_neoforge,
 		'dep_minecraft': dep_minecraft,
-		'contributor_0': contributor_0
+		'contributor_0': contributor_0,
+		'contributor_1': contributor_1,
+		'contributor_2': contributor_2
 		into 'META-INF'
     }
 
@@ -164,6 +147,8 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
 	mainFile.addModLoader('NeoForge')
 	mainFile.addJavaVersion('Java 25')
 	mainFile.addGameVersion(project.minecraft_version)
+
+	mainFile.addOptional('cloth-config')
 }
 
 modrinth {
@@ -175,7 +160,12 @@ modrinth {
 	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = jar
     gameVersions = [ project.minecraft_version ]
-	
+		
+	dependencies {
+		// The scope can be `required`, `optional`, or `incompatible`
+		optional.project "cloth-config"
+    }
+
 	syncBodyFrom = rootProject.file("docs/README.md").text
 }
 

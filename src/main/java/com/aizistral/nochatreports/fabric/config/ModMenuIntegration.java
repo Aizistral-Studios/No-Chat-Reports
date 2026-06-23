@@ -1,11 +1,7 @@
 package com.aizistral.nochatreports.fabric.config;
 
-import java.util.function.Function;
-
-import net.minecraft.client.gui.screens.Screen;
-
-import com.aizistral.nochatreports.common.NCRClient;
-
+import com.aizistral.nochatreports.common.NCRCore;
+import com.aizistral.nochatreports.common.config.ClothConfigIntegration;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 
@@ -20,8 +16,8 @@ public final class ModMenuIntegration implements ModMenuApi {
 
 	@Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        Function<Screen, Screen> configScreenFactory = NCRClient.getConfigScreen();
-        if (configScreenFactory != null) return configScreenFactory::apply;
+        if (ClothConfigIntegration.ACTIVE) return ClothConfigIntegration::getConfigScreen;
+        NCRCore.LOGGER.warn("ClothConfig API not found, cannot provide config screen factory.");
         return ModMenuApi.super.getModConfigScreenFactory();
     }
 }

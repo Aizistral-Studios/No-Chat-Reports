@@ -2,7 +2,6 @@ package com.aizistral.nochatreports.common;
 
 import java.util.function.Function;
 
-import com.aizistral.nochatreports.common.config.ClothConfigIntegration;
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
@@ -35,14 +34,6 @@ public class NCRClient {
 		ClientEvents.PLAY_READY.register(NCRClient::onPlayReady);
 	}
 
-    @Nullable
-    public static Function<Screen, Screen> getConfigScreen() {
-        if (ClothConfigIntegration.ACTIVE) return ClothConfigIntegration::getConfigScreen;
-
-        NCRCore.LOGGER.warn("ClothConfig API not found, cannot provide config screen factory.");
-        return null;
-    }
-
 	private static void onDisconnect(Minecraft client) {
 		if (!NCRConfig.getClient().enableMod())
 			return;
@@ -62,7 +53,7 @@ public class NCRClient {
 			if (!client.isLocalServer()) {
 				if (ServerSafetyState.isOnRealms()) {
 					// NO-OP
-				} else if (!handler.getConnection().isEncrypted()) {
+				} else if (!handler.onlineMode()) {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.SECURE);
 				} else if (client.getCurrentServer() instanceof ServerDataExtension ext &&
 						ext.preventsChatReports()) {
@@ -98,7 +89,7 @@ public class NCRClient {
 
 	public static void resendLastChatMessage() {
 		var mc = Minecraft.getInstance();
-		var chatScr = mc.screen instanceof ChatScreen chat ? chat : null;
+		var chatScr = mc.gui.screen() instanceof ChatScreen chat ? chat : null;
 
 		if (chatScr == null) {
 			chatScr = new ChatScreen("", false);

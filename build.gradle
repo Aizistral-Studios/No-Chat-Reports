@@ -69,7 +69,6 @@ loom {
 repositories {
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases/" }
-	maven { url 'https://jitpack.io' }
 	maven { url file("deps") }
 }
 
@@ -97,7 +96,11 @@ processResources {
 		'mod_icon': mod_icon, 
 		'mod_description': mod_description,
 		'issue_tracker_url': issue_tracker_url,
-		'contributor_0': contributor_0
+		'contributor_0': contributor_0,
+		'contributor_1': contributor_1,
+		'contributor_2': contributor_2,
+		'fabric_loader_version': fabric_loader_version,
+		'minecraft_version': minecraft_version
 	}
 
     from("${rootProject.projectDir}/docs") {

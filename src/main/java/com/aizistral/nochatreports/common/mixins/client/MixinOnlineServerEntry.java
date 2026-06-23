@@ -46,9 +46,9 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 			int xOffset = NCRConfig.getClient().getVerifiedIconOffsetX(),
 					yOffset = NCRConfig.getClient().getVerifiedIconOffsetY();
 
-			GlStateManager._enableBlend();
+			GlStateManager._enableBlend(0);
 			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, VERIFIED_ICON, this.getContentRight() - 35 + xOffset, this.getContentY() - 1 + yOffset, 14, 14);
-			GlStateManager._disableBlend();
+			GlStateManager._disableBlend(0);
 
 			int t = mouseX - this.getContentX();
 			int u = mouseY - this.getContentY();
