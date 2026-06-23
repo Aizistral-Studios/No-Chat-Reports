@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[7.0.17,8.0)'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8)'
     id "com.modrinth.minotaur" version "2.+"
     id 'net.darkhax.curseforgegradle' version '1.+'
 }
@@ -68,6 +68,9 @@ repositories {
 	println("Specifying repositories...")
 	maven {  url file("deps")                             } // local
 	minecraft.mavenizer(it)                                 // minecraft
+	maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
 }
 
 dependencies {
@@ -77,8 +80,7 @@ dependencies {
 	implementation minecraft.dependency("net.minecraftforge:forge:$minecraft_version-$forge_version")
 	implementation "generic:fabric-annotations:v1.0.0"
 	
-	// Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+ 
-    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
 }
 
 

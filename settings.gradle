@@ -6,15 +6,7 @@ pluginManagement {
 		}
         maven { url = 'https://maven.neoforged.net/releases' }
         mavenCentral()
-        gradlePluginPortal {
-			content {
-				includeGroup "com.modrinth.minotaur"
-				includeGroup "net.darkhax.curseforgegradle"
-				includeGroup "net.minecraftforge.gradle"
-				includeGroup "net.minecraftforge"
-				includeGroup "gradle.plugin.org.jetbrains.gradle.plugin.idea-ext"
-			}
-        }
+        gradlePluginPortal()
     }
 }
 
