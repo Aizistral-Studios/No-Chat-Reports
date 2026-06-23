@@ -1,3 +1,9 @@
+#### **\[Build 26.2-v2.20.0\]:**
+
+- Initial 26.2 port ([reasonably-sized thanks to xbjfk, #551](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/551));
+- Fixed refmap-related errors in startup logs ([thanks to litetex, #543](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/543));
+- Added [tibequadorian](https://github.com/tibequadorian) and [xbjfk](https://github.com/xbjfk) to mod credits.
+
 #### **\[Build 26.1-v2.19.0\]:**
 
 - Initial 26.1 port ([huuuge thanks (and hugs and kisses <3) to tibequadorian, #545](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/545)).
