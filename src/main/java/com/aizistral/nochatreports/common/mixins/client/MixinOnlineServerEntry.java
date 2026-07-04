@@ -4,7 +4,6 @@ import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
 import com.aizistral.nochatreports.common.gui.FontHelper;
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.opengl.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
@@ -46,9 +45,7 @@ public abstract class MixinOnlineServerEntry extends ServerSelectionList.Entry {
 			int xOffset = NCRConfig.getClient().getVerifiedIconOffsetX(),
 					yOffset = NCRConfig.getClient().getVerifiedIconOffsetY();
 
-			GlStateManager._enableBlend(0);
 			graphics.blitSprite(RenderPipelines.GUI_TEXTURED, VERIFIED_ICON, this.getContentRight() - 35 + xOffset, this.getContentY() - 1 + yOffset, 14, 14);
-			GlStateManager._disableBlend(0);
 
 			int t = mouseX - this.getContentX();
 			int u = mouseY - this.getContentY();
