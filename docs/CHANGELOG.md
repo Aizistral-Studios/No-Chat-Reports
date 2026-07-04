@@ -1,4 +1,8 @@
-#### **\[Build 26.2-v2.20.0\]:**
+#### **\[Build 26.2-v2.20.1\]:**
+
+- Fixed crash on Vulkan ([thanks to xbjfk, #554](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/554)).
+
+### **\[Build 26.2-v2.20.0\]:**
 
 - Initial 26.2 port ([reasonably-sized thanks to xbjfk, #551](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/551));
 - Fixed refmap-related errors in startup logs ([thanks to litetex, #543](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/543));
