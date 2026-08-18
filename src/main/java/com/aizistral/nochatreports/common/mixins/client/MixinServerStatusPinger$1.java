@@ -38,36 +38,44 @@ public abstract class MixinServerStatusPinger$1 {
 	private ServerDataExtension nochatreports$serverData;
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void captureServerData(ServerStatusPinger serverStatusPinger, Connection connection, ServerData serverData, Runnable runnable, Runnable runnable2, InetSocketAddress inetSocketAddress, ServerAddress serverAddress, EventLoopGroupHolder eventLoopGroupHolder, CallbackInfo ci){
-		this.nochatreports$serverData = (ServerDataExtension) serverData;
+	private void captureServerData(ServerStatusPinger pinger, Connection connection, ServerData data, CallbackInfo info) {
+		try {
+			this.nochatreports$serverData = (ServerDataExtension) data;
+		} catch (Throwable ex) {
+			NCRCore.LOGGER.error("Failed to capture server data in MixinServerStatusPinger$1!", ex);
+		}
 	}
 
 	@Inject(method = "handleStatusResponse(Lnet/minecraft/network/protocol/status/ClientboundStatusResponsePacket;)V",
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/status/ServerStatus;"
 					+ "description()Lnet/minecraft/network/chat/Component;"))
 	private void getNoChatReports(ClientboundStatusResponsePacket packet, CallbackInfo info) {
-		ServerStatus status = packet.status();
-		boolean preventsReports = ServerStatusCache.doesPreventReports();
+		try {
+			ServerStatus status = packet.status();
+			boolean preventsReports = ServerStatusCache.doesPreventReports();
 
-		if (status.version().isPresent()) {
-			ServerStatus.Version version = status.version().get();
+			if (status.version().isPresent()) {
+				ServerStatus.Version version = status.version().get();
 
-			if (version.protocol() < 759 && version.protocol() > 0)  {
-				preventsReports = true;
+				if (version.protocol() < 759 && version.protocol() > 0)  {
+					preventsReports = true;
+				}
 			}
-		}
 
-		if (this.nochatreports$serverData == null) {
-			NCRCore.LOGGER.error("Failed to capture ServerData instance in MixinServerStatusPinger$1!");
-			NCRCore.LOGGER.catching(new IllegalStateException());
-			return;
-		}
+			if (this.nochatreports$serverData == null) {
+				NCRCore.LOGGER.error("Failed to capture ServerData instance in MixinServerStatusPinger$1!");
+				NCRCore.LOGGER.catching(new IllegalStateException());
+				return;
+			}
 
-		this.nochatreports$serverData.setPreventsChatReports(preventsReports);
+			this.nochatreports$serverData.setPreventsChatReports(preventsReports);
 
-		if (NCRConfig.getCommon().enableDebugLog()) {
-			NCRCore.LOGGER.info("Received status response packet from server, preventsChatReports: {}",
-					preventsReports);
+			if (NCRConfig.getCommon().enableDebugLog()) {
+				NCRCore.LOGGER.info("Received status response packet from server, preventsChatReports: {}",
+						preventsReports);
+			}
+		} catch (Throwable ex) {
+			NCRCore.LOGGER.error("Failed to handle status response in MixinServerStatusPinger$1!", ex);
 		}
 	}
 

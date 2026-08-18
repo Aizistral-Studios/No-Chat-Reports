@@ -5,14 +5,15 @@ import net.fabricmc.api.Environment;
 
 //@Environment(EnvType.CLIENT)
 public class ServerStatusCache {
-	private static ThreadLocal<Boolean> preventsReports = new ThreadLocal<>();
+	private static final ThreadLocal<Boolean> PREVENTS_REPORTS = new ThreadLocal<>();
 
 	public static boolean doesPreventReports() {
-		return preventsReports.get();
+		Boolean value = PREVENTS_REPORTS.get();
+		return value != null && value.booleanValue();
 	}
 
 	public static void setPreventsReports(boolean doesPreventReports) {
-		preventsReports.set(doesPreventReports);
+		PREVENTS_REPORTS.set(Boolean.valueOf(doesPreventReports));
 	}
 
 }

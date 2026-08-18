@@ -31,37 +31,45 @@ public class MixinJsonByteBufCodec {
 
 	@Inject(method = "encode(Lio/netty/buffer/ByteBuf;Lcom/google/gson/JsonElement;)V", at = @At("HEAD"), cancellable = true)
 	private void onEncode(ByteBuf buf, JsonElement element, CallbackInfo info) {
-		if (!NCRConfig.getCommon().addQueryData() || !this.isServerStatusElement(element))
-			return;
+		try {
+			if (!NCRConfig.getCommon().addQueryData() || !this.isServerStatusElement(element))
+				return;
 
-		info.cancel();
+			info.cancel();
 
-		if (NCRConfig.getCommon().enableDebugLog()) {
-			NCRCore.LOGGER.info("Adding chat report prevention status to ServerStatus packet.");
+			if (NCRConfig.getCommon().enableDebugLog()) {
+				NCRCore.LOGGER.info("Adding chat report prevention status to ServerStatus packet.");
+			}
+
+			JsonObject object = element.getAsJsonObject();
+			object.addProperty("preventsChatReports", true);
+
+			String string = GSON.toJson(object);
+			Utf8String.write(buf, string, 32767);
+		} catch (Throwable ex) {
+			NCRCore.LOGGER.error("Failed to process server status encoding!", ex);
 		}
-
-		JsonObject object = element.getAsJsonObject();
-		object.addProperty("preventsChatReports", true);
-
-		String string = GSON.toJson(object);
-		Utf8String.write(buf, string, 32767);
 	}
 
 	@Inject(method = "decode(Lio/netty/buffer/ByteBuf;)Lcom/google/gson/JsonElement;", at = @At("RETURN"), cancellable = true)
 	private void onDecode(ByteBuf buf, CallbackInfoReturnable<JsonElement> info) {
-		JsonElement element = info.getReturnValue();
+		try {
+			JsonElement element = info.getReturnValue();
 
-		if (!this.isServerStatusElement(element))
-			return;
+			if (!this.isServerStatusElement(element))
+				return;
 
-		JsonObject object = element.getAsJsonObject();
-		boolean preventsReports = object.has("preventsChatReports") && object.get("preventsChatReports").getAsBoolean();
+			JsonObject object = element.getAsJsonObject();
+			boolean preventsReports = object.has("preventsChatReports") && object.get("preventsChatReports").getAsBoolean();
 
-		if (NCRConfig.getCommon().enableDebugLog()) {
-			NCRCore.LOGGER.info("Received chat report prevention status from ServerStatus packet: " + preventsReports);
+			if (NCRConfig.getCommon().enableDebugLog()) {
+				NCRCore.LOGGER.info("Received chat report prevention status from ServerStatus packet: " + preventsReports);
+			}
+
+			ServerStatusCache.setPreventsReports(preventsReports);
+		} catch (Throwable ex) {
+			NCRCore.LOGGER.error("Failed to process server status decoding!", ex);
 		}
-
-		ServerStatusCache.setPreventsReports(preventsReports);
 	}
 
 	private boolean isServerStatusElement(JsonElement element) {
