@@ -38,7 +38,16 @@ public abstract class MixinServerStatusPinger$1 {
 	private ServerDataExtension nochatreports$serverData;
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void captureServerData(ServerStatusPinger pinger, Connection connection, ServerData data, CallbackInfo info) {
+	private void captureServerData(
+			ServerStatusPinger pinger,
+			Connection connection,
+			ServerData data,
+			Runnable runnableA,
+			Runnable runnableB,
+			InetSocketAddress socketAddress,
+			ServerAddress serverAddress,
+			EventLoopGroupHolder holder,
+			CallbackInfo info) {
 		try {
 			this.nochatreports$serverData = (ServerDataExtension) data;
 		} catch (Throwable ex) {
