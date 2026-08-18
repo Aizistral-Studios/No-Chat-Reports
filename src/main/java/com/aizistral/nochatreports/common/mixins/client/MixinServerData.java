@@ -1,6 +1,7 @@
 package com.aizistral.nochatreports.common.mixins.client;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -18,9 +19,9 @@ import net.minecraft.nbt.CompoundTag;
  * @author fxmorin (original implementation)
  * @author Aizistral (current version)
  */
-
 @Mixin(ServerData.class)
 public class MixinServerData implements ServerDataExtension {
+	@Unique
 	private boolean preventsChatReports;
 
 	@Override
@@ -40,7 +41,7 @@ public class MixinServerData implements ServerDataExtension {
 
 	@Inject(method = "read", locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
 	private static void onRead(CompoundTag tag, CallbackInfoReturnable<ServerData> info, ServerData data) {
-		((ServerDataExtension)data).setPreventsChatReports(tag.getBoolean("preventsChatReports"));
+		((ServerDataExtension) data).setPreventsChatReports(tag.getBoolean("preventsChatReports"));
 	}
 
 }

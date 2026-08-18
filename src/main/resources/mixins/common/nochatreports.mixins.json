@@ -33,6 +33,7 @@
 	"client.MixinTitleScreen",
 	"client.MixinMinecraft",
 	"client.MixinClientPacketListener",
+	"client.MixinServerStatusPinger$1",
 	"client.MixinRowHelper"
   ],
   "server": [
