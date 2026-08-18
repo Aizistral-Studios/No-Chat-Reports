@@ -1,3 +1,7 @@
+#### **\[Build 1.20.1-v2.2.3\]:**
+
+- Fixed server ping crash ([#518](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/518)).
+
 #### **\[Build 1.20.1-v2.2.2\]:**
 
 - Improved config I/O error handling and logging;
