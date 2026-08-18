@@ -199,7 +199,7 @@ modrinth {
 	syncBodyFrom = rootProject.file("docs/README.md").text
 }
 
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
+//tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 afterEvaluate {
 	upload.dependsOn(remapJar)
