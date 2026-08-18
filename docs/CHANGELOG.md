@@ -1,3 +1,7 @@
+#### **\[Build 26.2-v2.20.2\]:**
+
+- Fixed server ping crash ([#556](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/556)).
+
 #### **\[Build 26.2-v2.20.1\]:**
 
 - Fixed crash on Vulkan ([thanks to xbjfk, #554](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/554)).
