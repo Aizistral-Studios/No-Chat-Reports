@@ -1,0 +1,41 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+
+# Aizistral
+.apt_generated
+logs
+omniconfig_first
+*works
+Users
+.factorypath
+deps/Soulbound*
+multiuser_args.txt
+old_enigmatic_desc.txt
+**/TestEventHandler*
+/.apt_generated_tests/
+
+# Symlink directories
+deps
+src/main/java/com/aizistral/nochatreports/common
+src/main/resources/assets
+src/main/resources/mixins/common
