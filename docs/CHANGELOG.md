@@ -1,6 +1,6 @@
 #### **\[Build 26.3-v2.21.0\]:**
 
-- Initial 26.3 port.
+- Initial 26.3 port ([thanks to qikpl4, #562](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/562)).
 
 #### **\[Build 26.2-v2.20.2\]:**
 
