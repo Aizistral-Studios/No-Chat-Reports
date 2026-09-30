@@ -23,7 +23,7 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.social.PlayerEntry;
 import net.minecraft.client.gui.screens.social.SocialInteractionsScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.PlayerSkin;
 
 @Mixin(PlayerEntry.class)
 public class MixinPlayerEntry {
@@ -38,7 +38,7 @@ public class MixinPlayerEntry {
 	 */
 
 	@Inject(method = "<init>", at = @At("RETURN"))
-	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen screen, UUID uuid, String name, Supplier<Identifier> skinGetter, boolean reportable, CallbackInfo info) {
+	private void onConstructed(Minecraft minecraft, SocialInteractionsScreen screen, UUID uuid, String name, Supplier<PlayerSkin> skinGetter, boolean reportable, CallbackInfo info) {
 		if (NCRConfig.getClient().alwaysHideReportButton()) {
 			this.reportButton = new InvisibleButton();
 			this.reportButton.active = this.reportButton.visible = false;

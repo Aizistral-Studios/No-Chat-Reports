@@ -12,7 +12,7 @@ import com.mojang.authlib.minecraft.TelemetrySession;
 import com.mojang.authlib.services.MinecraftServicesUserApiService;
 
 @Mixin(value = MinecraftServicesUserApiService.class, remap = false)
-public class MixinYggdrasilUserApiService {
+public class MixinMinecraftServicesUserApiService {
 
 	/**
 	 * @reason Privacy.

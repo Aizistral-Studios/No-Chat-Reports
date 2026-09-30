@@ -14,7 +14,7 @@
 	"client.MixinOptions",
 	"client.MixinChatListener",
     "client.MixinChatOptionsScreen",
-	"client.MixinYggdrasilUserApiService",
+	"client.MixinMinecraftServicesUserApiService",
 	"client.MixinPlayerEntry",
 	"client.MixinChatScreen",
 	"client.MixinConnectScreen",
