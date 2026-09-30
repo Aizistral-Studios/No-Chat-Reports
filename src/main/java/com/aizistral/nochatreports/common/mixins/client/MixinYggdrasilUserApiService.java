@@ -9,9 +9,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.mojang.authlib.minecraft.TelemetrySession;
-import com.mojang.authlib.yggdrasil.YggdrasilUserApiService;
+import com.mojang.authlib.services.MinecraftServicesUserApiService;
 
-@Mixin(value = YggdrasilUserApiService.class, remap = false)
+@Mixin(value = MinecraftServicesUserApiService.class, remap = false)
 public class MixinYggdrasilUserApiService {
 
 	/**

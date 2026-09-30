@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.common.mixins.server;
 
+import java.util.Optional;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,8 +21,8 @@ public class MixinServerboundChatPacket {
 	 */
 
 	@Inject(method = "signature", at = @At("RETURN"), cancellable = true)
-	private void onGetSignature(CallbackInfoReturnable<MessageSignature> info) {
-		info.setReturnValue(null);
+	private void onGetSignature(CallbackInfoReturnable<Optional<MessageSignature>> info) {
+		info.setReturnValue(Optional.empty());
 	}
 
 }

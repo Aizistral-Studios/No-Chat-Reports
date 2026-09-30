@@ -1,9 +1,10 @@
 package com.aizistral.nochatreports.common.gui;
 
+import java.net.URI;
+
 import com.aizistral.nochatreports.common.config.NCRConfig;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.Layout;
 import net.minecraft.client.gui.layouts.LinearLayout;
@@ -12,7 +13,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.WarningScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Util;
 
 public class RealmsWarningScreen extends WarningScreen {
 	private static final Component TITLE = Component.translatable("gui.nochatreports.realms_warning.header").withStyle(ChatFormatting.BOLD);
@@ -20,7 +20,7 @@ public class RealmsWarningScreen extends WarningScreen {
 	private static final Component CHECK = Component.translatable("gui.nochatreports.realms_warning.check");
 	private static final Component NARRATION = TITLE.copy().append("\n").append(CONTENT);
 	private static final Component LEARN = Component.translatable("gui.nochatreports.realms_warning.learn_more");
-	private static final String WIKI_LINK = "https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/The-Realms-Question";
+	private static final URI WIKI_LINK = URI.create("https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/The-Realms-Question");
 	private static boolean sessionSeen = false;
 	private final Screen previous;
 	private final Screen realms;
@@ -52,15 +52,7 @@ public class RealmsWarningScreen extends WarningScreen {
 	protected Layout addFooterButtons() {
 		LinearLayout linearLayout = LinearLayout.horizontal().spacing(8);
 		linearLayout.addChild(Button.builder(CommonComponents.GUI_PROCEED, this::onProceed).build());
-		linearLayout.addChild(Button.builder(LEARN, button -> {
-			Minecraft.getInstance().gui.setScreen(new ConfirmLinkScreen(agree -> {
-				if (agree) {
-					Util.getPlatform().openUri(WIKI_LINK);
-				}
-
-				Minecraft.getInstance().gui.setScreen(this);
-			}, WIKI_LINK, true));
-		}).build());
+		linearLayout.addChild(Button.builder(LEARN, ConfirmLinkScreen.confirmLink(this, WIKI_LINK, true)).build());
 		linearLayout.addChild(Button.builder(CommonComponents.GUI_BACK, this::onBack).build());
 		return linearLayout;
 	}

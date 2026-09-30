@@ -33,15 +33,13 @@ public abstract class MixinServerCommonPacketListenerImpl {
 
 		if (self instanceof ServerGamePacketListenerImpl listener) {
 			if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
-				NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
-						: chat.body().content());
+				NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent().map(Component::getString).orElse(chat.body().content()));
 			}
 
 			if (NCRConfig.getCommon().convertToGameMessage()) {
 				if (packet instanceof ClientboundPlayerChatPacket chat) {
 					packet = new ClientboundSystemChatPacket(chat.chatType().decorate(
-							chat.unsignedContent() != null ? chat.unsignedContent()
-									: Component.literal(chat.body().content())
+							chat.unsignedContent().orElseGet(() -> Component.literal(chat.body().content()))
 							), false);
 
 					info.cancel();
@@ -63,8 +61,7 @@ public abstract class MixinServerCommonPacketListenerImpl {
 
 		if (self instanceof ServerGamePacketListenerImpl listener) {
 			if (NCRConfig.getCommon().enableDebugLog() && packet instanceof ClientboundPlayerChatPacket chat) {
-				NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent() != null ? chat.unsignedContent()
-						: chat.body().content());
+				NCRCore.LOGGER.info("Sending message: {}", chat.unsignedContent().map(Component::getString).orElse(chat.body().content()));
 			}
 
 			if (NCRConfig.getCommon().convertToGameMessage()) {

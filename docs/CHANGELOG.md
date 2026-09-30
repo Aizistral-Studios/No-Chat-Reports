@@ -1,3 +1,7 @@
+#### **\[Build 26.3-v2.21.0\]:**
+
+- Initial 26.3 port.
+
 #### **\[Build 26.2-v2.20.2\]:**
 
 - Fixed server ping crash ([#556](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/556)).
