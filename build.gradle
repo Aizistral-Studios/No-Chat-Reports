@@ -76,6 +76,7 @@ dependencies {
 	api("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
+	testImplementation 'junit:junit:4.13.2'
 }
 
 processResources {
