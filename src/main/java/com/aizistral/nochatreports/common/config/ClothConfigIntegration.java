@@ -156,24 +156,6 @@ public final class ClothConfigIntegration {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().verifiedIconOffsetY = newValue)
 					.build());
 
-			// Warning for showEncryptionButton
-			client.addEntry(entryBuilder.startTextDescription(Component.translatable("gui.NoChatReports.showEncryptionButtonWarning"))
-					.build());
-
-			// Set an option for showEncryptionButton
-			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionButton"), NCRConfig.getEncryption().showEncryptionButton)
-					.setDefaultValue(true)
-					.setTooltip(makeTooltip("option.NoChatReports.showEncryptionButton.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionButton = newValue)
-					.build());
-
-			// Set an option for showEncryptionIndicators
-			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showEncryptionIndicators"), NCRConfig.getEncryption().showEncryptionIndicators)
-					.setDefaultValue(true)
-					.setTooltip(makeTooltip("option.NoChatReports.showEncryptionIndicators.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getEncryption().showEncryptionIndicators = newValue)
-					.build());
-
 			// Set an option for showServerSafety
 			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NCRConfig.getClient().showServerSafety)
 					.setDefaultValue(true)
