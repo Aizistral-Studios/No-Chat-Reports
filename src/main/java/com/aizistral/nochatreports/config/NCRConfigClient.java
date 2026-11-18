@@ -208,6 +208,7 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public void setSkipRealmsWarning(boolean skipRealmsWarning) {
 		this.skipRealmsWarning = skipRealmsWarning;
+		this.saveFile();
 	}
 
 	public boolean doSigningCheck(ServerAddress serverAddress) {
