@@ -31,8 +31,6 @@
 	"client.MixinServerData",
 	"client.MixinServerStatusPinger$1",
 	"client.MixinOnlineServerEntry",
-	"client.MixinChatComponent",
-	"client.MixinGuiMessageTagIcon",
 	"client.MixinTitleScreen"
   ],
   "server": [

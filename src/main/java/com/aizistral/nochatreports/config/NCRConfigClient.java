@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
-import com.aizistral.nochatreports.encryption.AESCFB8Encryptor;
-import com.aizistral.nochatreports.encryption.Encryptor;
 import com.aizistral.nochatreports.gui.UnsafeServerScreen;
 import com.aizistral.nochatreports.mixins.client.MixinChatListener;
 import com.aizistral.nochatreports.mixins.client.MixinToastComponent;
