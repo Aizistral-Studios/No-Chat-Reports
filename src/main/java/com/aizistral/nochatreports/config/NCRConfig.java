@@ -19,7 +19,6 @@ public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
 	private static NCRServerWhitelist whitelist = null;
-	private static NCRConfigEncryption encryption = null;
 
 	private NCRConfig() {
 		throw new IllegalStateException("Can't touch this");
@@ -39,11 +38,6 @@ public final class NCRConfig {
 		return checkLoaded(() -> whitelist);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public static NCRConfigEncryption getEncryption() {
-		return checkLoaded(() -> encryption);
-	}
-
 	private static <T extends JSONConfig> T checkLoaded(Supplier<T> config) {
 		if (config.get() == null) {
 			load();
@@ -58,7 +52,6 @@ public final class NCRConfig {
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
 			whitelist = JSONConfig.loadConfig(NCRServerWhitelist.class, NCRServerWhitelist::new, NCRServerWhitelist.FILE_NAME);
-			encryption = JSONConfig.loadConfig(NCRConfigEncryption.class, NCRConfigEncryption::new, NCRConfigEncryption.FILE_NAME);
 		}
 
 		save();
@@ -70,7 +63,6 @@ public final class NCRConfig {
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			checkLoaded(() -> client).saveFile();
 			checkLoaded(() -> whitelist).saveFile();
-			checkLoaded(() -> encryption).saveFile();
 		}
 
 		Path readme = JSONConfig.CONFIG_DIR.resolve("NoChatReports/README.md");

@@ -7,15 +7,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.aizistral.nochatreports.config.NCRConfig;
 import com.aizistral.nochatreports.config.NCRConfigClient;
 import com.aizistral.nochatreports.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.gui.EncryptionButton;
-import com.aizistral.nochatreports.gui.EncryptionConfigScreen;
-import com.aizistral.nochatreports.gui.EncryptionWarningScreen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -25,14 +21,12 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -45,29 +39,10 @@ import net.minecraft.util.FormattedCharSequence;
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons_extended.png");
-	private static final ResourceLocation ENCRYPTION_BUTTON = new ResourceLocation("nochatreports", "textures/gui/encryption_toggle_button.png");
 
 	protected MixinChatScreen() {
 		super(null);
 		throw new IllegalStateException("Can't touch this");
-	}
-
-	@Inject(method = "normalizeChatMessage", at = @At("RETURN"), cancellable = true)
-	public void onBeforeMessage(String original, CallbackInfoReturnable<String> info) {
-		String message = info.getReturnValue();
-		NCRConfig.getEncryption().setLastMessage(message);
-
-		if (!message.isEmpty() && !Screen.hasControlDown() && NCRConfig.getEncryption().shouldEncrypt(message)) {
-			NCRConfig.getEncryption().getEncryptor().ifPresent(e -> {
-				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message);
-				String noencrypt = message.substring(0, index);
-				String encrypt = message.substring(index, message.length());
-
-				if (encrypt.length() > 0) {
-					info.setReturnValue(noencrypt + e.encrypt("#%" + encrypt));
-				}
-			});
-		}
 	}
 
 	@Inject(method = "init", at = @At("HEAD"))
@@ -87,41 +62,6 @@ public abstract class MixinChatScreen extends Screen {
 			this.addRenderableOnly(button);
 			buttonX -= 25;
 		}
-
-		if (!NCRConfig.getEncryption().showEncryptionButton())
-			return;
-
-		int xStart = !NCRConfig.getEncryption().isValid() ? 40 : (NCRConfig.getEncryption().isEnabled() ? 0 : 20);
-
-		var button = new EncryptionButton(buttonX, this.height - 37, 20, 20, xStart,
-				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
-					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
-							&& !NCRConfig.getEncryption().isEnabled()) {
-						Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
-					} else if (NCRConfig.getEncryption().isValid()) {
-						NCRConfig.getEncryption().toggleEncryption();
-						((EncryptionButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
-					} else {
-						((EncryptionButton)btn).openEncryptionConfig();
-					}
-				}, (btn, poseStack, i, j) -> {
-					if (NCRConfig.getEncryption().isValid()) {
-						this.renderTooltip(poseStack, this.minecraft.font.split(
-								Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
-										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
-					} else {
-						this.renderTooltip(poseStack, this.minecraft.font.split(
-								Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
-										.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-												.isEnabledAndValid() ? "on" : "off")), 250), 250), i, j);
-
-					}
-				}, Component.empty(), this);
-		button.active = true;
-		button.visible = true;
-
-		this.addRenderableWidget(button);
 	}
 
 	private int getXOffset(ServerSafetyLevel level) {
