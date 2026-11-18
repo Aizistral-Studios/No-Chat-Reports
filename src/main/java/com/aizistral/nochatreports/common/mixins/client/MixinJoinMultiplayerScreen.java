@@ -19,12 +19,11 @@ import com.aizistral.nochatreports.common.gui.SwitchableSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.locale.Language;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 /**
- * This is responsible for adding config reload button to server selection menu.
+ * This is responsible for adding mod toggle button to server selection menu.
  * @author Aizistral
  */
 
@@ -32,9 +31,7 @@ import net.minecraft.resources.Identifier;
 public abstract class MixinJoinMultiplayerScreen extends Screen {
 	@Shadow @Final
 	private HeaderAndFooterLayout layout;
-	private static final Identifier RELOAD_TEXTURE = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/config_reload_button.png"),
-			TOGGLE_TEXTURE = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/ncr_toggle_button.png");
-	private static final Component RELOAD_TOOLTIP = Component.translatable("gui.nochatreports.reload_config_tooltip");
+	private static final Identifier TOGGLE_TEXTURE = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/ncr_toggle_button.png");
 
 	protected MixinJoinMultiplayerScreen() {
 		super(null);
@@ -46,16 +43,6 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 		LinearLayout ncrButtons = this.layout.addToFooter(LinearLayout.vertical().spacing(4), layoutSettings -> {
 			layoutSettings.paddingLeft(336);
 		});
-
-		if (NCRConfig.getClient().showReloadButton()) {
-			var button = new AdvancedImageButton(0, 0, 20, 20,
-					SwitchableSprites.of(GUIShenanigans.getSprites("config_reload_button")),
-					btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
-			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250));
-			button.active = true;
-			button.visible = true;
-			ncrButtons.addChild(button);
-		}
 
 		if (NCRConfig.getClient().showNCRButton()) {
 			var button = new AdvancedImageButton(0, 0, 20, 20,

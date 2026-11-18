@@ -129,13 +129,6 @@ public final class ClothConfigIntegration {
 					.build()
 					);
 
-			// Set an option for showReloadButton
-			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NCRConfig.getClient().showReloadButton)
-					.setDefaultValue(true)
-					.setTooltip(makeTooltip("option.NoChatReports.showReloadButton.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().showReloadButton = newValue)
-					.build());
-
 			// Set an option for verifiedIconEnabled
 			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.verifiedIconEnabled"), NCRConfig.getClient().verifiedIconEnabled)
 					.setDefaultValue(true)
