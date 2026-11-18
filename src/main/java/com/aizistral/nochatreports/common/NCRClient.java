@@ -44,9 +44,6 @@ public class NCRClient {
     }
 
 	private static void onDisconnect(Minecraft client) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NCRCore.LOGGER.info("Disconnected from server, resetting safety state!");
 		}
@@ -55,9 +52,6 @@ public class NCRClient {
 	}
 
 	private static void onPlayReady(ClientPacketListener handler, Minecraft client) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		client.execute(() -> {
 			if (!client.isLocalServer()) {
 				if (ServerSafetyState.isOnRealms()) {

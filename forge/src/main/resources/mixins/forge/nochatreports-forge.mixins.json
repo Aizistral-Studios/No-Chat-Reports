@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.aizistral.nochatreports.forge.mixins",
+  "plugin": "com.aizistral.nochatreports.common.NCRMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
   "client": [

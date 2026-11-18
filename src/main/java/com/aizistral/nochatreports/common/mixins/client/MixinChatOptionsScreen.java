@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import com.aizistral.nochatreports.common.config.NCRConfig;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
@@ -33,10 +31,8 @@ public abstract class MixinChatOptionsScreen extends OptionsSubScreen {
 	protected void init() {
 		super.init();
 
-		if (NCRConfig.getClient().enableMod()) {
-			Optional.ofNullable(this.list.findOption(Minecraft.getInstance().options.onlyShowSecureChat()))
-			.ifPresent(option -> option.active = false);
-		}
+		Optional.ofNullable(this.list.findOption(Minecraft.getInstance().options.onlyShowSecureChat()))
+		.ifPresent(option -> option.active = false);
 	}
 
 }

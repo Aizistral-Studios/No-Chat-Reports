@@ -9,7 +9,7 @@ public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
 	protected SigningMode defaultSigningMode = SigningMode.PROMPT;
-	protected boolean enableMod = true, showNCRButton = true,
+	protected boolean showNCRButton = true,
 			verifiedIconEnabled = true, showServerSafety = true, hideInsecureMessageIndicators = true,
 			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true,
 			hideWarningToast = true, hideSigningRequestMessage = false, alwaysHideReportButton = false,
@@ -24,10 +24,6 @@ public final class NCRConfigClient extends JSONConfig {
 	@Override
 	public NCRConfigClient getDefault() {
 		return new NCRConfigClient();
-	}
-
-	public void toggleMod() {
-		this.enableMod = !this.enableMod;
 	}
 
 	/**
@@ -159,14 +155,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean showNCRButton() {
 		return this.showNCRButton;
-	}
-
-	/**
-	 * @return Whether or not No Chat Reports should provide networking-related functionality.
-	 */
-
-	public boolean enableMod() {
-		return this.enableMod;
 	}
 
 	/**

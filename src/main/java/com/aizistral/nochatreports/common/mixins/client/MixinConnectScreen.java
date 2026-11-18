@@ -29,9 +29,6 @@ public class MixinConnectScreen {
 	@Inject(method = "startConnecting", at = @At("HEAD"))
 	private static void onStartConnecting(Screen screen, Minecraft minecraft, ServerAddress serverAddress,
 			@Nullable ServerData serverData, boolean quickplay, @Nullable TransferState transferState, CallbackInfo info) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		ServerSafetyState.reset();
 		ServerSafetyState.setLastServer(serverAddress);
 
