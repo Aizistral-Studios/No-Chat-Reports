@@ -9,6 +9,5 @@
 	"gui.nochatreports.status_undefined": "No Chat Reports kunne ikke verificere sikkerheden af denne server. Dette burde aldrig ske, venligst rapporter det som en fejl til mod udvikleren.",
 	"gui.nochatreports.unsafe_server.header": "Advarsel: Usikker Server",
 	"gui.nochatreports.unsafe_server.contents": "Denne server kræver alle chat beskeder bliver signeret, hvilket betyder de kan blive rapporteret til Mojang, hvilket kan resultere i en bandlysning fra alle multiplayer servere. Dette betyder nok at server ejeren har beholdt \"enforce-secure-profile\" slået til i server.properties, hvilket er standarden siden 1.19.1. Du kan stadig vælge at spille, men No Chat Reports vil ikke være i stand til at beskytte dig.",
-	"gui.nochatreports.unsafe_server.check": "Vis ikke igen for denne server",
-	"gui.nochatreports.reload_config_tooltip": "Genindlæs No Chat Reports' konfiguration. Brug med omtanke."
+	"gui.nochatreports.unsafe_server.check": "Vis ikke igen for denne server"
 }

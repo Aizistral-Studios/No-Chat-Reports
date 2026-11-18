@@ -8,6 +8,5 @@
 	"gui.nochatreports.status_undefined": "No Chat Reports ei pystynyt arvioimaan palvelimen turvallisuutta. Tämän ei pitäisi ikinä tapahtua. Kerro tästä viasta modin kehittäjälle, kiitos.",
 	"gui.nochatreports.unsafe_server.header": "Varoitus: ei-turvallinen palvelin",
 	"gui.nochatreports.unsafe_server.contents": "Tämä palvelin vaatii, että kaikki viestit ovat sähköisesti allekirjoitettuja, mikä tarkoittaa, että ne voidaan ilmoittaa Mojangille, mikä voi johtaa porttikieltoon kaikilta moninpelipalvelimilta. Palvelimen ylläpitäjä todennäköisesti pitää \"enforce-secure-profile\"-asetuksen käytössä palvelimen asetustiedostossa, mikä on oletus 1.19.1-versiosta lähtien. Voit pelata palvelimella silti, mutta No Chat Reports ei voi suojella sinua.",
-	"gui.nochatreports.unsafe_server.check": "Älä näytä uudelleen tällä palvelimella",
-	"gui.nochatreports.reload_config_tooltip": "Lataa uudelleen No Chat Reportsin asetustiedosto. Käytä harkiten."
+	"gui.nochatreports.unsafe_server.check": "Älä näytä uudelleen tällä palvelimella"
 }

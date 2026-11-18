@@ -151,13 +151,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setSaveConsumer(newValue -> NCRConfig.getClient().disableTelemetry = newValue)
 					.build());
 
-			// Set an option for showReloadButton
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showReloadButton"), NCRConfig.getClient().showReloadButton)
-					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.showReloadButton.tooltip"))
-					.setSaveConsumer(newValue -> NCRConfig.getClient().showReloadButton = newValue)
-					.build());
-
 			// Set an option for whitelistAllServers
 			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.whitelistAllServers"), NCRConfig.getClient().whitelistAllServers)
 					.setDefaultValue(false)
