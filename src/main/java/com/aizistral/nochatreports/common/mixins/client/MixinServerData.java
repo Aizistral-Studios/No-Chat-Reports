@@ -4,7 +4,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import com.aizistral.nochatreports.common.core.ServerDataExtension;
 
@@ -38,9 +37,9 @@ public class MixinServerData implements ServerDataExtension {
 		info.getReturnValue().putBoolean("preventsChatReports", this.preventsChatReports);
 	}
 
-	@Inject(method = "read", locals = LocalCapture.CAPTURE_FAILSOFT, at = @At("RETURN"))
-	private static void onRead(CompoundTag tag, CallbackInfoReturnable<ServerData> info, ServerData data) {
-		((ServerDataExtension)data).setPreventsChatReports(tag.getBooleanOr("preventsChatReports", false));
+	@Inject(method = "read", at = @At("RETURN"))
+	private static void onRead(CompoundTag tag, CallbackInfoReturnable<ServerData> info) {
+		((ServerDataExtension)info.getReturnValue()).setPreventsChatReports(tag.getBooleanOr("preventsChatReports", false));
 	}
 
 }
