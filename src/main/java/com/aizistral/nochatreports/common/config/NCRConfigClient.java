@@ -9,7 +9,7 @@ public final class NCRConfigClient extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Client.json";
 
 	protected SigningMode defaultSigningMode = SigningMode.PROMPT;
-	protected boolean enableMod = true, showNCRButton = true, showReloadButton = true,
+	protected boolean enableMod = true, showNCRButton = true,
 			verifiedIconEnabled = true, showServerSafety = true, hideInsecureMessageIndicators = true,
 			hideModifiedMessageIndicators = true, hideSystemMessageIndicators = true,
 			hideWarningToast = true, hideSigningRequestMessage = false, alwaysHideReportButton = false,
@@ -118,17 +118,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean disableTelemetry() {
 		return this.disableTelemetry;
-	}
-
-	/**
-	 * @return True if the configuration reload button should be displayed in multiplayer screen.
-	 * <br><br>
-	 *
-	 * This is true by default.
-	 */
-
-	public boolean showReloadButton() {
-		return this.showReloadButton;
 	}
 
 	/**

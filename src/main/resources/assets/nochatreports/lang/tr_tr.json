@@ -9,6 +9,5 @@
 	"gui.nochatreports.safety_status.undefined": "No Chat Reports bu sunucunun güvenliğini değerlendiremedi. Bu asla olmamalıydı, lütfen mod geliştiricisine bu hatayı bildirin.",
 	"gui.nochatreports.unsafe_server.header": "Dikkat: Güvensiz Sunucu",
 	"gui.nochatreports.unsafe_server.contents": "Bu sunucu, tüm sohbet mesajlarının imzalanmasını gerektiriyor; bu, Mojang'a bildirilebilecekleri anlamına gelir; bu, tüm çok oyunculu sunuculardan yasaklanmayla sonuçlanabilir. Bu muhtemelen sunucu sahibinin 1.19.1'den beri varsayılan olan server.properties'teki \"enforce-secure-profile\" özelliğini etkin tuttuğu anlamına gelir. Yine de oynamayı deneyebilirsiniz, ancak No Chat Reports sizi koruyamaz.",
-	"gui.nochatreports.unsafe_server.check": "Bu sunucu için asla gösterme",
-	"gui.nochatreports.reload_config_tooltip": "No Chat Reports'un yapılandırma klasörünü yenile. Dikkatli kullanın."
+	"gui.nochatreports.unsafe_server.check": "Bu sunucu için asla gösterme"
 }
