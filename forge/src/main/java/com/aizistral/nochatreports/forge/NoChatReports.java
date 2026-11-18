@@ -30,15 +30,17 @@ public class NoChatReports implements PlatformProvider {
 			ClientPlayerNetworkEvent.LoggingIn.BUS.addListener(Events::onPlayReady);
 		}
 
-        Function<Screen, Screen> configScreenFactory = NCRClient.getConfigScreen();
-        if (isOnClient() && configScreenFactory != null) {
-            context.registerExtensionPoint(
-                ConfigScreenHandler.ConfigScreenFactory.class,
-                () -> new ConfigScreenHandler.ConfigScreenFactory(
-                        (minecraft, parent) -> configScreenFactory.apply(parent)
-                )
-            );
-        }
+		if (this.isOnClient()) {
+			Function<Screen, Screen> configScreenFactory = NCRClient.getConfigScreen();
+			if (configScreenFactory != null) {
+				context.registerExtensionPoint(
+						ConfigScreenHandler.ConfigScreenFactory.class,
+						() -> new ConfigScreenHandler.ConfigScreenFactory(
+								(minecraft, parent) -> configScreenFactory.apply(parent)
+						)
+				);
+			}
+		}
 	}
 	
 	@Override
