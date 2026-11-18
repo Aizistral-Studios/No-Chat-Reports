@@ -14,7 +14,6 @@ public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
 	private static NCRServerPreferences serverPreferences = null;
-	private static NCRConfigEncryption encryption = null;
 
 	private NCRConfig() {
 		throw new IllegalStateException("Can't touch this");
@@ -34,11 +33,6 @@ public final class NCRConfig {
 		return checkLoaded(() -> serverPreferences);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static NCRConfigEncryption getEncryption() {
-		return checkLoaded(() -> encryption);
-	}
-
 	private static <T extends JSONConfig> T checkLoaded(Supplier<T> config) {
 		if (config.get() == null) {
 			load();
@@ -53,7 +47,6 @@ public final class NCRConfig {
 		if (NCRCore.getProvider().isOnClient()) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
 			serverPreferences = JSONConfig.loadConfig(NCRServerPreferences.class, NCRServerPreferences::new, NCRServerPreferences.FILE_NAME);
-			encryption = JSONConfig.loadConfig(NCRConfigEncryption.class, NCRConfigEncryption::new, NCRConfigEncryption.FILE_NAME);
 		}
 
 		save();
@@ -65,7 +58,6 @@ public final class NCRConfig {
 		if (NCRCore.getProvider().isOnClient()) {
 			checkLoaded(() -> client).saveFile();
 			checkLoaded(() -> serverPreferences).saveFile();
-			checkLoaded(() -> encryption).saveFile();
 		}
 
 		Path readme = JSONConfig.CONFIG_DIR.resolve("NoChatReports/README.md");
