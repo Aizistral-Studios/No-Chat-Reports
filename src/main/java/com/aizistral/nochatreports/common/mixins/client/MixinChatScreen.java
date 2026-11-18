@@ -41,7 +41,6 @@ import net.minecraft.resources.Identifier;
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
 	private static final Identifier CHAT_STATUS_ICONS = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/chat_status_icons_extended.png");
-	private static final Identifier ENCRYPTION_BUTTON = Identifier.fromNamespaceAndPath("nochatreports", "textures/gui/encryption_toggle_button.png");
 	@Shadow
 	protected EditBox input;
 
