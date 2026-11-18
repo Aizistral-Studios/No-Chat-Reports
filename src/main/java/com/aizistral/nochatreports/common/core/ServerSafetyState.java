@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Environment(EnvType.CLIENT)
 public final class ServerSafetyState {
-	private static final List<Runnable> RESET_ACTIONS = new ArrayList<>();
 	private static final List<Runnable> SIGNING_ACTIONS = new ArrayList<>();
 	private static final AtomicBoolean ALLOW_CHAT_SIGNING = new AtomicBoolean(false);
 	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
@@ -95,10 +94,6 @@ public final class ServerSafetyState {
 		lastMessage = message;
 	}
 
-	public static void scheduleResetAction(Runnable action) {
-		RESET_ACTIONS.add(action);
-	}
-
 	public static void scheduleSigningAction(Runnable action) {
 		SIGNING_ACTIONS.add(action);
 	}
@@ -109,8 +104,6 @@ public final class ServerSafetyState {
 		ALLOW_CHAT_SIGNING.set(false);
 		UnsafeServerScreen.setHideThisSession(false);
 
-		RESET_ACTIONS.forEach(Runnable::run);
-		RESET_ACTIONS.clear();
 		SIGNING_ACTIONS.clear();
 	}
 

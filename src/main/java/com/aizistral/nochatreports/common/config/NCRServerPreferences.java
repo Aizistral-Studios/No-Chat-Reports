@@ -7,11 +7,14 @@ import org.jetbrains.annotations.Nullable;
 import com.aizistral.nochatreports.common.NCRClient;
 import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
+import com.google.gson.Gson;
 
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
 public class NCRServerPreferences extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-ServerPreferences.json";
+	private static final Gson PREFERENCES_GSON = GSON.newBuilder()
+			.registerTypeAdapter(ServerAddress.class, ServerAddressAdapter.INSTANCE).create();
 	protected HashMap<ServerAddress, SigningMode> signingModes = new HashMap<>();
 
 	protected NCRServerPreferences() {
@@ -21,6 +24,11 @@ public class NCRServerPreferences extends JSONConfig {
 	@Override
 	public NCRServerPreferences getDefault() {
 		return new NCRServerPreferences();
+	}
+
+	@Override
+	protected Gson getGson() {
+		return PREFERENCES_GSON;
 	}
 
 	public SigningMode getModeRaw(@Nullable ServerAddress address) {
