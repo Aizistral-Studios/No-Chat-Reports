@@ -85,7 +85,7 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
+		if (NCRConfig.getClient().showServerSafety()) {
 			CycleButton<SigningMode> safetyStatusButton = CycleButton.<SigningMode>builder(
 					mode -> Component.empty(),
 					NCRConfig.getServerPreferences().getModeUnresolved(ServerSafetyState.getLastServer())
