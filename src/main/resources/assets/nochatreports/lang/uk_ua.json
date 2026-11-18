@@ -8,6 +8,5 @@
 	"gui.nochatreports.status_undefined": "No Chat Reports не вдалося зробити висновок про безпечність цього серверу. Ця поведінка не нормальна та є ознакою помилки, будь ласка, повідомте автора модифікації про це.",
 	"gui.nochatreports.unsafe_server.header": "Увага: небезпечний сервер",
 	"gui.nochatreports.unsafe_server.contents": "Цей сервер вимогає від вас підписувати усі повідомлення, які ви надсилаєте у чат. Це значить, що на них можна буде поскаржитись у Mojang. Скоріш за все, адміністратор серверу не вимкнув опцію 'enforce-secure-profile' у своєму server.properties (ця опція є увімкненою за умовчанням у версіях 1.19.1+). Ви можете під'єднатись все одно, але No Chat Reports не буде працювати тут. Вас попередили.",
-	"gui.nochatreports.unsafe_server.check": "Не показувати знов (тільки для цього серверу)",
-	"gui.nochatreports.reload_config_tooltip": "Перезавантажити конфігурацію No Chat Reports. Використовуйте обачливо."
+	"gui.nochatreports.unsafe_server.check": "Не показувати знов (тільки для цього серверу)"
 }

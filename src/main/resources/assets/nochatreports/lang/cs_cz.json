@@ -8,6 +8,5 @@
 	"gui.nochatreports.status_undefined": "No Chat Reports nemůže vyhodnotit bezpečnost tohoto serveru. Toto by se nikdy nemělo stát, prosím nahlašte to jako chybu vývojáři modu.",
 	"gui.nochatreports.unsafe_server.header": "Pozor: Nezabezpečený Server",
 	"gui.nochatreports.unsafe_server.contents": "Tento server vyžaduje, aby všechny zprávy v chatu byly podepsané, což znamená, že je lze nahlásit Mojangu. To pravděpodobně znamená, že majitel serveru ponechal volbu 'enforce-secure-profile' povolenou v server.properties, což je výchozí nastavení od verze 1.19.1. Můžete se rozhodnout hrát i tak, ale No Chat Reports vás nebude moci ochránit.",
-	"gui.nochatreports.unsafe_server.check": "Znovu neukazovat pro tento server",
-	"gui.nochatreports.reload_config_tooltip": "Znovu načíst No Chat Reports nastavení. Používejte opatrně."
+	"gui.nochatreports.unsafe_server.check": "Znovu neukazovat pro tento server"
 }

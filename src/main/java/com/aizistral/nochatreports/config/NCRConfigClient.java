@@ -20,7 +20,7 @@ public final class NCRConfigClient extends JSONConfig {
 
 	protected boolean demandOnServer = false, showServerSafety = true, hideRedChatIndicators = true,
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
-			alwaysHideReportButton = false, disableTelemetry = true, showReloadButton = true,
+			alwaysHideReportButton = false, disableTelemetry = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
 			enableMod = true, skipRealmsWarning = false;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
@@ -133,17 +133,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean disableTelemetry() {
 		return this.disableTelemetry;
-	}
-
-	/**
-	 * @return True if the configuration reload button should be displayed in multiplayer screen.
-	 * <br><br>
-	 *
-	 * This is true by default.
-	 */
-
-	public boolean showReloadButton() {
-		return this.showReloadButton;
 	}
 
 	/**

@@ -11,7 +11,6 @@
 	"gui.nochatreports.unsafe_server.header": "Precaución: Servidor inseguro",
 	"gui.nochatreports.unsafe_server.contents": "Este servidor requiere que todos los mensajes de chat estén firmados, lo que significa que pueden ser reportados a Mojang, lo que podría resultar en un ban de todos los servidores multijugador. Esto probablemente significa que el dueño del servidor mantuvo \"enforce-secure-profile\" habilitado en las propiedades del servidor (server.properties), el cual es el valor por defecto desde 1.19.1. Puedes elegir jugar de todas formas, pero No Chat Reports no será capaz de protegerte.",
 	"gui.nochatreports.unsafe_server.check": "No mostrar de vuelta para este servidor.",
-	"gui.nochatreports.reload_config_tooltip": "Recargar la configuración de No Chat Reports. Usar con cuidado.",
 	"gui.nochatreports.verified_server": "§a§lServidor Seguro§r\nPudimos verificar que este servidor tiene No Chat Reports instalado, o previene reportes de chat de alguna otra manera conocida. Puedes chatear con seguridad",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
@@ -46,8 +45,6 @@
 	"option.NoChatReports.enableDebugLog.tooltip": "Habilita el registro de información de depuración. Esto es generalmente inútil para no desarrolladores.",
 	"option.NoChatReports.disableTelemetry": "Deshabilitar telemetría",
 	"option.NoChatReports.disableTelemetry.tooltip": "Permite que el mod deshabilite la telemetría incorporada, similar a como No Telemetry lo hace.",
-	"option.NoChatReports.showReloadButton": "Mostrar botón de recarga",
-	"option.NoChatReports.showReloadButton.tooltip": "Añade un botón para recargar la configuración en el menu de multijugador.",
 	"option.NoChatReports.whitelistAllServers": "Permitir todos los servidores",
 	"option.NoChatReports.whitelistAllServers.tooltip": "Hace que el mod actúe como si todos los servidores fueran añadidos a la lista de §oServidores Permitidos§r.",
 

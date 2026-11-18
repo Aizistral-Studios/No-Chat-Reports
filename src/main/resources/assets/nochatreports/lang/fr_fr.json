@@ -8,6 +8,5 @@
 	"gui.nochatreports.status_undefined": "No Chat Reports n'a pas pu évaluer la sécurité de ce serveur. Cela ne devrait jamais arriver, veuillez le signaler comme un bug au développeur de ce mod.",
 	"gui.nochatreports.unsafe_server.header": "Attention : Serveur dangereux",
 	"gui.nochatreports.unsafe_server.contents": "Ce serveur exige que tous les messages soient signés, ce qui signifie qu'ils peuvent être signalés à Mojang. Le propriétaire du serveur a probablement maintenu 'enforce-secure-profile' activé dans le fichier de configuration server.properties, qui est la valeur par défaut depuis 1.19.1. Vous pouvez quand même choisir de jouer sur ce serveur, mais No Chat Reports ne pourra pas vous protéger.",
-	"gui.nochatreports.unsafe_server.check": "Ne plus afficher pour ce serveur",
-	"gui.nochatreports.reload_config_tooltip": "Recharger la configuration de No Chat Reports. Utilisez avec précaution."
+	"gui.nochatreports.unsafe_server.check": "Ne plus afficher pour ce serveur"
 }

@@ -11,7 +11,6 @@
 	"gui.nochatreports.unsafe_server.header": "警告：不安全的服务器",
 	"gui.nochatreports.unsafe_server.contents": "此服务器要求对所有消息进行签名，这意味着可以向 Mojang 举报他们，这可能导致您的账号的多人游戏功能被封禁。这可能意味着此服务器的所有者在 server.properties 中启用了“enforce-secure-profile”，这是自 1.19.1 以来的默认设置。无论如何，您都可以选择继续游戏，但 No Chat Reports 将无法保护您。",
 	"gui.nochatreports.unsafe_server.check": "不再为此服务器显示",
-	"gui.nochatreports.reload_config_tooltip": "重新加载 No Chat Reports 的配置，请小心使用。",
 
 	"configuration.NoChatReports.config": "No Chat Reports",
 	"configuration.NoChatReports.category.visual": "视觉",
@@ -38,8 +37,6 @@
 	"option.NoChatReports.convertToGameMessage.tooltip": "让服务器将所有玩家消息转换为系统消息。系统消息未附加任何签名，无法被举报；在未修改的客户端上将在消息左侧显示灰条。",
 	"option.NoChatReports.disableTelemetry": "禁用遥测",
 	"option.NoChatReports.disableTelemetry.tooltip": "允许模组禁用内置遥测，类似于 No Telemetry 模组。",
-	"option.NoChatReports.showReloadButton": "显示重载配置按钮",
-	"option.NoChatReports.showReloadButton.tooltip": "添加一个用于重新加载 No Chat Reports 的配置的按钮到多人游戏菜单。",
 	"option.NoChatReports.whitelistAllServers": "将所有服务器列入白名单",
 	"option.NoChatReports.whitelistAllServers.tooltip": "使模组的行为就像所有服务器都已添加至“§owhitelistAllServers§r”列表中一样",
 	"option.NoChatReports.whitelistedServers": "whitelistAllServers",
