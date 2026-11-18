@@ -30,12 +30,17 @@ public final class NoChatReports implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		if (!NCRConfig.isModRunning()) {
+			LOGGER.info("No Chat Reports is disabled in its config and will not initialize.");
+			return;
+		}
+
 		LOGGER.info("KONNICHIWA ZA WARUDO!");
 		LOGGER.info("Default JVM text encoding is: " + Charset.defaultCharset().displayName());
 
 		ServerPlayNetworking.registerGlobalReceiver(CHANNEL, ServerChannelHandler.INSTANCE);
 		ServerPlayConnectionEvents.JOIN.register(this::onPlayReady);
-		NCRConfig.load();
+		NCRConfig.save();
 	}
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {

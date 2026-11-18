@@ -58,11 +58,11 @@ public final class NoChatReportsClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		NoChatReports.LOGGER.info("Client initialization...");
+		if (!NCRConfig.isModRunning())
+			return;
 
-		if (NCRConfig.getClient().enableMod()) {
-			ClientChannelHandler.INSTANCE.register();
-		}
+		NoChatReports.LOGGER.info("Client initialization...");
+		ClientChannelHandler.INSTANCE.register();
 
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 		ClientPlayConnectionEvents.DISCONNECT.register(this::onDisconnect);
@@ -70,9 +70,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 	}
 
 	private void onScreenInit(Minecraft client, Screen screen, int scaledWidth, int scaledHeight) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		if (screen instanceof AccessorDisconnectedScreen dsc) {
 			if (screenOverride || ServerSafetyState.isOnServer() || screen.getTitle() == CONNECT_FAILED_NCR)
 				return;
@@ -131,9 +128,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 	}
 
 	private void onDisconnect(ClientPacketListener handler, Minecraft client) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NoChatReports.LOGGER.info("Disconnected from server, resetting safety state!");
 		}
@@ -143,9 +137,6 @@ public final class NoChatReportsClient implements ClientModInitializer {
 	}
 
 	private void onPlayReady(ClientPacketListener handler, PacketSender sender, Minecraft client) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		client.execute(() -> {
 			ServerSafetyState.setReconnectCount(0);
 			ServerSafetyState.setOnServer(true);

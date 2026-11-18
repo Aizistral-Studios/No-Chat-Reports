@@ -5,11 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.function.Supplier;
+import java.util.List;
 
 import javax.annotation.Nullable;
-
-import com.aizistral.nochatreports.NoChatReports;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,51 +17,51 @@ public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
 	private static NCRServerWhitelist whitelist = null;
+	private static boolean modRunning = false;
 
 	private NCRConfig() {
 		throw new IllegalStateException("Can't touch this");
 	}
 
-	public static NCRConfigCommon getCommon() {
-		return checkLoaded(() -> common);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static NCRConfigClient getClient() {
-		return checkLoaded(() -> client);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static NCRServerWhitelist getServerWhitelist() {
-		return checkLoaded(() -> whitelist);
-	}
-
-	private static <T extends JSONConfig> T checkLoaded(Supplier<T> config) {
-		if (config.get() == null) {
-			load();
+	public static synchronized NCRConfigCommon getCommon() {
+		if (common == null) {
+			common = JSONConfig.loadConfig(NCRConfigCommon.class, NCRConfigCommon::new, NCRConfigCommon.FILE_NAME);
+			modRunning = common.getSavedEnableMod();
+			JSONConfig.LOGGER.info("Mod Enabled: {}", modRunning);
 		}
 
-		return config.get();
+		return common;
 	}
 
-	public static void load() {
-		common = JSONConfig.loadConfig(NCRConfigCommon.class, NCRConfigCommon::new, NCRConfigCommon.FILE_NAME);
+	public static boolean isModRunning() {
+		getCommon();
+		return modRunning;
+	}
 
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+	@Environment(EnvType.CLIENT)
+	public static synchronized NCRConfigClient getClient() {
+		if (client == null) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
+		}
+
+		return client;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static synchronized NCRServerWhitelist getServerWhitelist() {
+		if (whitelist == null) {
 			whitelist = JSONConfig.loadConfig(NCRServerWhitelist.class, NCRServerWhitelist::new, NCRServerWhitelist.FILE_NAME);
 		}
 
-		save();
+		return whitelist;
 	}
 
 	public static void save() {
-		checkLoaded(() -> common).saveFile();
+		List<JSONConfig> configs = FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
+				? List.of(getCommon(), getClient(), getServerWhitelist())
+				: List.of(getCommon());
 
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			checkLoaded(() -> client).saveFile();
-			checkLoaded(() -> whitelist).saveFile();
-		}
+		configs.forEach(JSONConfig::saveFile);
 
 		Path readme = JSONConfig.CONFIG_DIR.resolve("NoChatReports/README.md");
 		try {
@@ -73,7 +71,7 @@ public final class NCRConfig {
 					https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/Configuration-Files
 					""", StandardCharsets.UTF_8);
 		} catch (Exception ex) {
-			NoChatReports.LOGGER.fatal("Could not write README file: {}", readme);
+			JSONConfig.LOGGER.fatal("Could not write README file: {}", readme);
 			throw new RuntimeException(ex);
 		}
 	}

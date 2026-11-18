@@ -3,8 +3,6 @@ package com.aizistral.nochatreports.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aizistral.nochatreports.core.ServerSafetyLevel;
-import com.aizistral.nochatreports.core.ServerSafetyState;
 import com.aizistral.nochatreports.gui.FontHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -30,9 +28,12 @@ import net.minecraft.network.chat.HoverEvent;
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
 
-	private Component[] makeTooltip(String key) {
-		String localized = Language.getInstance().getOrDefault(key);
-		List<String> list = FontHelper.wrap(Minecraft.getInstance().font, localized, 250);
+	private String translateKey(String key) {
+		return Language.getInstance().getOrDefault(key);
+	}
+
+	private Component[] wrapTooltip(String text) {
+		List<String> list = FontHelper.wrap(Minecraft.getInstance().font, text, 250);
 		Component[] tooltip = new Component[list.size()];
 
 		for (int i = 0; i < list.size(); i++) {
@@ -40,6 +41,10 @@ public final class ModMenuIntegration implements ModMenuApi {
 		}
 
 		return tooltip;
+	}
+
+	private Component[] makeTooltip(String key) {
+		return this.wrapTooltip(this.translateKey(key));
 	}
 
 	@Override
@@ -54,12 +59,27 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setTitle(Component.translatable("configuration.NoChatReports.config"));
 
 			// Set category
+			ConfigCategory common = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.common"));
 			ConfigCategory visual = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.visual"));
 			ConfigCategory technical = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.technical"));
 			ConfigCategory whitelistedServers = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.whitelistedServers"));
 			ConfigCategory lanOptions = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.lanOptions"));
 
 			ConfigEntryBuilder entryBuilder = builder.entryBuilder();
+
+			String enableModTooltip = this.translateKey("option.NoChatReports.enableMod.tooltip");
+
+			if (NCRConfig.getCommon().getSavedEnableMod() != NCRConfig.isModRunning()) {
+				enableModTooltip += "\n" + this.translateKey("gui.nochatreports.ncr_toggle_restart_pending");
+			}
+
+			// Set an option for enableMod
+			common.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getCommon().getSavedEnableMod())
+					.setDefaultValue(true)
+					.setTooltip(this.wrapTooltip(enableModTooltip))
+					.requireRestart()
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().setSavedEnableMod(newValue))
+					.build());
 
 			// Set an option for showServerSafety
 			visual.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.showServerSafety"), NCRConfig.getClient().showServerSafety)
@@ -163,16 +183,6 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setDefaultValue(true)
 					.setTooltip(this.makeTooltip("option.NoChatReports.showNCRButton.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getClient().showNCRButton = newValue)
-					.build());
-
-			// Set an option for enableMod
-			technical.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getClient().enableMod)
-					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.enableMod.tooltip"))
-					.setSaveConsumer(newValue -> {
-						NCRConfig.getClient().enableMod = newValue;
-						ServerSafetyState.updateCurrent(ServerSafetyLevel.UNKNOWN);
-					})
 					.build());
 
 			// Set an option for reconnectAwaitSeconds

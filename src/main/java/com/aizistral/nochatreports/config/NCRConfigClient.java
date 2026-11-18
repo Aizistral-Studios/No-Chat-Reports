@@ -24,7 +24,7 @@ public final class NCRConfigClient extends JSONConfig {
 			hideYellowChatIndicators = true, hideGrayChatIndicators = true, hideWarningToast = true,
 			alwaysHideReportButton = false, disableTelemetry = true,
 			whitelistAllServers = false, verifiedIconEnabled = true, showNCRButton = true,
-			enableMod = true, skipRealmsWarning = false;
+			skipRealmsWarning = false;
 	protected int verifiedIconOffsetX = 0, verifiedIconOffsetY = 0, reconnectAwaitSeconds = 4,
 			postDisconnectAwaitSeconds = 10, signingCheckDelaySeconds = 43200;
 
@@ -37,10 +37,6 @@ public final class NCRConfigClient extends JSONConfig {
 	@Override
 	public NCRConfigClient getDefault() {
 		return new NCRConfigClient();
-	}
-
-	public void toggleMod() {
-		this.enableMod = !this.enableMod;
 	}
 
 	/**
@@ -184,14 +180,6 @@ public final class NCRConfigClient extends JSONConfig {
 
 	public boolean showNCRButton() {
 		return this.showNCRButton;
-	}
-
-	/**
-	 * @return Whether or not No Chat Reports should provide networking-related functionality.
-	 */
-
-	public boolean enableMod() {
-		return this.enableMod;
 	}
 
 	/**

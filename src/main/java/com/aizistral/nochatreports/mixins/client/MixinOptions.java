@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.aizistral.nochatreports.config.NCRConfig;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 
@@ -26,9 +25,6 @@ public class MixinOptions {
 
 	@Inject(method = "onlyShowSecureChat", at = @At("RETURN"), cancellable = true)
 	private void onlyShowSecureChat(CallbackInfoReturnable<OptionInstance<Boolean>> cir) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		if (this.alternativeOption == null) {
 			this.alternativeOption = new OptionInstance<>("options.onlyShowSecureChat",
 					OptionInstance.cachedConstantTooltip(Component.translatable("gui.nochatreport.secureChat")),

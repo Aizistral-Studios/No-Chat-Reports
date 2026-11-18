@@ -6,14 +6,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.aizistral.nochatreports.config.NCRConfig;
-import com.aizistral.nochatreports.core.ServerSafetyState;
-import com.aizistral.nochatreports.network.ClientChannelHandler;
 
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -32,29 +31,29 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		if (NCRConfig.getClient().showNCRButton()) {
+		if (!NCRConfig.isModRunning() || NCRConfig.getClient().showNCRButton()) {
 			var button = new ImageButton(this.width/2 + 158, this.height - 28, 20, 20,
-					NCRConfig.getClient().enableMod() ? 0 : 20, 0, 20, TOGGLE_TEXTURE, 64, 64,
+					NCRConfig.getCommon().getSavedEnableMod() ? 0 : 20, 0, 20, TOGGLE_TEXTURE, 64, 64,
 							btn -> {
-								NCRConfig.getClient().toggleMod();
-								boolean enabled = NCRConfig.getClient().enableMod();
+								NCRConfig.getCommon().setSavedEnableMod(!NCRConfig.getCommon().getSavedEnableMod());
+								boolean enabled = NCRConfig.getCommon().getSavedEnableMod();
 
 								if (enabled) {
 									((ImageButton)btn).xTexStart = 0;
-									ClientChannelHandler.INSTANCE.register();
 								} else {
 									((ImageButton)btn).xTexStart = 20;
-									ClientChannelHandler.INSTANCE.unregister();
+								}
+							}, (btn, poseStack, i, j) -> {
+								boolean enabled = NCRConfig.getCommon().getSavedEnableMod();
+								MutableComponent tooltip = Component.translatable("gui.nochatreports.ncr_toggle_tooltip",
+										Language.getInstance().getOrDefault("gui.nochatreports.ncr_state_" + (enabled ? "on" : "off")));
+
+								if (enabled != NCRConfig.isModRunning()) {
+									tooltip.append("\n").append(Component.translatable("gui.nochatreports.ncr_toggle_restart_pending"));
 								}
 
-								ServerSafetyState.reset();
-							}, (btn, poseStack, i, j) -> this.renderTooltip(poseStack,
-									this.minecraft.font.split(
-											Component.translatable("gui.nochatreports.ncr_toggle_tooltip",
-													Language.getInstance()
-													.getOrDefault("gui.nochatreports.ncr_state_"
-															+ (NCRConfig.getClient().enableMod()
-																	? "on" : "off"))), 250), i, j),
+								this.renderTooltip(poseStack, this.minecraft.font.split(tooltip, 250), i, j);
+							},
 							Component.translatable("gui.nochatreports.ncr_toggle"));
 			button.active = true;
 			button.visible = true;
