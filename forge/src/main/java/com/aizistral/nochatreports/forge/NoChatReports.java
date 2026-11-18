@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.aizistral.nochatreports.common.NCRCore;
+import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.platform.PlatformProvider;
 import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 
@@ -24,12 +25,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -47,6 +44,10 @@ public class NoChatReports implements PlatformProvider {
 	
 	public NoChatReports() {
 		NCRCore.awaken(this);
+
+		if (NCRConfig.isModRunning() && this.isOnClient()) {
+			MinecraftForge.EVENT_BUS.addListener(Events::onPlayReady);
+		}
 	}
 	
 	@Override
@@ -63,26 +64,14 @@ public class NoChatReports implements PlatformProvider {
 	public Path getMinecraftDir() {
 		return FMLPaths.GAMEDIR.get();
 	}
-
-	@Override
-	public Path getConfigDir() {
-		return FMLPaths.CONFIGDIR.get();
-	}
 	
-	@EventBusSubscriber(modid = "nochatreports", bus = Bus.FORGE)
 	public static class Events {
 		
-		@SubscribeEvent
 		@OnlyIn(Dist.CLIENT)
 		public static void onPlayReady(ClientPlayerNetworkEvent.LoggingIn event) {
 			Minecraft client = Minecraft.getInstance();
 			ClientPacketListener handler = client.getConnection();
 			ClientEvents.PLAY_READY.invoker().handle(handler, client);
-		}
-		
-		@SubscribeEvent
-		public static void onServerStarted(ServerStartedEvent event) {
-			// NO-OP, see https://github.com/Aizistral-Studios/No-Chat-Reports/issues/473
 		}
 		
 	}
