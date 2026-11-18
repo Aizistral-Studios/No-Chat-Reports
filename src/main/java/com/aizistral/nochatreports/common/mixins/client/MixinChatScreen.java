@@ -15,13 +15,9 @@ import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
 import com.aizistral.nochatreports.common.gui.AdvancedImageButton;
 import com.aizistral.nochatreports.common.gui.AdvancedTooltip;
-import com.aizistral.nochatreports.common.gui.EncryptionButton;
-import com.aizistral.nochatreports.common.gui.EncryptionWarningScreen;
 import com.aizistral.nochatreports.common.gui.GUIShenanigans;
-import com.aizistral.nochatreports.common.gui.TooltipHelper;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ComponentPath;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -31,7 +27,6 @@ import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -44,7 +39,6 @@ import net.minecraft.resources.ResourceLocation;
 @Mixin(ChatScreen.class)
 public abstract class MixinChatScreen extends Screen {
 	private static final ResourceLocation CHAT_STATUS_ICONS = new ResourceLocation("nochatreports", "textures/gui/chat_status_icons_extended.png");
-	private static final ResourceLocation ENCRYPTION_BUTTON = new ResourceLocation("nochatreports", "textures/gui/encryption_toggle_button.png");
 	private ImageButton safetyStatusButton;
 	@Shadow
 	protected EditBox input;
@@ -85,19 +79,7 @@ public abstract class MixinChatScreen extends Screen {
 	@Inject(method = "normalizeChatMessage", at = @At("RETURN"), cancellable = true)
 	public void onBeforeMessage(String original, CallbackInfoReturnable<String> info) {
 		String message = info.getReturnValue();
-		NCRConfig.getEncryption().setLastMessage(message);
-
-		if (!message.isEmpty() && !Screen.hasControlDown() && NCRConfig.getEncryption().shouldEncrypt(message)) {
-			NCRConfig.getEncryption().getEncryptor().ifPresent(e -> {
-				int index = NCRConfig.getEncryption().getEncryptionStartIndex(message);
-				String noencrypt = message.substring(0, index);
-				String encrypt = message.substring(index, message.length());
-
-				if (encrypt.length() > 0) {
-					info.setReturnValue(noencrypt + e.encrypt("#%" + encrypt));
-				}
-			});
-		}
+		ServerSafetyState.setLastMessage(message);
 	}
 
 	@Inject(method = "init", at = @At("HEAD"))
@@ -166,39 +148,6 @@ public abstract class MixinChatScreen extends Screen {
 			this.addRenderableWidget(this.safetyStatusButton);
 			buttonX -= 25;
 		}
-
-		if (!NCRConfig.getEncryption().showEncryptionButton())
-			return;
-
-		int xStart = !NCRConfig.getEncryption().isValid() ? 40 : (NCRConfig.getEncryption().isEnabled() ? 0 : 20);
-
-		var button = new EncryptionButton(buttonX, this.height - 37, 20, 20, xStart,
-				0, 20, ENCRYPTION_BUTTON, 64, 64, btn -> {
-					if (!EncryptionWarningScreen.seenOnThisSession() && !NCRConfig.getEncryption().isWarningDisabled()
-							&& !NCRConfig.getEncryption().isEnabled()) {
-						Minecraft.getInstance().setScreen(new EncryptionWarningScreen(this));
-					} else if (NCRConfig.getEncryption().isValid()) {
-						NCRConfig.getEncryption().toggleEncryption();
-						((EncryptionButton)btn).xTexStart = NCRConfig.getEncryption().isEnabledAndValid() ? 0 : 20;
-					} else {
-						((EncryptionButton)btn).openEncryptionConfig();
-					}
-				}, Component.empty(), this);
-		button.setTooltip(new AdvancedTooltip(() -> {
-			if (NCRConfig.getEncryption().isValid())
-				return Component.translatable("gui.nochatreports.encryption_tooltip", Language.getInstance()
-						.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-								.isEnabledAndValid() ? "on" : "off")),
-						TooltipHelper.getCtrl().withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE));
-			else
-				return Component.translatable("gui.nochatreports.encryption_tooltip_invalid", Language.getInstance()
-						.getOrDefault("gui.nochatreports.encryption_state_" + (NCRConfig.getEncryption()
-								.isEnabledAndValid() ? "on" : "off")));
-		}).setMaxWidth(250));
-		button.active = true;
-		button.visible = true;
-
-		this.addRenderableWidget(button);
 	}
 
 	@Inject(method = "tick", at = @At("RETURN"))
