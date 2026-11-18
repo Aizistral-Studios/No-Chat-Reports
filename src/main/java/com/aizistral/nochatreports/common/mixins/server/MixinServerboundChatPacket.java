@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.network.chat.MessageSignature;
+import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.network.protocol.game.ServerboundChatPacket;
 
 @Mixin(ServerboundChatPacket.class)
@@ -20,9 +20,15 @@ public class MixinServerboundChatPacket {
 	 * @author Aizistral
 	 */
 
-	@Inject(method = "signature", at = @At("RETURN"), cancellable = true)
-	private void onGetSignature(CallbackInfoReturnable<Optional<MessageSignature>> info) {
-		info.setReturnValue(Optional.empty());
+	@Inject(method = "handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V", at = @At("HEAD"), cancellable = true)
+	private void onHandle(ServerGamePacketListener listener, CallbackInfo info) {
+		ServerboundChatPacket packet = (ServerboundChatPacket) (Object) this;
+
+		if (packet.signature().isPresent()) {
+			info.cancel();
+			listener.handleChat(new ServerboundChatPacket(packet.message(), packet.timeStamp(), packet.salt(),
+					Optional.empty(), packet.lastSeenMessages()));
+		}
 	}
 
 }
