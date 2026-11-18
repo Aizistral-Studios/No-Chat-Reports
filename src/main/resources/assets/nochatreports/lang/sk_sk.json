@@ -9,6 +9,5 @@
 	"gui.nochatreports.safety_status.undefined": "No Chat Reports nevie zistiť bezpečnosť tohto servera. Toto by sa nikdy nemalo stať, prosím nahlás to ako chybu vývojárovi módu.",
 	"gui.nochatreports.unsafe_server.header": "Pozor: nezabezpečený server",
 	"gui.nochatreports.unsafe_server.contents": "Tento server požaduje aby boli všetky správy podpísané, a teda nahlásené Mojangu. Toto znamená, že správca servera ponechal možnosť \"enforce-secure-profile\" zapnutú v server.properties. Je to tak predvolené vo verzii 1.19.1. Môžeš stále hrať ale No Chat Reports ťa nebude môcť chrániť.",
-	"gui.nochatreports.unsafe_server.check": "Už nikdy nezobrazovať pre tento server",
-	"gui.nochatreports.reload_config_tooltip": "Znovu načítať nastavenia No Chat Reports. Používaj opatrne."
+	"gui.nochatreports.unsafe_server.check": "Už nikdy nezobrazovať pre tento server"
 }
