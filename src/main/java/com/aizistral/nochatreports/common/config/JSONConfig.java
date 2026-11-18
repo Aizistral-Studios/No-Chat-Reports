@@ -8,16 +8,14 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.aizistral.nochatreports.common.NCRCore;
+import com.aizistral.nochatreports.loader.LoaderPaths;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.fabricmc.api.EnvType;
-import net.minecraft.client.multiplayer.resolver.ServerAddress;
-
 public abstract class JSONConfig {
-	protected static final Path CONFIG_DIR = NCRCore.getProvider().getConfigDir();
+	protected static final Path CONFIG_DIR = LoaderPaths.getConfigDir();
 	protected static final Gson GSON = createGson();
 
 	protected final String fileName;
@@ -37,6 +35,10 @@ public abstract class JSONConfig {
 		writeFile(this.fileName, this);
 	}
 
+	protected Gson getGson() {
+		return GSON;
+	}
+
 	protected void uponLoad() {
 		// NO-OP
 	}
@@ -45,19 +47,20 @@ public abstract class JSONConfig {
 
 	public static <T extends JSONConfig> T loadConfig(Class<T> configClass, Supplier<T> freshInstance, String fileName) {
 		NCRCore.LOGGER.info("Reading config file {}...", fileName);
-		T config = readFile(fileName, configClass).orElseGet(freshInstance);
+		T defaults = freshInstance.get();
+		T config = readFile(fileName, configClass, defaults.getGson()).orElse(defaults);
 		config.uponLoad();
 		return config;
 	}
 
-	private static <T extends JSONConfig> Optional<T> readFile(String fileName, Class<T> configClass) {
+	private static <T extends JSONConfig> Optional<T> readFile(String fileName, Class<T> configClass, Gson gson) {
 		Path file = CONFIG_DIR.resolve(fileName);
 
 		if (!Files.isRegularFile(file))
 			return Optional.empty();
 
 		try (BufferedReader reader = Files.newBufferedReader(file)) {
-			return Optional.of(GSON.fromJson(reader, configClass));
+			return Optional.of(gson.fromJson(reader, configClass));
 		} catch (Exception ex) {
 			NCRCore.LOGGER.fatal("Could not read config file: {}", file);
 			NCRCore.LOGGER.fatal("This likely indicates the file is corrupted. "
@@ -67,13 +70,13 @@ public abstract class JSONConfig {
 		}
 	}
 
-	private static <T> void writeFile(String fileName, T config) {
+	private static void writeFile(String fileName, JSONConfig config) {
 		Path file = CONFIG_DIR.resolve(fileName);
 
 		try {
 			Files.createDirectories(file.getParent());
 			try (BufferedWriter writer = Files.newBufferedWriter(file)) {
-				GSON.toJson(config, writer);
+				config.getGson().toJson(config, writer);
 			}
 		} catch (Exception ex) {
 			NCRCore.LOGGER.fatal("Could not write config file: {}", file);
@@ -95,10 +98,6 @@ public abstract class JSONConfig {
 				return false;
 			}
 		});
-
-		if (NCRCore.getProvider().isOnClient()) {
-			builder.registerTypeAdapter(ServerAddress.class, ServerAddressAdapter.INSTANCE);
-		}
 
 		return builder.create();
 	}

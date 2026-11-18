@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.fabric;
 
+import com.aizistral.nochatreports.common.config.NCRConfig;
 import com.aizistral.nochatreports.common.platform.events.ClientEvents;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -12,6 +13,9 @@ public class NoChatReportsClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		if (!NCRConfig.isModRunning())
+			return;
+
 		ClientPlayConnectionEvents.JOIN.register((handler, sender, client) ->
 		ClientEvents.PLAY_READY.invoker().handle(handler, client));
 
