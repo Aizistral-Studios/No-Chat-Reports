@@ -25,12 +25,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.ScreenEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = NoChatReports.MODID, bus = Bus.FORGE)
 public class NoChatReportsClient {
 	private static final List<String> KEY_DISCONNECT_REASONS = ImmutableList.of(
 			"multiplayer.disconnect.missing_public_key",
@@ -49,14 +46,16 @@ public class NoChatReportsClient {
 		throw new IllegalStateException("Can't touch this");
 	}
 
-	@SubscribeEvent
+	@OnlyIn(Dist.CLIENT)
+	public static void registerListeners() {
+		MinecraftForge.EVENT_BUS.addListener(NoChatReportsClient::onScreenInit);
+		MinecraftForge.EVENT_BUS.addListener(NoChatReportsClient::onPlayReady);
+	}
+
 	@OnlyIn(Dist.CLIENT)
 	public static void onScreenInit(ScreenEvent.Init.Post event) {
 		Minecraft client = Minecraft.getInstance();
 		Screen screen = event.getScreen();
-
-		if (!NCRConfig.getClient().enableMod())
-			return;
 
 		if (screen instanceof AccessorDisconnectedScreen dsc) {
 			if (screenOverride || ServerSafetyState.isOnServer() || screen.getTitle() == CONNECT_FAILED_NCR)
@@ -117,9 +116,6 @@ public class NoChatReportsClient {
 
 	@OnlyIn(Dist.CLIENT)
 	public static void onDisconnect(Minecraft client) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		if (NCRConfig.getCommon().enableDebugLog()) {
 			NoChatReports.LOGGER.info("Disconnected from server, resetting safety state!");
 		}
@@ -128,13 +124,9 @@ public class NoChatReportsClient {
 		ServerSafetyState.setDisconnectMillis(Util.getMillis());
 	}
 
-	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
 	public static void onPlayReady(ClientPlayerNetworkEvent.LoggingIn event) {
 		Minecraft client = Minecraft.getInstance();
-
-		if (!NCRConfig.getClient().enableMod())
-			return;
 
 		client.execute(() -> {
 			ServerSafetyState.setReconnectCount(0);

@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import com.aizistral.nochatreports.NoChatReports;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -17,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 public abstract class JSONConfig {
+	protected static final Logger LOGGER = LogManager.getLogger("NoChatReports");
 	protected static final Path CONFIG_DIR = FMLPaths.CONFIGDIR.get();
 	protected static final Gson GSON = new GsonBuilder().setPrettyPrinting()
 			.setExclusionStrategies(new ExclusionStrategy() {
@@ -44,7 +47,7 @@ public abstract class JSONConfig {
 	}
 
 	public void saveFile() {
-		NoChatReports.LOGGER.info("Writing config file {}...", this.fileName);
+		LOGGER.info("Writing config file {}...", this.fileName);
 		writeFile(this.fileName, this);
 	}
 
@@ -55,7 +58,7 @@ public abstract class JSONConfig {
 	public abstract JSONConfig getDefault();
 
 	public static <T extends JSONConfig> T loadConfig(Class<T> configClass, Supplier<T> freshInstance, String fileName) {
-		NoChatReports.LOGGER.info("Reading config file {}...", fileName);
+		LOGGER.info("Reading config file {}...", fileName);
 		T config = readFile(fileName, configClass).orElseGet(freshInstance);
 		config.uponLoad();
 		return config;
@@ -70,7 +73,7 @@ public abstract class JSONConfig {
 		try (BufferedReader reader = Files.newBufferedReader(file)) {
 			return Optional.of(GSON.fromJson(reader, configClass));
 		} catch (IOException ex) {
-			NoChatReports.LOGGER.fatal("Could not read config file: {}", file);
+			LOGGER.fatal("Could not read config file: {}", file);
 			ex.printStackTrace();
 			return null;
 		}
@@ -85,7 +88,7 @@ public abstract class JSONConfig {
 				GSON.toJson(config, writer);
 			}
 		} catch (Exception ex) {
-			NoChatReports.LOGGER.fatal("Could not write config file: {}", file);
+			LOGGER.fatal("Could not write config file: {}", file);
 			throw new RuntimeException(ex);
 		}
 	}

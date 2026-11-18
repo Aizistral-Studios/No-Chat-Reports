@@ -8,6 +8,7 @@ import com.google.common.base.Preconditions;
 public final class NCRConfigCommon extends JSONConfig {
 	protected static final String FILE_NAME = "NoChatReports/NCR-Common.json";
 
+	protected boolean enableMod = true;
 	protected String demandOnClientMessage = "You do not have No Chat Reports, and this server is"
 			+ " configured to require it on client!";
 	protected boolean demandOnClient = true, enableDebugLog = false, convertToGameMessage = false,
@@ -20,6 +21,15 @@ public final class NCRConfigCommon extends JSONConfig {
 	@Override
 	public NCRConfigCommon getDefault() {
 		return new NCRConfigCommon();
+	}
+
+	public boolean getSavedEnableMod() {
+		return this.enableMod;
+	}
+
+	public void setSavedEnableMod(boolean enableMod) {
+		this.enableMod = enableMod;
+		this.saveFile();
 	}
 
 	/**

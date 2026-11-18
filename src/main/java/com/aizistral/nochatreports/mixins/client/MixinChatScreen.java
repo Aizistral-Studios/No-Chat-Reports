@@ -49,7 +49,7 @@ public abstract class MixinChatScreen extends Screen {
 	private void onInit(CallbackInfo info) {
 		int buttonX = this.width - 23;
 
-		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
+		if (NCRConfig.getClient().showServerSafety()) {
 			ServerSafetyLevel trust = this.minecraft.isLocalServer() ? ServerSafetyLevel.SECURE : ServerSafetyState.getCurrent();
 
 			var button = new ImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(trust),

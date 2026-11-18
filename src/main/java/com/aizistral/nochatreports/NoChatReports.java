@@ -14,6 +14,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.server.network.ServerLoginPacketListenerImpl;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.event.EventNetworkChannel;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -39,6 +41,11 @@ public class NoChatReports {
 	private static boolean detectedOnClient = false, detectedOnServer = false;
 
 	public NoChatReports() {
+		if (!NCRConfig.isModRunning()) {
+			LOGGER.info("No Chat Reports is disabled in its config and will not initialize.");
+			return;
+		}
+
 		LOGGER.info("KONNICHIWA ZA WARUDO!");
 		LOGGER.info("Default JVM text encoding is: " + Charset.defaultCharset().displayName());
 
@@ -49,7 +56,12 @@ public class NoChatReports {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onLoadComplete);
 
 		MinecraftForge.EVENT_BUS.register(this);
-		NCRConfig.load();
+
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			NoChatReportsClient.registerListeners();
+		}
+
+		NCRConfig.save();
 	}
 
 	private void onLoadComplete(FMLLoadCompleteEvent event) {
@@ -60,9 +72,6 @@ public class NoChatReports {
 		channel = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "main"))
 				.networkProtocolVersion(() -> PTC_VERSION)
 				.clientAcceptedVersions(version -> {
-					if (!NCRConfig.getClient().enableMod())
-						return true;
-
 					detectedOnServer = !isAbsentOrVanilla(version);
 					return NCRConfig.getClient().demandOnServer() ? PTC_VERSION.equals(version) : true;
 				})
