@@ -26,6 +26,7 @@ public final class ServerSafetyState {
 	private static final AtomicBoolean ALLOW_CHAT_SIGNING = new AtomicBoolean(false);
 	private volatile static ServerSafetyLevel current = ServerSafetyLevel.UNDEFINED;
 	private volatile static ServerAddress lastServer = null;
+	private volatile static String lastMessage = "???";
 
 	public static void updateCurrent(ServerSafetyLevel level) {
 		current = level;
@@ -81,6 +82,14 @@ public final class ServerSafetyState {
 
 	public static void setLastServer(@Nullable ServerAddress address) {
 		lastServer = address;
+	}
+
+	public static String getLastMessage() {
+		return lastMessage;
+	}
+
+	public static void setLastMessage(String message) {
+		lastMessage = message;
 	}
 
 	public static void scheduleResetAction(Runnable action) {
