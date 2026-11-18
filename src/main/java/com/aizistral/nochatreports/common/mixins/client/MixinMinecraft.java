@@ -29,9 +29,6 @@ public class MixinMinecraft {
 
 	@Inject(method = "getProfileKeyPairManager", at = @At("HEAD"), cancellable = true)
 	private void onGetProfileKeyPairManager(CallbackInfoReturnable<ProfileKeyPairManager> info) {
-		if (!NCRConfig.getClient().enableMod())
-			return;
-
 		if (!ServerSafetyState.allowChatSigning()) {
 			info.setReturnValue(ProfileKeyPairManager.EMPTY_KEY_MANAGER);
 		}
