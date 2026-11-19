@@ -49,9 +49,10 @@ public class MixinJsonByteBufCodec {
 
 	@Inject(method = "decode(Lio/netty/buffer/ByteBuf;)Lcom/google/gson/JsonElement;", at = @At("RETURN"), cancellable = true)
 	private void onDecode(ByteBuf buf, CallbackInfoReturnable<JsonElement> info) {
+		ServerStatusCache.setPreventsReports(false);
 		JsonElement element = info.getReturnValue();
 
-		if (!this.isServerStatusElement(element))
+		if (!element.isJsonObject())
 			return;
 
 		JsonObject object = element.getAsJsonObject();
