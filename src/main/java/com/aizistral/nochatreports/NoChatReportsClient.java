@@ -20,6 +20,9 @@ public class NoChatReportsClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		if (!NoReportsConfig.isModRunning())
+			return;
+
 		NoChatReports.LOGGER.info("Client initialization...");
 		ClientPlayNetworking.registerGlobalReceiver(NoChatReports.CHANNEL, ClientChannelHandler.INSTANCE);
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);

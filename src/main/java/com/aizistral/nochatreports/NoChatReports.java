@@ -26,11 +26,16 @@ public class NoChatReports implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		if (!NoReportsConfig.isModRunning()) {
+			LOGGER.info("No Chat Reports is disabled in its config and will not initialize.");
+			return;
+		}
+
 		LOGGER.info("KONNICHIWA ZA WARUDO!");
 
 		ServerPlayNetworking.registerGlobalReceiver(CHANNEL, ServerChannelHandler.INSTANCE);
 		ServerPlayConnectionEvents.JOIN.register(this::onPlayReady);
-		NoReportsConfig.loadConfig();
+		NoReportsConfig.saveConfig();
 	}
 
 	private void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {

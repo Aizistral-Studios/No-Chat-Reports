@@ -8,26 +8,38 @@ import java.nio.file.Path;
 
 import javax.annotation.Nullable;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.fabricmc.loader.api.FabricLoader;
 
 public class NoReportsConfig {
+	private static final Logger LOGGER = LogManager.getLogger("NoChatReports");
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("NoChatReports.json");
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static NoReportsConfig INSTANCE;
-	private boolean demandOnClient, demandOnServer, convertToGameMessage;
+	private boolean enableMod = true, demandOnClient, demandOnServer, convertToGameMessage;
 
-	public static void loadConfig() {
-		INSTANCE = readFile();
-
+	private static synchronized NoReportsConfig getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new NoReportsConfig();
-			//INSTANCE.demandOnServer = true;
+			INSTANCE = readFile();
+
+			if (INSTANCE == null) {
+				INSTANCE = new NoReportsConfig();
+				//INSTANCE.demandOnServer = true;
+			}
+
+			LOGGER.info("Mod Enabled: {}", INSTANCE.enableMod);
 		}
 
-		writeFile(INSTANCE);
+		return INSTANCE;
+	}
+
+	public static void saveConfig() {
+		writeFile(getInstance());
 	}
 
 	@Nullable
@@ -50,16 +62,20 @@ public class NoReportsConfig {
 		}
 	}
 
+	public static boolean isModRunning() {
+		return getInstance().enableMod;
+	}
+
 	public static boolean demandsOnClient() {
-		return INSTANCE.demandOnClient;
+		return getInstance().demandOnClient;
 	}
 
 	public static boolean demandsOnServer() {
-		return INSTANCE.demandOnServer;
+		return getInstance().demandOnServer;
 	}
 
 	public static boolean convertsToGameMessage() {
-		return INSTANCE.convertToGameMessage;
+		return getInstance().convertToGameMessage;
 	}
 
 }
