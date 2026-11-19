@@ -80,11 +80,11 @@ dependencies {
 
 processResources {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-	inputs.property "version", project.version
+	inputs.property "version", manifest_version
 
 	filesMatching("fabric.mod.json") {
 		expand 'mod_license': mod_license, 
-		'version': version, 
+		'version': manifest_version, 
 		'mod_id' : mod_id, 
 		'mod_name': mod_name, 
 		'mod_url': mod_url, 
