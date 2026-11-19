@@ -60,7 +60,8 @@ public class MixinChatListener {
 					return;
 
 				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ON_DEMAND)) {
-					ServerSafetyState.scheduleSigningAction(NCRClient::resendLastChatMessage);
+					String lastMessage = ServerSafetyState.getLastMessage();
+					ServerSafetyState.scheduleSigningAction(() -> NCRClient.resendChatMessage(lastMessage));
 					ServerSafetyState.setAllowChatSigning(true);
 
 					if (NCRConfig.getClient().hideSigningRequestMessage()) {
