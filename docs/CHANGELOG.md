@@ -1,3 +1,9 @@
+#### **\[Build MC1.19.2-v1.13.14\]:**
+
+- Fixed safety status texts being broken with Turkish system locale;
+- Disabled verbose mixin logging ([#531](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/531));
+- Fixed mod version format warning in startup logs on Fabric.
+
 #### **\[Build MC1.19.2-v1.13.13\]:**
 
 - Moved `enableMod` option from `NCR-Client.json` to `NCR-Common.json`, so it can now be used on dedicated servers as well; previous value of the option is not carried over;
