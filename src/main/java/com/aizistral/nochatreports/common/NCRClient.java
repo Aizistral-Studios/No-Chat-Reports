@@ -81,7 +81,7 @@ public class NCRClient {
 		signingKeysPresent = present;
 	}
 
-	public static void resendLastChatMessage() {
+	public static void resendChatMessage(String message) {
 		var mc = Minecraft.getInstance();
 		var chatScr = mc.gui.screen() instanceof ChatScreen chat ? chat : null;
 
@@ -90,7 +90,7 @@ public class NCRClient {
 			chatScr.init(mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
 		}
 
-		chatScr.handleChatInput(ServerSafetyState.getLastMessage(), false);
+		chatScr.handleChatInput(message, false);
 	}
 
 }
