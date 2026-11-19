@@ -30,13 +30,15 @@ public class NoChatReports implements PlatformProvider {
 			NeoForge.EVENT_BUS.addListener(ClientPlayerNetworkEvent.LoggingIn.class, Events::onPlayReady);
 		}
 
-        Function<Screen, Screen> configScreenFactory = NCRClient.getConfigScreen();
-        if (isOnClient() && configScreenFactory != null) {
-            ModLoadingContext.get().registerExtensionPoint(
-                    IConfigScreenFactory.class,
-                    () -> (minecraft, parent) -> configScreenFactory.apply(parent)
-            );
-        }
+		if (this.isOnClient()) {
+			Function<Screen, Screen> configScreenFactory = NCRClient.getConfigScreen();
+			if (configScreenFactory != null) {
+				ModLoadingContext.get().registerExtensionPoint(
+						IConfigScreenFactory.class,
+						() -> (minecraft, parent) -> configScreenFactory.apply(parent)
+				);
+			}
+		}
 	}
 	
 	@Override
