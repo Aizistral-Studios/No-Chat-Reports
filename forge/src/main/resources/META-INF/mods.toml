@@ -6,7 +6,7 @@ modId="nochatreports"
 version="1.0.0"
 displayName="No Chat Reports"
 authors="Aizistral"
-logoFile="NCR_logo.png"
+logoFile="ncr_logo.png"
 description='''
 None
 '''
