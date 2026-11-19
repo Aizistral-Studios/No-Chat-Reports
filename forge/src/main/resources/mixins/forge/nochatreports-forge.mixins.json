@@ -4,7 +4,6 @@
   "package": "com.aizistral.nochatreports.forge.mixins",
   "plugin": "com.aizistral.nochatreports.common.NCRMixinPlugin",
   "compatibilityLevel": "JAVA_17",
-  "verbose": true,
   "mixins": [],
   "client": [
 	"client.MixinClientConnection",
