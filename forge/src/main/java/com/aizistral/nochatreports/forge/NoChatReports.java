@@ -47,7 +47,11 @@ public class NoChatReports implements PlatformProvider {
 		public static void onPlayReady(ClientPlayerNetworkEvent.LoggingIn event) {
 			Minecraft client = Minecraft.getInstance();
 			ClientPacketListener handler = client.getConnection();
-			ClientEvents.PLAY_READY.invoker().handle(handler, client);
+			client.schedule(() -> {
+				if (client.getConnection() == handler) {
+					ClientEvents.PLAY_READY.invoker().handle(handler, client);
+				}
+			});
 		}
 		
 	}
