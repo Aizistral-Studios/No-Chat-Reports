@@ -30,6 +30,7 @@
 	"client.MixinTitleScreen",
 	"client.MixinMinecraft",
 	"client.MixinClientPacketListener",
+	"client.MixinClientPacketListenerTick",
 	"client.MixinRowHelper",
 	"client.AccessorClientPacketListener"
   ],
