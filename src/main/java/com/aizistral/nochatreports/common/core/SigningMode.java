@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.common.core;
 
+import java.util.Locale;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.aizistral.nochatreports.common.config.NCRConfig;
@@ -52,7 +54,7 @@ public enum SigningMode {
 	NEVER_FORCED;
 
 	public String getNameKey() {
-		return "gui.nochatreports.signing_mode." + this.name().toLowerCase();
+		return "gui.nochatreports.signing_mode." + this.name().toLowerCase(Locale.ROOT);
 	}
 
 	public MutableComponent getName() {
@@ -63,7 +65,7 @@ public enum SigningMode {
 	}
 
 	public String getTooltipKey() {
-		return "gui.nochatreports.signing_mode." + this.name().toLowerCase() + ".tooltip";
+		return "gui.nochatreports.signing_mode." + this.name().toLowerCase(Locale.ROOT) + ".tooltip";
 	}
 
 	public MutableComponent getTooltip() {
