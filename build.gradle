@@ -55,8 +55,8 @@ curseforge {
         
 		id = "${curse_id}"
         releaseType = "${curse_release}"
-        changelogType = 'html'
-        changelog = file('docs/changelog.html')
+        changelogType = 'markdown'
+        changelog = file('docs/CHANGELOG.md')
 		mainArtifact(remapJar)
 		
 		addGameVersion '1.19'
@@ -88,7 +88,7 @@ modrinth {
     versionNumber = "Fabric-" + project.mod_version
 	versionName = "No Chat Reports Fabric-" + project.mod_version
     versionType = "release"
-	changelog = rootProject.file("docs/changelog.html").text
+	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = remapJar
     gameVersions = ["1.19"]
 	loaders = ['fabric', 'quilt']
