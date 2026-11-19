@@ -134,9 +134,9 @@ jar {
         attributes([
             "Specification-Title": "${mod_name}",
             "Specification-Vendor": "${mod_author}",
-            "Specification-Version": "${mod_version}",
+            "Specification-Version": "${manifest_version}",
             "Implementation-Title": "${mod_name}",
-            "Implementation-Version": "${mod_version}",
+            "Implementation-Version": "${manifest_version}",
             "Implementation-Vendor" :"${mod_author}",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "MixinConnector": "${project.group}.MixinConnector"
@@ -155,7 +155,7 @@ processResources {
 		// Replace properties in mods.toml with ones derived from settings.gradle
         include 'mods.toml'
         expand 'mod_license': mod_license, 
-		'mod_version': project.version, 
+		'mod_version': project.manifest_version, 
 		'mod_id' : mod_id, 
 		'mod_name': mod_name, 
 		'mod_url': mod_url, 

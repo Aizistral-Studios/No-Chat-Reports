@@ -1,3 +1,9 @@
+#### **\[Build MC1.19-v1.2.4\]:**
+
+- Added `enableMod` option to the config file, allowing users to disable the mod without removing it;
+- Redesigned some GUI textures.
+
+
 #### **\[Build 1.19-v1.2.3\]:**
 
 - Added Polish translation ([thanks GerbilPL, #24](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/24));
