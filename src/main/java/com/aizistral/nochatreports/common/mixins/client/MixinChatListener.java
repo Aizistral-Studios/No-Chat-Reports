@@ -46,7 +46,7 @@ public class MixinChatListener {
 					ServerSafetyState.updateCurrent(ServerSafetyLevel.INSECURE);
 				}
 
-				if (UnsafeServerScreen.hideThisSession() || ServerSafetyState.allowChatSigning())
+				if (ServerSafetyState.allowChatSigning())
 					return;
 
 				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.ON_DEMAND)) {
@@ -60,7 +60,7 @@ public class MixinChatListener {
 					return;
 				}
 
-				if (NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.PROMPT)) {
+				if (!UnsafeServerScreen.hideThisSession() && NCRConfig.getServerPreferences().hasModeCurrent(SigningMode.PROMPT)) {
 					Minecraft.getInstance().setScreen(new UnsafeServerScreen(Minecraft.getInstance().screen
 							instanceof ChatScreen chat ? chat : new ChatScreen("")));
 
