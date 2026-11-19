@@ -15,7 +15,7 @@
   ],
   "contact": {
     "homepage": "${mod_url}",
-    "sources": "${mod_url}",
+    "sources": "https://github.com/Aizistral-Studios/No-Chat-Reports",
     "issues": "${issue_tracker_url}"
   },
 
@@ -51,8 +51,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.modrinth": "${mod_url}",
-        "modmenu.curseforge": "${issue_tracker_url}"
+        "modmenu.modrinth": "https://modrinth.com/mod/no-chat-reports",
+        "modmenu.curseforge": "${mod_url}"
       }
     }
   }
