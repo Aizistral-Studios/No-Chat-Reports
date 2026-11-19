@@ -1,3 +1,19 @@
+#### **\[Build MC26.1-v2.19.1\]:**
+
+- Moved `enableMod` option from `NCR-Client.json` to `NCR-Common.json`, so it can now be used on dedicated servers as well; previous value of the option is not carried over;
+- Changing `enableMod` now only takes effect after the game is restarted, and disabling the mod suppresses all of its functionality, including most mixins;
+- Removed config reload button from multiplayer menu, since config files are now only read at startup;
+- Fixed state of the mod toggle button not being saved ([#496](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/496));
+- Fixed messages sometimes failing to send with "On Demand" signing mode ([#539](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/539));
+- Fixed "Safe Server" icon sometimes being displayed for servers that do not have the mod installed;
+- Fixed server ping crash ([#556](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/556));
+- Fixed startup crash on Forge and NeoForge dedicated servers that have Cloth Config installed;
+- Fixed startup crash on Forge;
+- Fixed "Don't show again" choice in Realms warning screen not being saved;
+- Removed stale encryption-related strings from translations;
+- Redesigned some GUI textures;
+- Removed Italian translation.
+
 #### **\[Build 26.1-v2.19.0\]:**
 
 - Initial 26.1 port ([huuuge thanks (and hugs and kisses <3) to tibequadorian, #545](https://github.com/Aizistral-Studios/No-Chat-Reports/pull/545)).
