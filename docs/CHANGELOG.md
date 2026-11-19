@@ -1,3 +1,8 @@
+#### **\[Build MC1.19-v1.2.5\]:**
+
+- Disabled verbose mixin logging ([#531](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/531));
+- Fixed mod version format warning in startup logs on Fabric.
+
 #### **\[Build MC1.19-v1.2.4\]:**
 
 - Added `enableMod` option to the config file, allowing users to disable the mod without removing it;
