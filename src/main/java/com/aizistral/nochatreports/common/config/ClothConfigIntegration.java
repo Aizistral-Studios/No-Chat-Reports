@@ -238,7 +238,7 @@ public final class ClothConfigIntegration {
 
 			// Set an option for demandOnClientMessage
 			lan.addEntry(entryBuilder.startStrField(Component.translatable("option.NoChatReports.demandOnClientMessage"), NCRConfig.getCommon().demandOnClientMessage)
-					.setDefaultValue(NCRConfig.getCommon().demandOnClientMessage)
+					.setDefaultValue(NCRConfig.getCommon().getDefault().demandOnClientMessage)
 					.setTooltip(makeTooltip("option.NoChatReports.demandOnClientMessage.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClientMessage = newValue)
 					.build());
