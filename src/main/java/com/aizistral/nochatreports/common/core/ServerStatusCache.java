@@ -8,7 +8,8 @@ public class ServerStatusCache {
 	private static ThreadLocal<Boolean> preventsReports = new ThreadLocal<>();
 
 	public static boolean doesPreventReports() {
-		return preventsReports.get();
+		Boolean value = preventsReports.get();
+		return value != null && value.booleanValue();
 	}
 
 	public static void setPreventsReports(boolean doesPreventReports) {
