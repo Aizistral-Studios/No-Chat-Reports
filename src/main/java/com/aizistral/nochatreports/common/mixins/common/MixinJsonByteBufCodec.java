@@ -31,23 +31,25 @@ public class MixinJsonByteBufCodec {
 
 	@Inject(method = "encode(Lio/netty/buffer/ByteBuf;Lcom/google/gson/JsonElement;)V", at = @At("HEAD"), cancellable = true)
 	private void onEncode(ByteBuf buf, JsonElement element, CallbackInfo info) {
+		int writerIndex = buf.writerIndex();
+
 		try {
 			if (!NCRConfig.getCommon().addQueryData() || !this.isServerStatusElement(element))
 				return;
-
-			info.cancel();
 
 			if (NCRConfig.getCommon().enableDebugLog()) {
 				NCRCore.LOGGER.info("Adding chat report prevention status to ServerStatus packet.");
 			}
 
-			JsonObject object = element.getAsJsonObject();
+			JsonObject object = element.getAsJsonObject().deepCopy();
 			object.addProperty("preventsChatReports", true);
 
 			String string = GSON.toJson(object);
 			Utf8String.write(buf, string, 32767);
+			info.cancel();
 		} catch (Throwable ex) {
 			NCRCore.LOGGER.error("Failed to process server status encoding!", ex);
+			buf.writerIndex(writerIndex);
 		}
 	}
 
