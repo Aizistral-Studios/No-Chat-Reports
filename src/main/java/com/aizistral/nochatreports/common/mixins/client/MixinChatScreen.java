@@ -3,6 +3,7 @@ package com.aizistral.nochatreports.common.mixins.client;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -55,16 +56,25 @@ public abstract class MixinChatScreen extends Screen {
 
 	@Override
 	protected void changeFocus(ComponentPath path) {
-		if (GUIShenanigans.getLeaf(path).component() instanceof EditBox) {
-			super.changeFocus(path);
+		if (this.isSafetyStatusButton(GUIShenanigans.getLeaf(path).component())) {
+			path = ComponentPath.path(this, ComponentPath.leaf(this.input));
 		}
+
+		super.changeFocus(path);
 	}
 
 	@Override
 	public void setFocused(GuiEventListener listener) {
-		if (listener instanceof EditBox) {
-			super.setFocused(listener);
+		if (listener == null || this.isSafetyStatusButton(listener)) {
+			listener = this.input;
 		}
+
+		super.setFocused(listener);
+	}
+
+	@Unique
+	private boolean isSafetyStatusButton(GuiEventListener listener) {
+		return listener != null && listener == this.safetyStatusButton;
 	}
 
 	@Inject(method = "handleChatInput", at = @At("HEAD"), cancellable = true)
