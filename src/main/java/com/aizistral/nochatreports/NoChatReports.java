@@ -35,6 +35,11 @@ public class NoChatReports {
 	private static SimpleChannel packetInstance;
 
 	public NoChatReports() {
+		if (!NoReportsConfig.isModRunning()) {
+			LOGGER.info("No Chat Reports is disabled in its config and will not initialize.");
+			return;
+		}
+
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
@@ -43,7 +48,7 @@ public class NoChatReports {
 
 		MinecraftForge.EVENT_BUS.register(this);
 
-		NoReportsConfig.loadConfig();
+		NoReportsConfig.saveConfig();
 	}
 
 	private void onLoadComplete(final FMLLoadCompleteEvent event) {
