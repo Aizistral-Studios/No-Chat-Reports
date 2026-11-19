@@ -1,3 +1,18 @@
+#### **\[Build MC1.20.6-v2.7.3\]:**
+
+- Fixed server crash with mods that use their own packet listeners, such as Polymer ([#410](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/410));
+- Fixed website and issue tracker links displayed in Mod Menu;
+- Fixed reset button not working for kick message option in config screen;
+- Fixed Realms-specific description never being displayed in safety status tooltip;
+- Fixed safety status texts being broken with Turkish system locale;
+- Fixed first message not being added to chat history with "Always" signing mode;
+- Fixed "On Demand" signing mode not working until re-join after choosing "Don't show again" in signing prompt;
+- Fixed safety status not updating after sending commands like `/msg` or `/me`;
+- Fixed inability to type in text fields added to chat screen by other mods, such as Symbol Chat ([#485](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/485));
+- Fixed "Safe Server" icon never being displayed for Forge servers that have the mod installed ([#490](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/490));
+- Fixed missing refmap warnings in startup logs ([#555](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/555));
+- Fixed mod version format warning in startup logs on Fabric.
+
 #### **\[Build MC1.20.6-v2.7.2\]:**
 
 - Moved `enableMod` option from `NCR-Client.json` to `NCR-Common.json`, so it can now be used on dedicated servers as well; previous value of the option is not carried over;
