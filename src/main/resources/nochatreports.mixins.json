@@ -5,7 +5,6 @@
   "plugin": "com.aizistral.nochatreports.NCRMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "nochatreports.refmap.json",
-  "verbose": true,
   "mixins": [
 	"common.MixinServerStatus",
 	"common.MixinServerStatusSerializer",
