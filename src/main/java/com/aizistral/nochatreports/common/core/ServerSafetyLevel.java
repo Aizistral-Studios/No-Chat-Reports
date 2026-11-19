@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.common.core;
 
+import java.util.Locale;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -59,7 +61,7 @@ public enum ServerSafetyLevel {
 	UNDEFINED;
 
 	public MutableComponent getTooltip() {
-		return Component.translatable("gui.nochatreports.safety_status." + this.name().toLowerCase());
+		return Component.translatable("gui.nochatreports.safety_status." + this.name().toLowerCase(Locale.ROOT));
 	}
 
 	public boolean isSecure() {
