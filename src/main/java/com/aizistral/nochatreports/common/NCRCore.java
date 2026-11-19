@@ -28,6 +28,11 @@ public class NCRCore {
 		Preconditions.checkArgument(provider == null, "NCRCore already awake");
 		provider = platformProvider;
 
+		if (!NCRConfig.isModRunning()) {
+			LOGGER.info("No Chat Reports is disabled in its config and will not initialize.");
+			return;
+		}
+
 		setup();
 
 		if (provider.getEnvironment() == EnvType.CLIENT) {
@@ -39,7 +44,7 @@ public class NCRCore {
 		LOGGER.info("KONNICHIWA ZA WARUDO!");
 		LOGGER.info("Default JVM text encoding is: " + Charset.defaultCharset().displayName());
 
-		NCRConfig.load();
+		NCRConfig.save();
 	}
 
 	@Environment(EnvType.CLIENT)

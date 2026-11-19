@@ -27,9 +27,4 @@ public class NoChatReports implements ModInitializer, PlatformProvider {
 		return FabricLoader.getInstance().getGameDir();
 	}
 
-	@Override
-	public Path getConfigDir() {
-		return FabricLoader.getInstance().getConfigDir();
-	}
-
 }

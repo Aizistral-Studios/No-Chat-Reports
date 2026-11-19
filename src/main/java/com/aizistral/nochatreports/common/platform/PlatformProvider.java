@@ -11,6 +11,4 @@ public interface PlatformProvider {
 
 	public Path getMinecraftDir();
 
-	public Path getConfigDir();
-
 }

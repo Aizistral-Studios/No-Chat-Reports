@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.aizistral.nochatreports.common.core.ServerSafetyState;
 import com.aizistral.nochatreports.common.core.SigningMode;
 import com.aizistral.nochatreports.common.gui.FontHelper;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
@@ -59,19 +58,24 @@ public final class ModMenuIntegration implements ModMenuApi {
 					.setTitle(Component.translatable("configuration.NoChatReports.config"));
 
 			// Set category
+			ConfigCategory common = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.common"));
 			ConfigCategory client = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.client"));
 			ConfigCategory lan = builder.getOrCreateCategory(Component.translatable("configuration.NoChatReports.category.lan"));
 
 			ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
+			String enableModTooltip = this.translateKey("option.NoChatReports.enableMod.tooltip");
+
+			if (NCRConfig.getCommon().getSavedEnableMod() != NCRConfig.isModRunning()) {
+				enableModTooltip += "\n" + this.translateKey("gui.nochatreports.ncr_toggle_restart_pending");
+			}
+
 			// Set an option for enableMod
-			client.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getClient().enableMod)
+			common.addEntry(entryBuilder.startBooleanToggle(Component.translatable("option.NoChatReports.enableMod"), NCRConfig.getCommon().getSavedEnableMod())
 					.setDefaultValue(true)
-					.setTooltip(this.makeTooltip("option.NoChatReports.enableMod.tooltip"))
-					.setSaveConsumer(newValue -> ServerSafetyState.scheduleResetAction(() -> {
-						NCRConfig.getClient().enableMod = newValue;
-						NCRConfig.getClient().saveFile();
-					}))
+					.setTooltip(this.wrapTooltip(enableModTooltip))
+					.requireRestart()
+					.setSaveConsumer(newValue -> NCRConfig.getCommon().setSavedEnableMod(newValue))
 					.build());
 
 			// Set an option for showNCRButton

@@ -63,7 +63,7 @@ public abstract class MixinChatScreen extends Screen {
 	private void onInit(CallbackInfo info) {
 		int buttonX = this.width - 23;
 
-		if (NCRConfig.getClient().showServerSafety() && NCRConfig.getClient().enableMod()) {
+		if (NCRConfig.getClient().showServerSafety()) {
 			this.safetyStatusButton = new AdvancedImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(),
 					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {
 						if (!NCRClient.areSigningKeysPresent())

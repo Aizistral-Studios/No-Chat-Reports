@@ -3,7 +3,7 @@ package com.aizistral.nochatreports.common.config;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.function.Supplier;
+import java.util.List;
 
 import com.aizistral.nochatreports.common.NCRCore;
 
@@ -14,51 +14,51 @@ public final class NCRConfig {
 	private static NCRConfigCommon common = null;
 	private static NCRConfigClient client = null;
 	private static NCRServerPreferences serverPreferences = null;
+	private static boolean modRunning = false;
 
 	private NCRConfig() {
 		throw new IllegalStateException("Can't touch this");
 	}
 
-	public static NCRConfigCommon getCommon() {
-		return checkLoaded(() -> common);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static NCRConfigClient getClient() {
-		return checkLoaded(() -> client);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static NCRServerPreferences getServerPreferences() {
-		return checkLoaded(() -> serverPreferences);
-	}
-
-	private static <T extends JSONConfig> T checkLoaded(Supplier<T> config) {
-		if (config.get() == null) {
-			load();
+	public static synchronized NCRConfigCommon getCommon() {
+		if (common == null) {
+			common = JSONConfig.loadConfig(NCRConfigCommon.class, NCRConfigCommon::new, NCRConfigCommon.FILE_NAME);
+			modRunning = common.getSavedEnableMod();
+			NCRCore.LOGGER.info("Mod Enabled: {}", modRunning);
 		}
 
-		return config.get();
+		return common;
 	}
 
-	public static void load() {
-		common = JSONConfig.loadConfig(NCRConfigCommon.class, NCRConfigCommon::new, NCRConfigCommon.FILE_NAME);
+	public static boolean isModRunning() {
+		getCommon();
+		return modRunning;
+	}
 
-		if (NCRCore.getProvider().getEnvironment() == EnvType.CLIENT) {
+	@Environment(EnvType.CLIENT)
+	public static synchronized NCRConfigClient getClient() {
+		if (client == null) {
 			client = JSONConfig.loadConfig(NCRConfigClient.class, NCRConfigClient::new, NCRConfigClient.FILE_NAME);
+		}
+
+		return client;
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static synchronized NCRServerPreferences getServerPreferences() {
+		if (serverPreferences == null) {
 			serverPreferences = JSONConfig.loadConfig(NCRServerPreferences.class, NCRServerPreferences::new, NCRServerPreferences.FILE_NAME);
 		}
 
-		save();
+		return serverPreferences;
 	}
 
 	public static void save() {
-		checkLoaded(() -> common).saveFile();
+		List<JSONConfig> configs = NCRCore.getProvider().getEnvironment() == EnvType.CLIENT
+				? List.of(getCommon(), getClient(), getServerPreferences())
+				: List.of(getCommon());
 
-		if (NCRCore.getProvider().getEnvironment() == EnvType.CLIENT) {
-			checkLoaded(() -> client).saveFile();
-			checkLoaded(() -> serverPreferences).saveFile();
-		}
+		configs.forEach(JSONConfig::saveFile);
 
 		Path readme = JSONConfig.CONFIG_DIR.resolve("NoChatReports/README.md");
 		try {
