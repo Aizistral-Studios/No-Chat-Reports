@@ -1,3 +1,15 @@
+#### **\[Build MC1.19.2-v1.5.2\]:**
+
+- Moved `enableMod` option from `NCR-Client.json` to `NCR-Common.json`, so it can now be used on dedicated servers as well; previous value of the option is not carried over;
+- Changing `enableMod` now only takes effect after the game is restarted, and disabling the mod suppresses all of its functionality, including most mixins;
+- Removed config reload button from multiplayer menu, since config files are now only read at startup;
+- Fixed state of the mod toggle button not being saved ([#496](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/496));
+- Fixed "Don't show again" choice in Realms warning screen not being saved;
+- Dropped chat encryption support since better, dedicated solutions are available (see [To Encrypt or Not to Encrypt: Alternatives](https://github.com/Aizistral-Studios/No-Chat-Reports/wiki/To-Encrypt-or-Not-to-Encrypt#alternatives));
+- Redesigned some GUI textures;
+- Removed Italian translation.
+
+
 #### **\[Build 1.19.2-v1.5.1\]:**
 
 - Restored parity with Fabric branch ([target version 1.19.2-v1.13.11, commit e400b6](https://github.com/Aizistral-Studios/No-Chat-Reports/commit/e400b60ca8b35e9b9ee47f44dd11162c41172a75));
