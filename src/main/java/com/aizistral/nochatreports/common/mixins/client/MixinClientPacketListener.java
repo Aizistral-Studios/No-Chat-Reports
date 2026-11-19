@@ -13,6 +13,7 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.SignableCommand;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundChatCommandPacket;
+import net.minecraft.network.protocol.game.ServerboundChatCommandSignedPacket;
 import net.minecraft.network.protocol.game.ServerboundChatPacket;
 
 @Mixin(ClientCommonPacketListenerImpl.class)
@@ -28,7 +29,7 @@ public abstract class MixinClientPacketListener {
 		AccessorClientPacketListener accessor = (AccessorClientPacketListener) self;
 
 		if (!ServerSafetyState.allowChatSigning() && !ServerSafetyState.isDetermined()) {
-			if (packet instanceof ServerboundChatPacket chat) {
+			if (packet instanceof ServerboundChatPacket || packet instanceof ServerboundChatCommandSignedPacket) {
 				ServerSafetyState.updateCurrent(ServerSafetyLevel.UNINTRUSIVE); // asume unintrusive until further notice
 			} else if (packet instanceof ServerboundChatCommandPacket command) {
 				if (!SignableCommand.of(accessor.getCommands().parse(command.command(), accessor.getClientSuggestionProvider())).arguments().isEmpty()) {
