@@ -225,7 +225,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
 			// Set an option for demandOnClientMessage
 			lan.addEntry(entryBuilder.startStrField(Component.translatable("option.NoChatReports.demandOnClientMessage"), NCRConfig.getCommon().demandOnClientMessage)
-					.setDefaultValue(NCRConfig.getCommon().demandOnClientMessage)
+					.setDefaultValue(NCRConfig.getCommon().getDefault().demandOnClientMessage)
 					.setTooltip(this.makeTooltip("option.NoChatReports.demandOnClientMessage.tooltip"))
 					.setSaveConsumer(newValue -> NCRConfig.getCommon().demandOnClientMessage = newValue)
 					.build());
