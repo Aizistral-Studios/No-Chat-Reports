@@ -22,7 +22,8 @@ public class MixinServerboundChatSessionUpdatePacket {
 
 	@Inject(method = "handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V", at = @At("HEAD"), cancellable = true)
 	private void onHandle(ServerGamePacketListener listener, CallbackInfo info) {
-		var impl = (ServerGamePacketListenerImpl) listener;
+		if (!(listener instanceof ServerGamePacketListenerImpl impl))
+			return;
 
 		if (!impl.getPlayer().level().getServer().isSingleplayerOwner(impl.getPlayer().nameAndId())) {
 			if (NCRConfig.getCommon().demandOnClient()) {
