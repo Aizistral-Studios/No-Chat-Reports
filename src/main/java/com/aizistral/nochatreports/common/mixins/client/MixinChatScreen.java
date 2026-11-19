@@ -46,6 +46,10 @@ public abstract class MixinChatScreen extends Screen {
 	protected EditBox input;
 	@Unique
 	private CycleButton<SigningMode> safetyStatusButton;
+	@Unique
+	private ServerSafetyLevel tooltipSafetyLevel;
+	@Unique
+	private boolean tooltipChatSigning;
 
 	protected MixinChatScreen() {
 		super(null);
@@ -112,7 +116,14 @@ public abstract class MixinChatScreen extends Screen {
 					? new SigningMode[]{ SigningMode.DEFAULT, SigningMode.NEVER, SigningMode.ALWAYS, SigningMode.PROMPT, SigningMode.ON_DEMAND }
 					: new SigningMode[]{ SigningMode.NEVER_FORCED })
 			.withSprite((btn, value) -> {
-				var sprites = switch (ServerSafetyState.getCurrent()) {
+				ServerSafetyLevel level = ServerSafetyState.getCurrent();
+				boolean signing = ServerSafetyState.allowChatSigning();
+
+				if (this.tooltipSafetyLevel != level || this.tooltipChatSigning != signing) {
+					btn.setTooltip(this.createSafetyStatusTooltip(value, level, signing));
+				}
+
+				var sprites = switch (level) {
 					case INSECURE -> GUIShenanigans.getSprites("safety_state/insecure");
 					case UNINTRUSIVE -> GUIShenanigans.getSprites("safety_state/unintrusive");
 					case SECURE, SINGLEPLAYER -> GUIShenanigans.getSprites("safety_state/secure");
@@ -122,7 +133,8 @@ public abstract class MixinChatScreen extends Screen {
 				};
 				return sprites.get(btn.isActive(), btn.isHoveredOrFocused());
 			})
-			.withTooltip(mode -> Tooltip.create(createSafetyTooltip(mode)))
+			.withTooltip(mode -> this.createSafetyStatusTooltip(mode, ServerSafetyState.getCurrent(),
+					ServerSafetyState.allowChatSigning()))
 			.displayState(CycleButton.DisplayState.HIDE)
 			.create(
 					this.width - 23, this.height - 37, 20, 20,
@@ -146,6 +158,13 @@ public abstract class MixinChatScreen extends Screen {
 
 	private ServerSafetyLevel getSafetyLevel() {
 		return ServerSafetyState.getCurrent();
+	}
+
+	@Unique
+	private Tooltip createSafetyStatusTooltip(SigningMode mode, ServerSafetyLevel level, boolean signing) {
+		this.tooltipSafetyLevel = level;
+		this.tooltipChatSigning = signing;
+		return Tooltip.create(this.createSafetyTooltip(mode));
 	}
 
 	private Component createSafetyTooltip(SigningMode mode) {
