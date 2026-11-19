@@ -1,5 +1,7 @@
 package com.aizistral.nochatreports.core;
 
+import java.util.Locale;
+
 import com.aizistral.nochatreports.config.NCRConfig;
 
 import net.fabricmc.api.EnvType;
@@ -60,7 +62,7 @@ public enum ServerSafetyLevel {
 		if (NCRConfig.getClient().whitelistAllServers() && this.equals(ServerSafetyLevel.INSECURE))
 			return Component.translatable("gui.nochatreports.status_insecure_whitelist_all_servers");
 		else
-			return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase());
+			return Component.translatable("gui.nochatreports.status_" + this.name().toLowerCase(Locale.ROOT));
 	}
 
 }
