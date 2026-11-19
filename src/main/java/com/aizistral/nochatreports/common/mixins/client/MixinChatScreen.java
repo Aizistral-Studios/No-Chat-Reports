@@ -135,7 +135,7 @@ public abstract class MixinChatScreen extends Screen {
 	private Component createSafetyTooltip(SigningMode mode) {
 		MutableComponent tooltip = this.getSafetyLevel().getTooltip();
 
-		if (ServerSafetyState.allowChatSigning()) {
+		if (ServerSafetyState.allowChatSigning() && !ServerSafetyState.isOnRealms()) {
 			tooltip = Component.translatable("gui.nochatreports.safety_status.insecure_signing");
 		} else if (ServerSafetyState.isInSingleplayer())
 			return tooltip;
