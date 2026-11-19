@@ -8,6 +8,5 @@
 	"gui.nochatreports.safety_status.undefined": "No Chat Reports nu a putut evalua siguranța acestui server. Aceasta nu ar trebui să se întâmple niciodată, te rog trimite-l ca un bug la dezvoltatorul modului..",
 	"gui.nochatreports.unsafe_server.header": "Atenție: server nesigur",
 	"gui.nochatreports.unsafe_server.contents": "Acest server cere ca toate mesajele să fie semnate, ceea ce înseamnă că pot fi raportate la Micro$oft. Aceasta probabil înseamnă că proprietarul serverului a lăsat „enforce-secure-profile” activat pe server.properties, care este implicit din 1.19.1. Poți alege să joci, dar No Chat Reports nu va putea să te protejeze.",
-	"gui.nochatreports.unsafe_server.check": "Nu afișa din nou pentru acest server",
-	"gui.nochatreports.reload_config_tooltip": "Reîncarcă configurația No Chat Reports. Folosește cu grijă."
+	"gui.nochatreports.unsafe_server.check": "Nu afișa din nou pentru acest server"
 }

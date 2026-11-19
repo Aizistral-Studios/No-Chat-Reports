@@ -14,20 +14,17 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.locale.Language;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * This is responsible for adding config reload button to server selection menu.
+ * This is responsible for adding mod toggle button to server selection menu.
  * @author Aizistral
  */
 
 @Mixin(JoinMultiplayerScreen.class)
 public abstract class MixinJoinMultiplayerScreen extends Screen {
-	private static final ResourceLocation RELOAD_TEXTURE = new ResourceLocation("nochatreports", "textures/gui/config_reload_button.png"),
-			TOGGLE_TEXTURE = new ResourceLocation("nochatreports", "textures/gui/ncr_toggle_button.png");
-	private static final Component RELOAD_TOOLTIP = Component.translatable("gui.nochatreports.reload_config_tooltip");
+	private static final ResourceLocation TOGGLE_TEXTURE = new ResourceLocation("nochatreports", "textures/gui/ncr_toggle_button.png");
 
 	protected MixinJoinMultiplayerScreen() {
 		super(null);
@@ -36,15 +33,6 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		if (NCRConfig.getClient().showReloadButton()) {
-			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 52, 20, 20, 0, 0, 20,
-					RELOAD_TEXTURE, 64, 64, btn -> NCRConfig.load(), CommonComponents.EMPTY, this);
-			button.setTooltip(new AdvancedTooltip(RELOAD_TOOLTIP).setMaxWidth(250).setRenderWithoutGap(true));
-			button.active = true;
-			button.visible = true;
-			this.addRenderableWidget(button);
-		}
-
 		if (NCRConfig.getClient().showNCRButton()) {
 			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 28, 20, 20,
 					NCRConfig.getClient().enableMod() ? 0 : 20, 0, 20, TOGGLE_TEXTURE, 64, 64,
