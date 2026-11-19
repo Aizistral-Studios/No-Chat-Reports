@@ -172,7 +172,7 @@ processResources {
     }
 
     from("${rootProject.projectDir}/docs") {
-        include 'changelog.html'
+        include 'CHANGELOG.md'
     }
 	
 	from("${rootProject.projectDir}") {
@@ -190,8 +190,8 @@ curseforge {
         
 		id = "${curse_id}"
         releaseType = "${version_type}"
-        changelogType = 'html'
-        changelog = rootProject.file('docs/changelog.html')
+        changelogType = 'markdown'
+        changelog = rootProject.file('docs/CHANGELOG.md')
 		
 		addGameVersion project.minecraft_version
 		addGameVersion 'Java 17'
@@ -208,7 +208,7 @@ modrinth {
     versionNumber = "Forge-" + project.version
 	versionName = "No Chat Reports Forge-" + project.version
     versionType = "${version_type}"
-	changelog = rootProject.file("docs/changelog.html").text
+	changelog = rootProject.file("docs/CHANGELOG.md").text
     uploadFile = jar
     gameVersions = [ project.minecraft_version ]
 	
