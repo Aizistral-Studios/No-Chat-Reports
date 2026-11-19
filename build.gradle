@@ -95,7 +95,7 @@ processResources {
 		'contributor_0': contributor_0,
 		'contributor_1': contributor_1,
 		'contributor_2': contributor_2,
-		'fabric_loader_version': fabric_loader_version,
+		'dep_fabric_loader': dep_fabric_loader,
 		'minecraft_version': minecraft_version
 	}
 
