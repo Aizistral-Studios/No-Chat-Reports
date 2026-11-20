@@ -59,7 +59,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 									tooltip.append("\n").append(Component.translatable("gui.nochatreports.ncr_toggle_restart_pending"));
 								}
 
-								this.renderTooltip(poseStack, this.minecraft.font.split(tooltip, 250), i, j);
+								this.renderTooltip(poseStack, this.minecraft.font.split(tooltip, 250), i, Math.max(j, 16));
 							},
 							Component.translatable("gui.nochatreports.ncr_toggle"));
 			button.active = true;
