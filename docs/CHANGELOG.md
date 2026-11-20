@@ -1,3 +1,10 @@
+#### **\[Build MC1.19.2-v1.5.4\]:**
+
+- Fixed mod toggle button being cut off in narrow windows;
+- Fixed mod buttons not having proper names for narrator;
+- Removed outdated chat encryption advice from Realms warning and safety status tooltip;
+- Fixed the mod being loadable on Minecraft versions it does not support.
+
 #### **\[Build MC1.19.2-v1.5.3\]:**
 
 - Fixed safety status texts being broken with Turkish system locale;
