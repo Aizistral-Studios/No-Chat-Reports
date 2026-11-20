@@ -32,7 +32,7 @@
 	"nochatreports.connect.nokey_rejected": "Palvelin kieltäytyi yhteydestä ilman keskustelun sähköistä allekirjoitusavainta.",
 	"nochatreports.connect.await": "Odotetaan uudelleenyhdistämistä: %1$s s...",
 	"gui.nochatreports.realms_warning.header": "Varoitus: Realms",
-	"gui.nochatreports.realms_warning.contents": "Realms-palvelimet eivät ole yksityisiä. Realmin omistaja ei voi estää viestien ilmiantoa ja Mojang valvoo keskustelua ylimääräisin keinoin tunnistaakseen potentiaalisia \"verkkohaittoja\" ja välittääkseen ne ihmisen arvioitavaksi. Jos sinun todetaan rikkoneen Minecraftin yhteisöstandardeja, – vaikka keskustelun osapuolet eivät tästä loukkaantuneetkaan –, saat väliaikaisen tai pysyvän porttikiellon kaikkiin moninpeleihin. Viestien salaus on erittäin suositeltavaa.",
+	"gui.nochatreports.realms_warning.contents": "Realms-palvelimet eivät ole yksityisiä. Realmin omistaja ei voi estää viestien ilmiantoa ja Mojang valvoo keskustelua ylimääräisin keinoin tunnistaakseen potentiaalisia \"verkkohaittoja\" ja välittääkseen ne ihmisen arvioitavaksi. Jos sinun todetaan rikkoneen Minecraftin yhteisöstandardeja, – vaikka keskustelun osapuolet eivät tästä loukkaantuneetkaan –, saat väliaikaisen tai pysyvän porttikiellon kaikkiin moninpeleihin.",
 	"gui.nochatreports.realms_warning.check": "Älä näytä tätä uudelleen",
 	"gui.nochatreports.realms_warning.learn_more": "Lue lisää",
 	"gui.nochatreports.signing_required.header": "Varoitus: sähköinen allekirjoittaminen on pakollista",
