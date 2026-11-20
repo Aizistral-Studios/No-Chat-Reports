@@ -55,7 +55,7 @@ public abstract class MixinChatScreen extends Screen {
 			var button = new ImageButton(buttonX, this.height - 37, 20, 20, this.getXOffset(trust),
 					0, 20, CHAT_STATUS_ICONS, 128, 128, btn -> {}, (btn, poseStack, i, j) ->
 					this.renderTooltipNoGap(poseStack, this.minecraft.font.split(trust.getTooltip(), 250), i, j),
-					Component.empty());
+					Component.translatable("gui.nochatreports.safety_status_button"));
 			button.active = false;
 			button.visible = true;
 
