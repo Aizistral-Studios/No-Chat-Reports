@@ -64,7 +64,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 					.displayState(CycleButton.DisplayState.HIDE)
 					.create(
 							0, 0, 20, 20,
-							Component.empty(),
+							Component.translatable("gui.nochatreports.ncr_toggle"),
 							(btn, value) -> NCRConfig.getCommon().setSavedEnableMod(value)
 					);
 
