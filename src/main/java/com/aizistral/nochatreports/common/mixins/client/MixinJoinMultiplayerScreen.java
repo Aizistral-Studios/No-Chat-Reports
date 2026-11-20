@@ -34,7 +34,14 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
 		if (!NCRConfig.isModRunning() || NCRConfig.getClient().showNCRButton()) {
-			var button = new AdvancedImageButton(this.width/2 + 158, this.height - 30, 20, 20,
+			int x = this.width/2 + 158, y = this.height - 30;
+
+			if (this.width < 356) {
+				x = this.width - 22;
+				y = 6;
+			}
+
+			var button = new AdvancedImageButton(x, y, 20, 20,
 					NCRConfig.getCommon().getSavedEnableMod() ? 0 : 20, 0, 20, TOGGLE_TEXTURE, 64, 64,
 							btn -> {
 								NCRConfig.getCommon().setSavedEnableMod(!NCRConfig.getCommon().getSavedEnableMod());
