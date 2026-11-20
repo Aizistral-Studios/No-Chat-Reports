@@ -1,6 +1,6 @@
 # No Chat Reports
 
-**Current Version:** MC1.19-v1.2.5
+**Current Version:** MC1.19-v1.2.6
 
 **Minecraft Version:** 1.19.x
 

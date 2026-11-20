@@ -1,3 +1,8 @@
+#### **\[Build MC1.19-v1.2.6\]:**
+
+- Fixed the mod being loadable on Minecraft versions it does not support;
+- Fixed incorrect Russian translation of disconnect message for servers without the mod.
+
 #### **\[Build MC1.19-v1.2.5\]:**
 
 - Disabled verbose mixin logging ([#531](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/531));
