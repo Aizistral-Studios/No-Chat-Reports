@@ -1,3 +1,11 @@
+#### **\[Build MC1.19.3-v2.0.3\]:**
+
+- Fixed crash upon opening chat or config screen with invalid `defaultSigningMode` value in config file;
+- Fixed mod toggle button being cut off in narrow windows;
+- Fixed mod buttons not having proper names for narrator;
+- Fixed narrator reading outdated tooltip of mod toggle button;
+- Removed outdated chat encryption advice from Realms warning and safety status tooltip.
+
 #### **\[Build MC1.19.3-v2.0.2\]:**
 
 - Fixed server crash with mods that use their own packet listeners, such as Polymer ([#410](https://github.com/Aizistral-Studios/No-Chat-Reports/issues/410));
