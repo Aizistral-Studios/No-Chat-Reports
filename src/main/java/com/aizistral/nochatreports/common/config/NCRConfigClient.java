@@ -1,5 +1,6 @@
 package com.aizistral.nochatreports.common.config;
 
+import com.aizistral.nochatreports.common.NCRCore;
 import com.aizistral.nochatreports.common.core.ServerSafetyLevel;
 import com.aizistral.nochatreports.common.core.SigningMode;
 import com.aizistral.nochatreports.common.mixins.client.MixinChatListener;
@@ -24,6 +25,14 @@ public final class NCRConfigClient extends JSONConfig {
 	@Override
 	public NCRConfigClient getDefault() {
 		return new NCRConfigClient();
+	}
+
+	@Override
+	protected void uponLoad() {
+		if (this.defaultSigningMode == null || !this.defaultSigningMode.isSelectableGlobally()) {
+			NCRCore.LOGGER.warn("Invalid value of defaultSigningMode in config file {}, falling back to PROMPT", this.getFile());
+			this.defaultSigningMode = SigningMode.PROMPT;
+		}
 	}
 
 	/**
