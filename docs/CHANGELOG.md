@@ -1,3 +1,10 @@
+#### **\[Build MC1.19.2-v1.13.15\]:**
+
+- Fixed mod toggle button being cut off in narrow windows;
+- Fixed mod buttons not having proper names for narrator;
+- Removed outdated chat encryption advice from Realms warning and safety status tooltip;
+- Fixed reset button not working properly for whitelisted servers in config screen.
+
 #### **\[Build MC1.19.2-v1.13.14\]:**
 
 - Fixed safety status texts being broken with Turkish system locale;
