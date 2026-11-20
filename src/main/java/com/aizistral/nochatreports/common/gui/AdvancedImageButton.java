@@ -6,6 +6,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.tooltip.BelowOrAboveWidgetTooltipPositioner;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -26,6 +28,14 @@ public class AdvancedImageButton extends ImageButton {
 			return;
 
 		super.updateTooltip();
+	}
+
+	@Override
+	protected ClientTooltipPositioner createTooltipPositioner() {
+		if (this.getY() < 16)
+			return new BelowOrAboveWidgetTooltipPositioner(this);
+
+		return super.createTooltipPositioner();
 	}
 
 	@Override
