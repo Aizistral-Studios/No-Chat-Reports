@@ -128,7 +128,7 @@ public abstract class MixinChatScreen extends Screen {
 							preferences.setMode(address, preferences.getModeUnresolved(address).next());
 							preferences.saveFile();
 						}
-					}, Component.empty(), this);
+					}, Component.translatable("gui.nochatreports.safety_status_button"), this);
 			this.safetyStatusButton.setTooltip(new AdvancedTooltip(() -> {
 				MutableComponent tooltip = this.getSafetyLevel().getTooltip();
 
