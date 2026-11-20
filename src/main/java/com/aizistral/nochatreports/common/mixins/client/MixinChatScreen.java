@@ -109,7 +109,7 @@ public abstract class MixinChatScreen extends Screen {
 	private void onInit(CallbackInfo info) {
 		if (NCRConfig.getClient().showServerSafety()) {
 			this.safetyStatusButton = CycleButton.<SigningMode>builder(
-					mode -> Component.empty(),
+					SigningMode::getName,
 					NCRConfig.getServerPreferences().getModeUnresolved(ServerSafetyState.getLastServer())
 			)
 			.withValues(NCRClient.areSigningKeysPresent()
@@ -138,7 +138,7 @@ public abstract class MixinChatScreen extends Screen {
 			.displayState(CycleButton.DisplayState.HIDE)
 			.create(
 					this.width - 23, this.height - 37, 20, 20,
-					Component.empty(),
+					Component.translatable("gui.nochatreports.safety_status_button"),
 					(btn, mode) -> {
 						if (!NCRClient.areSigningKeysPresent())
 							return;
