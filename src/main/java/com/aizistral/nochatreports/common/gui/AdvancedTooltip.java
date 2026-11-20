@@ -21,6 +21,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.narration.NarratedElementType;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.BelowOrAboveWidgetTooltipPositioner;
@@ -66,6 +68,15 @@ public class AdvancedTooltip extends Tooltip {
 
 	public Component getMessage() {
 		return this.supplier != null ? this.supplier.get() : this.message;
+	}
+
+	@Override
+	public void updateNarration(NarrationElementOutput output) {
+		if (this.supplier != null) {
+			output.add(NarratedElementType.HINT, this.supplier.get());
+		} else {
+			super.updateNarration(output);
+		}
 	}
 
 	@Override
