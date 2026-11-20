@@ -1,10 +1,10 @@
 package com.aizistral.nochatreports.common.mixins.client;
 
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
-import net.minecraft.client.gui.layouts.LinearLayout;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -30,6 +30,8 @@ import net.minecraft.network.chat.MutableComponent;
 public abstract class MixinJoinMultiplayerScreen extends Screen {
 	@Shadow @Final
 	private HeaderAndFooterLayout layout;
+	@Unique
+	private AdvancedImageButton ncrButton;
 
 	protected MixinJoinMultiplayerScreen() {
 		super(null);
@@ -38,9 +40,7 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 
 	@Inject(method = "init", at = @At("HEAD"))
 	private void onInit(CallbackInfo info) {
-		LinearLayout ncrButtons = this.layout.addToFooter(LinearLayout.vertical().spacing(4), layoutSettings -> {
-			layoutSettings.paddingLeft(336);
-		});
+		this.ncrButton = null;
 
 		if (!NCRConfig.isModRunning() || NCRConfig.getClient().showNCRButton()) {
 			var button = new AdvancedImageButton(0, 0, 20, 20,
@@ -71,7 +71,19 @@ public abstract class MixinJoinMultiplayerScreen extends Screen {
 			}).setMaxWidth(250));
 			button.active = true;
 			button.visible = true;
-			ncrButtons.addChild(button);
+			this.ncrButton = this.layout.addToFooter(button);
+		}
+	}
+
+	@Inject(method = "repositionElements", at = @At("TAIL"))
+	private void onRepositionElements(CallbackInfo info) {
+		if (this.ncrButton == null)
+			return;
+
+		if (this.width >= 356) {
+			this.ncrButton.setX(this.width / 2 + 158);
+		} else {
+			this.ncrButton.setPosition(this.width - 22, 6);
 		}
 	}
 
