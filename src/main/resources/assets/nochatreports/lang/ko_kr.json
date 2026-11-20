@@ -6,7 +6,7 @@
 	"gui.nochatreports.status_secure": "이 서버는 No Chat Reports가 설치되어 있거나 다른 알려진 방식으로 대화 메시지를 신고하는 것을 방지합니다. 안전하게 대화할 수 있습니다",
 	"gui.nochatreports.status_unintrusive": "이 서버는 Mojang에 신고될 수 없는 서명하지 않은 대화 메시지를 보내는 것을 허용합니다. 서버에 대화 신고를 방지하는 플러그인이 설치되어 있지 않다면 바닐라 클라이언트는 서명된 대화 메시지를 보낼 것이며, 서명되지 않은 메시지는 \"안전하지 않은 메시지\"로 표시하고 \"보안 대화만 표시\"가 켜진 경우 볼 수 없습니다",
 	"gui.nochatreports.status_insecure": "이 서버는 모든 대화 메시지에 서명할 것을 요구하며, 당신은 이에 동의했습니다. 당신이 보낸 모든 대화는 잠재적으로 당신에게 불리하게 사용될 수 있는 증거가 될 수 있습니다. 다시 경고를 받으려면 모드 설정의 §o서버 화이트리스트§r 에서 이 서버를 제거하세요.",
-	"gui.nochatreports.status_realms": "이 서버는 Realms 서버입니다. 대화 신고를 방지할 방법이 없을 뿐만 아니라 Realm의 주인의 의사와 관계 없이 Mojang은 자동화된 대화 모니터링으로 \"온라인 괴롭힘\"을 식별합니다. 당신의 유일한 희망은 대화 메시지를 암호화하는 것입니다.",
+	"gui.nochatreports.status_realms": "이 서버는 Realms 서버입니다. 대화 신고를 방지할 방법이 없을 뿐만 아니라 Realm의 주인의 의사와 관계 없이 Mojang은 자동화된 대화 모니터링으로 \"온라인 괴롭힘\"을 식별합니다.",
 	"gui.nochatreports.status_insecure_whitelist_all_servers": "이 서버는 모든 대화 메시지에 서명할 것을 요구하며 당신은 이에 대한 전체 화면 경고를 비활성화 했습니다. 당신이 보낸 모든 대화는 잠재적으로 당신에게 불리하게 사용될 수 있는 증거가 될 수 있습니다. 다시 경고를 받으려면 모드 설정의 §o모든 서버를 화이트리스트에 추가§r 설정을 비활성화하세요",
 	"gui.nochatreports.status_unknown": "No Chat Reports가 세션 도중 활성화되었습니다. 서버 안정성 상태는 로그인 시에만 평가될 수 있습니다. 안정성 상태를 평가하려면 서버에 다시 접속하세요.",
 	"gui.nochatreports.status_undefined": "No Chat Reports는 이 서버의 안전성을 평가할 수 없습니다. 이것은 발생해서는 안됩니다. 모드 개발자에게 버그로 보고해주세요.",
@@ -20,7 +20,7 @@
 	"nochatreports.connect.nokey_rejected": "서버가 대화 서명 키 없는 연결을 거부했습니다.",
 	"nochatreports.connect.await": "재연결 대기 중: %1$s 초...",
 	"gui.nochatreports.realms_warning.header": "경고: Realms",
-	"gui.nochatreports.realms_warning.contents": "Realms 서버는 비공개가 아닙니다. Realm의 주인은 대화 신고를 비활성화할 수 없고 Mojang은 추가적인 대화 모니터링으로 잠재적인 \"온라인 괴롭힘\"을 식별하여 사람의 검토를 위해 보냅니다. Minecraft의 커뮤니티 표준을 위반한 것으로 확인되면 대화 참가자의 의사와 상관없이 일시적으로 또는 영구적으로 모든 멀티플레이어 서비스에서 차단될 것입니다. 암호화를 사용하는 것이 강력히 권장됩니다",
+	"gui.nochatreports.realms_warning.contents": "Realms 서버는 비공개가 아닙니다. Realm의 주인은 대화 신고를 비활성화할 수 없고 Mojang은 추가적인 대화 모니터링으로 잠재적인 \"온라인 괴롭힘\"을 식별하여 사람의 검토를 위해 보냅니다. Minecraft의 커뮤니티 표준을 위반한 것으로 확인되면 대화 참가자의 의사와 상관없이 일시적으로 또는 영구적으로 모든 멀티플레이어 서비스에서 차단될 것입니다.",
 	"gui.nochatreports.realms_warning.check": "다시 표시하지 않음",
 	"gui.nochatreports.realms_warning.learn_more": "더 알아보기",
 
